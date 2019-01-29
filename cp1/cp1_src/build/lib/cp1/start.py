@@ -99,15 +99,15 @@ new_schedule.add(radio_key_up, txop_8)
 new_schedule.add(radio_key_down, txop_9)
 
 # Import MDL File
-scenarios_orientdb_helper.import_mdl(scenario_database_name, config_file, mdl_file)
-
-# Overwrite schedule
-brass_orientdb_helper = BrassOrientDBHelper(scenario_database_name, config_file)
-orientdb_updates = OrientDBUpdates(brass_orientdb_helper)
-brass_orientdb_helper.open_database()
-store_result = orientdb_updates.update_schedule(new_schedule.schedule)
-
-# Export MDL File
-exporter = OrientDBXMLExporter(scenario_database_name, output_file, config_file)
-exporter.export_xml()
-brass_orientdb_helper.close_database()
+# scenarios_orientdb_helper.import_mdl(scenario_database_name, config_file, mdl_file)
+#
+# # Overwrite schedule
+# brass_orientdb_helper = BrassOrientDBHelper(scenario_database_name, config_file)
+# orientdb_updates = OrientDBUpdates(brass_orientdb_helper)
+# brass_orientdb_helper.open_database()
+# store_result = orientdb_updates.update_schedule(new_schedule.schedule)
+#
+# # Export MDL File
+# exporter = OrientDBXMLExporter(scenario_database_name, output_file, config_file)
+# exporter.export_xml()
+# brass_orientdb_helper.close_database()

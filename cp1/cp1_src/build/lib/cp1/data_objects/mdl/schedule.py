@@ -58,6 +58,7 @@ class Schedule:
         else:
             if radio_link_key in self.schedule:
                 # if self.validate(txop):
+                print(self.schedule.get(radio_link_key))
                 self.schedule.get(radio_link_key).append(txop)
                 print('New transmission generated txop: start {0} stop {1}'.format(txop.start_usec.value, txop.stop_usec.value))
             else:
