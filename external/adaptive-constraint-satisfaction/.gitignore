@@ -1,0 +1,18 @@
+# byte-compiled
+*.pyc
+
+# xml
+*.xml
+*.xsd
+#.xsd
+
+# log
+*.log
+
+# project settings
+.idea
+*pycache*
+
+.ipynb_checkpoints/
+
+config.json

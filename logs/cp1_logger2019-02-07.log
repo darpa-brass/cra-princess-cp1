@@ -1,0 +1,1953 @@
+2019-02-07 11:32:29,350 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 11:32:29,350 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 11:32:29,560 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 11:32:29,563 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 11:32:29,563 INFO Scheduling TAs in the following order:
+2019-02-07 11:32:29,563 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 11:32:29,563 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 11:32:29,563 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 11:32:29,563 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 11:32:29,563 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 11:32:29,563 INFO MdlId: TA5 selected for scheduling
+2019-02-07 11:32:29,563 INFO MdlId: TA4 selected for scheduling
+2019-02-07 11:32:29,563 INFO MdlId: TA2 selected for scheduling
+2019-02-07 11:32:29,563 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 11:32:29,564 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 11:32:29,564 INFO Total value in new schedule is: 125
+2019-02-07 11:32:29,564 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 11:32:29,569 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 11:32:29,570 INFO ***************************Importing MDL file...***************************
+2019-02-07 11:32:30,366 INFO Importing c:\dev\cp1\src\cp1_src\cp1\mdl_files\CRA_Scenarios_Before_Adaptation.xml into cra_scenarios
+2019-02-07 11:35:46,297 INFO ***************************Updating MDL File Bandwidth...******************
+2019-02-07 11:35:46,572 INFO Updating bandwidth: GR1_to_TA5_SLP_1_20, #37:74, Value='50000'
+2019-02-07 11:35:46,721 INFO Updating bandwidth: TA5_to_GndGrp1_SLP_1_20, #37:83, Value='50000'
+2019-02-07 11:35:46,867 INFO Updating bandwidth: GR1_to_TA5_SLP_1_301, #37:77, Value='75000'
+2019-02-07 11:35:47,039 INFO Updating bandwidth: TA5_to_GndGrp1_SLP_1_301, #37:86, Value='75000'
+2019-02-07 11:35:47,181 INFO Updating bandwidth: GR1_to_TA5_SLP_1_40, #37:80, Value='50000'
+2019-02-07 11:35:47,356 INFO Updating bandwidth: TA5_to_GndGrp1_SLP_1_40, #37:89, Value='50000'
+2019-02-07 11:35:47,501 INFO Updating bandwidth: GR1_to_TA4_SLP_1_20, #37:56, Value='50000'
+2019-02-07 11:35:47,642 INFO Updating bandwidth: TA4_to_GndGrp1_SLP_1_20, #37:65, Value='50000'
+2019-02-07 11:35:47,784 INFO Updating bandwidth: GR1_to_TA4_SLP_1_301, #37:59, Value='75000'
+2019-02-07 11:35:48,033 INFO Updating bandwidth: TA4_to_GndGrp1_SLP_1_301, #37:68, Value='75000'
+2019-02-07 11:35:48,177 INFO Updating bandwidth: GR1_to_TA4_SLP_1_40, #37:62, Value='50000'
+2019-02-07 11:35:48,320 INFO Updating bandwidth: TA4_to_GndGrp1_SLP_1_40, #37:71, Value='50000'
+2019-02-07 11:35:48,461 INFO Updating bandwidth: GR1_to_TA2_SLP_1_20, #37:20, Value='50000'
+2019-02-07 11:35:48,602 INFO Updating bandwidth: TA2_to_GndGrp1_SLP_1_20, #37:29, Value='50000'
+2019-02-07 11:35:48,743 INFO Updating bandwidth: GR1_to_TA2_SLP_1_301, #37:23, Value='75000'
+2019-02-07 11:35:48,931 INFO Updating bandwidth: TA2_to_GndGrp1_SLP_1_301, #37:32, Value='75000'
+2019-02-07 11:35:49,082 INFO Updating bandwidth: GR1_to_TA2_SLP_1_40, #37:26, Value='50000'
+2019-02-07 11:35:49,224 INFO Updating bandwidth: TA2_to_GndGrp1_SLP_1_40, #37:35, Value='50000'
+2019-02-07 11:35:49,364 INFO Updating bandwidth: GR1_to_TA3_SLP_1_20, #37:38, Value='50000'
+2019-02-07 11:35:49,506 INFO Updating bandwidth: TA3_to_GndGrp1_SLP_1_20, #37:47, Value='50000'
+2019-02-07 11:35:49,649 INFO Updating bandwidth: GR1_to_TA3_SLP_1_301, #37:41, Value='75000'
+2019-02-07 11:35:49,828 INFO Updating bandwidth: TA3_to_GndGrp1_SLP_1_301, #37:50, Value='75000'
+2019-02-07 11:35:50,045 INFO Updating bandwidth: GR1_to_TA3_SLP_1_40, #37:44, Value='50000'
+2019-02-07 11:35:50,185 INFO Updating bandwidth: TA3_to_GndGrp1_SLP_1_40, #37:53, Value='50000'
+2019-02-07 11:35:50,325 INFO Updating bandwidth: GR1_to_TA1_SLP_1_20, #37:2, Value='50000'
+2019-02-07 11:35:50,471 INFO Updating bandwidth: TA1_to_GndGrp1_SLP_1_20, #37:11, Value='50000'
+2019-02-07 11:35:50,614 INFO Updating bandwidth: GR1_to_TA1_SLP_1_301, #37:5, Value='75000'
+2019-02-07 11:35:50,768 INFO Updating bandwidth: TA1_to_GndGrp1_SLP_1_301, #37:14, Value='75000'
+2019-02-07 11:35:50,975 INFO Updating bandwidth: GR1_to_TA1_SLP_1_40, #37:8, Value='50000'
+2019-02-07 11:35:51,134 INFO Updating bandwidth: TA1_to_GndGrp1_SLP_1_40, #37:17, Value='50000'
+2019-02-07 11:35:51,173 INFO ***************************Updating MDL File Schedule...*******************
+2019-02-07 11:35:53,349 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA5, 0.0, 8250.0
+2019-02-07 11:35:53,468 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA5, 50000.0, 58250.0
+2019-02-07 11:35:53,636 INFO Adding TxOp to TransmissionSchedule: TA5_to_GR1, 9250.0, 17500.0
+2019-02-07 11:35:53,755 INFO Adding TxOp to TransmissionSchedule: TA5_to_GR1, 59250.0, 67500.0
+2019-02-07 11:35:53,971 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA4, 18500.0, 22250.0
+2019-02-07 11:35:54,088 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA4, 68500.0, 72250.0
+2019-02-07 11:35:54,245 INFO Adding TxOp to TransmissionSchedule: TA4_to_GR1, 23250.0, 27000.0
+2019-02-07 11:35:54,366 INFO Adding TxOp to TransmissionSchedule: TA4_to_GR1, 73250.0, 77000.0
+2019-02-07 11:35:54,640 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA2, 28000.0, 38000.0
+2019-02-07 11:35:54,939 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA2, 78000.0, 88000.0
+2019-02-07 11:35:55,185 INFO Adding TxOp to TransmissionSchedule: TA2_to_GR1, 39000.0, 49000.0
+2019-02-07 11:35:55,365 INFO Adding TxOp to TransmissionSchedule: TA2_to_GR1, 89000.0, 99000.0
+2019-02-07 11:35:55,515 INFO ***************************Exporting MDL File...***************************
+2019-02-07 11:35:55,515 INFO Exporting cra_scenarios to mdl_files/CRA_Scenarios_After_Adaptation.xml
+2019-02-07 11:37:18,658 INFO ***************************Challenge Problem 1 Complete********************
+2019-02-07 11:37:18,658 INFO ***************************************************************************
+2019-02-07 11:37:18,659 INFO ***************************************************************************
+2019-02-07 11:37:18,659 INFO ***************************************************************************
+2019-02-07 11:37:18,659 INFO 
+
+
+
+2019-02-07 12:54:38,322 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 12:54:38,322 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 12:54:38,506 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 12:54:38,506 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 12:54:38,506 INFO Scheduling TAs in the following order:
+2019-02-07 12:54:38,506 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 12:54:38,506 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 12:54:38,506 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 12:54:38,506 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 12:54:38,507 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 12:54:38,507 INFO MdlId: TA5 selected for scheduling
+2019-02-07 12:54:38,507 INFO MdlId: TA4 selected for scheduling
+2019-02-07 12:54:38,507 INFO MdlId: TA2 selected for scheduling
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 12:54:38,507 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 12:54:38,508 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 12:54:38,508 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 12:54:38,508 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 12:54:38,508 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 12:54:38,508 INFO Total value in new schedule is: 125
+2019-02-07 12:54:38,508 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 12:54:38,513 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 12:54:38,513 INFO ***************************Importing MDL file...***************************
+2019-02-07 12:54:39,280 INFO Importing c:\dev\cp1\src\cp1_src\cp1\mdl_files\CRA_Scenarios_Before_Adaptation.xml into cra_scenarios
+2019-02-07 12:57:55,837 INFO ***************************Updating MDL File Bandwidth...******************
+2019-02-07 12:57:56,155 INFO Updating bandwidth: GR1_to_TA5_SLP_1_20, #27:74, Value='50000'
+2019-02-07 12:57:56,354 INFO Updating bandwidth: TA5_to_GndGrp1_SLP_1_20, #27:83, Value='50000'
+2019-02-07 12:57:56,527 INFO Updating bandwidth: GR1_to_TA5_SLP_1_301, #27:77, Value='75000'
+2019-02-07 12:57:56,674 INFO Updating bandwidth: TA5_to_GndGrp1_SLP_1_301, #27:86, Value='75000'
+2019-02-07 12:57:56,827 INFO Updating bandwidth: GR1_to_TA5_SLP_1_40, #27:80, Value='50000'
+2019-02-07 12:57:56,975 INFO Updating bandwidth: TA5_to_GndGrp1_SLP_1_40, #27:89, Value='50000'
+2019-02-07 12:57:57,121 INFO Updating bandwidth: GR1_to_TA4_SLP_1_20, #27:56, Value='50000'
+2019-02-07 12:57:57,316 INFO Updating bandwidth: TA4_to_GndGrp1_SLP_1_20, #27:65, Value='50000'
+2019-02-07 12:57:57,473 INFO Updating bandwidth: GR1_to_TA4_SLP_1_301, #27:59, Value='75000'
+2019-02-07 12:57:57,619 INFO Updating bandwidth: TA4_to_GndGrp1_SLP_1_301, #27:68, Value='75000'
+2019-02-07 12:57:57,768 INFO Updating bandwidth: GR1_to_TA4_SLP_1_40, #27:62, Value='50000'
+2019-02-07 12:57:57,921 INFO Updating bandwidth: TA4_to_GndGrp1_SLP_1_40, #27:71, Value='50000'
+2019-02-07 12:57:58,080 INFO Updating bandwidth: GR1_to_TA2_SLP_1_20, #27:20, Value='50000'
+2019-02-07 12:57:58,278 INFO Updating bandwidth: TA2_to_GndGrp1_SLP_1_20, #27:29, Value='50000'
+2019-02-07 12:57:58,433 INFO Updating bandwidth: GR1_to_TA2_SLP_1_301, #27:23, Value='75000'
+2019-02-07 12:57:58,582 INFO Updating bandwidth: TA2_to_GndGrp1_SLP_1_301, #27:32, Value='75000'
+2019-02-07 12:57:58,725 INFO Updating bandwidth: GR1_to_TA2_SLP_1_40, #27:26, Value='50000'
+2019-02-07 12:57:58,876 INFO Updating bandwidth: TA2_to_GndGrp1_SLP_1_40, #27:35, Value='50000'
+2019-02-07 12:57:59,041 INFO Updating bandwidth: GR1_to_TA3_SLP_1_20, #27:38, Value='50000'
+2019-02-07 12:57:59,187 INFO Updating bandwidth: TA3_to_GndGrp1_SLP_1_20, #27:47, Value='50000'
+2019-02-07 12:57:59,383 INFO Updating bandwidth: GR1_to_TA3_SLP_1_301, #27:41, Value='75000'
+2019-02-07 12:57:59,531 INFO Updating bandwidth: TA3_to_GndGrp1_SLP_1_301, #27:50, Value='75000'
+2019-02-07 12:57:59,709 INFO Updating bandwidth: GR1_to_TA3_SLP_1_40, #27:44, Value='50000'
+2019-02-07 12:57:59,853 INFO Updating bandwidth: TA3_to_GndGrp1_SLP_1_40, #27:53, Value='50000'
+2019-02-07 12:57:59,997 INFO Updating bandwidth: GR1_to_TA1_SLP_1_20, #27:2, Value='50000'
+2019-02-07 12:58:00,142 INFO Updating bandwidth: TA1_to_GndGrp1_SLP_1_20, #27:11, Value='50000'
+2019-02-07 12:58:00,340 INFO Updating bandwidth: GR1_to_TA1_SLP_1_301, #27:5, Value='75000'
+2019-02-07 12:58:00,485 INFO Updating bandwidth: TA1_to_GndGrp1_SLP_1_301, #27:14, Value='75000'
+2019-02-07 12:58:00,642 INFO Updating bandwidth: GR1_to_TA1_SLP_1_40, #27:8, Value='50000'
+2019-02-07 12:58:00,795 INFO Updating bandwidth: TA1_to_GndGrp1_SLP_1_40, #27:17, Value='50000'
+2019-02-07 12:58:00,834 INFO ***************************Updating MDL File Schedule...*******************
+2019-02-07 12:58:03,033 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA5, 0.0, 8250.0
+2019-02-07 12:58:03,151 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA5, 50000.0, 58250.0
+2019-02-07 12:58:03,399 INFO Adding TxOp to TransmissionSchedule: TA5_to_GR1, 9250.0, 17500.0
+2019-02-07 12:58:03,518 INFO Adding TxOp to TransmissionSchedule: TA5_to_GR1, 59250.0, 67500.0
+2019-02-07 12:58:03,675 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA4, 18500.0, 22250.0
+2019-02-07 12:58:03,792 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA4, 68500.0, 72250.0
+2019-02-07 12:58:03,951 INFO Adding TxOp to TransmissionSchedule: TA4_to_GR1, 23250.0, 27000.0
+2019-02-07 12:58:04,069 INFO Adding TxOp to TransmissionSchedule: TA4_to_GR1, 73250.0, 77000.0
+2019-02-07 12:58:04,276 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA2, 28000.0, 38000.0
+2019-02-07 12:58:04,439 INFO Adding TxOp to TransmissionSchedule: GR1_to_TA2, 78000.0, 88000.0
+2019-02-07 12:58:04,597 INFO Adding TxOp to TransmissionSchedule: TA2_to_GR1, 39000.0, 49000.0
+2019-02-07 12:58:04,716 INFO Adding TxOp to TransmissionSchedule: TA2_to_GR1, 89000.0, 99000.0
+2019-02-07 12:58:04,836 INFO ***************************Exporting MDL File...***************************
+2019-02-07 12:58:04,836 INFO Exporting cra_scenarios to mdl_files/CRA_Scenarios_After_Adaptation.xml
+2019-02-07 12:59:28,667 INFO ***************************Challenge Problem 1 Complete********************
+2019-02-07 12:59:28,667 INFO ***************************************************************************
+2019-02-07 12:59:28,667 INFO ***************************************************************************
+2019-02-07 12:59:28,667 INFO ***************************************************************************
+2019-02-07 12:59:28,667 INFO 
+
+
+
+2019-02-07 15:06:51,711 DEBUG Indexed 0 nodes
+2019-02-07 15:06:51,773 DEBUG Indexed 100 nodes
+2019-02-07 15:06:51,828 DEBUG Indexed 200 nodes
+2019-02-07 15:06:51,877 DEBUG Indexed 300 nodes
+2019-02-07 15:06:51,924 DEBUG Indexed 400 nodes
+2019-02-07 15:06:51,987 DEBUG Indexed 500 nodes
+2019-02-07 15:06:52,050 DEBUG Indexed 600 nodes
+2019-02-07 15:06:52,105 DEBUG Indexed 700 nodes
+2019-02-07 15:06:52,156 DEBUG Indexed 800 nodes
+2019-02-07 15:06:52,211 DEBUG Indexed 900 nodes
+2019-02-07 15:06:52,260 DEBUG Indexed 1000 nodes
+2019-02-07 15:06:52,322 DEBUG Indexed 1100 nodes
+2019-02-07 15:06:52,369 DEBUG Indexed 1200 nodes
+2019-02-07 15:06:52,432 DEBUG Indexed 1300 nodes
+2019-02-07 15:06:52,492 DEBUG Indexed 1400 nodes
+2019-02-07 15:06:52,548 DEBUG Indexed 1500 nodes
+2019-02-07 15:06:52,606 DEBUG Indexed 1600 nodes
+2019-02-07 15:06:52,660 DEBUG Indexed 1700 nodes
+2019-02-07 15:06:52,723 DEBUG Indexed 1800 nodes
+2019-02-07 15:06:52,770 DEBUG Indexed 1900 nodes
+2019-02-07 15:58:34,454 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 15:58:34,454 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 15:59:34,184 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 15:59:34,185 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 15:59:34,481 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 15:59:34,484 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 15:59:34,484 INFO Scheduling TAs in the following order:
+2019-02-07 15:59:34,484 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 15:59:34,485 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 15:59:34,485 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 15:59:34,485 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 15:59:34,486 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 15:59:34,486 INFO MdlId: TA5 selected for scheduling
+2019-02-07 15:59:34,486 INFO MdlId: TA4 selected for scheduling
+2019-02-07 15:59:34,486 INFO MdlId: TA2 selected for scheduling
+2019-02-07 15:59:34,487 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 15:59:34,487 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 15:59:34,487 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 15:59:34,488 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 15:59:34,488 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 15:59:34,488 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 15:59:34,489 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 15:59:34,489 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 15:59:34,489 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 15:59:34,489 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 15:59:34,490 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 15:59:34,490 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 15:59:34,490 INFO Total value in new schedule is: 125
+2019-02-07 15:59:34,490 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 15:59:34,496 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 15:59:34,497 INFO ***************************Importing MDL file...***************************
+2019-02-07 15:59:41,972 DEBUG Indexed 0 nodes
+2019-02-07 15:59:50,144 DEBUG Indexed 100 nodes
+2019-02-07 15:59:58,434 DEBUG Indexed 200 nodes
+2019-02-07 16:00:06,324 DEBUG Indexed 300 nodes
+2019-02-07 16:00:14,032 DEBUG Indexed 400 nodes
+2019-02-07 16:00:21,698 DEBUG Indexed 500 nodes
+2019-02-07 16:00:29,333 DEBUG Indexed 600 nodes
+2019-02-07 16:00:37,632 DEBUG Indexed 700 nodes
+2019-02-07 16:00:45,357 DEBUG Indexed 800 nodes
+2019-02-07 16:00:53,061 DEBUG Indexed 900 nodes
+2019-02-07 16:01:00,586 DEBUG Indexed 1000 nodes
+2019-02-07 16:01:08,937 DEBUG Indexed 1100 nodes
+2019-02-07 16:01:16,284 DEBUG Indexed 1200 nodes
+2019-02-07 16:01:24,292 DEBUG Indexed 1300 nodes
+2019-02-07 16:01:31,940 DEBUG Indexed 1400 nodes
+2019-02-07 16:01:40,724 DEBUG Indexed 1500 nodes
+2019-02-07 16:01:48,949 DEBUG Indexed 1600 nodes
+2019-02-07 16:01:56,605 DEBUG Indexed 1700 nodes
+2019-02-07 16:02:04,615 DEBUG Indexed 1800 nodes
+2019-02-07 16:02:13,203 DEBUG Indexed 1900 nodes
+2019-02-07 16:04:30,528 INFO Importing c:\dev\cp1\src\cp1_src\cp1\mdl_files\CRA_Scenarios_Before_Adaptation.xml into cra_scenarios
+2019-02-07 16:12:56,156 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:12:56,156 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:12:56,326 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 16:12:56,326 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 16:12:56,326 INFO Scheduling TAs in the following order:
+2019-02-07 16:12:56,326 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:12:56,326 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:12:56,326 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 16:12:56,326 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 16:12:56,326 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 16:12:56,326 INFO MdlId: TA5 selected for scheduling
+2019-02-07 16:12:56,326 INFO MdlId: TA4 selected for scheduling
+2019-02-07 16:12:56,326 INFO MdlId: TA2 selected for scheduling
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 16:12:56,341 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 16:12:56,341 INFO Total value in new schedule is: 125
+2019-02-07 16:12:56,341 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 16:12:56,341 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 16:12:56,341 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:12:57,335 INFO Created RadioLinkRefs node class
+2019-02-07 16:12:57,378 INFO Created TestMissions node class
+2019-02-07 16:12:57,422 INFO Created Condition node class
+2019-02-07 16:12:57,465 INFO Created Network node class
+2019-02-07 16:12:57,507 INFO Created ServiceLevelProfile node class
+2019-02-07 16:12:57,536 INFO Created Conditions node class
+2019-02-07 16:12:57,583 INFO Created Ceiling node class
+2019-02-07 16:12:57,629 INFO Created AssuredCapacity node class
+2019-02-07 16:12:57,676 INFO Created RadioGroupRef node class
+2019-02-07 16:12:57,708 INFO Created Networks node class
+2019-02-07 16:12:57,765 INFO Created RANCommandControlDSCPRef node class
+2019-02-07 16:12:57,806 INFO Created RadioGroups node class
+2019-02-07 16:12:57,848 INFO Created DestinationRadioGroupRef node class
+2019-02-07 16:12:57,895 INFO Created NetworkInterfaces node class
+2019-02-07 16:12:57,988 INFO Created DSCPTable node class
+2019-02-07 16:12:58,035 INFO Created TmNSAppRef node class
+2019-02-07 16:12:58,082 INFO Created TransmissionSchedule node class
+2019-02-07 16:12:58,126 INFO Created JoinRadioGroupRefs node class
+2019-02-07 16:12:58,169 INFO Created InternalStructure node class
+2019-02-07 16:12:58,211 INFO Created RadioGroup node class
+2019-02-07 16:12:58,246 INFO Created ServiceLevelProfiles node class
+2019-02-07 16:12:58,293 INFO Created TmNSApp node class
+2019-02-07 16:12:58,340 INFO Created LinkManagementMinCapacity node class
+2019-02-07 16:12:58,371 INFO Created TrafficFilters node class
+2019-02-07 16:12:58,426 INFO Created MeasurementDomain node class
+2019-02-07 16:12:58,469 INFO Created HTB node class
+2019-02-07 16:12:58,512 INFO Created SourceRadioRef node class
+2019-02-07 16:12:58,554 INFO Created TxOp node class
+2019-02-07 16:12:58,630 INFO Created Modules node class
+2019-02-07 16:12:58,673 INFO Created RED node class
+2019-02-07 16:12:58,712 INFO Created TmNSApps node class
+2019-02-07 16:12:58,758 INFO Created QoSPolicy node class
+2019-02-07 16:12:58,790 INFO Created RANConfigurations node class
+2019-02-07 16:12:58,852 INFO Created AveragePacketDelay node class
+2019-02-07 16:12:58,899 INFO Created Port node class
+2019-02-07 16:12:58,993 INFO Created NetworkNode node class
+2019-02-07 16:12:59,037 INFO Created SNMPVersions node class
+2019-02-07 16:12:59,078 INFO Created NetworkDomain node class
+2019-02-07 16:12:59,109 INFO Created NetworkInterfaceRefs node class
+2019-02-07 16:12:59,156 INFO Created MeasurementDomains node class
+2019-02-07 16:12:59,203 INFO Created PhysicalNetworkPort node class
+2019-02-07 16:12:59,234 INFO Created PortDataRate node class
+2019-02-07 16:12:59,281 INFO Created Bandwidth node class
+2019-02-07 16:12:59,331 INFO Created TrafficFilter node class
+2019-02-07 16:12:59,373 INFO Created QDisc node class
+2019-02-07 16:12:59,414 INFO Created FIFO node class
+2019-02-07 16:12:59,456 INFO Created SNMPSetup node class
+2019-02-07 16:12:59,497 INFO Created RANConfiguration node class
+2019-02-07 16:12:59,536 INFO Created DSCPTableEntry node class
+2019-02-07 16:12:59,568 INFO Created MatchField node class
+2019-02-07 16:12:59,615 INFO Created NetworkNodes node class
+2019-02-07 16:12:59,661 INFO Created Max node class
+2019-02-07 16:12:59,708 INFO Created MDLRoot node class
+2019-02-07 16:12:59,750 INFO Created RunningAppRefs node class
+2019-02-07 16:12:59,793 INFO Created QueueConstruct node class
+2019-02-07 16:12:59,835 INFO Created Ports node class
+2019-02-07 16:12:59,895 INFO Created Module node class
+2019-02-07 16:12:59,988 INFO Created TmNSRadio node class
+2019-02-07 16:13:00,036 INFO Created PhysicalNetworkPortRef node class
+2019-02-07 16:13:00,065 INFO Created Limit node class
+2019-02-07 16:13:00,119 INFO Created Limit_a node class
+2019-02-07 16:13:00,162 INFO Created RadioLink node class
+2019-02-07 16:13:00,205 INFO Created TestMission node class
+2019-02-07 16:13:00,246 INFO Created NetworkInterface node class
+2019-02-07 16:13:00,293 INFO Created QoSPolicies node class
+2019-02-07 16:13:00,340 INFO Created Class node class
+2019-02-07 16:13:00,387 INFO Created RadioControlLoopDSCPRef node class
+2019-02-07 16:13:00,418 INFO Created DSCPTableEntryRef node class
+2019-02-07 16:13:00,471 INFO Created RadioLinkRef node class
+2019-02-07 16:13:00,514 INFO Created PhysicalNetworkPorts node class
+2019-02-07 16:13:00,556 INFO Created Rate node class
+2019-02-07 16:13:00,598 INFO Created TmNSNetworkFabricDevice node class
+2019-02-07 16:13:00,642 INFO Created RANConfigurationRef node class
+2019-02-07 16:13:00,710 INFO Created SMInterface node class
+2019-02-07 16:13:00,756 INFO Created Min node class
+2019-02-07 16:13:00,803 INFO Created LinkAgent node class
+2019-02-07 16:13:00,850 INFO Created Avpkt node class
+2019-02-07 16:13:00,897 INFO Created RadioLinks node class
+2019-02-07 16:13:00,998 INFO Created NetworkInterfaceRef node class
+2019-02-07 16:13:05,218 INFO Indexed 100 MDL Elements
+2019-02-07 16:13:09,437 INFO Indexed 200 MDL Elements
+2019-02-07 16:13:13,551 INFO Indexed 300 MDL Elements
+2019-02-07 16:13:17,792 INFO Indexed 400 MDL Elements
+2019-02-07 16:13:21,879 INFO Indexed 500 MDL Elements
+2019-02-07 16:13:26,164 INFO Indexed 600 MDL Elements
+2019-02-07 16:13:30,340 INFO Indexed 700 MDL Elements
+2019-02-07 16:13:34,503 INFO Indexed 800 MDL Elements
+2019-02-07 16:13:39,033 INFO Indexed 900 MDL Elements
+2019-02-07 16:13:43,298 INFO Indexed 1000 MDL Elements
+2019-02-07 16:13:47,530 INFO Indexed 1100 MDL Elements
+2019-02-07 16:13:51,823 INFO Indexed 1200 MDL Elements
+2019-02-07 16:13:56,309 INFO Indexed 1300 MDL Elements
+2019-02-07 16:14:00,580 INFO Indexed 1400 MDL Elements
+2019-02-07 16:14:04,737 INFO Indexed 1500 MDL Elements
+2019-02-07 16:14:08,988 INFO Indexed 1600 MDL Elements
+2019-02-07 16:14:13,319 INFO Indexed 1700 MDL Elements
+2019-02-07 16:14:17,525 INFO Indexed 1800 MDL Elements
+2019-02-07 16:14:21,765 INFO Indexed 1900 MDL Elements
+2019-02-07 16:14:22,628 INFO Created Containment edge class
+2019-02-07 16:16:18,530 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:16:18,530 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:16:18,694 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 16:16:18,694 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 16:16:18,694 INFO Scheduling TAs in the following order:
+2019-02-07 16:16:18,694 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:16:18,709 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:16:18,709 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 16:16:18,709 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 16:16:18,709 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 16:16:18,709 INFO MdlId: TA5 selected for scheduling
+2019-02-07 16:16:18,709 INFO MdlId: TA4 selected for scheduling
+2019-02-07 16:16:18,709 INFO MdlId: TA2 selected for scheduling
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 16:16:18,709 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 16:16:18,709 INFO Total value in new schedule is: 125
+2019-02-07 16:16:18,709 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 16:16:18,709 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 16:16:18,709 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:16:19,617 INFO Created NetworkNodes node class
+2019-02-07 16:16:19,648 INFO Created QoSPolicies node class
+2019-02-07 16:16:19,695 INFO Created TmNSAppRef node class
+2019-02-07 16:16:19,747 INFO Created DSCPTableEntry node class
+2019-02-07 16:16:19,789 INFO Created Limit node class
+2019-02-07 16:16:19,836 INFO Created Limit_a node class
+2019-02-07 16:16:19,878 INFO Created Port node class
+2019-02-07 16:16:19,909 INFO Created TxOp node class
+2019-02-07 16:16:19,956 INFO Created Network node class
+2019-02-07 16:16:20,003 INFO Created RANCommandControlDSCPRef node class
+2019-02-07 16:16:20,034 INFO Created InternalStructure node class
+2019-02-07 16:16:20,096 INFO Created MDLRoot node class
+2019-02-07 16:16:20,149 INFO Created Min node class
+2019-02-07 16:16:20,196 INFO Created DSCPTable node class
+2019-02-07 16:16:20,240 INFO Created Condition node class
+2019-02-07 16:16:20,279 INFO Created RadioLinks node class
+2019-02-07 16:16:20,325 INFO Created TrafficFilter node class
+2019-02-07 16:16:20,372 INFO Created Bandwidth node class
+2019-02-07 16:16:20,404 INFO Created NetworkInterfaceRefs node class
+2019-02-07 16:16:20,459 INFO Created DSCPTableEntryRef node class
+2019-02-07 16:16:20,502 INFO Created NetworkInterfaces node class
+2019-02-07 16:16:20,544 INFO Created RANConfiguration node class
+2019-02-07 16:16:20,587 INFO Created TestMission node class
+2019-02-07 16:16:20,630 INFO Created ServiceLevelProfile node class
+2019-02-07 16:16:20,662 INFO Created RED node class
+2019-02-07 16:16:20,709 INFO Created SNMPVersions node class
+2019-02-07 16:16:20,756 INFO Created TmNSApp node class
+2019-02-07 16:16:20,788 INFO Created TrafficFilters node class
+2019-02-07 16:16:20,834 INFO Created NetworkNode node class
+2019-02-07 16:16:20,881 INFO Created MeasurementDomains node class
+2019-02-07 16:16:20,925 INFO Created PortDataRate node class
+2019-02-07 16:16:20,965 INFO Created PhysicalNetworkPortRef node class
+2019-02-07 16:16:21,008 INFO Created TmNSRadio node class
+2019-02-07 16:16:21,047 INFO Created HTB node class
+2019-02-07 16:16:21,110 INFO Created RANConfigurationRef node class
+2019-02-07 16:16:21,157 INFO Created LinkManagementMinCapacity node class
+2019-02-07 16:16:21,188 INFO Created Class node class
+2019-02-07 16:16:21,235 INFO Created RunningAppRefs node class
+2019-02-07 16:16:21,282 INFO Created TmNSApps node class
+2019-02-07 16:16:21,324 INFO Created TestMissions node class
+2019-02-07 16:16:21,365 INFO Created NetworkDomain node class
+2019-02-07 16:16:21,407 INFO Created AssuredCapacity node class
+2019-02-07 16:16:21,449 INFO Created QueueConstruct node class
+2019-02-07 16:16:21,505 INFO Created Ceiling node class
+2019-02-07 16:16:21,537 INFO Created ServiceLevelProfiles node class
+2019-02-07 16:16:21,584 INFO Created DestinationRadioGroupRef node class
+2019-02-07 16:16:21,630 INFO Created SourceRadioRef node class
+2019-02-07 16:16:21,677 INFO Created NetworkInterfaceRef node class
+2019-02-07 16:16:21,709 INFO Created RANConfigurations node class
+2019-02-07 16:16:21,749 INFO Created RadioLinkRefs node class
+2019-02-07 16:16:21,805 INFO Created Avpkt node class
+2019-02-07 16:16:21,847 INFO Created Max node class
+2019-02-07 16:16:21,878 INFO Created QoSPolicy node class
+2019-02-07 16:16:21,925 INFO Created RadioControlLoopDSCPRef node class
+2019-02-07 16:16:21,972 INFO Created RadioLinkRef node class
+2019-02-07 16:16:22,003 INFO Created RadioGroup node class
+2019-02-07 16:16:22,113 INFO Created NetworkInterface node class
+2019-02-07 16:16:22,149 INFO Created SMInterface node class
+2019-02-07 16:16:22,197 INFO Created PhysicalNetworkPorts node class
+2019-02-07 16:16:22,239 INFO Created QDisc node class
+2019-02-07 16:16:22,294 INFO Created AveragePacketDelay node class
+2019-02-07 16:16:22,340 INFO Created Modules node class
+2019-02-07 16:16:22,387 INFO Created Conditions node class
+2019-02-07 16:16:22,419 INFO Created MatchField node class
+2019-02-07 16:16:22,472 INFO Created FIFO node class
+2019-02-07 16:16:22,514 INFO Created TransmissionSchedule node class
+2019-02-07 16:16:22,549 INFO Created RadioLink node class
+2019-02-07 16:16:22,599 INFO Created MeasurementDomain node class
+2019-02-07 16:16:22,642 INFO Created RadioGroupRef node class
+2019-02-07 16:16:22,678 INFO Created Ports node class
+2019-02-07 16:16:22,725 INFO Created Module node class
+2019-02-07 16:16:22,756 INFO Created JoinRadioGroupRefs node class
+2019-02-07 16:16:22,803 INFO Created PhysicalNetworkPort node class
+2019-02-07 16:16:22,850 INFO Created Networks node class
+2019-02-07 16:16:22,897 INFO Created TmNSNetworkFabricDevice node class
+2019-02-07 16:16:22,949 INFO Created Rate node class
+2019-02-07 16:16:22,995 INFO Created RadioGroups node class
+2019-02-07 16:16:23,038 INFO Created SNMPSetup node class
+2019-02-07 16:16:23,109 INFO Created LinkAgent node class
+2019-02-07 16:16:27,387 INFO Indexed 100 MDL Elements
+2019-02-07 16:16:31,629 INFO Indexed 200 MDL Elements
+2019-02-07 16:16:35,745 INFO Indexed 300 MDL Elements
+2019-02-07 16:16:39,862 INFO Indexed 400 MDL Elements
+2019-02-07 16:16:44,149 INFO Indexed 500 MDL Elements
+2019-02-07 16:16:48,341 INFO Indexed 600 MDL Elements
+2019-02-07 16:16:52,601 INFO Indexed 700 MDL Elements
+2019-02-07 16:16:57,049 INFO Indexed 800 MDL Elements
+2019-02-07 16:17:01,281 INFO Indexed 900 MDL Elements
+2019-02-07 16:17:05,553 INFO Indexed 1000 MDL Elements
+2019-02-07 16:17:09,737 INFO Indexed 1100 MDL Elements
+2019-02-07 16:17:14,034 INFO Indexed 1200 MDL Elements
+2019-02-07 16:17:18,407 INFO Indexed 1300 MDL Elements
+2019-02-07 16:17:22,634 INFO Indexed 1400 MDL Elements
+2019-02-07 16:17:26,949 INFO Indexed 1500 MDL Elements
+2019-02-07 16:17:31,219 INFO Indexed 1600 MDL Elements
+2019-02-07 16:17:35,502 INFO Indexed 1700 MDL Elements
+2019-02-07 16:17:39,847 INFO Indexed 1800 MDL Elements
+2019-02-07 16:17:44,247 INFO Indexed 1900 MDL Elements
+2019-02-07 16:17:44,997 INFO Created Containment edge class
+2019-02-07 16:20:05,990 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:20:05,990 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:20:06,204 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 16:20:06,206 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 16:20:06,207 INFO Scheduling TAs in the following order:
+2019-02-07 16:20:06,207 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:20:06,207 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:20:06,207 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 16:20:06,207 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 16:20:06,208 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 16:20:06,208 INFO MdlId: TA5 selected for scheduling
+2019-02-07 16:20:06,208 INFO MdlId: TA4 selected for scheduling
+2019-02-07 16:20:06,208 INFO MdlId: TA2 selected for scheduling
+2019-02-07 16:20:06,208 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 16:20:06,209 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 16:20:06,209 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 16:20:06,209 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 16:20:06,209 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 16:20:06,209 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 16:20:06,210 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 16:20:06,210 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 16:20:06,210 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 16:20:06,210 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 16:20:06,210 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 16:20:06,211 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 16:20:06,211 INFO Total value in new schedule is: 125
+2019-02-07 16:20:06,211 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 16:20:06,216 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 16:20:06,220 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:20:07,146 INFO Created QueueConstruct node class
+2019-02-07 16:20:07,208 INFO Created Conditions node class
+2019-02-07 16:20:07,286 INFO Created NetworkInterface node class
+2019-02-07 16:20:07,332 INFO Created Module node class
+2019-02-07 16:20:07,367 INFO Created RadioControlLoopDSCPRef node class
+2019-02-07 16:20:07,417 INFO Created SourceRadioRef node class
+2019-02-07 16:20:07,460 INFO Created MatchField node class
+2019-02-07 16:20:07,502 INFO Created FIFO node class
+2019-02-07 16:20:07,539 INFO Created RANCommandControlDSCPRef node class
+2019-02-07 16:20:07,586 INFO Created ServiceLevelProfiles node class
+2019-02-07 16:20:07,618 INFO Created RED node class
+2019-02-07 16:20:07,665 INFO Created PhysicalNetworkPortRef node class
+2019-02-07 16:20:07,711 INFO Created RadioGroup node class
+2019-02-07 16:20:07,751 INFO Created TestMission node class
+2019-02-07 16:20:07,822 INFO Created Port node class
+2019-02-07 16:20:07,866 INFO Created MDLRoot node class
+2019-02-07 16:20:07,898 INFO Created RadioLinkRef node class
+2019-02-07 16:20:07,945 INFO Created Max node class
+2019-02-07 16:20:08,007 INFO Created NetworkInterfaceRef node class
+2019-02-07 16:20:08,054 INFO Created LinkManagementMinCapacity node class
+2019-02-07 16:20:08,151 INFO Created Modules node class
+2019-02-07 16:20:08,197 INFO Created Ceiling node class
+2019-02-07 16:20:08,282 INFO Created NetworkNodes node class
+2019-02-07 16:20:08,344 INFO Created NetworkDomain node class
+2019-02-07 16:20:08,407 INFO Created Bandwidth node class
+2019-02-07 16:20:08,462 INFO Created TmNSApp node class
+2019-02-07 16:20:08,511 INFO Created RadioGroups node class
+2019-02-07 16:20:08,552 INFO Created Avpkt node class
+2019-02-07 16:20:08,597 INFO Created AveragePacketDelay node class
+2019-02-07 16:20:08,640 INFO Created NetworkNode node class
+2019-02-07 16:20:08,681 INFO Created PortDataRate node class
+2019-02-07 16:20:08,712 INFO Created AssuredCapacity node class
+2019-02-07 16:20:08,759 INFO Created LinkAgent node class
+2019-02-07 16:20:08,809 INFO Created NetworkInterfaces node class
+2019-02-07 16:20:08,843 INFO Created RANConfigurationRef node class
+2019-02-07 16:20:08,889 INFO Created SNMPSetup node class
+2019-02-07 16:20:08,936 INFO Created SMInterface node class
+2019-02-07 16:20:08,967 INFO Created SMInterface_a node class
+2019-02-07 16:20:08,967 INFO Created RANConfigurations node class
+2019-02-07 16:20:09,020 INFO Created TmNSRadio node class
+2019-02-07 16:20:09,050 INFO Created Rate node class
+2019-02-07 16:20:09,097 INFO Created Min node class
+2019-02-07 16:20:09,144 INFO Created Min_a node class
+2019-02-07 16:20:09,144 INFO Created RunningAppRefs node class
+2019-02-07 16:20:09,190 INFO Created DSCPTableEntry node class
+2019-02-07 16:20:09,237 INFO Created DSCPTableEntry_a node class
+2019-02-07 16:20:09,237 INFO Created RadioLinkRefs node class
+2019-02-07 16:20:09,237 INFO Created RadioLinks node class
+2019-02-07 16:20:09,284 INFO Created QoSPolicy node class
+2019-02-07 16:20:09,284 INFO Created QoSPolicies node class
+2019-02-07 16:20:09,284 INFO Created TmNSAppRef node class
+2019-02-07 16:20:09,328 INFO Created PhysicalNetworkPorts node class
+2019-02-07 16:20:09,388 INFO Created TmNSNetworkFabricDevice node class
+2019-02-07 16:20:09,389 INFO Created InternalStructure node class
+2019-02-07 16:20:09,390 INFO Created MeasurementDomains node class
+2019-02-07 16:20:09,429 INFO Created MeasurementDomains_a node class
+2019-02-07 16:20:09,430 INFO Created DSCPTable node class
+2019-02-07 16:20:09,483 INFO Created TrafficFilter node class
+2019-02-07 16:20:09,484 INFO Created DestinationRadioGroupRef node class
+2019-02-07 16:20:09,485 INFO Created TransmissionSchedule node class
+2019-02-07 16:20:09,525 INFO Created RadioGroupRef node class
+2019-02-07 16:20:09,528 INFO Created SNMPVersions node class
+2019-02-07 16:20:09,554 INFO Created Ports node class
+2019-02-07 16:20:09,554 INFO Created RadioLink node class
+2019-02-07 16:20:09,570 INFO Created DSCPTableEntryRef node class
+2019-02-07 16:20:09,570 INFO Created TrafficFilters node class
+2019-02-07 16:20:09,601 INFO Created QDisc node class
+2019-02-07 16:20:09,601 INFO Created Class node class
+2019-02-07 16:20:09,601 INFO Created JoinRadioGroupRefs node class
+2019-02-07 16:20:09,601 INFO Created HTB node class
+2019-02-07 16:20:09,648 INFO Created TmNSApps node class
+2019-02-07 16:20:09,648 INFO Created TxOp node class
+2019-02-07 16:20:09,648 INFO Created TestMissions node class
+2019-02-07 16:20:09,648 INFO Created RANConfiguration node class
+2019-02-07 16:20:09,679 INFO Created Networks node class
+2019-02-07 16:20:09,679 INFO Created Condition node class
+2019-02-07 16:20:09,695 INFO Created Network node class
+2019-02-07 16:20:09,695 INFO Created NetworkInterfaceRefs node class
+2019-02-07 16:20:09,751 INFO Created NetworkInterfaceRefs_a node class
+2019-02-07 16:20:09,751 INFO Created Limit node class
+2019-02-07 16:20:09,751 INFO Created PhysicalNetworkPort node class
+2019-02-07 16:20:09,751 INFO Created ServiceLevelProfile node class
+2019-02-07 16:20:09,751 INFO Created MeasurementDomain node class
+2019-02-07 16:20:11,913 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:20:11,913 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:20:12,227 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 16:20:12,230 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 16:20:12,230 INFO Scheduling TAs in the following order:
+2019-02-07 16:20:12,230 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:20:12,231 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:20:12,231 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 16:20:12,231 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 16:20:12,232 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 16:20:12,232 INFO MdlId: TA5 selected for scheduling
+2019-02-07 16:20:12,232 INFO MdlId: TA4 selected for scheduling
+2019-02-07 16:20:12,232 INFO MdlId: TA2 selected for scheduling
+2019-02-07 16:20:12,233 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 16:20:12,233 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 16:20:12,233 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 16:20:12,234 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 16:20:12,234 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 16:20:12,234 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 16:20:12,234 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 16:20:12,235 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 16:20:12,235 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 16:20:12,235 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 16:20:12,236 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 16:20:12,236 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 16:20:12,236 INFO Total value in new schedule is: 125
+2019-02-07 16:20:12,237 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 16:20:12,243 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 16:20:12,243 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:20:13,175 INFO Created NetworkNodes Node Class
+2019-02-07 16:20:13,222 INFO Created RANCommandControlDSCPRef Node Class
+2019-02-07 16:20:13,269 INFO Created PortDataRate Node Class
+2019-02-07 16:20:13,300 INFO Created FIFO Node Class
+2019-02-07 16:20:13,351 INFO Created NetworkInterfaceRefs Node Class
+2019-02-07 16:20:13,398 INFO Created Networks Node Class
+2019-02-07 16:20:13,440 INFO Created Conditions Node Class
+2019-02-07 16:20:13,482 INFO Created RadioGroup Node Class
+2019-02-07 16:20:13,525 INFO Created AveragePacketDelay Node Class
+2019-02-07 16:20:13,555 INFO Created LinkManagementMinCapacity Node Class
+2019-02-07 16:20:13,602 INFO Created JoinRadioGroupRefs Node Class
+2019-02-07 16:20:13,648 INFO Created QDisc Node Class
+2019-02-07 16:20:13,680 INFO Created Limit Node Class
+2019-02-07 16:20:13,741 INFO Created Limit_a Node Class
+2019-02-07 16:20:13,786 INFO Created QoSPolicy Node Class
+2019-02-07 16:20:13,830 INFO Created NetworkDomain Node Class
+2019-02-07 16:20:13,866 INFO Created DSCPTableEntry Node Class
+2019-02-07 16:20:13,913 INFO Created MDLRoot Node Class
+2019-02-07 16:20:13,959 INFO Created RANConfigurations Node Class
+2019-02-07 16:20:14,006 INFO Created ServiceLevelProfile Node Class
+2019-02-07 16:20:14,069 INFO Created DestinationRadioGroupRef Node Class
+2019-02-07 16:20:14,151 INFO Created PhysicalNetworkPorts Node Class
+2019-02-07 16:20:14,209 INFO Created Rate Node Class
+2019-02-07 16:20:14,250 INFO Created Class Node Class
+2019-02-07 16:20:14,297 INFO Created PhysicalNetworkPort Node Class
+2019-02-07 16:20:14,344 INFO Created Ports Node Class
+2019-02-07 16:20:14,391 INFO Created Bandwidth Node Class
+2019-02-07 16:20:14,452 INFO Created DSCPTable Node Class
+2019-02-07 16:20:14,494 INFO Created QueueConstruct Node Class
+2019-02-07 16:20:14,575 INFO Created SNMPSetup Node Class
+2019-02-07 16:20:14,617 INFO Created TransmissionSchedule Node Class
+2019-02-07 16:20:14,649 INFO Created NetworkInterface Node Class
+2019-02-07 16:20:14,696 INFO Created SNMPVersions Node Class
+2019-02-07 16:20:14,759 INFO Created NetworkInterfaces Node Class
+2019-02-07 16:20:14,806 INFO Created Max Node Class
+2019-02-07 16:20:14,853 INFO Created RadioLinks Node Class
+2019-02-07 16:20:14,938 INFO Created MatchField Node Class
+2019-02-07 16:20:14,982 INFO Created SourceRadioRef Node Class
+2019-02-07 16:20:15,024 INFO Created NetworkInterfaceRef Node Class
+2019-02-07 16:20:15,067 INFO Created Condition Node Class
+2019-02-07 16:20:15,191 INFO Created Min Node Class
+2019-02-07 16:20:15,238 INFO Created TrafficFilters Node Class
+2019-02-07 16:20:15,270 INFO Created MeasurementDomain Node Class
+2019-02-07 16:20:15,324 INFO Created RadioLinkRefs Node Class
+2019-02-07 16:20:15,352 INFO Created TmNSApp Node Class
+2019-02-07 16:20:15,408 INFO Created RED Node Class
+2019-02-07 16:20:15,452 INFO Created Module Node Class
+2019-02-07 16:20:15,506 INFO Created NetworkNode Node Class
+2019-02-07 16:20:15,538 INFO Created TrafficFilter Node Class
+2019-02-07 16:20:15,585 INFO Created Network Node Class
+2019-02-07 16:20:15,632 INFO Created QoSPolicies Node Class
+2019-02-07 16:20:15,663 INFO Created RunningAppRefs Node Class
+2019-02-07 16:20:15,768 INFO Created DSCPTableEntryRef Node Class
+2019-02-07 16:20:15,814 INFO Created ServiceLevelProfiles Node Class
+2019-02-07 16:20:15,849 INFO Created TmNSAppRef Node Class
+2019-02-07 16:20:15,897 INFO Created TxOp Node Class
+2019-02-07 16:20:15,928 INFO Created RadioLink Node Class
+2019-02-07 16:20:15,975 INFO Created RadioGroups Node Class
+2019-02-07 16:20:16,022 INFO Created RANConfiguration Node Class
+2019-02-07 16:20:16,053 INFO Created MeasurementDomains Node Class
+2019-02-07 16:20:16,149 INFO Created Port Node Class
+2019-02-07 16:20:16,191 INFO Created TestMissions Node Class
+2019-02-07 16:20:16,234 INFO Created RadioGroupRef Node Class
+2019-02-07 16:20:16,265 INFO Created InternalStructure Node Class
+2019-02-07 16:20:16,312 INFO Created Ceiling Node Class
+2019-02-07 16:20:16,359 INFO Created RANConfigurationRef Node Class
+2019-02-07 16:20:16,390 INFO Created TmNSRadio Node Class
+2019-02-07 16:20:16,447 INFO Created TestMission Node Class
+2019-02-07 16:20:16,491 INFO Created TmNSNetworkFabricDevice Node Class
+2019-02-07 16:20:16,535 INFO Created LinkAgent Node Class
+2019-02-07 16:20:16,567 INFO Created Avpkt Node Class
+2019-02-07 16:20:16,631 INFO Created SMInterface Node Class
+2019-02-07 16:20:16,681 INFO Created RadioLinkRef Node Class
+2019-02-07 16:20:16,744 INFO Created TmNSApps Node Class
+2019-02-07 16:20:16,791 INFO Created PhysicalNetworkPortRef Node Class
+2019-02-07 16:20:16,838 INFO Created HTB Node Class
+2019-02-07 16:20:16,922 INFO Created RadioControlLoopDSCPRef Node Class
+2019-02-07 16:20:17,013 INFO Created AssuredCapacity Node Class
+2019-02-07 16:20:17,081 INFO Created Modules Node Class
+2019-02-07 16:20:21,841 INFO Indexed 100 MDL Elements
+2019-02-07 16:20:26,265 INFO Indexed 200 MDL Elements
+2019-02-07 16:20:32,069 INFO Indexed 300 MDL Elements
+2019-02-07 16:20:36,681 INFO Indexed 400 MDL Elements
+2019-02-07 16:20:40,855 INFO Indexed 500 MDL Elements
+2019-02-07 16:20:45,245 INFO Indexed 600 MDL Elements
+2019-02-07 16:20:49,536 INFO Indexed 700 MDL Elements
+2019-02-07 16:20:53,728 INFO Indexed 800 MDL Elements
+2019-02-07 16:20:58,140 INFO Indexed 900 MDL Elements
+2019-02-07 16:21:02,298 INFO Indexed 1000 MDL Elements
+2019-02-07 16:21:06,534 INFO Indexed 1100 MDL Elements
+2019-02-07 16:21:11,129 INFO Indexed 1200 MDL Elements
+2019-02-07 16:21:15,785 INFO Indexed 1300 MDL Elements
+2019-02-07 16:21:21,518 INFO Indexed 1400 MDL Elements
+2019-02-07 16:21:25,884 INFO Indexed 1500 MDL Elements
+2019-02-07 16:21:30,902 INFO Indexed 1600 MDL Elements
+2019-02-07 16:21:35,665 INFO Indexed 1700 MDL Elements
+2019-02-07 16:21:40,008 INFO Indexed 1800 MDL Elements
+2019-02-07 16:21:44,998 INFO Indexed 1900 MDL Elements
+2019-02-07 16:21:45,735 INFO Created Containment Relationship Class
+2019-02-07 16:31:37,360 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:31:37,360 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:31:37,553 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 16:31:37,555 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 16:31:37,555 INFO Scheduling TAs in the following order:
+2019-02-07 16:31:37,555 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:31:37,555 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:31:37,555 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 16:31:37,555 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 16:31:37,555 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 16:31:37,555 INFO MdlId: TA5 selected for scheduling
+2019-02-07 16:31:37,555 INFO MdlId: TA4 selected for scheduling
+2019-02-07 16:31:37,555 INFO MdlId: TA2 selected for scheduling
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 16:31:37,555 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 16:31:37,555 INFO Total value in new schedule is: 125
+2019-02-07 16:31:37,555 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 16:31:37,555 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 16:31:37,555 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:31:38,502 INFO Created Condition Class
+2019-02-07 16:31:38,545 INFO Created Limit Class
+2019-02-07 16:31:38,578 INFO Created Limit_a Class
+2019-02-07 16:31:38,633 INFO Created DSCPTable Class
+2019-02-07 16:31:38,661 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:31:38,708 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:31:38,801 INFO Created RadioLinks Class
+2019-02-07 16:31:38,848 INFO Created TrafficFilter Class
+2019-02-07 16:31:38,895 INFO Created HTB Class
+2019-02-07 16:31:38,939 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:31:38,977 INFO Created TmNSRadio Class
+2019-02-07 16:31:39,024 INFO Created RadioGroup Class
+2019-02-07 16:31:39,059 INFO Created DSCPTableEntry Class
+2019-02-07 16:31:39,106 INFO Created RANConfigurations Class
+2019-02-07 16:31:39,137 INFO Created QueueConstruct Class
+2019-02-07 16:31:39,231 INFO Created TxOp Class
+2019-02-07 16:31:39,278 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:31:39,309 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:31:39,360 INFO Created RadioGroupRef Class
+2019-02-07 16:31:39,405 INFO Created Bandwidth Class
+2019-02-07 16:31:39,447 INFO Created Networks Class
+2019-02-07 16:31:39,491 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:31:39,533 INFO Created Conditions Class
+2019-02-07 16:31:39,573 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:31:39,604 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:31:39,651 INFO Created NetworkInterfaces Class
+2019-02-07 16:31:39,698 INFO Created Module Class
+2019-02-07 16:31:39,747 INFO Created TmNSApps Class
+2019-02-07 16:31:39,777 INFO Created AssuredCapacity Class
+2019-02-07 16:31:39,830 INFO Created TestMissions Class
+2019-02-07 16:31:39,860 INFO Created SNMPVersions Class
+2019-02-07 16:31:39,907 INFO Created RadioGroups Class
+2019-02-07 16:31:39,954 INFO Created Min Class
+2019-02-07 16:31:39,985 INFO Created RadioLinkRef Class
+2019-02-07 16:31:40,032 INFO Created MeasurementDomains Class
+2019-02-07 16:31:40,078 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:31:40,136 INFO Created TrafficFilters Class
+2019-02-07 16:31:40,233 INFO Created ServiceLevelProfile Class
+2019-02-07 16:31:40,275 INFO Created SMInterface Class
+2019-02-07 16:31:40,307 INFO Created RunningAppRefs Class
+2019-02-07 16:31:40,354 INFO Created Max Class
+2019-02-07 16:31:40,400 INFO Created SNMPSetup Class
+2019-02-07 16:31:40,432 INFO Created QDisc Class
+2019-02-07 16:31:40,486 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:31:40,528 INFO Created RANConfigurationRef Class
+2019-02-07 16:31:40,560 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:31:40,611 INFO Created NetworkInterface Class
+2019-02-07 16:31:40,654 INFO Created QoSPolicy Class
+2019-02-07 16:31:40,691 INFO Created RED Class
+2019-02-07 16:31:40,738 INFO Created AveragePacketDelay Class
+2019-02-07 16:31:40,769 INFO Created Class Class
+2019-02-07 16:31:40,816 INFO Created Modules Class
+2019-02-07 16:31:40,863 INFO Created MDLRoot Class
+2019-02-07 16:31:40,894 INFO Created SourceRadioRef Class
+2019-02-07 16:31:40,947 INFO Created QoSPolicies Class
+2019-02-07 16:31:40,977 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:31:41,030 INFO Created Port Class
+2019-02-07 16:31:41,062 INFO Created Ceiling Class
+2019-02-07 16:31:41,109 INFO Created TestMission Class
+2019-02-07 16:31:41,156 INFO Created MeasurementDomain Class
+2019-02-07 16:31:41,218 INFO Created MatchField Class
+2019-02-07 16:31:41,265 INFO Created TransmissionSchedule Class
+2019-02-07 16:31:41,312 INFO Created InternalStructure Class
+2019-02-07 16:31:41,361 INFO Created LinkAgent Class
+2019-02-07 16:31:41,404 INFO Created NetworkDomain Class
+2019-02-07 16:31:41,447 INFO Created RANConfiguration Class
+2019-02-07 16:31:41,490 INFO Created TmNSApp Class
+2019-02-07 16:31:41,532 INFO Created Rate Class
+2019-02-07 16:31:41,573 INFO Created FIFO Class
+2019-02-07 16:31:41,604 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:31:41,651 INFO Created TmNSAppRef Class
+2019-02-07 16:31:41,698 INFO Created Avpkt Class
+2019-02-07 16:31:41,747 INFO Created PortDataRate Class
+2019-02-07 16:31:41,776 INFO Created NetworkNode Class
+2019-02-07 16:31:41,832 INFO Created NetworkNodes Class
+2019-02-07 16:31:41,860 INFO Created Ports Class
+2019-02-07 16:31:41,907 INFO Created Network Class
+2019-02-07 16:31:41,954 INFO Created RadioLinkRefs Class
+2019-02-07 16:31:42,001 INFO Created RadioLink Class
+2019-02-07 16:31:46,353 INFO Indexed 100 MDL Elements
+2019-02-07 16:31:50,660 INFO Indexed 200 MDL Elements
+2019-02-07 16:31:54,993 INFO Indexed 300 MDL Elements
+2019-02-07 16:31:59,107 INFO Indexed 400 MDL Elements
+2019-02-07 16:32:03,279 INFO Indexed 500 MDL Elements
+2019-02-07 16:32:07,461 INFO Indexed 600 MDL Elements
+2019-02-07 16:32:11,668 INFO Indexed 700 MDL Elements
+2019-02-07 16:32:15,876 INFO Indexed 800 MDL Elements
+2019-02-07 16:32:20,095 INFO Indexed 900 MDL Elements
+2019-02-07 16:32:24,291 INFO Indexed 1000 MDL Elements
+2019-02-07 16:32:28,495 INFO Indexed 1100 MDL Elements
+2019-02-07 16:32:32,692 INFO Indexed 1200 MDL Elements
+2019-02-07 16:32:36,864 INFO Indexed 1300 MDL Elements
+2019-02-07 16:32:41,018 INFO Indexed 1400 MDL Elements
+2019-02-07 16:32:45,374 INFO Indexed 1500 MDL Elements
+2019-02-07 16:32:49,627 INFO Indexed 1600 MDL Elements
+2019-02-07 16:32:53,892 INFO Indexed 1700 MDL Elements
+2019-02-07 16:32:58,155 INFO Indexed 1800 MDL Elements
+2019-02-07 16:33:02,386 INFO Indexed 1900 MDL Elements
+2019-02-07 16:33:03,155 INFO Created Containment Relationship Class
+2019-02-07 16:34:34,534 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:34:34,534 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:34:34,709 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.bulk, value: 100, Goal Throughput Voice: bandwidth_type: BandwidthTypes.voice, value: 100, Goal Throughput Safety: bandwidth_type: BandwidthTypes.safety, value: 150, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, Candidate TAs: [<id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65>
+<id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+<id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55>
+<id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40>
+<id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35>
+], Channel: [name: MdlId: Channel_1, timeout: 255, frequency: 4919500000]
+2019-02-07 16:34:34,709 INFO ***************************Optimizing Schedule...**************************
+2019-02-07 16:34:34,709 INFO Scheduling TAs in the following order:
+2019-02-07 16:34:34,709 INFO id_: TA5, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:34:34,709 INFO id_: TA4, total_minimum_bandwidth: Kbps: 15, minimum_voice_bandwidth: 10, minimum_safety_bandwidth: 5, scaling_factor: 1, c: 0.05, utility_threshold: 35
+2019-02-07 16:34:34,709 INFO id_: TA2, total_minimum_bandwidth: Kbps: 40, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 55
+2019-02-07 16:34:34,709 INFO id_: TA3, total_minimum_bandwidth: Kbps: 30, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 15, scaling_factor: 1, c: 0.05, utility_threshold: 40
+2019-02-07 16:34:34,709 INFO id_: TA1, total_minimum_bandwidth: Kbps: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1, c: 0.05, utility_threshold: 65
+2019-02-07 16:34:34,709 INFO MdlId: TA5 selected for scheduling
+2019-02-07 16:34:34,709 INFO MdlId: TA4 selected for scheduling
+2019-02-07 16:34:34,709 INFO MdlId: TA2 selected for scheduling
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 0.0, StopUSec: 8250.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 9250.0, StopUSec: 17500.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: GR1_to_TA5, StartUSec: 50000.0, StopUSec: 58250.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: TA5_to_GR1, StartUSec: 59250.0, StopUSec: 67500.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 18500.0, StopUSec: 22250.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 23250.0, StopUSec: 27000.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: GR1_to_TA4, StartUSec: 68500.0, StopUSec: 72250.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: TA4_to_GR1, StartUSec: 73250.0, StopUSec: 77000.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 28000.0, StopUSec: 38000.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 39000.0, StopUSec: 49000.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: GR1_to_TA2, StartUSec: 78000.0, StopUSec: 88000.0
+2019-02-07 16:34:34,709 INFO Adding TxOp node: ID: TA2_to_GR1, StartUSec: 89000.0, StopUSec: 99000.0
+2019-02-07 16:34:34,709 INFO Total value in new schedule is: 125
+2019-02-07 16:34:34,709 INFO ***************************Processing Bandwidth...*************************
+2019-02-07 16:34:34,709 INFO [('GR1_to_TA5_SLP_1_20', 50000), ('TA5_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA5_SLP_1_301', 75000), ('TA5_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA5_SLP_1_40', 50000), ('TA5_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA4_SLP_1_20', 50000), ('TA4_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA4_SLP_1_301', 75000), ('TA4_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA4_SLP_1_40', 50000), ('TA4_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA2_SLP_1_20', 50000), ('TA2_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA2_SLP_1_301', 75000), ('TA2_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA2_SLP_1_40', 50000), ('TA2_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA3_SLP_1_20', 50000), ('TA3_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA3_SLP_1_301', 75000), ('TA3_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA3_SLP_1_40', 50000), ('TA3_to_GndGrp1_SLP_1_40', 50000), ('GR1_to_TA1_SLP_1_20', 50000), ('TA1_to_GndGrp1_SLP_1_20', 50000), ('GR1_to_TA1_SLP_1_301', 75000), ('TA1_to_GndGrp1_SLP_1_301', 75000), ('GR1_to_TA1_SLP_1_40', 50000), ('TA1_to_GndGrp1_SLP_1_40', 50000)]
+2019-02-07 16:34:34,709 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:34:35,637 INFO Created SNMPSetup Class
+2019-02-07 16:34:35,684 INFO Created DSCPTable Class
+2019-02-07 16:34:35,735 INFO Created TmNSApps Class
+2019-02-07 16:34:35,777 INFO Created Networks Class
+2019-02-07 16:34:35,827 INFO Created Min Class
+2019-02-07 16:34:35,862 INFO Created SNMPVersions Class
+2019-02-07 16:34:35,909 INFO Created NetworkNode Class
+2019-02-07 16:34:35,955 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:34:36,002 INFO Created Bandwidth Class
+2019-02-07 16:34:36,034 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:34:36,080 INFO Created Port Class
+2019-02-07 16:34:36,131 INFO Created RED Class
+2019-02-07 16:34:36,163 INFO Created ServiceLevelProfile Class
+2019-02-07 16:34:36,218 INFO Created SourceRadioRef Class
+2019-02-07 16:34:36,278 INFO Created InternalStructure Class
+2019-02-07 16:34:36,325 INFO Created Max Class
+2019-02-07 16:34:36,372 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:34:36,419 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:34:36,469 INFO Created RadioLinkRefs Class
+2019-02-07 16:34:36,512 INFO Created SMInterface Class
+2019-02-07 16:34:36,554 INFO Created RadioGroup Class
+2019-02-07 16:34:36,597 INFO Created TmNSRadio Class
+2019-02-07 16:34:36,639 INFO Created TestMissions Class
+2019-02-07 16:34:36,678 INFO Created QoSPolicy Class
+2019-02-07 16:34:36,725 INFO Created QueueConstruct Class
+2019-02-07 16:34:36,756 INFO Created MDLRoot Class
+2019-02-07 16:34:36,803 INFO Created Avpkt Class
+2019-02-07 16:34:36,850 INFO Created Network Class
+2019-02-07 16:34:36,897 INFO Created DSCPTableEntry Class
+2019-02-07 16:34:36,941 INFO Created RANConfigurations Class
+2019-02-07 16:34:36,978 INFO Created Conditions Class
+2019-02-07 16:34:37,026 INFO Created Limit Class
+2019-02-07 16:34:37,062 INFO Created Limit_a Class
+2019-02-07 16:34:37,109 INFO Created AssuredCapacity Class
+2019-02-07 16:34:37,140 INFO Created QoSPolicies Class
+2019-02-07 16:34:37,187 INFO Created TrafficFilters Class
+2019-02-07 16:34:37,234 INFO Created NetworkDomain Class
+2019-02-07 16:34:37,331 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:34:37,362 INFO Created RadioLinkRef Class
+2019-02-07 16:34:37,423 INFO Created FIFO Class
+2019-02-07 16:34:37,473 INFO Created TxOp Class
+2019-02-07 16:34:37,515 INFO Created Class Class
+2019-02-07 16:34:37,543 INFO Created AveragePacketDelay Class
+2019-02-07 16:34:37,590 INFO Created TrafficFilter Class
+2019-02-07 16:34:37,637 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:34:37,683 INFO Created NetworkInterfaces Class
+2019-02-07 16:34:37,715 INFO Created MeasurementDomain Class
+2019-02-07 16:34:37,762 INFO Created Condition Class
+2019-02-07 16:34:37,809 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:34:37,855 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:34:37,893 INFO Created RadioLink Class
+2019-02-07 16:34:37,940 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:34:37,971 INFO Created QDisc Class
+2019-02-07 16:34:38,018 INFO Created HTB Class
+2019-02-07 16:34:38,065 INFO Created RANConfigurationRef Class
+2019-02-07 16:34:38,096 INFO Created Module Class
+2019-02-07 16:34:38,150 INFO Created NetworkNodes Class
+2019-02-07 16:34:38,178 INFO Created MeasurementDomains Class
+2019-02-07 16:34:38,233 INFO Created RadioLinks Class
+2019-02-07 16:34:38,278 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:34:38,340 INFO Created TransmissionSchedule Class
+2019-02-07 16:34:38,387 INFO Created TestMission Class
+2019-02-07 16:34:38,418 INFO Created Rate Class
+2019-02-07 16:34:38,473 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:34:38,515 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:34:38,577 INFO Created TmNSApp Class
+2019-02-07 16:34:38,620 INFO Created MatchField Class
+2019-02-07 16:34:38,662 INFO Created Ceiling Class
+2019-02-07 16:34:38,694 INFO Created Ports Class
+2019-02-07 16:34:38,740 INFO Created NetworkInterface Class
+2019-02-07 16:34:38,834 INFO Created Modules Class
+2019-02-07 16:34:38,865 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:34:38,912 INFO Created LinkAgent Class
+2019-02-07 16:34:38,962 INFO Created PortDataRate Class
+2019-02-07 16:34:39,009 INFO Created RANConfiguration Class
+2019-02-07 16:34:39,051 INFO Created RunningAppRefs Class
+2019-02-07 16:34:39,093 INFO Created TmNSAppRef Class
+2019-02-07 16:34:39,140 INFO Created RadioGroupRef Class
+2019-02-07 16:34:39,172 INFO Created RadioGroups Class
+2019-02-07 16:34:43,412 INFO Indexed 100 MDL Elements
+2019-02-07 16:34:47,739 INFO Indexed 200 MDL Elements
+2019-02-07 16:34:51,957 INFO Indexed 300 MDL Elements
+2019-02-07 16:34:56,204 INFO Indexed 400 MDL Elements
+2019-02-07 16:35:00,454 INFO Indexed 500 MDL Elements
+2019-02-07 16:35:04,652 INFO Indexed 600 MDL Elements
+2019-02-07 16:35:09,061 INFO Indexed 700 MDL Elements
+2019-02-07 16:35:13,411 INFO Indexed 800 MDL Elements
+2019-02-07 16:35:17,716 INFO Indexed 900 MDL Elements
+2019-02-07 16:35:22,113 INFO Indexed 1000 MDL Elements
+2019-02-07 16:35:26,435 INFO Indexed 1100 MDL Elements
+2019-02-07 16:35:30,607 INFO Indexed 1200 MDL Elements
+2019-02-07 16:35:34,833 INFO Indexed 1300 MDL Elements
+2019-02-07 16:35:39,061 INFO Indexed 1400 MDL Elements
+2019-02-07 16:35:43,355 INFO Indexed 1500 MDL Elements
+2019-02-07 16:35:47,510 INFO Indexed 1600 MDL Elements
+2019-02-07 16:35:51,750 INFO Indexed 1700 MDL Elements
+2019-02-07 16:35:55,910 INFO Indexed 1800 MDL Elements
+2019-02-07 16:36:00,324 INFO Indexed 1900 MDL Elements
+2019-02-07 16:36:01,061 INFO Created Containment Relationship Class
+2019-02-07 16:37:02,462 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:37:02,463 INFO ***************************Retrieving Constraints...***********************
+2019-02-07 16:37:37,825 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:37:37,825 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:37:41,625 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:37:41,656 INFO Created RunningAppRefs Class
+2019-02-07 16:37:41,672 INFO Created Min Class
+2019-02-07 16:37:41,703 INFO Created TrafficFilters Class
+2019-02-07 16:37:41,740 INFO Created SNMPVersions Class
+2019-02-07 16:37:41,762 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:37:41,784 INFO Created AssuredCapacity Class
+2019-02-07 16:37:41,817 INFO Created RANConfigurationRef Class
+2019-02-07 16:37:41,838 INFO Created LinkAgent Class
+2019-02-07 16:37:41,858 INFO Created RadioLinkRefs Class
+2019-02-07 16:37:41,867 INFO Created InternalStructure Class
+2019-02-07 16:37:41,898 INFO Created MDLRoot Class
+2019-02-07 16:37:41,947 INFO Created TmNSRadio Class
+2019-02-07 16:37:41,965 INFO Created MatchField Class
+2019-02-07 16:37:41,997 INFO Created RadioLinkRef Class
+2019-02-07 16:37:42,043 INFO Created Conditions Class
+2019-02-07 16:37:42,106 INFO Created Ceiling Class
+2019-02-07 16:37:42,261 INFO Created QoSPolicy Class
+2019-02-07 16:37:42,277 INFO Created TmNSAppRef Class
+2019-02-07 16:37:42,292 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:37:42,323 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:37:42,355 INFO Created Networks Class
+2019-02-07 16:37:42,370 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:37:42,402 INFO Created AveragePacketDelay Class
+2019-02-07 16:37:42,526 INFO Created Avpkt Class
+2019-02-07 16:37:42,553 INFO Created HTB Class
+2019-02-07 16:37:42,578 INFO Created MeasurementDomain Class
+2019-02-07 16:37:42,606 INFO Created Max Class
+2019-02-07 16:37:42,705 INFO Created TxOp Class
+2019-02-07 16:37:42,785 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:37:42,810 INFO Created PortDataRate Class
+2019-02-07 16:37:42,835 INFO Created QDisc Class
+2019-02-07 16:37:42,859 INFO Created NetworkInterface Class
+2019-02-07 16:37:42,878 INFO Created TestMissions Class
+2019-02-07 16:37:42,894 INFO Created FIFO Class
+2019-02-07 16:37:42,925 INFO Created Modules Class
+2019-02-07 16:37:42,953 INFO Created DSCPTable Class
+2019-02-07 16:37:42,961 INFO Created RadioLinks Class
+2019-02-07 16:37:43,002 INFO Created Port Class
+2019-02-07 16:37:43,026 INFO Created QoSPolicies Class
+2019-02-07 16:37:43,052 INFO Created Ports Class
+2019-02-07 16:37:43,077 INFO Created Module Class
+2019-02-07 16:37:43,092 INFO Created SNMPSetup Class
+2019-02-07 16:37:43,124 INFO Created MeasurementDomains Class
+2019-02-07 16:37:43,139 INFO Created DSCPTableEntry Class
+2019-02-07 16:37:43,170 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:37:43,186 INFO Created SMInterface Class
+2019-02-07 16:37:43,217 INFO Created NetworkNodes Class
+2019-02-07 16:37:43,264 INFO Created TrafficFilter Class
+2019-02-07 16:37:43,280 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:37:43,311 INFO Created RadioGroup Class
+2019-02-07 16:37:43,342 INFO Created RANConfiguration Class
+2019-02-07 16:37:43,362 INFO Created Class Class
+2019-02-07 16:37:43,388 INFO Created RadioLink Class
+2019-02-07 16:37:43,411 INFO Created NetworkDomain Class
+2019-02-07 16:37:43,437 INFO Created Bandwidth Class
+2019-02-07 16:37:43,464 INFO Created TransmissionSchedule Class
+2019-02-07 16:37:43,490 INFO Created Condition Class
+2019-02-07 16:37:43,522 INFO Created ServiceLevelProfile Class
+2019-02-07 16:37:43,543 INFO Created RadioGroups Class
+2019-02-07 16:37:43,559 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:37:43,621 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:37:43,637 INFO Created RED Class
+2019-02-07 16:37:43,668 INFO Created Limit Class
+2019-02-07 16:37:43,668 INFO Created Limit_a Class
+2019-02-07 16:37:43,699 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:37:43,715 INFO Created RadioGroupRef Class
+2019-02-07 16:37:43,751 INFO Created Network Class
+2019-02-07 16:37:43,777 INFO Created RANConfigurations Class
+2019-02-07 16:37:43,798 INFO Created TestMission Class
+2019-02-07 16:37:43,822 INFO Created Rate Class
+2019-02-07 16:37:43,848 INFO Created QueueConstruct Class
+2019-02-07 16:37:43,869 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:37:43,885 INFO Created NetworkNode Class
+2019-02-07 16:37:43,916 INFO Created TmNSApps Class
+2019-02-07 16:37:43,932 INFO Created NetworkInterfaces Class
+2019-02-07 16:37:43,963 INFO Created SourceRadioRef Class
+2019-02-07 16:37:43,979 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:37:44,010 INFO Created TmNSApp Class
+2019-02-07 16:37:44,225 INFO Indexed 100 MDL Elements
+2019-02-07 16:37:44,356 INFO Indexed 200 MDL Elements
+2019-02-07 16:37:44,461 INFO Indexed 300 MDL Elements
+2019-02-07 16:37:44,557 INFO Indexed 400 MDL Elements
+2019-02-07 16:37:44,641 INFO Indexed 500 MDL Elements
+2019-02-07 16:37:44,723 INFO Indexed 600 MDL Elements
+2019-02-07 16:37:44,801 INFO Indexed 700 MDL Elements
+2019-02-07 16:37:44,864 INFO Indexed 800 MDL Elements
+2019-02-07 16:37:44,945 INFO Indexed 900 MDL Elements
+2019-02-07 16:37:45,006 INFO Indexed 1000 MDL Elements
+2019-02-07 16:37:45,076 INFO Indexed 1100 MDL Elements
+2019-02-07 16:37:45,154 INFO Indexed 1200 MDL Elements
+2019-02-07 16:37:45,263 INFO Indexed 1300 MDL Elements
+2019-02-07 16:37:45,342 INFO Indexed 1400 MDL Elements
+2019-02-07 16:37:45,417 INFO Indexed 1500 MDL Elements
+2019-02-07 16:37:45,490 INFO Indexed 1600 MDL Elements
+2019-02-07 16:37:45,557 INFO Indexed 1700 MDL Elements
+2019-02-07 16:37:45,635 INFO Indexed 1800 MDL Elements
+2019-02-07 16:37:45,698 INFO Indexed 1900 MDL Elements
+2019-02-07 16:37:45,729 INFO Created Containment Relationship Class
+2019-02-07 16:38:32,879 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:38:32,879 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:38:35,834 INFO Created NetworkDomain Class
+2019-02-07 16:38:35,860 INFO Created Rate Class
+2019-02-07 16:38:35,876 INFO Created RadioGroup Class
+2019-02-07 16:38:35,908 INFO Created MeasurementDomains Class
+2019-02-07 16:38:35,939 INFO Created QoSPolicies Class
+2019-02-07 16:38:35,955 INFO Created Networks Class
+2019-02-07 16:38:35,970 INFO Created MDLRoot Class
+2019-02-07 16:38:36,001 INFO Created TestMissions Class
+2019-02-07 16:38:36,080 INFO Created SMInterface Class
+2019-02-07 16:38:36,095 INFO Created SourceRadioRef Class
+2019-02-07 16:38:36,131 INFO Created NetworkNode Class
+2019-02-07 16:38:36,151 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:38:36,162 INFO Created RANConfigurations Class
+2019-02-07 16:38:36,200 INFO Created ServiceLevelProfile Class
+2019-02-07 16:38:36,221 INFO Created Limit Class
+2019-02-07 16:38:36,224 INFO Created Limit_a Class
+2019-02-07 16:38:36,246 INFO Created DSCPTable Class
+2019-02-07 16:38:36,261 INFO Created Max Class
+2019-02-07 16:38:36,277 INFO Created TransmissionSchedule Class
+2019-02-07 16:38:36,308 INFO Created Bandwidth Class
+2019-02-07 16:38:36,324 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:38:36,355 INFO Created PortDataRate Class
+2019-02-07 16:38:36,386 INFO Created Ceiling Class
+2019-02-07 16:38:36,418 INFO Created TrafficFilter Class
+2019-02-07 16:38:36,433 INFO Created RadioLinkRef Class
+2019-02-07 16:38:36,471 INFO Created Min Class
+2019-02-07 16:38:36,493 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:38:36,548 INFO Created Module Class
+2019-02-07 16:38:36,562 INFO Created TestMission Class
+2019-02-07 16:38:36,595 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:38:36,619 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:38:36,639 INFO Created Network Class
+2019-02-07 16:38:36,661 INFO Created RadioGroups Class
+2019-02-07 16:38:36,677 INFO Created Conditions Class
+2019-02-07 16:38:36,755 INFO Created QueueConstruct Class
+2019-02-07 16:38:36,786 INFO Created RadioLinks Class
+2019-02-07 16:38:36,817 INFO Created NetworkInterfaces Class
+2019-02-07 16:38:36,880 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:38:36,895 INFO Created RANConfiguration Class
+2019-02-07 16:38:36,932 INFO Created AssuredCapacity Class
+2019-02-07 16:38:36,956 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:38:36,976 INFO Created QDisc Class
+2019-02-07 16:38:36,999 INFO Created TxOp Class
+2019-02-07 16:38:37,022 INFO Created TmNSRadio Class
+2019-02-07 16:38:37,048 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:38:37,077 INFO Created RadioLink Class
+2019-02-07 16:38:37,093 INFO Created NetworkNodes Class
+2019-02-07 16:38:37,124 INFO Created DSCPTableEntry Class
+2019-02-07 16:38:37,140 INFO Created Condition Class
+2019-02-07 16:38:37,171 INFO Created RED Class
+2019-02-07 16:38:37,187 INFO Created QoSPolicy Class
+2019-02-07 16:38:37,218 INFO Created RadioGroupRef Class
+2019-02-07 16:38:37,249 INFO Created LinkAgent Class
+2019-02-07 16:38:37,281 INFO Created SNMPSetup Class
+2019-02-07 16:38:37,362 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:38:37,432 INFO Created AveragePacketDelay Class
+2019-02-07 16:38:37,456 INFO Created TmNSApps Class
+2019-02-07 16:38:37,483 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:38:37,507 INFO Created InternalStructure Class
+2019-02-07 16:38:37,536 INFO Created TmNSApp Class
+2019-02-07 16:38:37,557 INFO Created Class Class
+2019-02-07 16:38:37,588 INFO Created MatchField Class
+2019-02-07 16:38:37,604 INFO Created RANConfigurationRef Class
+2019-02-07 16:38:37,635 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:38:37,650 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:38:37,666 INFO Created MeasurementDomain Class
+2019-02-07 16:38:37,697 INFO Created TmNSAppRef Class
+2019-02-07 16:38:37,713 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:38:37,747 INFO Created SNMPVersions Class
+2019-02-07 16:38:37,761 INFO Created Port Class
+2019-02-07 16:38:37,792 INFO Created FIFO Class
+2019-02-07 16:38:37,814 INFO Created TrafficFilters Class
+2019-02-07 16:38:37,840 INFO Created RunningAppRefs Class
+2019-02-07 16:38:37,860 INFO Created Modules Class
+2019-02-07 16:38:37,876 INFO Created HTB Class
+2019-02-07 16:38:37,907 INFO Created Ports Class
+2019-02-07 16:38:37,923 INFO Created Avpkt Class
+2019-02-07 16:38:37,954 INFO Created NetworkInterface Class
+2019-02-07 16:38:37,970 INFO Created RadioLinkRefs Class
+2019-02-07 16:38:38,095 INFO Indexed 100 MDL Elements
+2019-02-07 16:38:38,176 INFO Indexed 200 MDL Elements
+2019-02-07 16:38:38,291 INFO Indexed 300 MDL Elements
+2019-02-07 16:38:38,369 INFO Indexed 400 MDL Elements
+2019-02-07 16:38:38,461 INFO Indexed 500 MDL Elements
+2019-02-07 16:38:38,543 INFO Indexed 600 MDL Elements
+2019-02-07 16:38:38,625 INFO Indexed 700 MDL Elements
+2019-02-07 16:38:38,692 INFO Indexed 800 MDL Elements
+2019-02-07 16:38:38,755 INFO Indexed 900 MDL Elements
+2019-02-07 16:38:38,833 INFO Indexed 1000 MDL Elements
+2019-02-07 16:38:38,896 INFO Indexed 1100 MDL Elements
+2019-02-07 16:38:38,957 INFO Indexed 1200 MDL Elements
+2019-02-07 16:38:39,025 INFO Indexed 1300 MDL Elements
+2019-02-07 16:38:39,076 INFO Indexed 1400 MDL Elements
+2019-02-07 16:38:39,138 INFO Indexed 1500 MDL Elements
+2019-02-07 16:38:39,216 INFO Indexed 1600 MDL Elements
+2019-02-07 16:38:39,279 INFO Indexed 1700 MDL Elements
+2019-02-07 16:38:39,361 INFO Indexed 1800 MDL Elements
+2019-02-07 16:38:39,425 INFO Indexed 1900 MDL Elements
+2019-02-07 16:38:39,437 INFO Created Containment Relationship Class
+2019-02-07 16:38:56,292 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:38:56,292 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:38:59,075 INFO Created MDLRoot Class
+2019-02-07 16:38:59,107 INFO Created NetworkNode Class
+2019-02-07 16:38:59,122 INFO Created LinkAgent Class
+2019-02-07 16:38:59,154 INFO Created DSCPTable Class
+2019-02-07 16:38:59,185 INFO Created Min Class
+2019-02-07 16:38:59,200 INFO Created Bandwidth Class
+2019-02-07 16:38:59,232 INFO Created QoSPolicy Class
+2019-02-07 16:38:59,247 INFO Created Ports Class
+2019-02-07 16:38:59,279 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:38:59,294 INFO Created Avpkt Class
+2019-02-07 16:38:59,339 INFO Created SMInterface Class
+2019-02-07 16:38:59,362 INFO Created Port Class
+2019-02-07 16:38:59,385 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:38:59,406 INFO Created Modules Class
+2019-02-07 16:38:59,430 INFO Created NetworkInterface Class
+2019-02-07 16:38:59,495 INFO Created Max Class
+2019-02-07 16:38:59,518 INFO Created SNMPVersions Class
+2019-02-07 16:38:59,540 INFO Created RadioGroup Class
+2019-02-07 16:38:59,557 INFO Created Condition Class
+2019-02-07 16:38:59,573 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:38:59,604 INFO Created NetworkNodes Class
+2019-02-07 16:38:59,620 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:38:59,651 INFO Created TmNSApps Class
+2019-02-07 16:38:59,667 INFO Created RadioGroupRef Class
+2019-02-07 16:38:59,682 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:38:59,713 INFO Created ServiceLevelProfile Class
+2019-02-07 16:38:59,749 INFO Created RED Class
+2019-02-07 16:38:59,761 INFO Created Conditions Class
+2019-02-07 16:38:59,795 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:38:59,821 INFO Created Rate Class
+2019-02-07 16:38:59,847 INFO Created TrafficFilters Class
+2019-02-07 16:38:59,876 INFO Created RANConfigurationRef Class
+2019-02-07 16:38:59,907 INFO Created NetworkInterfaces Class
+2019-02-07 16:38:59,923 INFO Created MatchField Class
+2019-02-07 16:38:59,954 INFO Created RadioLinkRef Class
+2019-02-07 16:38:59,985 INFO Created TmNSRadio Class
+2019-02-07 16:39:00,001 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:39:00,016 INFO Created SNMPSetup Class
+2019-02-07 16:39:00,048 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:39:00,079 INFO Created TmNSApp Class
+2019-02-07 16:39:00,095 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:39:00,126 INFO Created TrafficFilter Class
+2019-02-07 16:39:00,150 INFO Created TestMission Class
+2019-02-07 16:39:00,161 INFO Created SourceRadioRef Class
+2019-02-07 16:39:00,201 INFO Created TxOp Class
+2019-02-07 16:39:00,225 INFO Created Ceiling Class
+2019-02-07 16:39:00,291 INFO Created RANConfigurations Class
+2019-02-07 16:39:00,322 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:39:00,338 INFO Created Module Class
+2019-02-07 16:39:00,369 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:39:00,385 INFO Created DSCPTableEntry Class
+2019-02-07 16:39:00,416 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:39:00,449 INFO Created HTB Class
+2019-02-07 16:39:00,474 INFO Created InternalStructure Class
+2019-02-07 16:39:00,500 INFO Created QueueConstruct Class
+2019-02-07 16:39:00,528 INFO Created QoSPolicies Class
+2019-02-07 16:39:00,552 INFO Created RadioLink Class
+2019-02-07 16:39:00,561 INFO Created AssuredCapacity Class
+2019-02-07 16:39:00,602 INFO Created RadioGroups Class
+2019-02-07 16:39:00,624 INFO Created RANConfiguration Class
+2019-02-07 16:39:00,650 INFO Created FIFO Class
+2019-02-07 16:39:00,676 INFO Created RadioLinkRefs Class
+2019-02-07 16:39:00,692 INFO Created MeasurementDomains Class
+2019-02-07 16:39:00,723 INFO Created RunningAppRefs Class
+2019-02-07 16:39:00,739 INFO Created Class Class
+2019-02-07 16:39:00,785 INFO Created AveragePacketDelay Class
+2019-02-07 16:39:00,801 INFO Created NetworkDomain Class
+2019-02-07 16:39:00,832 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:39:00,848 INFO Created QDisc Class
+2019-02-07 16:39:00,879 INFO Created TestMissions Class
+2019-02-07 16:39:00,895 INFO Created Network Class
+2019-02-07 16:39:00,933 INFO Created PortDataRate Class
+2019-02-07 16:39:00,956 INFO Created TransmissionSchedule Class
+2019-02-07 16:39:00,976 INFO Created TmNSAppRef Class
+2019-02-07 16:39:01,015 INFO Created MeasurementDomain Class
+2019-02-07 16:39:01,039 INFO Created RadioLinks Class
+2019-02-07 16:39:01,061 INFO Created Limit Class
+2019-02-07 16:39:01,061 INFO Created Limit_a Class
+2019-02-07 16:39:01,093 INFO Created Networks Class
+2019-02-07 16:39:01,171 INFO Indexed 100 MDL Elements
+2019-02-07 16:39:01,233 INFO Indexed 200 MDL Elements
+2019-02-07 16:39:01,296 INFO Indexed 300 MDL Elements
+2019-02-07 16:39:01,360 INFO Indexed 400 MDL Elements
+2019-02-07 16:39:01,426 INFO Indexed 500 MDL Elements
+2019-02-07 16:39:01,512 INFO Indexed 600 MDL Elements
+2019-02-07 16:39:01,572 INFO Indexed 700 MDL Elements
+2019-02-07 16:39:01,619 INFO Indexed 800 MDL Elements
+2019-02-07 16:39:01,697 INFO Indexed 900 MDL Elements
+2019-02-07 16:39:01,761 INFO Indexed 1000 MDL Elements
+2019-02-07 16:39:01,849 INFO Indexed 1100 MDL Elements
+2019-02-07 16:39:01,907 INFO Indexed 1200 MDL Elements
+2019-02-07 16:39:01,985 INFO Indexed 1300 MDL Elements
+2019-02-07 16:39:02,032 INFO Indexed 1400 MDL Elements
+2019-02-07 16:39:02,094 INFO Indexed 1500 MDL Elements
+2019-02-07 16:39:02,158 INFO Indexed 1600 MDL Elements
+2019-02-07 16:39:02,224 INFO Indexed 1700 MDL Elements
+2019-02-07 16:39:02,277 INFO Indexed 1800 MDL Elements
+2019-02-07 16:39:02,339 INFO Indexed 1900 MDL Elements
+2019-02-07 16:39:02,355 INFO Created Containment Relationship Class
+2019-02-07 16:39:24,307 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:39:24,307 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:39:27,279 INFO Created NetworkNodes Class
+2019-02-07 16:39:27,294 INFO Created QoSPolicy Class
+2019-02-07 16:39:27,331 INFO Created Port Class
+2019-02-07 16:39:27,351 INFO Created NetworkNode Class
+2019-02-07 16:39:27,360 INFO Created PortDataRate Class
+2019-02-07 16:39:27,376 INFO Created HTB Class
+2019-02-07 16:39:27,412 INFO Created MeasurementDomain Class
+2019-02-07 16:39:27,432 INFO Created NetworkInterfaces Class
+2019-02-07 16:39:27,452 INFO Created QueueConstruct Class
+2019-02-07 16:39:27,474 INFO Created RadioLinkRefs Class
+2019-02-07 16:39:27,495 INFO Created LinkAgent Class
+2019-02-07 16:39:27,515 INFO Created Network Class
+2019-02-07 16:39:27,536 INFO Created Bandwidth Class
+2019-02-07 16:39:27,541 INFO Created Conditions Class
+2019-02-07 16:39:27,572 INFO Created TmNSApps Class
+2019-02-07 16:39:27,588 INFO Created TmNSAppRef Class
+2019-02-07 16:39:27,604 INFO Created InternalStructure Class
+2019-02-07 16:39:27,635 INFO Created SourceRadioRef Class
+2019-02-07 16:39:27,651 INFO Created RANConfigurationRef Class
+2019-02-07 16:39:27,697 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:39:27,713 INFO Created RadioLinks Class
+2019-02-07 16:39:27,748 INFO Created AveragePacketDelay Class
+2019-02-07 16:39:27,760 INFO Created Max Class
+2019-02-07 16:39:27,799 INFO Created RANConfiguration Class
+2019-02-07 16:39:27,825 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:39:27,852 INFO Created RadioGroupRef Class
+2019-02-07 16:39:27,877 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:39:27,940 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:39:28,049 INFO Created TmNSRadio Class
+2019-02-07 16:39:28,160 INFO Created QoSPolicies Class
+2019-02-07 16:39:28,198 INFO Created TestMissions Class
+2019-02-07 16:39:28,220 INFO Created TrafficFilters Class
+2019-02-07 16:39:28,246 INFO Created Condition Class
+2019-02-07 16:39:28,260 INFO Created SMInterface Class
+2019-02-07 16:39:28,276 INFO Created RadioGroup Class
+2019-02-07 16:39:28,307 INFO Created TestMission Class
+2019-02-07 16:39:28,338 INFO Created RunningAppRefs Class
+2019-02-07 16:39:28,369 INFO Created MatchField Class
+2019-02-07 16:39:28,385 INFO Created RadioGroups Class
+2019-02-07 16:39:28,401 INFO Created AssuredCapacity Class
+2019-02-07 16:39:28,432 INFO Created ServiceLevelProfile Class
+2019-02-07 16:39:28,458 INFO Created Limit Class
+2019-02-07 16:39:28,461 INFO Created Limit_a Class
+2019-02-07 16:39:28,486 INFO Created NetworkInterface Class
+2019-02-07 16:39:28,508 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:39:28,534 INFO Created RED Class
+2019-02-07 16:39:28,558 INFO Created QDisc Class
+2019-02-07 16:39:28,576 INFO Created Avpkt Class
+2019-02-07 16:39:28,606 INFO Created Class Class
+2019-02-07 16:39:28,629 INFO Created NetworkDomain Class
+2019-02-07 16:39:28,656 INFO Created RANConfigurations Class
+2019-02-07 16:39:28,722 INFO Created Modules Class
+2019-02-07 16:39:28,754 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:39:28,769 INFO Created Ceiling Class
+2019-02-07 16:39:28,801 INFO Created Rate Class
+2019-02-07 16:39:28,832 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:39:28,847 INFO Created TransmissionSchedule Class
+2019-02-07 16:39:28,879 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:39:28,894 INFO Created Networks Class
+2019-02-07 16:39:28,933 INFO Created MDLRoot Class
+2019-02-07 16:39:28,955 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:39:28,976 INFO Created TxOp Class
+2019-02-07 16:39:29,006 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:39:29,032 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:39:29,055 INFO Created FIFO Class
+2019-02-07 16:39:29,076 INFO Created RadioLink Class
+2019-02-07 16:39:29,091 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:39:29,123 INFO Created MeasurementDomains Class
+2019-02-07 16:39:29,138 INFO Created TrafficFilter Class
+2019-02-07 16:39:29,169 INFO Created TmNSApp Class
+2019-02-07 16:39:29,185 INFO Created Module Class
+2019-02-07 16:39:29,216 INFO Created Ports Class
+2019-02-07 16:39:29,232 INFO Created SNMPVersions Class
+2019-02-07 16:39:29,248 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:39:29,279 INFO Created DSCPTableEntry Class
+2019-02-07 16:39:29,294 INFO Created RadioLinkRef Class
+2019-02-07 16:39:29,334 INFO Created Min Class
+2019-02-07 16:39:29,360 INFO Created DSCPTable Class
+2019-02-07 16:39:29,409 INFO Created SNMPSetup Class
+2019-02-07 16:39:29,507 INFO Indexed 100 MDL Elements
+2019-02-07 16:39:29,558 INFO Indexed 200 MDL Elements
+2019-02-07 16:39:29,621 INFO Indexed 300 MDL Elements
+2019-02-07 16:39:29,683 INFO Indexed 400 MDL Elements
+2019-02-07 16:39:29,744 INFO Indexed 500 MDL Elements
+2019-02-07 16:39:29,806 INFO Indexed 600 MDL Elements
+2019-02-07 16:39:29,862 INFO Indexed 700 MDL Elements
+2019-02-07 16:39:29,940 INFO Indexed 800 MDL Elements
+2019-02-07 16:39:30,018 INFO Indexed 900 MDL Elements
+2019-02-07 16:39:30,080 INFO Indexed 1000 MDL Elements
+2019-02-07 16:39:30,129 INFO Indexed 1100 MDL Elements
+2019-02-07 16:39:30,176 INFO Indexed 1200 MDL Elements
+2019-02-07 16:39:30,250 INFO Indexed 1300 MDL Elements
+2019-02-07 16:39:30,292 INFO Indexed 1400 MDL Elements
+2019-02-07 16:39:30,355 INFO Indexed 1500 MDL Elements
+2019-02-07 16:39:30,417 INFO Indexed 1600 MDL Elements
+2019-02-07 16:39:30,494 INFO Indexed 1700 MDL Elements
+2019-02-07 16:39:30,557 INFO Indexed 1800 MDL Elements
+2019-02-07 16:39:30,616 INFO Indexed 1900 MDL Elements
+2019-02-07 16:39:30,629 INFO Created Containment Relationship Class
+2019-02-07 16:39:50,657 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:39:50,657 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:39:55,138 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:39:55,138 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:39:57,232 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:39:57,263 INFO Created Limit Class
+2019-02-07 16:39:57,263 INFO Created Limit_a Class
+2019-02-07 16:39:57,294 INFO Created Min Class
+2019-02-07 16:39:57,310 INFO Created PortDataRate Class
+2019-02-07 16:39:57,346 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:39:57,359 INFO Created SourceRadioRef Class
+2019-02-07 16:39:57,375 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:39:57,407 INFO Created MeasurementDomain Class
+2019-02-07 16:39:57,427 INFO Created NetworkInterfaces Class
+2019-02-07 16:39:57,448 INFO Created SNMPSetup Class
+2019-02-07 16:39:57,468 INFO Created RadioGroups Class
+2019-02-07 16:39:57,489 INFO Created RANConfigurations Class
+2019-02-07 16:39:57,510 INFO Created Rate Class
+2019-02-07 16:39:57,530 INFO Created TrafficFilter Class
+2019-02-07 16:39:57,549 INFO Created Avpkt Class
+2019-02-07 16:39:57,564 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:39:57,580 INFO Created TestMission Class
+2019-02-07 16:39:57,611 INFO Created TmNSRadio Class
+2019-02-07 16:39:57,627 INFO Created TmNSApps Class
+2019-02-07 16:39:57,658 INFO Created TmNSAppRef Class
+2019-02-07 16:39:57,674 INFO Created Networks Class
+2019-02-07 16:39:57,705 INFO Created NetworkNodes Class
+2019-02-07 16:39:57,737 INFO Created NetworkDomain Class
+2019-02-07 16:39:57,761 INFO Created TxOp Class
+2019-02-07 16:39:57,785 INFO Created Module Class
+2019-02-07 16:39:57,815 INFO Created RunningAppRefs Class
+2019-02-07 16:39:57,839 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:39:57,860 INFO Created SNMPVersions Class
+2019-02-07 16:39:57,875 INFO Created RadioLinkRef Class
+2019-02-07 16:39:57,907 INFO Created AssuredCapacity Class
+2019-02-07 16:39:57,922 INFO Created NetworkInterface Class
+2019-02-07 16:39:57,938 INFO Created DSCPTableEntry Class
+2019-02-07 16:39:57,969 INFO Created MDLRoot Class
+2019-02-07 16:39:57,985 INFO Created RadioLinks Class
+2019-02-07 16:39:58,016 INFO Created QDisc Class
+2019-02-07 16:39:58,032 INFO Created HTB Class
+2019-02-07 16:39:58,063 INFO Created TransmissionSchedule Class
+2019-02-07 16:39:58,078 INFO Created SMInterface Class
+2019-02-07 16:39:58,110 INFO Created Condition Class
+2019-02-07 16:39:58,139 INFO Created InternalStructure Class
+2019-02-07 16:39:58,160 INFO Created TrafficFilters Class
+2019-02-07 16:39:58,176 INFO Created Network Class
+2019-02-07 16:39:58,208 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:39:58,232 INFO Created MatchField Class
+2019-02-07 16:39:58,255 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:39:58,276 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:39:58,291 INFO Created RANConfiguration Class
+2019-02-07 16:39:58,322 INFO Created FIFO Class
+2019-02-07 16:39:58,338 INFO Created RadioGroup Class
+2019-02-07 16:39:58,370 INFO Created Ports Class
+2019-02-07 16:39:58,385 INFO Created QoSPolicy Class
+2019-02-07 16:39:58,401 INFO Created Modules Class
+2019-02-07 16:39:58,432 INFO Created RadioLinkRefs Class
+2019-02-07 16:39:58,461 INFO Created LinkAgent Class
+2019-02-07 16:39:58,603 INFO Created Class Class
+2019-02-07 16:39:58,626 INFO Created Ceiling Class
+2019-02-07 16:39:58,651 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:39:58,707 INFO Created DSCPTable Class
+2019-02-07 16:39:58,738 INFO Created RadioLink Class
+2019-02-07 16:39:58,754 INFO Created Max Class
+2019-02-07 16:39:58,785 INFO Created MeasurementDomains Class
+2019-02-07 16:39:58,800 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:39:58,832 INFO Created TmNSApp Class
+2019-02-07 16:39:58,847 INFO Created RadioGroupRef Class
+2019-02-07 16:39:58,879 INFO Created Bandwidth Class
+2019-02-07 16:39:58,927 INFO Created QoSPolicies Class
+2019-02-07 16:39:58,953 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:39:58,961 INFO Created RED Class
+2019-02-07 16:39:58,999 INFO Created TestMissions Class
+2019-02-07 16:39:59,026 INFO Created Port Class
+2019-02-07 16:39:59,050 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:39:59,060 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:39:59,091 INFO Created QueueConstruct Class
+2019-02-07 16:39:59,107 INFO Created RANConfigurationRef Class
+2019-02-07 16:39:59,138 INFO Created NetworkNode Class
+2019-02-07 16:39:59,154 INFO Created AveragePacketDelay Class
+2019-02-07 16:39:59,201 INFO Created ServiceLevelProfile Class
+2019-02-07 16:39:59,216 INFO Created Conditions Class
+2019-02-07 16:39:59,310 INFO Indexed 100 MDL Elements
+2019-02-07 16:39:59,376 INFO Indexed 200 MDL Elements
+2019-02-07 16:39:59,442 INFO Indexed 300 MDL Elements
+2019-02-07 16:39:59,500 INFO Indexed 400 MDL Elements
+2019-02-07 16:39:59,558 INFO Indexed 500 MDL Elements
+2019-02-07 16:39:59,605 INFO Indexed 600 MDL Elements
+2019-02-07 16:39:59,651 INFO Indexed 700 MDL Elements
+2019-02-07 16:39:59,714 INFO Indexed 800 MDL Elements
+2019-02-07 16:39:59,775 INFO Indexed 900 MDL Elements
+2019-02-07 16:39:59,838 INFO Indexed 1000 MDL Elements
+2019-02-07 16:39:59,893 INFO Indexed 1100 MDL Elements
+2019-02-07 16:39:59,940 INFO Indexed 1200 MDL Elements
+2019-02-07 16:39:59,986 INFO Indexed 1300 MDL Elements
+2019-02-07 16:40:00,049 INFO Indexed 1400 MDL Elements
+2019-02-07 16:40:00,111 INFO Indexed 1500 MDL Elements
+2019-02-07 16:40:00,160 INFO Indexed 1600 MDL Elements
+2019-02-07 16:40:00,230 INFO Indexed 1700 MDL Elements
+2019-02-07 16:40:00,291 INFO Indexed 1800 MDL Elements
+2019-02-07 16:40:00,338 INFO Indexed 1900 MDL Elements
+2019-02-07 16:40:00,353 INFO Created Containment Relationship Class
+2019-02-07 16:40:00,385 INFO Connecting RadioLinkRefs-0 to RadioLinkRef-0
+2019-02-07 16:41:33,875 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:41:33,875 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:41:36,400 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:41:36,454 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:41:36,472 INFO Created Avpkt Class
+2019-02-07 16:41:36,497 INFO Created AssuredCapacity Class
+2019-02-07 16:41:36,514 INFO Created Rate Class
+2019-02-07 16:41:36,533 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:41:36,555 INFO Created QDisc Class
+2019-02-07 16:41:36,560 INFO Created FIFO Class
+2019-02-07 16:41:36,594 INFO Created TestMissions Class
+2019-02-07 16:41:36,619 INFO Created DSCPTable Class
+2019-02-07 16:41:36,637 INFO Created TmNSApps Class
+2019-02-07 16:41:36,656 INFO Created Networks Class
+2019-02-07 16:41:36,676 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:41:36,691 INFO Created TrafficFilters Class
+2019-02-07 16:41:36,707 INFO Created TmNSAppRef Class
+2019-02-07 16:41:36,738 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:41:36,754 INFO Created RadioLinkRefs Class
+2019-02-07 16:41:36,770 INFO Created Conditions Class
+2019-02-07 16:41:36,785 INFO Created PortDataRate Class
+2019-02-07 16:41:36,817 INFO Created NetworkInterface Class
+2019-02-07 16:41:36,832 INFO Created HTB Class
+2019-02-07 16:41:36,848 INFO Created RANConfigurationRef Class
+2019-02-07 16:41:36,879 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:41:36,895 INFO Created TransmissionSchedule Class
+2019-02-07 16:41:36,910 INFO Created SMInterface Class
+2019-02-07 16:41:36,944 INFO Created SourceRadioRef Class
+2019-02-07 16:41:36,959 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:41:36,975 INFO Created Max Class
+2019-02-07 16:41:36,998 INFO Created RANConfiguration Class
+2019-02-07 16:41:37,038 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:41:37,060 INFO Created NetworkInterfaces Class
+2019-02-07 16:41:37,075 INFO Created MeasurementDomains Class
+2019-02-07 16:41:37,091 INFO Created Ports Class
+2019-02-07 16:41:37,122 INFO Created NetworkNode Class
+2019-02-07 16:41:37,138 INFO Created MatchField Class
+2019-02-07 16:41:37,169 INFO Created Ceiling Class
+2019-02-07 16:41:37,185 INFO Created NetworkNodes Class
+2019-02-07 16:41:37,201 INFO Created AveragePacketDelay Class
+2019-02-07 16:41:37,232 INFO Created NetworkDomain Class
+2019-02-07 16:41:37,247 INFO Created ServiceLevelProfile Class
+2019-02-07 16:41:37,263 INFO Created RadioGroup Class
+2019-02-07 16:41:37,279 INFO Created DSCPTableEntry Class
+2019-02-07 16:41:37,310 INFO Created MDLRoot Class
+2019-02-07 16:41:37,333 INFO Created QueueConstruct Class
+2019-02-07 16:41:37,356 INFO Created RadioLinks Class
+2019-02-07 16:41:37,376 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:41:37,404 INFO Created TxOp Class
+2019-02-07 16:41:37,451 INFO Created RunningAppRefs Class
+2019-02-07 16:41:37,479 INFO Created Min Class
+2019-02-07 16:41:37,499 INFO Created Port Class
+2019-02-07 16:41:37,521 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:41:37,541 INFO Created RANConfigurations Class
+2019-02-07 16:41:37,556 INFO Created TestMission Class
+2019-02-07 16:41:37,588 INFO Created Modules Class
+2019-02-07 16:41:37,619 INFO Created Limit Class
+2019-02-07 16:41:37,619 INFO Created Limit_a Class
+2019-02-07 16:41:37,634 INFO Created RED Class
+2019-02-07 16:41:37,666 INFO Created SNMPVersions Class
+2019-02-07 16:41:37,697 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:41:37,713 INFO Created Network Class
+2019-02-07 16:41:37,740 INFO Created Bandwidth Class
+2019-02-07 16:41:37,759 INFO Created TrafficFilter Class
+2019-02-07 16:41:37,775 INFO Created RadioLinkRef Class
+2019-02-07 16:41:37,815 INFO Created QoSPolicy Class
+2019-02-07 16:41:37,836 INFO Created TmNSRadio Class
+2019-02-07 16:41:37,856 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:41:37,875 INFO Created MeasurementDomain Class
+2019-02-07 16:41:37,891 INFO Created RadioGroups Class
+2019-02-07 16:41:37,922 INFO Created RadioLink Class
+2019-02-07 16:41:37,938 INFO Created TmNSApp Class
+2019-02-07 16:41:37,953 INFO Created InternalStructure Class
+2019-02-07 16:41:37,985 INFO Created Condition Class
+2019-02-07 16:41:38,016 INFO Created RadioGroupRef Class
+2019-02-07 16:41:38,047 INFO Created LinkAgent Class
+2019-02-07 16:41:38,063 INFO Created Class Class
+2019-02-07 16:41:38,078 INFO Created Module Class
+2019-02-07 16:41:38,110 INFO Created SNMPSetup Class
+2019-02-07 16:41:38,140 INFO Created QoSPolicies Class
+2019-02-07 16:41:38,160 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:41:38,241 INFO Indexed 100 MDL Elements
+2019-02-07 16:41:38,292 INFO Indexed 200 MDL Elements
+2019-02-07 16:41:38,355 INFO Indexed 300 MDL Elements
+2019-02-07 16:41:38,401 INFO Indexed 400 MDL Elements
+2019-02-07 16:41:38,474 INFO Indexed 500 MDL Elements
+2019-02-07 16:41:38,532 INFO Indexed 600 MDL Elements
+2019-02-07 16:41:38,593 INFO Indexed 700 MDL Elements
+2019-02-07 16:41:38,649 INFO Indexed 800 MDL Elements
+2019-02-07 16:41:38,691 INFO Indexed 900 MDL Elements
+2019-02-07 16:41:38,753 INFO Indexed 1000 MDL Elements
+2019-02-07 16:41:38,816 INFO Indexed 1100 MDL Elements
+2019-02-07 16:41:38,863 INFO Indexed 1200 MDL Elements
+2019-02-07 16:41:38,928 INFO Indexed 1300 MDL Elements
+2019-02-07 16:41:38,975 INFO Indexed 1400 MDL Elements
+2019-02-07 16:41:39,047 INFO Indexed 1500 MDL Elements
+2019-02-07 16:41:39,106 INFO Indexed 1600 MDL Elements
+2019-02-07 16:41:39,153 INFO Indexed 1700 MDL Elements
+2019-02-07 16:41:39,216 INFO Indexed 1800 MDL Elements
+2019-02-07 16:41:39,263 INFO Indexed 1900 MDL Elements
+2019-02-07 16:41:39,278 INFO Created Containment Relationship Class
+2019-02-07 16:41:59,193 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:41:59,193 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:42:02,047 INFO Created RANConfigurations Class
+2019-02-07 16:42:02,063 INFO Created SNMPSetup Class
+2019-02-07 16:42:02,094 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:42:02,109 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:42:02,146 INFO Created QDisc Class
+2019-02-07 16:42:02,160 INFO Created Class Class
+2019-02-07 16:42:02,193 INFO Created Limit Class
+2019-02-07 16:42:02,197 INFO Created Limit_a Class
+2019-02-07 16:42:02,217 INFO Created QoSPolicy Class
+2019-02-07 16:42:02,241 INFO Created Module Class
+2019-02-07 16:42:02,259 INFO Created Networks Class
+2019-02-07 16:42:02,275 INFO Created DSCPTableEntry Class
+2019-02-07 16:42:02,306 INFO Created RANConfigurationRef Class
+2019-02-07 16:42:02,322 INFO Created RadioLinkRefs Class
+2019-02-07 16:42:02,337 INFO Created Rate Class
+2019-02-07 16:42:02,369 INFO Created RED Class
+2019-02-07 16:42:02,384 INFO Created NetworkDomain Class
+2019-02-07 16:42:02,400 INFO Created NetworkNode Class
+2019-02-07 16:42:02,415 INFO Created LinkAgent Class
+2019-02-07 16:42:02,455 INFO Created SourceRadioRef Class
+2019-02-07 16:42:02,475 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:42:02,498 INFO Created DSCPTable Class
+2019-02-07 16:42:02,522 INFO Created PortDataRate Class
+2019-02-07 16:42:02,543 INFO Created MDLRoot Class
+2019-02-07 16:42:02,560 INFO Created MeasurementDomain Class
+2019-02-07 16:42:02,575 INFO Created FIFO Class
+2019-02-07 16:42:02,611 INFO Created QoSPolicies Class
+2019-02-07 16:42:02,632 INFO Created TxOp Class
+2019-02-07 16:42:02,654 INFO Created InternalStructure Class
+2019-02-07 16:42:02,676 INFO Created TransmissionSchedule Class
+2019-02-07 16:42:02,692 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:42:02,707 INFO Created Max Class
+2019-02-07 16:42:02,738 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:42:02,754 INFO Created QueueConstruct Class
+2019-02-07 16:42:02,785 INFO Created TmNSApps Class
+2019-02-07 16:42:02,801 INFO Created Ceiling Class
+2019-02-07 16:42:02,817 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:42:02,848 INFO Created RunningAppRefs Class
+2019-02-07 16:42:02,863 INFO Created Port Class
+2019-02-07 16:42:02,895 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:42:02,910 INFO Created RadioGroup Class
+2019-02-07 16:42:02,945 INFO Created NetworkInterfaces Class
+2019-02-07 16:42:02,960 INFO Created TrafficFilter Class
+2019-02-07 16:42:02,976 INFO Created ServiceLevelProfile Class
+2019-02-07 16:42:03,005 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:42:03,030 INFO Created TestMissions Class
+2019-02-07 16:42:03,053 INFO Created Modules Class
+2019-02-07 16:42:03,092 INFO Created SNMPVersions Class
+2019-02-07 16:42:03,123 INFO Created SMInterface Class
+2019-02-07 16:42:03,139 INFO Created Bandwidth Class
+2019-02-07 16:42:03,170 INFO Created Ports Class
+2019-02-07 16:42:03,201 INFO Created Conditions Class
+2019-02-07 16:42:03,217 INFO Created TmNSApp Class
+2019-02-07 16:42:03,248 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:42:03,263 INFO Created MatchField Class
+2019-02-07 16:42:03,295 INFO Created RadioGroupRef Class
+2019-02-07 16:42:03,326 INFO Created TrafficFilters Class
+2019-02-07 16:42:03,349 INFO Created NetworkInterface Class
+2019-02-07 16:42:03,361 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:42:03,400 INFO Created AveragePacketDelay Class
+2019-02-07 16:42:03,424 INFO Created MeasurementDomains Class
+2019-02-07 16:42:03,446 INFO Created TmNSRadio Class
+2019-02-07 16:42:03,477 INFO Created RadioLinks Class
+2019-02-07 16:42:03,514 INFO Created AssuredCapacity Class
+2019-02-07 16:42:03,537 INFO Created TmNSAppRef Class
+2019-02-07 16:42:03,557 INFO Created Avpkt Class
+2019-02-07 16:42:03,572 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:42:03,604 INFO Created NetworkNodes Class
+2019-02-07 16:42:03,619 INFO Created Network Class
+2019-02-07 16:42:03,650 INFO Created RANConfiguration Class
+2019-02-07 16:42:03,666 INFO Created Condition Class
+2019-02-07 16:42:03,697 INFO Created HTB Class
+2019-02-07 16:42:03,713 INFO Created RadioLink Class
+2019-02-07 16:42:03,748 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:42:03,760 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:42:03,794 INFO Created RadioGroups Class
+2019-02-07 16:42:03,818 INFO Created RadioLinkRef Class
+2019-02-07 16:42:03,840 INFO Created TestMission Class
+2019-02-07 16:42:03,859 INFO Created Min Class
+2019-02-07 16:42:03,937 INFO Indexed 100 MDL Elements
+2019-02-07 16:42:04,000 INFO Indexed 200 MDL Elements
+2019-02-07 16:42:04,047 INFO Indexed 300 MDL Elements
+2019-02-07 16:42:04,109 INFO Indexed 400 MDL Elements
+2019-02-07 16:42:04,159 INFO Indexed 500 MDL Elements
+2019-02-07 16:42:04,227 INFO Indexed 600 MDL Elements
+2019-02-07 16:42:04,275 INFO Indexed 700 MDL Elements
+2019-02-07 16:42:04,338 INFO Indexed 800 MDL Elements
+2019-02-07 16:42:04,400 INFO Indexed 900 MDL Elements
+2019-02-07 16:42:04,463 INFO Indexed 1000 MDL Elements
+2019-02-07 16:42:04,520 INFO Indexed 1100 MDL Elements
+2019-02-07 16:42:04,575 INFO Indexed 1200 MDL Elements
+2019-02-07 16:42:04,641 INFO Indexed 1300 MDL Elements
+2019-02-07 16:42:04,690 INFO Indexed 1400 MDL Elements
+2019-02-07 16:42:04,753 INFO Indexed 1500 MDL Elements
+2019-02-07 16:42:04,815 INFO Indexed 1600 MDL Elements
+2019-02-07 16:42:04,862 INFO Indexed 1700 MDL Elements
+2019-02-07 16:42:04,938 INFO Indexed 1800 MDL Elements
+2019-02-07 16:42:04,990 INFO Indexed 1900 MDL Elements
+2019-02-07 16:42:05,004 INFO Created Containment Relationship Class
+2019-02-07 16:42:55,618 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:42:55,618 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:42:58,214 INFO Created TmNSApp Class
+2019-02-07 16:42:58,235 INFO Created TrafficFilters Class
+2019-02-07 16:42:58,252 INFO Created NetworkNode Class
+2019-02-07 16:42:58,259 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:42:58,275 INFO Created FIFO Class
+2019-02-07 16:42:58,306 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:42:58,322 INFO Created SourceRadioRef Class
+2019-02-07 16:42:58,337 INFO Created Conditions Class
+2019-02-07 16:42:58,353 INFO Created Max Class
+2019-02-07 16:42:58,368 INFO Created Ports Class
+2019-02-07 16:42:58,384 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:42:58,400 INFO Created HTB Class
+2019-02-07 16:42:58,431 INFO Created LinkAgent Class
+2019-02-07 16:42:58,451 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:42:58,470 INFO Created NetworkDomain Class
+2019-02-07 16:42:58,488 INFO Created MDLRoot Class
+2019-02-07 16:42:58,505 INFO Created Limit Class
+2019-02-07 16:42:58,508 INFO Created Limit_a Class
+2019-02-07 16:42:58,526 INFO Created Avpkt Class
+2019-02-07 16:42:58,546 INFO Created TransmissionSchedule Class
+2019-02-07 16:42:58,559 INFO Created QoSPolicies Class
+2019-02-07 16:42:58,586 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:42:58,617 INFO Created MeasurementDomain Class
+2019-02-07 16:42:58,637 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:42:58,658 INFO Created SNMPVersions Class
+2019-02-07 16:42:58,676 INFO Created ServiceLevelProfile Class
+2019-02-07 16:42:58,692 INFO Created TmNSAppRef Class
+2019-02-07 16:42:58,708 INFO Created SNMPSetup Class
+2019-02-07 16:42:58,739 INFO Created Bandwidth Class
+2019-02-07 16:42:58,755 INFO Created DSCPTable Class
+2019-02-07 16:42:58,786 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:42:58,802 INFO Created Networks Class
+2019-02-07 16:42:58,817 INFO Created RadioGroup Class
+2019-02-07 16:42:58,833 INFO Created RadioLinkRef Class
+2019-02-07 16:42:58,864 INFO Created RANConfigurationRef Class
+2019-02-07 16:42:58,880 INFO Created RANConfiguration Class
+2019-02-07 16:42:58,911 INFO Created Port Class
+2019-02-07 16:42:58,933 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:42:58,953 INFO Created InternalStructure Class
+2019-02-07 16:42:58,975 INFO Created Network Class
+2019-02-07 16:42:59,014 INFO Created DSCPTableEntry Class
+2019-02-07 16:42:59,037 INFO Created RadioLinks Class
+2019-02-07 16:42:59,060 INFO Created Class Class
+2019-02-07 16:42:59,076 INFO Created MeasurementDomains Class
+2019-02-07 16:42:59,107 INFO Created RadioLinkRefs Class
+2019-02-07 16:42:59,123 INFO Created MatchField Class
+2019-02-07 16:42:59,139 INFO Created RED Class
+2019-02-07 16:42:59,170 INFO Created TmNSApps Class
+2019-02-07 16:42:59,185 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:42:59,217 INFO Created QDisc Class
+2019-02-07 16:42:59,232 INFO Created QueueConstruct Class
+2019-02-07 16:42:59,248 INFO Created Ceiling Class
+2019-02-07 16:42:59,279 INFO Created Min Class
+2019-02-07 16:42:59,295 INFO Created Rate Class
+2019-02-07 16:42:59,310 INFO Created TestMissions Class
+2019-02-07 16:42:59,342 INFO Created SMInterface Class
+2019-02-07 16:42:59,360 INFO Created NetworkInterfaces Class
+2019-02-07 16:42:59,383 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:42:59,401 INFO Created RadioGroups Class
+2019-02-07 16:42:59,422 INFO Created NetworkNodes Class
+2019-02-07 16:42:59,444 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:42:59,463 INFO Created Modules Class
+2019-02-07 16:42:59,483 INFO Created AveragePacketDelay Class
+2019-02-07 16:42:59,511 INFO Created QoSPolicy Class
+2019-02-07 16:42:59,541 INFO Created Condition Class
+2019-02-07 16:42:59,570 INFO Created RadioGroupRef Class
+2019-02-07 16:42:59,588 INFO Created TxOp Class
+2019-02-07 16:42:59,604 INFO Created NetworkInterface Class
+2019-02-07 16:42:59,619 INFO Created TmNSRadio Class
+2019-02-07 16:42:59,650 INFO Created Module Class
+2019-02-07 16:42:59,666 INFO Created PortDataRate Class
+2019-02-07 16:42:59,698 INFO Created RANConfigurations Class
+2019-02-07 16:42:59,713 INFO Created TestMission Class
+2019-02-07 16:42:59,741 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:42:59,766 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:42:59,785 INFO Created RadioLink Class
+2019-02-07 16:42:59,804 INFO Created AssuredCapacity Class
+2019-02-07 16:42:59,822 INFO Created RunningAppRefs Class
+2019-02-07 16:42:59,841 INFO Created TrafficFilter Class
+2019-02-07 16:42:59,906 INFO Indexed 100 MDL Elements
+2019-02-07 16:42:59,969 INFO Indexed 200 MDL Elements
+2019-02-07 16:43:00,031 INFO Indexed 300 MDL Elements
+2019-02-07 16:43:00,094 INFO Indexed 400 MDL Elements
+2019-02-07 16:43:00,154 INFO Indexed 500 MDL Elements
+2019-02-07 16:43:00,201 INFO Indexed 600 MDL Elements
+2019-02-07 16:43:00,252 INFO Indexed 700 MDL Elements
+2019-02-07 16:43:00,291 INFO Indexed 800 MDL Elements
+2019-02-07 16:43:00,337 INFO Indexed 900 MDL Elements
+2019-02-07 16:43:00,384 INFO Indexed 1000 MDL Elements
+2019-02-07 16:43:00,431 INFO Indexed 1100 MDL Elements
+2019-02-07 16:43:00,498 INFO Indexed 1200 MDL Elements
+2019-02-07 16:43:00,549 INFO Indexed 1300 MDL Elements
+2019-02-07 16:43:00,597 INFO Indexed 1400 MDL Elements
+2019-02-07 16:43:00,650 INFO Indexed 1500 MDL Elements
+2019-02-07 16:43:00,691 INFO Indexed 1600 MDL Elements
+2019-02-07 16:43:00,738 INFO Indexed 1700 MDL Elements
+2019-02-07 16:43:00,801 INFO Indexed 1800 MDL Elements
+2019-02-07 16:43:00,847 INFO Indexed 1900 MDL Elements
+2019-02-07 16:43:00,863 INFO Created Containment Relationship Class
+2019-02-07 16:43:00,879 INFO Connecting RadioLinkRefs-0 to RadioLinkRef-0
+2019-02-07 16:49:49,755 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-07 16:49:49,756 INFO ***************************Importing MDL file...***************************
+2019-02-07 16:49:52,252 INFO Created Port Class
+2019-02-07 16:49:52,275 INFO Created RadioGroupRef Class
+2019-02-07 16:49:52,290 INFO Created PhysicalNetworkPortRef Class
+2019-02-07 16:49:52,306 INFO Created NetworkInterface Class
+2019-02-07 16:49:52,321 INFO Created NetworkNodes Class
+2019-02-07 16:49:52,337 INFO Created RadioLinkRef Class
+2019-02-07 16:49:52,353 INFO Created TmNSApps Class
+2019-02-07 16:49:52,368 INFO Created JoinRadioGroupRefs Class
+2019-02-07 16:49:52,400 INFO Created Networks Class
+2019-02-07 16:49:52,415 INFO Created DestinationRadioGroupRef Class
+2019-02-07 16:49:52,431 INFO Created RadioLinkRefs Class
+2019-02-07 16:49:52,453 INFO Created LinkManagementMinCapacity Class
+2019-02-07 16:49:52,475 INFO Created RadioLink Class
+2019-02-07 16:49:52,491 INFO Created RadioControlLoopDSCPRef Class
+2019-02-07 16:49:52,509 INFO Created SMInterface Class
+2019-02-07 16:49:52,524 INFO Created PhysicalNetworkPorts Class
+2019-02-07 16:49:52,542 INFO Created RED Class
+2019-02-07 16:49:52,582 INFO Created NetworkInterfaceRef Class
+2019-02-07 16:49:52,598 INFO Created FIFO Class
+2019-02-07 16:49:52,614 INFO Created MeasurementDomains Class
+2019-02-07 16:49:52,631 INFO Created PortDataRate Class
+2019-02-07 16:49:52,655 INFO Created Min Class
+2019-02-07 16:49:52,674 INFO Created DSCPTableEntryRef Class
+2019-02-07 16:49:52,705 INFO Created LinkAgent Class
+2019-02-07 16:49:52,721 INFO Created TrafficFilters Class
+2019-02-07 16:49:52,736 INFO Created RadioGroup Class
+2019-02-07 16:49:52,752 INFO Created TxOp Class
+2019-02-07 16:49:52,768 INFO Created Conditions Class
+2019-02-07 16:49:52,783 INFO Created RadioLinks Class
+2019-02-07 16:49:52,799 INFO Created QDisc Class
+2019-02-07 16:49:52,830 INFO Created TestMissions Class
+2019-02-07 16:49:52,846 INFO Created Network Class
+2019-02-07 16:49:52,861 INFO Created RANConfigurationRef Class
+2019-02-07 16:49:52,877 INFO Created TmNSRadio Class
+2019-02-07 16:49:52,893 INFO Created RunningAppRefs Class
+2019-02-07 16:49:52,908 INFO Created Module Class
+2019-02-07 16:49:52,941 INFO Created RANConfigurations Class
+2019-02-07 16:49:52,958 INFO Created TmNSApp Class
+2019-02-07 16:49:52,975 INFO Created Avpkt Class
+2019-02-07 16:49:52,991 INFO Created MDLRoot Class
+2019-02-07 16:49:53,013 INFO Created AveragePacketDelay Class
+2019-02-07 16:49:53,034 INFO Created QueueConstruct Class
+2019-02-07 16:49:53,057 INFO Created InternalStructure Class
+2019-02-07 16:49:53,073 INFO Created Rate Class
+2019-02-07 16:49:53,104 INFO Created SNMPSetup Class
+2019-02-07 16:49:53,120 INFO Created Ports Class
+2019-02-07 16:49:53,136 INFO Created ServiceLevelProfile Class
+2019-02-07 16:49:53,151 INFO Created MatchField Class
+2019-02-07 16:49:53,167 INFO Created NetworkDomain Class
+2019-02-07 16:49:53,182 INFO Created Bandwidth Class
+2019-02-07 16:49:53,214 INFO Created NetworkInterfaceRefs Class
+2019-02-07 16:49:53,229 INFO Created TestMission Class
+2019-02-07 16:49:53,245 INFO Created Limit Class
+2019-02-07 16:49:53,245 INFO Created Limit_a Class
+2019-02-07 16:49:53,261 INFO Created TmNSNetworkFabricDevice Class
+2019-02-07 16:49:53,276 INFO Created QoSPolicy Class
+2019-02-07 16:49:53,307 INFO Created SourceRadioRef Class
+2019-02-07 16:49:53,331 INFO Created Modules Class
+2019-02-07 16:49:53,349 INFO Created TrafficFilter Class
+2019-02-07 16:49:53,357 INFO Created Condition Class
+2019-02-07 16:49:53,387 INFO Created TmNSAppRef Class
+2019-02-07 16:49:53,411 INFO Created RANCommandControlDSCPRef Class
+2019-02-07 16:49:53,434 INFO Created QoSPolicies Class
+2019-02-07 16:49:53,453 INFO Created RadioGroups Class
+2019-02-07 16:49:53,470 INFO Created SNMPVersions Class
+2019-02-07 16:49:53,489 INFO Created TransmissionSchedule Class
+2019-02-07 16:49:53,509 INFO Created RANConfiguration Class
+2019-02-07 16:49:53,530 INFO Created PhysicalNetworkPort Class
+2019-02-07 16:49:53,569 INFO Created Ceiling Class
+2019-02-07 16:49:53,584 INFO Created NetworkInterfaces Class
+2019-02-07 16:49:53,600 INFO Created AssuredCapacity Class
+2019-02-07 16:49:53,616 INFO Created Class Class
+2019-02-07 16:49:53,647 INFO Created HTB Class
+2019-02-07 16:49:53,662 INFO Created DSCPTableEntry Class
+2019-02-07 16:49:53,678 INFO Created DSCPTable Class
+2019-02-07 16:49:53,694 INFO Created NetworkNode Class
+2019-02-07 16:49:53,734 INFO Created ServiceLevelProfiles Class
+2019-02-07 16:49:53,780 INFO Created MeasurementDomain Class
+2019-02-07 16:49:53,798 INFO Created Max Class
+2019-02-07 16:49:53,873 INFO Indexed 100 MDL Elements
+2019-02-07 16:49:53,920 INFO Indexed 200 MDL Elements
+2019-02-07 16:49:53,983 INFO Indexed 300 MDL Elements
+2019-02-07 16:49:54,045 INFO Indexed 400 MDL Elements
+2019-02-07 16:49:54,092 INFO Indexed 500 MDL Elements
+2019-02-07 16:49:54,156 INFO Indexed 600 MDL Elements
+2019-02-07 16:49:54,228 INFO Indexed 700 MDL Elements
+2019-02-07 16:49:54,289 INFO Indexed 800 MDL Elements
+2019-02-07 16:49:54,336 INFO Indexed 900 MDL Elements
+2019-02-07 16:49:54,398 INFO Indexed 1000 MDL Elements
+2019-02-07 16:49:54,468 INFO Indexed 1100 MDL Elements
+2019-02-07 16:49:54,528 INFO Indexed 1200 MDL Elements
+2019-02-07 16:49:54,588 INFO Indexed 1300 MDL Elements
+2019-02-07 16:49:54,645 INFO Indexed 1400 MDL Elements
+2019-02-07 16:49:54,690 INFO Indexed 1500 MDL Elements
+2019-02-07 16:49:54,753 INFO Indexed 1600 MDL Elements
+2019-02-07 16:49:54,815 INFO Indexed 1700 MDL Elements
+2019-02-07 16:49:54,862 INFO Indexed 1800 MDL Elements
+2019-02-07 16:49:54,935 INFO Indexed 1900 MDL Elements
+2019-02-07 16:49:54,948 INFO Created Containment Relationship Class
+2019-02-07 16:49:54,970 INFO Connecting RadioLinkRefs-0 to RadioLinkRef-0

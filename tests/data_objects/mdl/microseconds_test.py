@@ -8,7 +8,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 
 import unittest
 from cp1.data_objects.mdl.microseconds import Microseconds
-from cp1.common.exception_class import MicrosecondsInitializationError
+from cp1.common.exception_class import MicrosecondsInitializationException
 
 
 class MicrosecondsTest(unittest.TestCase):
@@ -19,13 +19,13 @@ class MicrosecondsTest(unittest.TestCase):
 
     def test_invalid_millisecond_value_negative(self):
         self.assertRaises(
-            MicrosecondsInitializationError,
+            MicrosecondsInitializationException,
             Microseconds,
             -1000)
 
     def test_invalid_millisecond_value_type(self):
         self.assertRaises(
-            MicrosecondsInitializationError,
+            MicrosecondsInitializationException,
             Microseconds,
             'Foo')
 

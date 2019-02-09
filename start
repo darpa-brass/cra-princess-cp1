@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ./cp1/cp1_src
+cd ./src/cp1_src
 
 python setup.py install
 

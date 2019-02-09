@@ -1,0 +1,15 @@
+{
+
+"ServiceLevelProfiles":
+  {
+    "voice": "SLP_1_20",
+    "safety": "SLP_1_301",
+    "bulk": "SLP_1_40",
+    "RFNM": "SLP_1_10"
+  },
+  "Ground":
+  {
+    "from": "GR1",
+    "to": "GndGrp1"
+  }
+}
