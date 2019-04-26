@@ -1,5 +1,4 @@
 """
-
 txop_test.py
 
 Module to test txop.py.
@@ -15,7 +14,6 @@ from cp1.common.exception_class import TxOpInitializationError
 
 
 class TxOpTest(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.start_usec = Microseconds(0)
@@ -84,4 +82,3 @@ class TxOpTest(unittest.TestCase):
             self.center_frequency_hz,
             'foo'
         )
-

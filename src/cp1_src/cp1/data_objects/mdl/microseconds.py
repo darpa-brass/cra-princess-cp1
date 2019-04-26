@@ -1,12 +1,8 @@
-"""
-
-microseconds.py
+"""microseconds.py
 
 Data object representing microseconds.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-
-from cp1.common.exception_class import MicrosecondsInitializationException
 
 
 class Microseconds:
@@ -14,24 +10,20 @@ class Microseconds:
         """
         Constructor
 
-        :param value: The microsecond value. Must be greater than 0.
-        :type value: int
+        :param int value: The microsecond value. Must be greater than 0.
         """
-        if not isinstance(value, (int, float)):
-            raise MicrosecondsInitializationException(
-                'Must be int or float:\nvalue: {0}\ntype: {1}'.format(value, type(value)),
-                'Microseconds.__init__')
-        if value < 0:
-            raise MicrosecondsInitializationException(
-                'Must be greater than or equal to zero: value {0}'.format(value),
-                'Microseconds.__init__')
         self.value = value
 
-    def toSeconds(self):
+    def in_seconds(self):
         return self.value / 1000000
 
-    def toMilliseconds(self):
+    def in_milliseconds(self):
         return self.value / 1000
 
     def __str__(self):
         return str(self.value)
+
+    def __eq__(self, other):
+        if isinstance(other, Microseconds):
+            return self.value == other.value
+        return False

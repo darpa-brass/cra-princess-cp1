@@ -16,8 +16,8 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Utility package" href="cp1.utils.html" />
-    <link rel="prev" title="Data Objects package" href="cp1.data_objects.html" />
+    <link rel="next" title="Bandwidth package" href="cp1.processing.bandwidth.html" />
+    <link rel="prev" title="Algorithm Data Objects package" href="cp1.data_objects.algorithm.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -38,165 +38,20 @@
 <h1>Processing Package<a class="headerlink" href="#processing-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cp1.processing.bandwidth.html">Bandwidth Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.bandwidth.html#bandwidth-processor-module">Bandwidth Processor Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.processing.schedule.html">Schedule Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.schedule.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.schedule.html#schedule-processor-module">Schedule Processor Module</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section" id="module-cp1.processing.algorithm">
-<span id="algorithm-module"></span><h2>Algorithm Module<a class="headerlink" href="#module-cp1.processing.algorithm" title="Permalink to this headline">¶</a></h2>
-<p>algorithm.py</p>
-<p>Optimizes schedule based on constraints and channel bandwidth.
-Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
-<dl class="class">
-<dt id="cp1.processing.algorithm.Algorithm">
-<em class="property">class </em><code class="descclassname">cp1.processing.algorithm.</code><code class="descname">Algorithm</code><span class="sig-paren">(</span><em>constraints_object</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithm.Algorithm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="cp1.processing.algorithm.Algorithm.determine_eligible_tas">
-<code class="descname">determine_eligible_tas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithm.Algorithm.determine_eligible_tas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks which TAs in the list of candidate_tas can be scheduled. Adds
-any TAs that can fit to self.eligible_tas. Also computes the spare
-time left in each partition. This spare time should be scheduled in
-so that there is no wasted time in the new schedule.
-A TA requires the total_minimum_bandwidth and twice the guard band
-since TAs require two-way communication; Ground to TA and TA to Ground.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.processing.algorithm.Algorithm.optimize">
-<code class="descname">optimize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithm.Algorithm.optimize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a new schedule based on updated bandwidth availability, channel
-frequency and TAs seeking to join the network.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns bool:</th><td class="field-body">dict&lt;str, List[MDLTxOp]&gt;</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.processing.algorithm.Algorithm.preprocess">
-<code class="descname">preprocess</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithm.Algorithm.preprocess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets first available time to 0
-Sorts candidate TAs by the ratio of their utility to minimum
-bandwidth requirement
-Calculates the number of partitions
-Computes the length of each partition</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.processing.algorithm.Algorithm.schedule_eligible_tas">
-<code class="descname">schedule_eligible_tas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithm.Algorithm.schedule_eligible_tas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates transmission times and adds TxOp nodes to the schedule.
-The first TA that is scheduled will be allocated all spare time in
-(the very likely) case TA’s do not schedule perfectly.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cp1.processing.process_bandwidth">
-<span id="process-bandwidth-module"></span><h2>Process Bandwidth Module<a class="headerlink" href="#module-cp1.processing.process_bandwidth" title="Permalink to this headline">¶</a></h2>
-<p>Generates new bandwidth rates based on available bandwidth and ratio of bandwidth going up
-and bandwidth going down for each of the four types of bandwidth: voice, safety, bulk and RFNM.
-| Output of this class is used to update the Rate children ServiceLevelProfile elements of MDL files,
-which is where bandwidth allocation is specified.
-| A file containing ServiceLevelProfile IDs can be found under cp1/conf/mdl_ids.json. Below are the SLP identifiers provided by SwRI:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">voice</span><span class="p">:</span> <span class="n">SLP_1_20</span>
-<span class="n">safety</span><span class="p">:</span> <span class="n">SLP_1_301</span>
-<span class="n">bulk</span><span class="p">:</span> <span class="n">SLP_1_40</span>
-<span class="n">RFNM</span><span class="p">:</span> <span class="n">SLP_1_10</span>
-</pre></div>
-</div>
-<p>i.e. constraints_object.goal_throughput_bulk = Kbps(75), up_ratio = 0.25
-In this case, the output of <code class="xref py py-func docutils literal notranslate"><span class="pre">ProcessBandwidth.process()</span></code> should be used in conjunction with
-<code class="xref py py-func docutils literal notranslate"><span class="pre">OrientDBStorage.update_bandwidth</span> <span class="pre">&lt;cp1.utils.OrientDBStorage.update_bandwidth()</span></code> to edit the following MDL elements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ServiceLevelProfile</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">TA1_to_GndGrp1_SLP_1_40</span><span class="o">&gt;</span>
-   <span class="o">.</span>
-       <span class="o">.</span>
-           <span class="o">.</span>
-           <span class="o">&lt;</span><span class="n">Rate</span><span class="o">&gt;</span><span class="mi">56250</span><span class="o">&lt;/</span><span class="n">Rate</span><span class="o">&gt;</span>
-           <span class="o">.</span>
-       <span class="o">.</span>
-   <span class="o">.</span>
-<span class="o">&lt;/</span><span class="n">ServiceLevelProfile</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">ServiceLevelProfile</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">GR1_to_TA1_SLP_1_40</span><span class="o">&gt;</span>
-     <span class="o">.</span>
-         <span class="o">.</span>
-             <span class="o">.</span>
-             <span class="o">&lt;</span><span class="n">Rate</span><span class="o">&gt;</span><span class="mi">18750</span><span class="o">&lt;/</span><span class="n">Rate</span><span class="o">&gt;</span>
-             <span class="o">.</span>
-         <span class="o">.</span>
-     <span class="o">.</span>
-<span class="o">&lt;/</span><span class="n">ServiceLevelProfile</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
-<dl class="class">
-<dt id="cp1.processing.process_bandwidth.ProcessBandwidth">
-<em class="property">class </em><code class="descclassname">cp1.processing.process_bandwidth.</code><code class="descname">ProcessBandwidth</code><span class="sig-paren">(</span><em>constraints_object</em>, <em>bandwidth_file</em>, <em>up_ratio</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.process_bandwidth.ProcessBandwidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="cp1.processing.process_bandwidth.ProcessBandwidth.compute_rates">
-<code class="descname">compute_rates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.process_bandwidth.ProcessBandwidth.compute_rates" title="Permalink to this definition">¶</a></dt>
-<dd><p>The rate of a specific bandwidth value is determined by the ratio of bandwidth allocated to
-Ground to TA (up_ratio) and TA to Ground (down_ratio) communications.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Returns slp_ids:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">dict&lt;str, int&gt;</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.processing.process_bandwidth.ProcessBandwidth.generate_slp_id">
-<code class="descname">generate_slp_id</code><span class="sig-paren">(</span><em>ta</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.process_bandwidth.ProcessBandwidth.generate_slp_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>The ServiveLevelProfile element in an MDL file is identifiable by the constants provided in
-the bandwidth_file. For each of these constants we need to append information on which TA
-and which Ground station are communicating to one another for the IDs to be valid.
-i.e. TA1_to_GndGrp1_SLP_1_301 represents the bandwidth transmission rate for all safety radio
-communications from TA1 to Ground.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ta</strong> (<a class="reference internal" href="cp1.data_objects.constraints.html#module-cp1.data_objects.constraints.ta" title="cp1.data_objects.constraints.ta"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.data_objects.constraints.ta</span></code></a>) – The TA to generate SLP IDs for</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return slp_ids:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.processing.process_bandwidth.ProcessBandwidth.process">
-<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.process_bandwidth.ProcessBandwidth.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a dictionary of bandwidth keys/values based on TAs.
-The keys in this dictionary represent MDL ServiveLevelProfile (SLP) IDs, which
-are the elements that contain information on transmission rates for each
-of the four types of communication: safety, voice, bulk and RFNM
-The values in this dictionary are ints representing the bit per second rates for a specific
-transmission type and direction.
-i.e. {‘TA1_to_GndGrp1_SLP_1_20’: 75000} indicates that of the total available bandwidth from
-TA1 to Ground, 75000 bits per second of that bandwidth should be allocated to voice radio
-communications.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Returns schedule:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">dict&lt;str, int&gt;</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 </div>
 
@@ -222,9 +77,11 @@ communications.</p>
 <li class="toctree-l1"><a class="reference internal" href="cp1.common.html">Common Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cp1.data_objects.html">Data Objects Package</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Processing Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-cp1.processing.algorithm">Algorithm Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-cp1.processing.process_bandwidth">Process Bandwidth Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cp1.processing.bandwidth.html">Bandwidth Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.processing.schedule.html">Schedule Package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cp1.utils.html">Utility Package</a></li>
@@ -234,8 +91,8 @@ communications.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="cp1.data_objects.html" title="previous chapter">Data Objects package</a></li>
-      <li>Next: <a href="cp1.utils.html" title="next chapter">Utility package</a></li>
+      <li>Previous: <a href="cp1.data_objects.algorithm.html" title="previous chapter">Algorithm Data Objects package</a></li>
+      <li>Next: <a href="cp1.processing.bandwidth.html" title="next chapter">Bandwidth package</a></li>
   </ul></li>
 </ul>
 </div>

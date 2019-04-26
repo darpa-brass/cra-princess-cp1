@@ -1,16 +1,13 @@
 """
-
 mdl_id_test.py
 
 Module to test mdl_id.py
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-
-
 import unittest
 from cp1.data_objects.mdl.mdl_id import MdlId
 from cp1.data_objects.mdl.id_set import IdSet
-from cp1.common.exception_class import MdlIdInitializationError
+from cp1.common.exception_class import MdlIdInitializationException
 
 
 class MdlIdTest(unittest.TestCase):
@@ -24,10 +21,10 @@ class MdlIdTest(unittest.TestCase):
         self.assertEqual(id_, mdl_id.value)
 
     def test_invalid_id_type(self):
-        self.assertRaises(MdlIdInitializationError, MdlId, 1)
+        self.assertRaises(MdlIdInitializationException, MdlId, 1)
 
     def test_invalid_id_duplicate(self):
         id_ = 'Channel 1'
         mdl_id = MdlId(id_)
 
-        self.assertRaises(MdlIdInitializationError, MdlId, id_)
+        self.assertRaises(MdlIdInitializationException, MdlId, id_)

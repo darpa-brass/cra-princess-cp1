@@ -16,6 +16,8 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Algorithm Data Objects package" href="cp1.data_objects.algorithm.html" />
+    <link rel="prev" title="Constraints Data Objects package" href="cp1.data_objects.constraints.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -34,9 +36,6 @@
             
   <div class="section" id="mdl-data-objects-package">
 <h1>MDL Data Objects package<a class="headerlink" href="#mdl-data-objects-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-cp1.data_objects.mdl.bandwidth_rate">
 <span id="bandwidth-rate-module"></span><h2>Bandwidth Rate Module<a class="headerlink" href="#module-cp1.data_objects.mdl.bandwidth_rate" title="Permalink to this headline">¶</a></h2>
 <p>bandwidth_rate.py</p>
@@ -44,36 +43,57 @@
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.data_objects.mdl.bandwidth_rate.BandwidthRate">
-<em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.bandwidth_rate.</code><code class="descname">BandwidthRate</code><span class="sig-paren">(</span><em>bandwidth_type</em>, <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_rate.BandwidthRate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.bandwidth_rate.</code><code class="descname">BandwidthRate</code><span class="sig-paren">(</span><em>type_</em>, <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_rate.BandwidthRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.mdl.bandwidth_rate.BandwidthRate.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>type_</em>, <em>rate</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_rate.BandwidthRate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<a class="reference internal" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes" title="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes"><em>BandwidthTypes</em></a>) – The bandwidth type.</li>
+<li><strong>bandwidth_rate</strong> (<em>int</em>) – The bandwidth rate.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-cp1.data_objects.mdl.bandwidth_types">
 <span id="bandwidth-types-module"></span><h2>Bandwidth Types Module<a class="headerlink" href="#module-cp1.data_objects.mdl.bandwidth_types" title="Permalink to this headline">¶</a></h2>
+<p>bandwidth_types.py</p>
+<p>Enum representing all possible bandwidth types.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.bandwidth_types.</code><code class="descname">BandwidthTypes</code><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>An enumeration.</p>
 <dl class="attribute">
-<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.bulk">
-<code class="descname">bulk</code><em class="property"> = 4</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.bulk" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.BULK">
+<code class="descname">BULK</code><em class="property"> = 4</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.BULK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.rfnm">
-<code class="descname">rfnm</code><em class="property"> = 3</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.rfnm" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.RFNM">
+<code class="descname">RFNM</code><em class="property"> = 3</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.RFNM" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.safety">
-<code class="descname">safety</code><em class="property"> = 2</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.safety" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.SAFETY">
+<code class="descname">SAFETY</code><em class="property"> = 2</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.SAFETY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.voice">
-<code class="descname">voice</code><em class="property"> = 1</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.voice" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.VOICE">
+<code class="descname">VOICE</code><em class="property"> = 1</em><a class="headerlink" href="#cp1.data_objects.mdl.bandwidth_types.BandwidthTypes.VOICE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -88,33 +108,72 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <dt id="cp1.data_objects.mdl.frequency.Frequency">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.frequency.</code><code class="descname">Frequency</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.frequency.Frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.mdl.frequency.Frequency.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.frequency.Frequency.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) – The frequency value. Must be greater than 0.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-cp1.data_objects.mdl.id_set">
 <span id="id-set-module"></span><h2>ID Set Module<a class="headerlink" href="#module-cp1.data_objects.mdl.id_set" title="Permalink to this headline">¶</a></h2>
-<p>id_list.py</p>
+<p>id_set.py</p>
 <p>Singleton object to store all IDs.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.data_objects.mdl.id_set.IdSet">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.id_set.</code><code class="descname">IdSet</code><a class="headerlink" href="#cp1.data_objects.mdl.id_set.IdSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.mdl.id_set.IdSet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.id_set.IdSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-cp1.data_objects.mdl.kbps">
 <span id="kbps-module"></span><h2>Kbps Module<a class="headerlink" href="#module-cp1.data_objects.mdl.kbps" title="Permalink to this headline">¶</a></h2>
 <p>kbps.py</p>
-<p>Data object representing kbps.
+<p>Data object representing Kbps.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.data_objects.mdl.kbps.Kbps">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.kbps.</code><code class="descname">Kbps</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.kbps.Kbps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cp1.data_objects.mdl.kbps.Kbps.to_bits_per_second">
-<code class="descname">to_bits_per_second</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.kbps.Kbps.to_bits_per_second" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.kbps.Kbps.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.kbps.Kbps.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) – The Kbps value. Must be greater than 0.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.data_objects.mdl.kbps.Kbps.in_bits_per_second">
+<code class="descname">in_bits_per_second</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.kbps.Kbps.in_bits_per_second" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.data_objects.mdl.kbps.Kbps.in_megabits_per_second">
+<code class="descname">in_megabits_per_second</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.kbps.Kbps.in_megabits_per_second" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -123,12 +182,23 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <div class="section" id="module-cp1.data_objects.mdl.mdl_id">
 <span id="mdl-id-module"></span><h2>MDL ID Module<a class="headerlink" href="#module-cp1.data_objects.mdl.mdl_id" title="Permalink to this headline">¶</a></h2>
 <p>mdl_id.py</p>
-<p>Data object representing Id’s in MDL files as well as other data objects such as Channels. Forces Ids to be unique.
+<p>Data object representing IDs in MDL files. Forces IDs to be unique by using IdSet.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.data_objects.mdl.mdl_id.MdlId">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.mdl_id.</code><code class="descname">MdlId</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.mdl_id.MdlId" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.mdl.mdl_id.MdlId.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.mdl_id.MdlId.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cp1.data_objects.mdl.mdl_id.MdlId.clear">
+<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.mdl_id.MdlId.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -142,13 +212,27 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.microseconds.</code><code class="descname">Microseconds</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.microseconds.Microseconds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cp1.data_objects.mdl.microseconds.Microseconds.toMilliseconds">
-<code class="descname">toMilliseconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.microseconds.Microseconds.toMilliseconds" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.microseconds.Microseconds.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.microseconds.Microseconds.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) – The microsecond value. Must be greater than 0.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.data_objects.mdl.microseconds.Microseconds.in_milliseconds">
+<code class="descname">in_milliseconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.microseconds.Microseconds.in_milliseconds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cp1.data_objects.mdl.microseconds.Microseconds.toSeconds">
-<code class="descname">toSeconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.microseconds.Microseconds.toSeconds" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.microseconds.Microseconds.in_seconds">
+<code class="descname">in_seconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.microseconds.Microseconds.in_seconds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -165,12 +249,26 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt>
-<code class="descname">toMilliseconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) – The microsecond value. Must be greater than 0.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">in_milliseconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descname">toSeconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<code class="descname">in_seconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -178,7 +276,7 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 </div>
 <div class="section" id="module-cp1.data_objects.mdl.milliseconds">
 <span id="milliseconds-module"></span><h2>Milliseconds Module<a class="headerlink" href="#module-cp1.data_objects.mdl.milliseconds" title="Permalink to this headline">¶</a></h2>
-<p>millisecond.py</p>
+<p>milliseconds.py</p>
 <p>Data object representing milliseconds.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
@@ -186,59 +284,59 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.milliseconds.</code><code class="descname">Milliseconds</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.milliseconds.Milliseconds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cp1.data_objects.mdl.milliseconds.Milliseconds.toSeconds">
-<code class="descname">toSeconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.milliseconds.Milliseconds.toSeconds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cp1.data_objects.mdl.schedule">
-<span id="schedule-module"></span><h2>Schedule Module<a class="headerlink" href="#module-cp1.data_objects.mdl.schedule" title="Permalink to this headline">¶</a></h2>
-<p>schedule.py</p>
-<p>Module to encapsulate optimizer output. Constructor is null because objects are added to the schedule as
-they are generated.
-Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
-<dl class="class">
-<dt id="cp1.data_objects.mdl.schedule.Schedule">
-<em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.schedule.</code><code class="descname">Schedule</code><span class="sig-paren">(</span><em>epoch</em>, <em>guard_band</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.schedule.Schedule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="cp1.data_objects.mdl.schedule.Schedule.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>radio_link_key</em>, <em>txop</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.schedule.Schedule.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new schedule for a specific RadioLink connection</p>
+<dt id="cp1.data_objects.mdl.milliseconds.Milliseconds.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.milliseconds.Milliseconds.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>txop</strong> (<em>MDLTxOp</em>) – A TxOp node</li>
-<li><strong>radio_link_key</strong> (<em>str</em>) – RadioLink ID of current schedule</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) – The millisecond value. Must be greater than 0.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="cp1.data_objects.mdl.schedule.Schedule.validate">
-<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.schedule.Schedule.validate" title="Permalink to this definition">¶</a></dt>
+<dt id="cp1.data_objects.mdl.milliseconds.Milliseconds.in_microseconds">
+<code class="descname">in_microseconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.milliseconds.Milliseconds.in_microseconds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.data_objects.mdl.milliseconds.Milliseconds.in_seconds">
+<code class="descname">in_seconds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.milliseconds.Milliseconds.in_seconds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
+<div class="section" id="schedule-module">
+<h2>Schedule Module<a class="headerlink" href="#schedule-module" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-cp1.data_objects.mdl.txop_timeout">
 <span id="txop-timeout-module"></span><h2>TxOp Timeout Module<a class="headerlink" href="#module-cp1.data_objects.mdl.txop_timeout" title="Permalink to this headline">¶</a></h2>
 <p>txop_timeout.py</p>
-<p>Data object representing timeout. According to Mdl documentation, this value must be in the range of [0, 255].
-<a class="reference external" href="https://git.isis.vanderbilt.edu/SwRI/mdl-archive/blob/master/spec/MDL_v1_0_0.xsd">https://git.isis.vanderbilt.edu/SwRI/mdl-archive/blob/master/spec/MDL_v1_0_0.xsd</a>
+<p>Data object representing timeout. Must be in the range of [0, 255].
+<a class="reference external" href="https://git.isis.vanderbilt.edu/SwRI/mdl-archive/blob/master/spec/MDL_v1_0_0.xsd">MDL Documentation</a>.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.data_objects.mdl.txop_timeout.TxOpTimeout">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.txop_timeout.</code><code class="descname">TxOpTimeout</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.txop_timeout.TxOpTimeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.mdl.txop_timeout.TxOpTimeout.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.txop_timeout.TxOpTimeout.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>int</em>) – The TxOp timeout value.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -251,6 +349,12 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <dt id="cp1.data_objects.mdl.txop.TxOp">
 <em class="property">class </em><code class="descclassname">cp1.data_objects.mdl.txop.</code><code class="descname">TxOp</code><span class="sig-paren">(</span><em>start_usec</em>, <em>stop_usec</em>, <em>center_frequency_hz</em>, <em>txop_timeout</em>, <em>_rid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.txop.TxOp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.mdl.txop.TxOp.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>start_usec</em>, <em>stop_usec</em>, <em>center_frequency_hz</em>, <em>txop_timeout</em>, <em>_rid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.data_objects.mdl.txop.TxOp.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -274,9 +378,31 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cp1.common.html">Common Package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cp1.data_objects.html">Data Objects Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.data_objects.html">Data Objects Package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.data_objects.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cp1.data_objects.constraints.html">Constraints Package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MDL Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.bandwidth_rate">Bandwidth Rate Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.bandwidth_types">Bandwidth Types Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.frequency">Frequency Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.id_set">ID Set Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.kbps">Kbps Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.mdl_id">MDL ID Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.microseconds">Microseconds Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Microseconds Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.milliseconds">Milliseconds Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#schedule-module">Schedule Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.txop_timeout">TxOp Timeout Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.data_objects.mdl.txop">TxOp Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.data_objects.algorithm.html">Algorithm Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cp1.processing.html">Processing Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cp1.utils.html">Utility Package</a></li>
 </ul>
@@ -285,6 +411,10 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.data_objects.html">Data Objects package</a><ul>
+      <li>Previous: <a href="cp1.data_objects.constraints.html" title="previous chapter">Constraints Data Objects package</a></li>
+      <li>Next: <a href="cp1.data_objects.algorithm.html" title="next chapter">Algorithm Data Objects package</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>

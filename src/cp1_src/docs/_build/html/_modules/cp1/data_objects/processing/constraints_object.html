@@ -1,0 +1,232 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.data_objects.processing.constraints_object &#8212; cp1  documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for cp1.data_objects.processing.constraints_object</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;constraints_object.py</span>
+
+<span class="sd">Data object representing a constraints object.</span>
+<span class="sd">Author: Tameem Samawi (tsamawi@cra.com)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">cp1.data_objects.mdl.milliseconds</span> <span class="k">import</span> <span class="n">Milliseconds</span>
+<span class="kn">from</span> <span class="nn">cp1.data_objects.mdl.microseconds</span> <span class="k">import</span> <span class="n">Microseconds</span>
+<span class="kn">from</span> <span class="nn">cp1.data_objects.mdl.bandwidth_rate</span> <span class="k">import</span> <span class="n">BandwidthRate</span>
+<span class="kn">from</span> <span class="nn">cp1.data_objects.mdl.txop_timeout</span> <span class="k">import</span> <span class="n">TxOpTimeout</span>
+<span class="kn">from</span> <span class="nn">cp1.data_objects.processing.ta</span> <span class="k">import</span> <span class="n">TA</span>
+<span class="kn">from</span> <span class="nn">cp1.data_objects.processing.channel</span> <span class="k">import</span> <span class="n">Channel</span>
+<span class="kn">from</span> <span class="nn">cp1.common.exception_class</span> <span class="k">import</span> <span class="n">ConstraintsObjectInitializationException</span>
+
+
+<div class="viewcode-block" id="ConstraintsObject"><a class="viewcode-back" href="../../../../cp1.data_objects.processing.html#cp1.data_objects.processing.constraints_object.ConstraintsObject">[docs]</a><span class="k">class</span> <span class="nc">ConstraintsObject</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_throughput_bulk</span><span class="p">,</span> <span class="n">goal_throughput_voice</span><span class="p">,</span>
+                 <span class="n">goal_throughput_safety</span><span class="p">,</span> <span class="n">latency</span><span class="p">,</span> <span class="n">guard_band</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">txop_timeout</span><span class="p">,</span> <span class="n">candidate_tas</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+
+<span class="sd">        :param BandwidthRate goal_throughput_bulk: The new value for all Bulk ServiceLevelProfiles.</span>
+<span class="sd">        :param BandwidthRate goal_throughput_voice: The new value for all Voice ServiceLevelProfiles.</span>
+<span class="sd">        :param BandwidthRate goal_throughput_safety: The new value for all Safety ServiceLevelProfiles.</span>
+<span class="sd">        :param Milliseconds latency: The gap in time between transmissions for a given TA</span>
+<span class="sd">        :param Milliseconds guard_band: The unused part of the radio spectrum between radio bands to prevent interference.</span>
+<span class="sd">        :param TxOpTimeout txop_timeout: The timeout value for TxOp nodes</span>
+<span class="sd">        :param List[TA] candidate_tas: List of potential TA&#39;s.</span>
+<span class="sd">        :param List[Channel] channels: Channel specific data such as the amount of throughput available</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">goal_throughput_bulk</span><span class="p">,</span> <span class="n">BandwidthRate</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;goal_throughput_bulk must be an instance of BandwidthRate:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">goal_throughput_bulk</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">goal_throughput_bulk</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">goal_throughput_voice</span><span class="p">,</span> <span class="n">BandwidthRate</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;goal_throughput_voice must be an instance of BandwidthRate:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">goal_throughput_voice</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">goal_throughput_voice</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">goal_throughput_safety</span><span class="p">,</span> <span class="n">BandwidthRate</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;goal_throughput_safety must be an instance of BandwidthRate:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">goal_throughput_safety</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">goal_throughput_safety</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">latency</span><span class="p">,</span> <span class="n">Milliseconds</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;latency must be an instance of Milliseconds:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">latency</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">latency</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">guard_band</span><span class="p">,</span> <span class="n">Milliseconds</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;guard_band must be an instance of Milliseconds:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">guard_band</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">guard_band</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">Milliseconds</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;epoch must be an instance of Epoch:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">epoch</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;Channel.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">txop_timeout</span><span class="p">,</span> <span class="n">TxOpTimeout</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;txop_timeout must be an instance of TxOpTimeout:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">txop_timeout</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">txop_timeout</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;Channel.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">candidate_tas</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;candidate_tas must be a list:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">candidate_tas</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">candidate_tas</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">TA</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">candidate_tas</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;candidate_tas must only contain instances of TA:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">candidate_tas</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">candidate_tas</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;channels must be a list:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">channels</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Channel</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ConstraintsObjectInitializationException</span><span class="p">(</span><span class="s1">&#39;channels be an instance of Channel:</span><span class="se">\n</span><span class="s1">value: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">type: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">channels</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+            <span class="p">),</span> <span class="s1">&#39;ConstraintsObject.__init__&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_bulk</span> <span class="o">=</span> <span class="n">goal_throughput_bulk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_voice</span> <span class="o">=</span> <span class="n">goal_throughput_voice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_safety</span> <span class="o">=</span> <span class="n">goal_throughput_safety</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latency</span> <span class="o">=</span> <span class="n">latency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guard_band</span> <span class="o">=</span> <span class="n">guard_band</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txop_timeout</span> <span class="o">=</span> <span class="n">txop_timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">candidate_tas</span> <span class="o">=</span> <span class="n">candidate_tas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Goal Throughput Bulk: </span><span class="si">{0}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;Goal Throughput Voice: </span><span class="si">{1}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;Goal Throughput Safety: </span><span class="si">{2}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;Latency: </span><span class="si">{3}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;Guard Band: </span><span class="si">{4}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;Epoch: </span><span class="si">{5}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;TxOp Timeout: </span><span class="si">{6}</span><span class="s1">, &#39;</span> \
+               <span class="s1">&#39;Candidate TAs: [</span><span class="si">{7}</span><span class="s1">], &#39;</span> \
+               <span class="s1">&#39;Channels: [</span><span class="si">{8}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_bulk</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_voice</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_safety</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">latency</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">guard_band</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">txop_timeout</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">candidate_tas</span><span class="p">,</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">channels</span>
+               <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ConstraintsObject</span><span class="p">):</span>
+            <span class="n">tas_equal</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">candidate_tas</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidate_tas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">candidate_tas</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">tas_equal</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="n">channels_equal</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">channels_equal</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_bulk</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">goal_throughput_bulk</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_voice</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">goal_throughput_voice</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">goal_throughput_safety</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">goal_throughput_safety</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">latency</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">latency</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">guard_band</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">guard_band</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">epoch</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">txop_timeout</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">txop_timeout</span> <span class="ow">and</span>
+                    <span class="n">tas_equal</span> <span class="ow">and</span>
+                    <span class="n">channels_equal</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">cp1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cp1.html">cp1 package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

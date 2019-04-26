@@ -1,9 +1,6 @@
 Utility package
 ======================
 
-Submodules
-----------
-
 JSON Utils Module
 -----------------------------------
 
@@ -24,6 +21,30 @@ OrientDB Storage Module
 -------------------------------
 
 .. automodule:: cp1.utils.orientdb_storage
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+OrientDB Exporter Module
+-------------------------------
+
+.. automodule:: cp1.utils.orientdb_exporter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+OrientDB Importer Module
+-------------------------------
+
+.. automodule:: cp1.utils.orientdb_importer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+TA Generator Module
+-------------------------------
+
+.. automodule:: cp1.utils.ta_generator
     :members:
     :undoc-members:
     :show-inheritance:

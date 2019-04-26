@@ -1,9 +1,6 @@
 MDL Data Objects package
 ==========================
 
-Submodules
-----------
-
 Bandwidth Rate Module
 -----------------------------------
 
@@ -11,6 +8,7 @@ Bandwidth Rate Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Bandwidth Types Module
 -----------------------------------
@@ -19,6 +17,7 @@ Bandwidth Types Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Frequency Module
 -----------------------------------
@@ -27,6 +26,7 @@ Frequency Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 ID Set Module
 -----------------------------------
@@ -35,6 +35,7 @@ ID Set Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Kbps Module
 -----------------------------------
@@ -43,6 +44,7 @@ Kbps Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 MDL ID Module
 -----------------------------------
@@ -51,6 +53,7 @@ MDL ID Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Microseconds Module
 -----------------------------------
@@ -59,6 +62,7 @@ Microseconds Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Microseconds Module
 -----------------------------------
@@ -67,6 +71,7 @@ Microseconds Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Milliseconds Module
 -----------------------------------
@@ -75,14 +80,16 @@ Milliseconds Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Schedule Module
 -----------------------------------
 
-.. automodule:: cp1.data_objects.mdl.schedule
+.. automodule:: cp1.data_objects.constraints.schedule
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 TxOp Timeout Module
 -----------------------------------
@@ -91,6 +98,7 @@ TxOp Timeout Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 TxOp Module
 -----------------------------------
@@ -99,3 +107,4 @@ TxOp Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:

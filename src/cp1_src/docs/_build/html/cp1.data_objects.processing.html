@@ -1,0 +1,251 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.data_objects.processing package &#8212; cp1  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cp1.processing package" href="cp1.processing.html" />
+    <link rel="prev" title="cp1.data_objects.mdl package" href="cp1.data_objects.mdl.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cp1-data-objects-processing-package">
+<h1>cp1.data_objects.processing package<a class="headerlink" href="#cp1-data-objects-processing-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.data_objects.processing.algorithm_result">
+<span id="cp1-data-objects-processing-algorithm-result-module"></span><h2>cp1.data_objects.processing.algorithm_result module<a class="headerlink" href="#module-cp1.data_objects.processing.algorithm_result" title="Permalink to this headline">¶</a></h2>
+<p>algorithm_result.py</p>
+<p>Data object to encapsulate algorithm results.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.data_objects.processing.algorithm_result.AlgorithmResult">
+<em class="property">class </em><code class="descclassname">cp1.data_objects.processing.algorithm_result.</code><code class="descname">AlgorithmResult</code><span class="sig-paren">(</span><em>schedule</em>, <em>solve_time</em>, <em>run_time</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/algorithm_result.html#AlgorithmResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.algorithm_result.AlgorithmResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.data_objects.processing.channel">
+<span id="cp1-data-objects-processing-channel-module"></span><h2>cp1.data_objects.processing.channel module<a class="headerlink" href="#module-cp1.data_objects.processing.channel" title="Permalink to this headline">¶</a></h2>
+<p>channel.py</p>
+<p>Data object representing a radio channel.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.data_objects.processing.channel.Channel">
+<em class="property">class </em><code class="descclassname">cp1.data_objects.processing.channel.</code><code class="descname">Channel</code><span class="sig-paren">(</span><em>frequency</em>, <em>length</em>, <em>latency</em>, <em>capacity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/channel.html#Channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.channel.Channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.data_objects.processing.constraints_object">
+<span id="cp1-data-objects-processing-constraints-object-module"></span><h2>cp1.data_objects.processing.constraints_object module<a class="headerlink" href="#module-cp1.data_objects.processing.constraints_object" title="Permalink to this headline">¶</a></h2>
+<p>constraints_object.py</p>
+<p>Data object representing a constraints object.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.data_objects.processing.constraints_object.ConstraintsObject">
+<em class="property">class </em><code class="descclassname">cp1.data_objects.processing.constraints_object.</code><code class="descname">ConstraintsObject</code><span class="sig-paren">(</span><em>goal_throughput_bulk</em>, <em>goal_throughput_voice</em>, <em>goal_throughput_safety</em>, <em>latency</em>, <em>guard_band</em>, <em>epoch</em>, <em>txop_timeout</em>, <em>candidate_tas</em>, <em>channels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/constraints_object.html#ConstraintsObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.constraints_object.ConstraintsObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.data_objects.processing.schedule">
+<span id="cp1-data-objects-processing-schedule-module"></span><h2>cp1.data_objects.processing.schedule module<a class="headerlink" href="#module-cp1.data_objects.processing.schedule" title="Permalink to this headline">¶</a></h2>
+<p>schedule.py</p>
+<p>Module to encapsulate optimizer output. Constructor is null because objects are added to the schedule as
+they are generated.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.data_objects.processing.schedule.Schedule">
+<em class="property">class </em><code class="descclassname">cp1.data_objects.processing.schedule.</code><code class="descname">Schedule</code><span class="sig-paren">(</span><em>epoch</em>, <em>guard_band</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/schedule.html#Schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.schedule.Schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.processing.schedule.Schedule.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>radio_link_key</em>, <em>txop</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/schedule.html#Schedule.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.schedule.Schedule.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new schedule for a specific RadioLink connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>txop</strong> (<a class="reference internal" href="cp1.data_objects.mdl.html#cp1.data_objects.mdl.txop.TxOp" title="cp1.data_objects.mdl.txop.TxOp"><em>TxOp</em></a>) – A TxOp node</li>
+<li><strong>radio_link_key</strong> (<em>str</em>) – RadioLink ID of current schedule</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.data_objects.processing.schedule.Schedule.validate">
+<code class="descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/schedule.html#Schedule.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.schedule.Schedule.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates schedule against errors such as exceeding the epoch.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.data_objects.processing.ta">
+<span id="cp1-data-objects-processing-ta-module"></span><h2>cp1.data_objects.processing.ta module<a class="headerlink" href="#module-cp1.data_objects.processing.ta" title="Permalink to this headline">¶</a></h2>
+<p>ta.py</p>
+<p>Data object representing a TA.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.data_objects.processing.ta.TA">
+<em class="property">class </em><code class="descclassname">cp1.data_objects.processing.ta.</code><code class="descname">TA</code><span class="sig-paren">(</span><em>id_</em>, <em>minimum_voice_bandwidth</em>, <em>minimum_safety_bandwidth</em>, <em>scaling_factor</em>, <em>c</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/ta.html#TA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.ta.TA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.data_objects.processing.ta.TA.compute_bandwidth">
+<code class="descname">compute_bandwidth</code><span class="sig-paren">(</span><em>utility</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/ta.html#TA.compute_bandwidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.ta.TA.compute_bandwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes bandwidth as a function of value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.data_objects.processing.ta.TA.compute_value">
+<code class="descname">compute_value</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/data_objects/processing/ta.html#TA.compute_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.data_objects.processing.ta.TA.compute_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes value as a function of bandwidth.
+If the provided bandwidth is less than the total minimum bandwidth, which is the
+sum of the safety and voice bandwidth requirements, this TA provides 0 value.
+It is impossible to assign over 2000 Kbps to a given TA, so this equation
+caps out at that value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>int</em>) – The amount of bandwidth allocated to this TA.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns int value:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">The value this TA provides at that bandwidth.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.data_objects.processing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp1.data_objects.processing" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cp1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.html">cp1 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cp1.common.html">cp1.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cp1.data_objects.html">cp1.data_objects package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cp1.data_objects.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.data_objects.html#module-cp1.data_objects">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.processing.html">cp1.processing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.utils.html">cp1.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#cp1-algorithm-examples-module">cp1.algorithm_examples module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#cp1-start-module">cp1.start module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#module-cp1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.html">cp1 package</a><ul>
+  <li><a href="cp1.data_objects.html">cp1.data_objects package</a><ul>
+      <li>Previous: <a href="cp1.data_objects.mdl.html" title="previous chapter">cp1.data_objects.mdl package</a></li>
+      <li>Next: <a href="cp1.processing.html" title="next chapter">cp1.processing package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cp1.data_objects.processing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

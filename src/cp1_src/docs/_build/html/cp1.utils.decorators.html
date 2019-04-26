@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.utils.decorators package &#8212; cp1  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="cp1.utils package" href="cp1.utils.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cp1-utils-decorators-package">
+<h1>cp1.utils.decorators package<a class="headerlink" href="#cp1-utils-decorators-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.utils.decorators.orientdb_exporter">
+<span id="cp1-utils-decorators-orientdb-exporter-module"></span><h2>cp1.utils.decorators.orientdb_exporter module<a class="headerlink" href="#module-cp1.utils.decorators.orientdb_exporter" title="Permalink to this headline">¶</a></h2>
+<p>orientdb_exporter.py</p>
+<p>Decorator for <code class="xref py py-class docutils literal notranslate"><span class="pre">brass_api.translator.orientdb_exporter</span></code>
+Developed to provide a progress update while exporting MDL files.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.utils.decorators.orientdb_exporter.OrientDBExporter">
+<em class="property">class </em><code class="descclassname">cp1.utils.decorators.orientdb_exporter.</code><code class="descname">OrientDBExporter</code><span class="sig-paren">(</span><em>databaseName</em>, <em>xmlfile</em>, <em>configFile='config.json'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/utils/decorators/orientdb_exporter.html#OrientDBExporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.utils.decorators.orientdb_exporter.OrientDBExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">brass_api.translator.orientdb_exporter.OrientDBXMLExporter</span></code></p>
+<dl class="method">
+<dt id="cp1.utils.decorators.orientdb_exporter.OrientDBExporter.print_node">
+<code class="descname">print_node</code><span class="sig-paren">(</span><em>record</em>, <em>numberTabs=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/utils/decorators/orientdb_exporter.html#OrientDBExporter.print_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.utils.decorators.orientdb_exporter.OrientDBExporter.print_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls printOrientRecord() on a vertex to convert its data
+to xml and write to a file.
+Recursively calls printNode on child vertices via “Containment” edge.
+Closing xml tag is written in this function because closing tag needs
+to come after all child xml elments have been written to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>record</strong> (<em>OrientRecord</em>) – an orientDB record containing data about a vertex</li>
+<li><strong>numberTabs</strong> (<em>int</em>) – number of tabs to indent before xml text</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.utils.decorators.orientdb_importer">
+<span id="cp1-utils-decorators-orientdb-importer-module"></span><h2>cp1.utils.decorators.orientdb_importer module<a class="headerlink" href="#module-cp1.utils.decorators.orientdb_importer" title="Permalink to this headline">¶</a></h2>
+<p>orientdb_exporter.py</p>
+<p>Decorator for <code class="xref py py-class docutils literal notranslate"><span class="pre">brass_api.translator.orientdb_importer</span></code>
+Developed to provide a progress update while exporting MDL files.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.utils.decorators.orientdb_importer.OrientDBImporter">
+<em class="property">class </em><code class="descclassname">cp1.utils.decorators.orientdb_importer.</code><code class="descname">OrientDBImporter</code><span class="sig-paren">(</span><em>databaseName</em>, <em>mdlFile</em>, <em>configFile='config.json'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/utils/decorators/orientdb_importer.html#OrientDBImporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.utils.decorators.orientdb_importer.OrientDBImporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">brass_api.translator.orientdb_importer.OrientDBXMLImporter</span></code></p>
+<dl class="method">
+<dt id="cp1.utils.decorators.orientdb_importer.OrientDBImporter.import_xml">
+<code class="descname">import_xml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/utils/decorators/orientdb_importer.html#OrientDBImporter.import_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.utils.decorators.orientdb_importer.OrientDBImporter.import_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function called to start the import process.
+A temporary copy of the xml file is saved with attributes removed from the
+root tag, ie &lt;MDLRoot&gt; or &lt;VCL&gt;.
+The temporary xml file is then valided against schema and parsed.
+Lastly the temporary xml file is removed.
+:param:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.utils.decorators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp1.utils.decorators" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cp1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.html">cp1 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cp1.common.html">cp1.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.data_objects.html">cp1.data_objects package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.processing.html">cp1.processing package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="cp1.utils.html">cp1.utils package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cp1.utils.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.utils.html#module-cp1.utils.json_utils">cp1.utils.json_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.utils.html#module-cp1.utils.orientdb_session">cp1.utils.orientdb_session module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.utils.html#module-cp1.utils.ta_generator">cp1.utils.ta_generator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.utils.html#module-cp1.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#cp1-algorithm-examples-module">cp1.algorithm_examples module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#cp1-start-module">cp1.start module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#module-cp1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.html">cp1 package</a><ul>
+  <li><a href="cp1.utils.html">cp1.utils package</a><ul>
+      <li>Previous: <a href="cp1.utils.html" title="previous chapter">cp1.utils package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cp1.utils.decorators.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

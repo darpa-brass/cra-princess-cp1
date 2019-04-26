@@ -1,0 +1,276 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.processing package &#8212; cp1  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cp1.processing.algorithms package" href="cp1.processing.algorithms.html" />
+    <link rel="prev" title="cp1.data_objects.processing package" href="cp1.data_objects.processing.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cp1-processing-package">
+<h1>cp1.processing package<a class="headerlink" href="#cp1-processing-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cp1.processing.algorithms.html">cp1.processing.algorithms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cp1.processing.algorithms.discretization.html">cp1.processing.algorithms.discretization package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cp1.processing.algorithms.discretization.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.processing.algorithms.discretization.html#module-cp1.processing.algorithms.discretization.accuracy_discretization">cp1.processing.algorithms.discretization.accuracy_discretization module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.processing.algorithms.discretization.html#module-cp1.processing.algorithms.discretization.bandwidth_discretization">cp1.processing.algorithms.discretization.bandwidth_discretization module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.processing.algorithms.discretization.html#module-cp1.processing.algorithms.discretization.discretization_strategy">cp1.processing.algorithms.discretization.discretization_strategy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.processing.algorithms.discretization.html#module-cp1.processing.algorithms.discretization.value_discretization">cp1.processing.algorithms.discretization.value_discretization module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cp1.processing.algorithms.discretization.html#module-cp1.processing.algorithms.discretization">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#module-cp1.processing.algorithms.greedy">cp1.processing.algorithms.greedy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#module-cp1.processing.algorithms.integer_program">cp1.processing.algorithms.integer_program module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#module-cp1.processing.algorithms.optimization_algorithm">cp1.processing.algorithms.optimization_algorithm module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#cp1-processing-algorithms-solver-types-module">cp1.processing.algorithms.solver_types module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.algorithms.html#module-cp1.processing.algorithms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.processing.bandwidth_processor">
+<span id="cp1-processing-bandwidth-processor-module"></span><h2>cp1.processing.bandwidth_processor module<a class="headerlink" href="#module-cp1.processing.bandwidth_processor" title="Permalink to this headline">¶</a></h2>
+<p>bandwidth_processor.py</p>
+<p>Generates new bandwidth rates based on available bandwidth and ratio of bandwidth going up
+and bandwidth going down for each of the four types of bandwidth: voice, safety, bulk and RFNM.
+Output of this class is used to update the Rate children ServiceLevelProfile elements of MDL files,
+which is where bandwidth allocation is specified.
+A file containing ServiceLevelProfile IDs can be found under cp1/conf/mdl_ids.json. Below are the SLP identifiers provided by SwRI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">voice</span><span class="p">:</span> <span class="n">SLP_1_20</span>
+<span class="n">safety</span><span class="p">:</span> <span class="n">SLP_1_301</span>
+<span class="n">bulk</span><span class="p">:</span> <span class="n">SLP_1_40</span>
+<span class="n">RFNM</span><span class="p">:</span> <span class="n">SLP_1_10</span>
+</pre></div>
+</div>
+<p>i.e. constraints_object.goal_throughput_bulk = Kbps(75), up_ratio = 0.25
+In this case, the output of <code class="xref py py-func docutils literal notranslate"><span class="pre">ProcessBandwidth.process()</span></code> should be used in conjunction with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">OrientDBStorage.update_bandwidth</span> <span class="pre">&lt;cp1.utils.OrientDBStorage.update_bandwidth()</span></code> to edit the following MDL elements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ServiceLevelProfile</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">TA1_to_GndGrp1_SLP_1_40</span><span class="o">&gt;</span>
+   <span class="o">.</span>
+       <span class="o">.</span>
+           <span class="o">.</span>
+           <span class="o">&lt;</span><span class="n">Rate</span><span class="o">&gt;</span><span class="mi">56250</span><span class="o">&lt;/</span><span class="n">Rate</span><span class="o">&gt;</span>
+           <span class="o">.</span>
+       <span class="o">.</span>
+   <span class="o">.</span>
+<span class="o">&lt;/</span><span class="n">ServiceLevelProfile</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">ServiceLevelProfile</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">GR1_to_TA1_SLP_1_40</span><span class="o">&gt;</span>
+     <span class="o">.</span>
+         <span class="o">.</span>
+             <span class="o">.</span>
+             <span class="o">&lt;</span><span class="n">Rate</span><span class="o">&gt;</span><span class="mi">18750</span><span class="o">&lt;/</span><span class="n">Rate</span><span class="o">&gt;</span>
+             <span class="o">.</span>
+         <span class="o">.</span>
+     <span class="o">.</span>
+<span class="o">&lt;/</span><span class="n">ServiceLevelProfile</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.bandwidth_processor.BandwidthProcessor">
+<em class="property">class </em><code class="descclassname">cp1.processing.bandwidth_processor.</code><code class="descname">BandwidthProcessor</code><span class="sig-paren">(</span><em>constraints_object</em>, <em>bandwidth_file</em>, <em>up_ratio</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/processing/bandwidth_processor.html#BandwidthProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.processing.bandwidth_processor.BandwidthProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cp1.processing.bandwidth_processor.BandwidthProcessor.compute_rates">
+<code class="descname">compute_rates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/processing/bandwidth_processor.html#BandwidthProcessor.compute_rates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.processing.bandwidth_processor.BandwidthProcessor.compute_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>The rate of a specific bandwidth value is determined by the ratio of bandwidth allocated to
+Ground to TA (up_ratio) and TA to Ground (down_ratio) communications.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Returns dict{str, int} slp_ids:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.processing.bandwidth_processor.BandwidthProcessor.generate_slp_id">
+<code class="descname">generate_slp_id</code><span class="sig-paren">(</span><em>ta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/processing/bandwidth_processor.html#BandwidthProcessor.generate_slp_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.processing.bandwidth_processor.BandwidthProcessor.generate_slp_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ServiveLevelProfile element in an MDL file is identifiable by the constants provided in
+the bandwidth_file. For each of these constants we need to append information on which TA
+and which Ground station are communicating to one another for the IDs to be valid.
+i.e. TA1_to_GndGrp1_SLP_1_301 represents the bandwidth transmission rate for all safety radio
+communications from TA1 to Ground.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ta</strong> (<a class="reference internal" href="cp1.data_objects.processing.html#cp1.data_objects.processing.ta.TA" title="cp1.data_objects.processing.ta.TA"><em>TA</em></a>) – The TA to generate SLP IDs for</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns dict{str:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">str} slp_ids: Dictionary of SLP IDs, i.e. {‘safety_down’: ‘TA1_to_GndGrp1_SLP_1_301’}</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.processing.bandwidth_processor.BandwidthProcessor.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cp1/processing/bandwidth_processor.html#BandwidthProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cp1.processing.bandwidth_processor.BandwidthProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dictionary of bandwidth keys/values based on TAs.
+The keys in this dictionary represent MDL ServiveLevelProfile (SLP) IDs, which
+are the elements that contain information on transmission rates for each
+of the four types of communication: safety, voice, bulk and RFNM
+The values in this dictionary are ints representing the bit per second rates for a specific
+transmission type and direction.
+i.e. {‘TA1_to_GndGrp1_SLP_1_20’: 75000} indicates that of the total available bandwidth from
+TA1 to Ground, 75000 bits per second of that bandwidth should be allocated to voice radio
+communications.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Returns dict&lt;str, int&gt; schedule:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="cp1-processing-schedule-processor-module">
+<h2>cp1.processing.schedule_processor module<a class="headerlink" href="#cp1-processing-schedule-processor-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.processing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp1.processing" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cp1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.html">cp1 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cp1.common.html">cp1.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.data_objects.html">cp1.data_objects package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cp1.processing package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.processing.bandwidth_processor">cp1.processing.bandwidth_processor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cp1-processing-schedule-processor-module">cp1.processing.schedule_processor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cp1.processing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cp1.utils.html">cp1.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#cp1-algorithm-examples-module">cp1.algorithm_examples module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#cp1-start-module">cp1.start module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.html#module-cp1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.html">cp1 package</a><ul>
+      <li>Previous: <a href="cp1.data_objects.processing.html" title="previous chapter">cp1.data_objects.processing package</a></li>
+      <li>Next: <a href="cp1.processing.algorithms.html" title="next chapter">cp1.processing.algorithms package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cp1.processing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

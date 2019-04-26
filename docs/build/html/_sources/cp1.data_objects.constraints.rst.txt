@@ -1,24 +1,23 @@
 Constraints Data Objects package
 =================================
 
-Submodules
-----------
-
 Channel Module
 -----------------------------------
 
-.. automodule:: cp1.data_objects.constraints.channel
+.. automodule:: cp1.data_objects.processing.channel
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Constraints Object Module
 -----------------------------------
 
-.. automodule:: cp1.data_objects.constraints.constraints_object
+.. automodule:: cp1.data_objects.processing.constraints_object
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 TA Module
 -----------------------------------
@@ -27,3 +26,4 @@ TA Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:

@@ -1,12 +1,8 @@
-"""
-
-id_list.py
+"""id_set.py
 
 Singleton object to store all IDs.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-
-
 from cp1.common.singleton import Singleton
 
 

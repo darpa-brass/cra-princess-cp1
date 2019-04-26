@@ -11,7 +11,7 @@ class MockPyorientNode:
         self._rid = _rid
 
 
-class OrientDBUtilsTest(unittest.TestCase):
+class OrientDBSessionTest(unittest.TestCase):
     def setUp(self):
         self.mock_id = 'TA1'
         self.mock_class = 'Rate'

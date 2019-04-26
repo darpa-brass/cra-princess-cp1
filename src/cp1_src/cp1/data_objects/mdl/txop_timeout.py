@@ -1,9 +1,7 @@
-"""
+"""txop_timeout.py
 
-txop_timeout.py
-
-Data object representing timeout. According to Mdl documentation, this value must be in the range of [0, 255].
-https://git.isis.vanderbilt.edu/SwRI/mdl-archive/blob/master/spec/MDL_v1_0_0.xsd
+Data object representing timeout. Must be in the range of [0, 255].
+`MDL Documentation <https://git.isis.vanderbilt.edu/SwRI/mdl-archive/blob/master/spec/MDL_v1_0_0.xsd>`_.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 from cp1.common.exception_class import TxOpTimeoutInitializationException
@@ -14,18 +12,18 @@ class TxOpTimeout:
         """
         Constructor
 
-        :param value: The TxOp timeout value.
-        :type value: int
+        :param int value: The TxOp timeout value.
         """
-        if not isinstance(value, int):
-            raise TxOpTimeoutInitializationException(
-                'Must be int:\nvalue: {0}\ntype: {1}'.format(value, type(value)),
-                'TxOpTimeout.__init__')
         if value < 0 or value > 255:
-            raise TxOpTimeout(
+            raise TxOpTimeoutInitializationException(
                 'Must be between 0 and 255. value: {0}'.format(value),
                 'TxOpTimeout.__init__')
         self.value = value
 
     def __str__(self):
         return ('TxOpTimeout: {0}'.format(self.value))
+
+    def __eq__(self, other):
+        if isinstance(other, TxOpTimeout):
+            return self.value == other.value
+        return False

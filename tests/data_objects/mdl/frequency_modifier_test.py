@@ -1,13 +1,9 @@
 """
-
 frequency_modifier_test.py
 
 This program contains code to test frequency_modifier.py.
-
 Author: Tameem Samawi (tsamawi@cra.com)
-
 """
-
 import sys
 import unittest
 from general_test_data import GeneralTestData

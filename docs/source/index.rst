@@ -1,16 +1,16 @@
-.. Challenge Problem 1 documentation master file
+.. CP1 documentation master file, created by
+   sphinx-quickstart on Tue Mar 26 15:47:54 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-Welcome to Challenge Problem 1's documentation!
-=======================================================================
+Welcome to CP1's documentation!
+===============================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
    :caption: Contents:
 
-   Common Package <cp1.common.rst>
-   Data Objects Package <cp1.data_objects.rst>
-   Processing Package <cp1.processing.rst>
-   Utility Package <cp1.utils.rst>
+
 
 Indices and tables
 ==================

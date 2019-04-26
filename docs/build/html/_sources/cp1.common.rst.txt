@@ -1,9 +1,6 @@
 Common Package
 =========================
 
-Submodules
-----------
-
 Exception Class Module
 -----------------------------------
 
@@ -11,14 +8,7 @@ Exception Class Module
     :members:
     :undoc-members:
     :show-inheritance:
-
-Constants Class Module
------------------------------------
-
-.. automodule:: cp1.common.constants
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    :private-members:
 
 Logger Class Module
 -------------------------------
@@ -27,6 +17,7 @@ Logger Class Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:
 
 Singleton Class Module
 -------------------------------
@@ -35,3 +26,4 @@ Singleton Class Module
     :members:
     :undoc-members:
     :show-inheritance:
+    :private-members:

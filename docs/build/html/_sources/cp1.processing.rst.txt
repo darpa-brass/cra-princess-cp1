@@ -3,19 +3,9 @@ Processing Package
 
 Submodules
 ----------
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
 
-Algorithm Module
--------------------------------------------
-
-.. automodule:: cp1.processing.algorithm
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-Process Bandwidth Module
---------------------------------------------------
-
-.. automodule:: cp1.processing.process_bandwidth
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   Bandwidth Package <cp1.processing.bandwidth.rst>
+   Schedule Package <cp1.processing.schedule.rst>

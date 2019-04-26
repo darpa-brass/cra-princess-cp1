@@ -16,7 +16,7 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Processing Package" href="cp1.processing.html" />
+    <link rel="prev" title="Discretization package" href="cp1.processing.schedule.algorithms.discretization.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -35,13 +35,10 @@
             
   <div class="section" id="utility-package">
 <h1>Utility package<a class="headerlink" href="#utility-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-cp1.utils.json_utils">
 <span id="json-utils-module"></span><h2>JSON Utils Module<a class="headerlink" href="#module-cp1.utils.json_utils" title="Permalink to this headline">¶</a></h2>
 <p>json_utils.py</p>
-<p>Utility module to hold any json utility functions.
+<p>Module to hold any JSON utility functions.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="function">
 <dt id="cp1.utils.json_utils.create_mdl_bandwidth_set">
@@ -51,7 +48,7 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mdl_bandwidth_dict</strong> (<em>dict</em>) – Output from file_to_json</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dict{str</strong> – str} mdl_bandwidth_dict: Output from file_to_json</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Returns mdl_bandwidth_set:</th></tr>
 <tr class="field-even field"><td>&#160;</td><td class="field-body">An MDLBandwidthSet instance constructed from the input.</td>
@@ -78,121 +75,37 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 </dd></dl>
 
 </div>
-<div class="section" id="module-cp1.utils.orientdb_retrieval">
-<span id="orientdb-retrieval-module"></span><h2>OrientDB Retrieval Module<a class="headerlink" href="#module-cp1.utils.orientdb_retrieval" title="Permalink to this headline">¶</a></h2>
-<p>orientdb_retrieval.py</p>
-<p>Any helper functions that retrieve data from OrientDB.
-Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
-<dl class="class">
-<dt id="cp1.utils.orientdb_retrieval.OrientDBRetrieval">
-<em class="property">class </em><code class="descclassname">cp1.utils.orientdb_retrieval.</code><code class="descname">OrientDBRetrieval</code><span class="sig-paren">(</span><em>database_name=None</em>, <em>config_file=None</em>, <em>orientdb_client=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_retrieval.OrientDBRetrieval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">brass_api.orientdb.orientdb_helper.BrassOrientDBHelper</span></code></p>
-<dl class="method">
-<dt id="cp1.utils.orientdb_retrieval.OrientDBRetrieval.get_constraints">
-<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_retrieval.OrientDBRetrieval.get_constraints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves constraints from the provided database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Returns constraints_object:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">A Constraints Object</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.utils.orientdb_retrieval.OrientDBRetrieval.get_rate_node">
-<code class="descname">get_rate_node</code><span class="sig-paren">(</span><em>slp_id</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_retrieval.OrientDBRetrieval.get_rate_node" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves Rate child of specified ServiceLevelProfile.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>slp_id</strong> (<em>str</em>) – Key to identify ServiceLevelProfile.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Returns rate_node:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">A PyOrient node</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.utils.orientdb_retrieval.OrientDBRetrieval.parse_constraints_response">
-<code class="descname">parse_constraints_response</code><span class="sig-paren">(</span><em>orientdb_response</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_retrieval.OrientDBRetrieval.parse_constraints_response" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cp1.utils.orientdb_retrieval.OrientDBRetrieval.parse_ta_response">
-<code class="descname">parse_ta_response</code><span class="sig-paren">(</span><em>orientdb_response</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_retrieval.OrientDBRetrieval.parse_ta_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves the list of TAs from the provided database</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Returns candidate_tas:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">A list of TA’s</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="orientdb-retrieval-module">
+<h2>OrientDB Retrieval Module<a class="headerlink" href="#orientdb-retrieval-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cp1.utils.orientdb_storage">
-<span id="orientdb-storage-module"></span><h2>OrientDB Storage Module<a class="headerlink" href="#module-cp1.utils.orientdb_storage" title="Permalink to this headline">¶</a></h2>
-<p>orientdb_storage.py</p>
-<p>Any helper functions that store data in OrientDB.
+<div class="section" id="orientdb-storage-module">
+<h2>OrientDB Storage Module<a class="headerlink" href="#orientdb-storage-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="orientdb-exporter-module">
+<h2>OrientDB Exporter Module<a class="headerlink" href="#orientdb-exporter-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="orientdb-importer-module">
+<h2>OrientDB Importer Module<a class="headerlink" href="#orientdb-importer-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.utils.ta_generator">
+<span id="ta-generator-module"></span><h2>TA Generator Module<a class="headerlink" href="#module-cp1.utils.ta_generator" title="Permalink to this headline">¶</a></h2>
+<p>ta_generator.py</p>
+<p>Constructs a set of TA equations based on the provided input.
 Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
-<dt id="cp1.utils.orientdb_storage.OrientDBStorage">
-<em class="property">class </em><code class="descclassname">cp1.utils.orientdb_storage.</code><code class="descname">OrientDBStorage</code><span class="sig-paren">(</span><em>database_name=None</em>, <em>config_file=None</em>, <em>orientdb_client=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_storage.OrientDBStorage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cp1.utils.orientdb_retrieval.OrientDBRetrieval" title="cp1.utils.orientdb_retrieval.OrientDBRetrieval"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.utils.orientdb_retrieval.OrientDBRetrieval</span></code></a></p>
+<dt id="cp1.utils.ta_generator.TAGenerator">
+<em class="property">class </em><code class="descclassname">cp1.utils.ta_generator.</code><code class="descname">TAGenerator</code><span class="sig-paren">(</span><em>lower_minimum_voice_bandwidth</em>, <em>upper_minimum_voice_bandwidth</em>, <em>lower_minimum_safety_bandwidth</em>, <em>upper_minimum_safety_bandwidth</em>, <em>lower_scaling_factor</em>, <em>upper_scaling_factor</em>, <em>lower_c</em>, <em>upper_c</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.ta_generator.TAGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="cp1.utils.orientdb_storage.OrientDBStorage.delete_nodes_by_class">
-<code class="descname">delete_nodes_by_class</code><span class="sig-paren">(</span><em>clazz</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_storage.OrientDBStorage.delete_nodes_by_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes all nodes of given class type.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clazz</strong> (<em>str</em>) – Class type to delete.</td>
-</tr>
-</tbody>
-</table>
+<dt id="cp1.utils.ta_generator.TAGenerator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>lower_minimum_voice_bandwidth</em>, <em>upper_minimum_voice_bandwidth</em>, <em>lower_minimum_safety_bandwidth</em>, <em>upper_minimum_safety_bandwidth</em>, <em>lower_scaling_factor</em>, <em>upper_scaling_factor</em>, <em>lower_c</em>, <em>upper_c</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.ta_generator.TAGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cp1.utils.orientdb_storage.OrientDBStorage.update_bandwidth">
-<code class="descname">update_bandwidth</code><span class="sig-paren">(</span><em>bandwidth_rates</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_storage.OrientDBStorage.update_bandwidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Modifies the Value field of a ServiceLevelProfile’s Rate vertex.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bandwidth_rates</strong> (<em>list</em>) – New Value to update Rate with.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cp1.utils.orientdb_storage.OrientDBStorage.update_schedule">
-<code class="descname">update_schedule</code><span class="sig-paren">(</span><em>schedule</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_storage.OrientDBStorage.update_schedule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes existing TxOp nodes in database.
-Stores the list of TxOp nodes found in schedule.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>schedule</strong> (<em>dict&lt;str</em><em>, </em><em>List</em><em>[</em><em>MDLTxOp</em><em>]</em><em>&gt;</em>) – An instance of Schedule</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="cp1.utils.ta_generator.TAGenerator.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>num_tas</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.ta_generator.TAGenerator.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -222,10 +135,12 @@ Stores the list of TxOp nodes found in schedule.</p>
 <li class="toctree-l1"><a class="reference internal" href="cp1.data_objects.html">Data Objects Package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cp1.processing.html">Processing Package</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Utility Package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cp1.utils.json_utils">JSON Utils Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-cp1.utils.orientdb_retrieval">OrientDB Retrieval Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-cp1.utils.orientdb_storage">OrientDB Storage Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#orientdb-retrieval-module">OrientDB Retrieval Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#orientdb-storage-module">OrientDB Storage Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#orientdb-exporter-module">OrientDB Exporter Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#orientdb-importer-module">OrientDB Importer Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cp1.utils.ta_generator">TA Generator Module</a></li>
 </ul>
 </li>
 </ul>
@@ -234,7 +149,7 @@ Stores the list of TxOp nodes found in schedule.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="cp1.processing.html" title="previous chapter">Processing Package</a></li>
+      <li>Previous: <a href="cp1.processing.schedule.algorithms.discretization.html" title="previous chapter">Discretization package</a></li>
   </ul></li>
 </ul>
 </div>

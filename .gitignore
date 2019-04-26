@@ -1,5 +1,22 @@
-__pycache__
+# Byte-compiled
+__pycache__/
 
 # IntelliJ specific
 .idea/
 *.iml
+
+# Log files
+*.log
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+eggs/
+*.egg
+*.egg-info/
+
+# Outputs
+CRA_Scenarios_After_Adaptation.xml
+*.txt
+*.csv

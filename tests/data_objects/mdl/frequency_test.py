@@ -1,30 +1,32 @@
 """
+frequency_test.py
 
-mdl_frequency_test.py
-
-Module to test frequency.
+Module to test frequency.py.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-
 import unittest
 from cp1.data_objects.mdl.frequency import Frequency
-from cp1.common.exception_class import FrequencyInitializationError
+from cp1.common.exception_class import FrequencyInitializationException
 
 
-class MDLFrequencyTest(unittest.TestCase):
+class FrequencyTest(unittest.TestCase):
     def test_valid_frequency(self):
-        value = 491950000
-        frequency = Frequency(value)
-        self.assertEquals(value, frequency.value)
+        frequency = Frequency(4919500000)
+        self.assertEqual(4919500000, frequency.value)
+
+    def test___eq__(self):
+        f1 = Frequency(4919500000)
+        f2 = Frequency(4919500000)
+        self.assertTrue(f1 == f2)
 
     def test_incorrect_frequency_value_negative(self):
         self.assertRaises(
-            FrequencyInitializationError,
+            FrequencyInitializationException,
             Frequency,
             -1)
 
     def test_incorrect_frequency_value_type(self):
         self.assertRaises(
-            FrequencyInitializationError,
+            FrequencyInitializationException,
             Frequency,
             'foo')
