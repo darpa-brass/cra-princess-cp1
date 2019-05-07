@@ -4,7 +4,7 @@ from general_test_data import GeneralTestData
 import unittest
 from cra.scenarios.optimization.optimization_result import OptimizationResult
 from cra.scenarios.mdl_data.mdl_frequency import MDLFrequency
-from cra.scenarios.mdl_data.mdl_txop import MDLTxOp
+from cra.scenarios.mdl_data.mdl_txop import TxOp
 from cra.scenarios.optimization.store_result import StoreResult
 from cra.utils.logger import Logger
 from optimization_result_test_data import OptimizationResultTestData
@@ -25,8 +25,8 @@ class StoreResultTest(unittest.TestCase):
         new_frequency = MDLFrequency(new_frequency_value)
 
         # Setup mocking return values and mocked functions
-        mock_txop_list = [MDLTxOp(start_usec=0, stop_usec=10500, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='1'),
-                          MDLTxOp(start_usec=12000, stop_usec=25000, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='2')]
+        mock_txop_list = [TxOp(start_usec=0, stop_usec=10500, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='1'),
+                          TxOp(start_usec=12000, stop_usec=25000, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='2')]
 
         def mock_update_node(a, b):
             for txop in mock_txop_list:
@@ -60,8 +60,8 @@ class StoreResultTest(unittest.TestCase):
         # Mocked methods
         def mock_get_nodes_by_type(_type):
             if _type == 'TxOp':
-                return [MDLTxOp(start_usec=0, stop_usec=10500, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='1'),
-                 MDLTxOp(start_usec=12000, stop_usec=25000, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='2')]
+                return [TxOp(start_usec=0, stop_usec=10500, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='1'),
+                 TxOp(start_usec=12000, stop_usec=25000, center_frequency_hz=MDLFrequency(1000), txop_timeout=255, _rid='2')]
 
             elif _type == 'RadioLink':
                 return [MockRadioLink('A'), MockRadioLink('B'), MockRadioLink('C')]

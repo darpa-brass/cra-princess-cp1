@@ -1,0 +1,44 @@
+{
+  "TAs": {
+    "count": 1,
+    "seeds": [1, 1],
+    "voice_bandwidth": [100, 300],
+    "safety_bandwidth": [50, 100],
+    "latency": [50, 100],
+    "scaling_factor": [1, 10],
+    "c": [0.001, 0.001]
+  },
+  "Channels": {
+    "count": 2,
+    "seed": 1,
+    "capacity": [1000, 5000]
+  },
+  "Constraints Object": {
+    "guard_band": 1,
+    "latency": 50,
+    "goal_throughput_bulk": 0,
+    "goal_throughput_voice": 0,
+    "goal_throughput_safety": 0,
+    "epoch": 100,
+    "txop_timeout": 255
+  },
+  "Algorithm":
+  {
+    "CBC": 1,
+    "Gurobi": 0,
+    "Greedy Algorithm": 0,
+    "Dynamic Program": 1
+  },
+  "Discretization Strategy":
+  {
+    "Accuracy": {
+      "epsilon": [0.95]
+    },
+    "Bandwidth": {
+      "num_discretizations": [1, 5]
+    },
+    "Value": {
+      "num_discretizations": [1, 5]
+    }
+  }
+}

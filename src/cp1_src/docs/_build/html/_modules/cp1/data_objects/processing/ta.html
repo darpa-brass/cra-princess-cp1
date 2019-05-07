@@ -91,7 +91,7 @@
             <span class="n">minimum_voice_bandwidth</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">minimum_safety_bandwidth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scaling_factor</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scaling_factor</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">utility_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_value</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TA.compute_bandwidth"><a class="viewcode-back" href="../../../../cp1.data_objects.processing.html#cp1.data_objects.processing.ta.TA.compute_bandwidth">[docs]</a>    <span class="k">def</span> <span class="nf">compute_bandwidth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utility</span><span class="p">):</span>
@@ -131,14 +131,14 @@
                <span class="s1">&#39;minimum_safety_bandwidth: </span><span class="si">{3}</span><span class="s1">, &#39;</span> \
                <span class="s1">&#39;scaling_factor: </span><span class="si">{4}</span><span class="s1">, &#39;</span> \
                <span class="s1">&#39;c: </span><span class="si">{5}</span><span class="s1">, &#39;</span> \
-               <span class="s1">&#39;utility_threshold: </span><span class="si">{6}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+               <span class="s1">&#39;min_value: </span><span class="si">{6}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">id_</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span><span class="p">,</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">minimum_voice_bandwidth</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">minimum_safety_bandwidth</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">scaling_factor</span><span class="p">,</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span>
-               <span class="bp">self</span><span class="o">.</span><span class="n">utility_threshold</span><span class="p">)</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TA</span><span class="p">):</span>
@@ -148,7 +148,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span> <span class="ow">and</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">scaling_factor</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">scaling_factor</span> <span class="ow">and</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">c</span> <span class="ow">and</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">utility_threshold</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">utility_threshold</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
     <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span></div>

@@ -59,27 +59,27 @@
 <span class="sd">        :param ConstraintsObject constraints_object: A constraints object containing all data needed to perform this optimization.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_time</span><span class="p">()</span>
-        <span class="n">selected_tas</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">scheduled_tas</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">constraints_object</span><span class="o">.</span><span class="n">candidate_tas</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ta</span><span class="p">:</span> <span class="p">(</span>
-            <span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span> <span class="o">/</span> <span class="n">ta</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">ta</span><span class="o">.</span><span class="n">min_value</span> <span class="o">/</span> <span class="n">ta</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">constraints_object</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
-            <span class="n">selected_tas</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">scheduled_tas</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">ta</span> <span class="ow">in</span> <span class="n">candidate_tas</span><span class="p">:</span>
                 <span class="n">partition_bandwidth_requirement</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">ta</span><span class="o">.</span><span class="n">total_minimum_bandwidth</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="n">channel</span><span class="o">.</span><span class="n">num_partitions</span> <span class="o">*</span> <span class="n">channel</span><span class="o">.</span><span class="n">capacity</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">constraints_object</span><span class="o">.</span><span class="n">guard_band</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">partition_bandwidth_requirement</span> <span class="o">+</span> <span class="n">channel</span><span class="o">.</span><span class="n">first_available_time</span> <span class="o">&lt;=</span> <span class="n">channel</span><span class="o">.</span><span class="n">partition_length</span><span class="p">:</span>
-                    <span class="n">selected_tas</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ta</span><span class="p">)</span>
-                    <span class="n">value</span> <span class="o">+=</span> <span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span>
+                    <span class="n">scheduled_tas</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ta</span><span class="p">)</span>
+                    <span class="n">value</span> <span class="o">+=</span> <span class="n">ta</span><span class="o">.</span><span class="n">min_value</span>
                     <span class="n">channel</span><span class="o">.</span><span class="n">first_available_time</span> <span class="o">+=</span> <span class="n">partition_bandwidth_requirement</span>
-                    <span class="n">channel</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span>
+                    <span class="n">channel</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="n">ta</span><span class="o">.</span><span class="n">min_value</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> selected for scheduling on frequency </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">ta</span><span class="o">.</span><span class="n">id_</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 
         <span class="n">run_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-        <span class="k">return</span> <span class="n">AlgorithmResult</span><span class="p">(</span><span class="n">selected_tas</span><span class="p">,</span> <span class="n">solve_time</span><span class="p">,</span> <span class="n">run_time</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">AlgorithmResult</span><span class="p">(</span><span class="n">scheduled_tas</span><span class="p">,</span> <span class="n">solve_time</span><span class="p">,</span> <span class="n">run_time</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

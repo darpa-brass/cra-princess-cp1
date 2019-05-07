@@ -45,7 +45,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor</span>
 
-<span class="sd">        :param List[str] selected_tas:  New schedule outputted by algorithm.</span>
+<span class="sd">        :param List[str] scheduled_tas:  New schedule outputted by algorithm.</span>
 <span class="sd">        :param int solve_time:           Time taken to generate schedule, does not include any of the setup.</span>
 <span class="sd">                                         For integer programs, this is the time it takes solver.solve() to run.</span>
 <span class="sd">                                         For the greedy algorithm, this is the same as the solve_time since there is</span>
@@ -53,7 +53,7 @@
 <span class="sd">        :param int run_time:             Time taken to run the algorithm from start to finish.</span>
 <span class="sd">        :param int value:                The value of the new schedule.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected_tas</span> <span class="o">=</span> <span class="n">selected_tas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_tas</span> <span class="o">=</span> <span class="n">scheduled_tas</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solve_time</span> <span class="o">=</span> <span class="n">solve_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_time</span> <span class="o">=</span> <span class="n">run_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span></div>

@@ -1,14 +1,16 @@
 """value_discretization.py
 
-Discretizes uniformly with respect to utility_threshold.
-i.e. num_discretizations = 100, ta.utility_threshold = 20
-ta.compute_value(2000) = 85
+Discretizes uniformly with respect to min_value.
+i.e. num_discretizations = 100, ta.min_value = 20
+ta.compute_value(8000) = 85
 85 - 20 = 65
 65 / 100 = 6.5
-[ta.compute_bandwidth(ta.utility_threshold + 6.5), ta.compute_bandwidth(ta.utility_threshold) + 13 etc...]
+[ta.compute_bandwidth(ta.min_value + 6.5), ta.compute_bandwidth(ta.min_value) + 13 etc...]
 
 Author: Tameem Samawi (tsamawi@cra.com)
 """
+import copy
+from cp1.data_objects.constants.constants import *
 from cp1.processing.algorithms.discretization.discretization_strategy import DiscretizationStrategy
 from cp1.data_objects.processing.ta import TA
 
@@ -17,27 +19,21 @@ class ValueDiscretization(DiscretizationStrategy):
     def __init__(self, num_discretizations):
         self.num_discretizations = num_discretizations
 
-    def discretize(self, constraints_object):
-        tas = []
-        for ta in constraints_object.candidate_tas:
-            for channel in constraints_object.channels:
-                discretization_length = int(ta.compute_value(
-                    2000) - ta.utility_threshold)/self.num_discretizations
+    def discretize(self, tas, channels):
+        discretized_tas = []
+        for ta in tas:
+            for channel in channels:
+                ta.channel = channel
+                discretization_length = int(ta.max_value - ta.min_value)/self.num_discretizations
                 for i in range(0, self.num_discretizations):
-                    value = ta.total_minimum_bandwidth.value + \
-                        (i * discretization_length)
-                    tas.append(
-                        [ta, value, ta.compute_bandwidth(value), channel.frequency.value])
-        return tas
+                    disc_ta = copy.deepcopy(ta)
+                    value = disc_ta.min_value + (i * discretization_length)
+                    disc_ta.value = value
+                    disc_ta.bandwidth = Kbps(ta.compute_bandwidth(value))
+                    discretized_tas.append(disc_ta)
+        return discretized_tas
 
-    def discretize_one_channel(self, constraints_object):
-        tas = []
-        for ta in constraints_object.candidate_tas:
-            discretization_length = int(ta.compute_value(
-                2000) - ta.utility_threshold)/self.num_discretizations
-            for i in range(0, self.num_discretizations):
-                value = ta.total_minimum_bandwidth.value + \
-                    (i * discretization_length)
-                tas.append(
-                    [ta, value, ta.compute_bandwidth(value), constraints_object.channels[0].frequency.value])
-        return tas
+    def __str__(self):
+        return 'Value Discretization'
+
+    __repr__ = __str__

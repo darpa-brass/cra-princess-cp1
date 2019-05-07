@@ -6,5 +6,3 @@ python setup.py install
 
 cd ./cp1
 python start.py
-
-exit 0

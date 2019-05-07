@@ -6,6 +6,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import abc
 import random
 
+
 class DataGenerator(abc.ABC):
     def _generate_within_ranges(self, ranges):
         """

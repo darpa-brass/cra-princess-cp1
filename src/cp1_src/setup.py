@@ -11,4 +11,3 @@ setup(
     license='',
     packages=find_packages()
 )
-

@@ -34,11 +34,11 @@ class TxOp:
                'center_frequency_hz: {2}, ' \
                'txop_timeout: {3}, ' \
                '_rid: {4}'.format(
-               self.start_usec,
-               self.stop_usec,
-               self.center_frequency_hz,
-               self.txop_timeout,
-               self._rid
+                   self.start_usec,
+                   self.stop_usec,
+                   self.center_frequency_hz,
+                   self.txop_timeout,
+                   self._rid
                )
 
     def __eq__(self, other):

@@ -3,12 +3,16 @@
 Algorithm that greedily selects TAs for scheduling.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
+import time
 from cp1.processing.algorithms.optimization_algorithm import OptimizationAlgorithm
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 
 
 class Greedy(OptimizationAlgorithm):
-    def optimize(self, constraints_object):
+    def __init__(self, constraints_object):
+        self.constraints_object = constraints_object
+
+    def optimize(self):
         """Greedily selects TAs for scheduling.
         Sorts the candidate TAs based on the ratio between utility threshold and minimum bandwidth.
         Then iterates through the sorted list to schedule TAs on the first available channel.
@@ -21,27 +25,33 @@ class Greedy(OptimizationAlgorithm):
         Gets sorted to:
         [<TA3, ...>, <TA2, ...>, <TA5, ...>]
 
-        :param ConstraintsObject constraints_object: A constraints object containing all data needed to perform this optimization.
+        :returns dict{int:[TA]}: A channel frequency and a list of TAs to be scheduled at that frequency.
         """
-        start_time = time.perf_time()
-        selected_tas = {}
+        start_time = time.perf_counter()
         value = 0
-        constraints_object.candidate_tas.sort(key=lambda ta: (
-            ta.utility_threshold / ta.total_minimum_bandwidth.value), reverse=True)
+        scheduled_tas = {}
+        for channel in self.constraints_object.channels:
+            scheduled_tas[channel.frequency.value] = []
+        self.constraints_object.candidate_tas.sort(key=lambda ta: (
+            ta.min_value / ta.total_minimum_bandwidth.value), reverse=True)
 
-        for channel in constraints_object.channels:
-            selected_tas[channel] = []
-            for ta in candidate_tas:
-                partition_bandwidth_requirement = (
-                    ta.total_minimum_bandwidth.value / channel.num_partitions * channel.capacity) + (2 * constraints_object.guard_band.value)
+        min_latency = min(eligible_tas, key=lambda x: x.latency.value).latency
 
-                if partition_bandwidth_requirement + channel.first_available_time <= channel.partition_length:
-                    selected_tas.get(channel).append(ta)
-                    value += ta.utility_threshold
-                    channel.first_available_time += partition_bandwidth_requirement
-                    channel.value += ta.utility_threshold
-                    logger.info('{0} selected for scheduling on frequency {1}'.format(
-                        ta.id_, channel.frequency.value))
+        for ta in self.constraints_object.candidate_tas:
+            for channel in self.constraints_object.channels:
+                if ta.channel_is_eligible(channel):
+                    comm_length = ta.compute_communication_length(channel.capacity, min_latency, self.constraints_object.guard_band.value, total_minimum_bandwidth)
+                    if comm_length + channel.first_available_time <= self.constraints_object.epoch.value:
+                        scheduled_tas.get(channel.frequency.value).append(ta)
+                        channel.first_available_time += comm_length
+                        value += ta.min_value
+                        channel.value += ta.min_value
+                    break
 
-        run_time = time.perf_time() - start_time
-        return AlgorithmResult(selected_tas, solve_time, run_time, value)
+        run_time = time.perf_counter() - start_time
+        return AlgorithmResult(scheduled_tas, run_time, run_time, value)
+
+    def __str__(self):
+        return 'Greedy'
+
+    __repr__ = __str__

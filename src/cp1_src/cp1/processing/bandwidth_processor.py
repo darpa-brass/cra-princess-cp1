@@ -112,14 +112,14 @@ class BandwidthProcessor:
 
         data_file.close()
 
-        voice_up = ground_from + '_to_' + ta.id_.value + '_' + voice
-        voice_down = ta.id_.value + '_to_' + ground_to + '_' + voice
+        voice_up = ground_from + '_to_' + ta.id + '_' + voice
+        voice_down = ta.id + '_to_' + ground_to + '_' + voice
 
-        safety_up = ground_from + '_to_' + ta.id_.value + '_' + safety
-        safety_down = ta.id_.value + '_to_' + ground_to + '_' + safety
+        safety_up = ground_from + '_to_' + ta.id + '_' + safety
+        safety_down = ta.id + '_to_' + ground_to + '_' + safety
 
-        bulk_up = ground_from + '_to_' + ta.id_.value + '_' + bulk
-        bulk_down = ta.id_.value + '_to_' + ground_to + '_' + bulk
+        bulk_up = ground_from + '_to_' + ta.id + '_' + bulk
+        bulk_down = ta.id + '_to_' + ground_to + '_' + bulk
 
         for ta in self.constraints_object.candidate_tas:
             slp_ids = self.generate_slp_id(ta)

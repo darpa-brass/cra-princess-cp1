@@ -45,7 +45,7 @@
 <p>Provides a gurantee on the accuracy of the overall solution in relation to the optimal solution.
 Guaranteed accuracy is: 1 - accuracy
 i.e. accuracy = 0.001, therefore guaranteed accuracy is 99.999
-num_discretizations = (1 - 0.001) * (100 / ta.utility_threshold)</p>
+num_discretizations = (1 - 0.001) * (100 / ta.min_value)</p>
 <p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.processing.algorithms.discretization.accuracy_discretization.AccuracyDiscretization">
@@ -100,12 +100,12 @@ Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#
 <div class="section" id="module-cp1.processing.algorithms.discretization.value_discretization">
 <span id="cp1-processing-algorithms-discretization-value-discretization-module"></span><h2>cp1.processing.algorithms.discretization.value_discretization module<a class="headerlink" href="#module-cp1.processing.algorithms.discretization.value_discretization" title="Permalink to this headline">¶</a></h2>
 <p>value_discretization.py</p>
-<p>Discretizes uniformly with respect to utility_threshold.
-i.e. num_discretizations = 100, ta.utility_threshold = 20
+<p>Discretizes uniformly with respect to min_value.
+i.e. num_discretizations = 100, ta.min_value = 20
 ta.compute_value(2000) = 85
 85 - 20 = 65
 65 / 100 = 6.5
-[ta.compute_bandwidth(ta.utility_threshold + 6.5), ta.compute_bandwidth(ta.utility_threshold) + 13 etc…]</p>
+[ta.compute_bandwidth(ta.min_value + 6.5), ta.compute_bandwidth(ta.min_value) + 13 etc…]</p>
 <p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
 <dl class="class">
 <dt id="cp1.processing.algorithms.discretization.value_discretization.ValueDiscretization">

@@ -26,18 +26,18 @@ class TATest(unittest.TestCase):
     def test_valid_ta_init(self):
         ta = TA(self.id_, self.minimum_voice_bandwidth, self.minimum_safety_bandwidth,
                 self.scaling_factor, self.c)
-        self.assertEqual(self.id_.value, ta.id_.value)
+        self.assertEqual(self.id, ta.id)
         self.assertEqual(self.minimum_voice_bandwidth, ta.minimum_voice_bandwidth)
         self.assertEqual(self.minimum_safety_bandwidth, ta.minimum_safety_bandwidth)
         self.assertEqual(self.scaling_factor, ta.scaling_factor)
         self.assertEqual(self.c, ta.c)
-        self.assertEqual(ta.compute_value(ta.total_minimum_bandwidth.value), ta.utility_threshold)
+        self.assertEqual(ta.compute_value(ta.total_minimum_bandwidth.value), ta.min_value)
 
     def test_compute_value_caps_at_2000(self):
         ta = TA(self.id_, Kbps(2000), Kbps(2000), self.scaling_factor, self.c)
         ta2 = TA(self.id_, Kbps(2000), Kbps(0), self.scaling_factor, self.c)
-        self.assertEqual(ta.utility_threshold, ta2.utility_threshold)
-        self.assertEqual(100, ta.utility_threshold)
+        self.assertEqual(ta.min_value, ta2.min_value)
+        self.assertEqual(100, ta.min_value)
 
     def test_compute_value_below_minimum_bandwidth(self):
         ta = TA(self.id_, Kbps(200), Kbps(0), self.scaling_factor, self.c)
@@ -54,27 +54,27 @@ class TATest(unittest.TestCase):
 
     def test_compute_value_at_500_05_0002(self):
         ta = TA(self.id_, Kbps(500), Kbps(0), 0.5, 0.002)
-        self.assertTrue(ta.utility_threshold >= 31.606 and ta.utility_threshold <= 31.607)
+        self.assertTrue(ta.min_value >= 31.606 and ta.min_value <= 31.607)
 
     def test_compute_value_at_750_01_0004(self):
         ta = TA(self.id_, Kbps(750), Kbps(0), 0.1, 0.004)
-        self.assertTrue(ta.utility_threshold >= 9.502 and ta.utility_threshold <= 9.503)
+        self.assertTrue(ta.min_value >= 9.502 and ta.min_value <= 9.503)
 
     def test_compute_value_at_1000_025_0007(self):
         ta = TA(self.id_, Kbps(1000), Kbps(0), 0.25, 0.007)
-        self.assertTrue(ta.utility_threshold >= 24.977 and ta.utility_threshold <= 24.978)
+        self.assertTrue(ta.min_value >= 24.977 and ta.min_value <= 24.978)
 
     def test_compute_value_1250_06_0009(self):
         ta = TA(self.id_, Kbps(500), Kbps(750), 0.6, 0.009)
-        self.assertTrue(ta.utility_threshold >= 59.999 and ta.utility_threshold <= 60)
+        self.assertTrue(ta.min_value >= 59.999 and ta.min_value <= 60)
 
     def test_compute_value_1500_08_0001(self):
         ta = TA(self.id_, Kbps(1500), Kbps(0), 0.8, 0.001)
-        self.assertTrue(ta.utility_threshold >= 62.149 and ta.utility_threshold <= 62.150)
+        self.assertTrue(ta.min_value >= 62.149 and ta.min_value <= 62.150)
 
     def test_compute_value_1750_03_001(self):
         ta = TA(self.id_, Kbps(1500), Kbps(250), 0.3, 0.001)
-        self.assertTrue(ta.utility_threshold >= 24.786 and ta.utility_threshold <= 24.787)
+        self.assertTrue(ta.min_value >= 24.786 and ta.min_value <= 24.787)
 
     def test___eq__(self):
         ta1 = TA(self.id_, self.minimum_voice_bandwidth, self.minimum_safety_bandwidth,

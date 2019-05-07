@@ -43,7 +43,7 @@ class ConstraintsObjectTest(unittest.TestCase):
         ta_minimum_safety_bandwidth = Kbps(75)
         ta_scaling_factor = 1
         ta_c = 0.05
-        ta_utility_threshold = 65
+        ta_min_value = 65
         ta = TA(ta_id_, ta_minimum_voice_bandwidth, ta_minimum_safety_bandwidth, ta_scaling_factor,
                 ta_c)
         cls.candidate_tas = [ta]

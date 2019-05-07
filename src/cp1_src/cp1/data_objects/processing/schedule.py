@@ -34,7 +34,7 @@ class Schedule:
         """
         if not isinstance(radio_link_key, str):
             raise ScheduleAddException(
-                'radio_link_key must be an instance of MdlId:\nvalue: {0}\ntype: {1}'.format(
+                'radio_link_key must be an instance of str:\nvalue: {0}\ntype: {1}'.format(
                     radio_link_key, type(radio_link_key)),
                 'Schedule.add')
         if not isinstance(txop, TxOp):

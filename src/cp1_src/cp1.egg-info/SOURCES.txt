@@ -1,8 +1,8 @@
 setup.py
 cp1/__init__.py
-cp1/algorithm_examples.py
-cp1/gurobi.py
 cp1/start.py
+cp1/test_suite.py
+cp1/tests.py
 cp1.egg-info/PKG-INFO
 cp1.egg-info/SOURCES.txt
 cp1.egg-info/dependency_links.txt
@@ -12,6 +12,8 @@ cp1/common/exception_class.py
 cp1/common/logger.py
 cp1/common/singleton.py
 cp1/data_objects/__init__.py
+cp1/data_objects/constants/__init__.py
+cp1/data_objects/constants/constants.py
 cp1/data_objects/mdl/__init__.py
 cp1/data_objects/mdl/bandwidth_rate.py
 cp1/data_objects/mdl/bandwidth_types.py
@@ -28,6 +30,7 @@ cp1/data_objects/processing/algorithm_result.py
 cp1/data_objects/processing/channel.py
 cp1/data_objects/processing/constraints_object.py
 cp1/data_objects/processing/schedule.py
+cp1/data_objects/processing/scheduled_ta.py
 cp1/data_objects/processing/ta.py
 cp1/processing/__init__.py
 cp1/processing/bandwidth_processor.py
@@ -35,6 +38,7 @@ cp1/processing/schedule_processor.py
 cp1/processing/algorithms/__init__.py
 cp1/processing/algorithms/dynamic_program.py
 cp1/processing/algorithms/greedy.py
+cp1/processing/algorithms/gurobi.py
 cp1/processing/algorithms/integer_program.py
 cp1/processing/algorithms/optimization_algorithm.py
 cp1/processing/algorithms/solver_types.py
@@ -42,10 +46,10 @@ cp1/processing/algorithms/discretization/__init__.py
 cp1/processing/algorithms/discretization/accuracy_discretization.py
 cp1/processing/algorithms/discretization/bandwidth_discretization.py
 cp1/processing/algorithms/discretization/discretization_strategy.py
+cp1/processing/algorithms/discretization/discretization_type.py
 cp1/processing/algorithms/discretization/value_discretization.py
 cp1/utils/__init__.py
 cp1/utils/channel_generator.py
-cp1/utils/constraint_types.py
 cp1/utils/data_generator.py
 cp1/utils/json_utils.py
 cp1/utils/orientdb_session.py

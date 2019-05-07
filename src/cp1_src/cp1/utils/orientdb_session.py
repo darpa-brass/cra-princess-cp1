@@ -10,7 +10,6 @@ from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
 import brass_api.orientdb.orientdb_sql as sql
 
 from cp1.data_objects.processing.ta import TA
-from cp1.data_objects.mdl.mdl_id import MdlId
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.txop import TxOpTimeout
 from cp1.data_objects.mdl.frequency import Frequency
@@ -31,6 +30,7 @@ from cp1.utils.constraint_types import ConstraintTypes
 
 logger = Logger().logger
 
+
 class OrientDBSession(BrassOrientDBHelper):
     def __init__(self,  database_name=None, config_file=None, orientdb_client=None, explicit=False):
         self.explicit = explicit
@@ -45,7 +45,7 @@ class OrientDBSession(BrassOrientDBHelper):
         Deletes existing TxOp nodes in database.
         Stores the list of TxOp nodes found in schedule.
 
-        :param dict<str, List[MDLTxOp]> schedule:
+        :param dict<str, List[TxOp]> schedule:
         """
         self.delete_nodes_by_class('TxOp')
         added_txops = set()
@@ -77,7 +77,8 @@ class OrientDBSession(BrassOrientDBHelper):
             # Insert new TxOp under TransmissionSchedule
             txop_rids = []
             for new_txop in new_txop_list:
-                logger.info('Adding TxOp to TransmissionSchedule: {0}, {1}, {2}'.format(key, new_txop.start_usec.value, new_txop.stop_usec.value))
+                logger.info('Adding TxOp to TransmissionSchedule: {0}, {1}, {2}'.format(
+                    key, new_txop.start_usec.value, new_txop.stop_usec.value))
                 txop_properties = {
                     'StartUSec': int(new_txop.start_usec.value),
                     'StopUSec': int(new_txop.stop_usec.value),
@@ -109,7 +110,8 @@ class OrientDBSession(BrassOrientDBHelper):
             value_field_name = 'Value'
             sql_update_statement = sql.condition_str(
                 value_field_name, rate_value, '=')
-            logger.info('Updating bandwidth: {0}, {1}, {2}'.format(slp_id, rate_node._rid, sql_update_statement))
+            logger.info('Updating bandwidth: {0}, {1}, {2}'.format(
+                slp_id, rate_node._rid, sql_update_statement))
             self.update_node(rate_node._rid, sql_update_statement)
 
     def delete_nodes_by_class(self, clazz):
@@ -136,7 +138,7 @@ class OrientDBSession(BrassOrientDBHelper):
 
         for node in orientdb_response:
             radio_link = self.get_connected_nodes(targetNode_rid=node._rid, direction='out', edgetype='Containment',
-                                     maxdepth=2, filterdepth=2)
+                                                  maxdepth=2, filterdepth=2)
             radio_link_name = radio_link[0].Name
             ta = re.search('TA[0-9]+', radio_link_name).group(0)
             scheduled_tas.add(ta)
@@ -244,8 +246,7 @@ class OrientDBSession(BrassOrientDBHelper):
 
         for ta in orientdb_response:
             ta_obj = TA(
-                id_=MdlId(
-                    ta.id),
+                id_=(ta.id),
                 minimum_voice_bandwidth=Kbps(
                     ta.minimum_voice_bandwidth),
                 minimum_safety_bandwidth=Kbps(
@@ -269,8 +270,9 @@ class OrientDBSession(BrassOrientDBHelper):
         if(self.explicit):
             if self.node_class_count == 0:
                 logger.info('Creating OrientDB classes for MDL Elements...')
-            elif(self.node_class_count % 20  == 0):
-                logger.info('Created {0} Node Classes'.format(self.node_class_count))
+            elif(self.node_class_count % 20 == 0):
+                logger.info('Created {0} Node Classes'.format(
+                    self.node_class_count))
             self.node_class_count += 1
         return super(OrientDBSession, self).create_node_class(name)
 
@@ -278,16 +280,18 @@ class OrientDBSession(BrassOrientDBHelper):
         if(self.explicit):
             if (self.containment_edge_count == 0):
                 logger.info('Creating Containment Edges...')
-            elif( self.containment_edge_count % 100 == 0):
-                logger.info('Created {0} Containment Edges'.format(self.containment_edge_count))
+            elif(self.containment_edge_count % 100 == 0):
+                logger.info('Created {0} Containment Edges'.format(
+                    self.containment_edge_count))
             self.containment_edge_count += 1
         return super(OrientDBSession, self).set_containment_relationship(parent_rid=parent_rid, child_rid=child_rid, parent_conditions=parent_conditions, child_conditions=child_conditions)
 
-    def set_reference_relationship (self, reference_rid=None, referent_rid=None, reference_condition=[], referent_condition=[]):
+    def set_reference_relationship(self, reference_rid=None, referent_rid=None, reference_condition=[], referent_condition=[]):
         if(self.explicit):
             if (self.reference_edge_count == 0):
                 logger.info('Creating Reference Edges...')
-            elif( self.reference_edge_count % 10 == 0):
-                logger.info('Created {0} Reference Edges'.format(self.reference_edge_count))
+            elif(self.reference_edge_count % 10 == 0):
+                logger.info('Created {0} Reference Edges'.format(
+                    self.reference_edge_count))
             self.reference_edge_count += 1
         return super(OrientDBSession, self).set_reference_relationship(reference_rid=reference_rid, referent_rid=referent_rid, reference_condition=reference_condition, referent_condition=referent_condition)

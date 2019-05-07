@@ -15,8 +15,8 @@ class TAGeneratorTest(unittest.TestCase):
         cls.out_of_bounds_upper_scaling_factor = 11
         cls.out_of_bounds_lower_c = -1
         cls.out_of_bounds_upper_c = 1.1
-        cls.out_of_bounds_lower_utility_threshold = -1
-        cls.out_of_bounds_upper_utility_threshold = 101
+        cls.out_of_bounds_lower_min_value = -1
+        cls.out_of_bounds_upper_min_value = 101
 
     def setUp(self):
         id_set = IdSet()
@@ -31,8 +31,8 @@ class TAGeneratorTest(unittest.TestCase):
                                 upper_scaling_factor=5,
                                 lower_c=0.03,
                                 upper_c=0.08,
-                                lower_utility_threshold=30,
-                                upper_utility_threshold=70)
+                                lower_min_value=30,
+                                upper_min_value=70)
         num_tas = 100
         ta_list = generator.generate(num_tas)
 
@@ -62,13 +62,13 @@ class TAGeneratorTest(unittest.TestCase):
         self.assertRaises(TAGeneratorRangeException, TAGenerator, Kbps(0), Kbps(1),
                           Kbps(0), Kbps(50), 1, 2, 3, self.out_of_bounds_upper_c, 5, 6)
 
-    def test_out_of_bounds_lower_utility_threshold(self):
+    def test_out_of_bounds_lower_min_value(self):
         self.assertRaises(TAGeneratorRangeException, TAGenerator, Kbps(0), Kbps(1),
-                          Kbps(0), Kbps(50), 1, 2, 3, 4, self.out_of_bounds_lower_utility_threshold, 6)
+                          Kbps(0), Kbps(50), 1, 2, 3, 4, self.out_of_bounds_lower_min_value, 6)
 
-    def test_out_of_bounds_upper_utility_threshold(self):
+    def test_out_of_bounds_upper_min_value(self):
         self.assertRaises(TAGeneratorRangeException, TAGenerator, Kbps(0), Kbps(1),
-                          Kbps(0), Kbps(50), 1, 2, 3, 4, 5, self.out_of_bounds_upper_utility_threshold)
+                          Kbps(0), Kbps(50), 1, 2, 3, 4, 5, self.out_of_bounds_upper_min_value)
 
     def test_upper_minimum_voice_bandwidth_incorrect_type(self):
         self.assertRaises(TAGeneratorInitializationException, TAGenerator, Kbps(0), 'foo',
@@ -98,10 +98,10 @@ class TAGeneratorTest(unittest.TestCase):
         self.assertRaises(TAGeneratorInitializationException, TAGenerator, Kbps(0), Kbps(1),
                           Kbps(0), Kbps(50), 1, 2, 3, 'foo', 5, 6)
 
-    def test_lower_utility_threshold_incorrect_type(self):
+    def test_lower_min_value_incorrect_type(self):
         self.assertRaises(TAGeneratorInitializationException, TAGenerator, Kbps(0), Kbps(1),
                           Kbps(0), Kbps(50), 1, 2, 3, 4, 'foo', 6)
 
-    def test_upper_utility_threshold_incorrect_type(self):
+    def test_upper_min_value_incorrect_type(self):
         self.assertRaises(TAGeneratorInitializationException, TAGenerator, Kbps(0), Kbps(1),
                           Kbps(0), Kbps(50), 1, 2, 3, 4, 5, 'foo')

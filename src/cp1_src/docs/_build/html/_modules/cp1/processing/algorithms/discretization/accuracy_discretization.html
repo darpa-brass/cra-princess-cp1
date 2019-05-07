@@ -38,7 +38,7 @@
 <span class="sd">Provides a gurantee on the accuracy of the overall solution in relation to the optimal solution.</span>
 <span class="sd">Guaranteed accuracy is: 1 - accuracy</span>
 <span class="sd">i.e. accuracy = 0.001, therefore guaranteed accuracy is 99.999</span>
-<span class="sd">num_discretizations = (1 - 0.001) * (100 / ta.utility_threshold)</span>
+<span class="sd">num_discretizations = (1 - 0.001) * (100 / ta.min_value)</span>
 
 <span class="sd">Author: Tameem Samawi (tsamawi@cra.com)</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -54,11 +54,11 @@
         <span class="k">for</span> <span class="n">ta</span> <span class="ow">in</span> <span class="n">constraints_object</span><span class="o">.</span><span class="n">candidate_tas</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">constraints_object</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
                 <span class="n">num_discretizations</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy</span><span class="p">)</span> <span class="o">*</span> \
-                    <span class="p">(</span><span class="mi">100</span> <span class="o">/</span> <span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span><span class="p">)</span>
-                <span class="n">interval_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span><span class="p">)</span> <span class="o">/</span> \
+                    <span class="p">(</span><span class="mi">100</span> <span class="o">/</span> <span class="n">ta</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
+                <span class="n">interval_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">ta</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span> <span class="o">/</span> \
                     <span class="n">num_discretizations</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_discretizations</span><span class="p">):</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span> <span class="o">+</span> <span class="n">interval_size</span> <span class="o">*</span> <span class="n">i</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">ta</span><span class="o">.</span><span class="n">min_value</span> <span class="o">+</span> <span class="n">interval_size</span> <span class="o">*</span> <span class="n">i</span>
                     <span class="n">tas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                         <span class="p">[</span><span class="n">ta</span><span class="p">,</span> <span class="n">ta</span><span class="o">.</span><span class="n">compute_bandwidth</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">value</span><span class="p">,</span> <span class="n">channel</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
         <span class="k">return</span> <span class="n">tas</span></div></div>

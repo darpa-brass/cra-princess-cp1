@@ -80,7 +80,7 @@
 <span class="sd">        Stores the list of TxOp nodes found in schedule.</span>
 
 <span class="sd">        :param schedule: An instance of Schedule</span>
-<span class="sd">        :type schedule: dict&lt;str, List[MDLTxOp]&gt;</span>
+<span class="sd">        :type schedule: dict&lt;str, List[TxOp]&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delete_nodes_by_class</span><span class="p">(</span><span class="s1">&#39;TxOp&#39;</span><span class="p">)</span>
         <span class="n">added_txops</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -302,7 +302,7 @@
                     <span class="n">ta</span><span class="o">.</span><span class="n">minimum_safety_bandwidth</span><span class="p">),</span>
                 <span class="n">scaling_factor</span><span class="o">=</span><span class="n">ta</span><span class="o">.</span><span class="n">scaling_factor</span><span class="p">,</span>
                 <span class="n">c</span><span class="o">=</span><span class="n">ta</span><span class="o">.</span><span class="n">c</span><span class="p">,</span>
-                <span class="n">utility_threshold</span><span class="o">=</span><span class="n">ta</span><span class="o">.</span><span class="n">utility_threshold</span><span class="p">)</span>
+                <span class="n">min_value</span><span class="o">=</span><span class="n">ta</span><span class="o">.</span><span class="n">min_value</span><span class="p">)</span>
             <span class="n">candidate_tas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ta_obj</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">candidate_tas</span></div>

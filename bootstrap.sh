@@ -26,5 +26,3 @@ sudo pip install lxml
 # Access Control Settings
 sudo chmod 777 ./start
 sudo chmod 777 ./run
-
-exit 0
