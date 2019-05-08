@@ -100,7 +100,7 @@ class TA:
             length = ((self.bandwidth.value / capacity.value) * latency.value) + (2 * guard_band.value)
         else:
             length = ((bandwidth.value / capacity.value) * latency.value) + (2 * guard_band.value)
-        return int(length)
+        return length
 
     def __str__(self):
         return '<id_: {0}, ' \

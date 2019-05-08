@@ -6,7 +6,7 @@ from ortools.linear_solver import pywraplp
 from cp1.processing.algorithms.integer_program import IntegerProgram
 from cp1.processing.algorithms.dynamic_program import DynamicProgram
 from cp1.processing.algorithms.greedy import Greedy
-# from cp1.processing.algorithms.gurobi import Gurobi
+from cp1.processing.algorithms.gurobi import Gurobi
 from cp1.utils.ta_generator import TAGenerator
 from cp1.utils.channel_generator import ChannelGenerator
 from cp1.data_objects.mdl.kbps import Kbps
@@ -158,7 +158,11 @@ for discretization in discretizations:
             num_discretizations = discretization.num_discretizations
             accuracy = ''
 
+        ta_print_res = ''
+        for ta in res.scheduled_tas:
+            ta_print_res += (',{0}_{1}_{2}_{3}'.format(ta.id_, ta.value, ta.bandwidth.value, ta.channel.frequency.value))
+
         with open(file_name, 'a') as csv_file:
             csv_writer = csv.writer(csv_file)
             csv_writer.writerow([algorithm.constraints_object.ta_seed, num_discretizations,
-                                accuracy, res.value, res.run_time, res.solve_time, res.scheduled_tas])
+                                accuracy, res.value, res.run_time, res.solve_time, ta_print_res])

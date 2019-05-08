@@ -30,8 +30,8 @@ class DynamicProgram:
         k = time in the table
         l = the bandwidth sample for a set of TAs
         :param int factor: The granularity of this solution, 1 kth of a millisecond.
-                      i.e. If factor = 2, the schedule will consider schedules at 500 microsecond intervals.
-                           If factor = 3, the schedule will consider schedules at 330 microsecond intervals.
+                      i.e. If factor = 2, the schedule will consider schedules at 500 microsecond intervals. If
+                           If factor = 3, 330 microsecond intervals.
         """
         start_time = time.perf_counter()
 
@@ -39,11 +39,11 @@ class DynamicProgram:
         self.discretization_strategy = discretization_strategy
         self.factor = factor
 
-        eligible_tas = discretization_strategy.discretize(self.constraints_object.candidate_tas, self.constraints_object.channels)
-
         for i in range(0, len(self.constraints_object.channels)):
+
             # Remove any TAs that have already been scheduled or are not allowed to be scheduled on this frequency
-            eligible_tas = list(filter(lambda x: x.id_ not in set(x.id_ for x in self.scheduled_tas), list(filter(lambda x: x.channel_is_eligible(self.constraints_object.channels[i]), eligible_tas))))
+            eligible_tas = list(filter(lambda x: x.id_ not in set(x.id_ for x in self.scheduled_tas), list(filter(lambda x: x.channel_is_eligible(self.constraints_object.channels[i]), self.constraints_object.candidate_tas))))
+            tas = discretization_strategy.discretize(eligible_tas, [self.constraints_object.channels[i]])
 
             # If no TAs are eligible, move to next channel
             if len(eligible_tas) == 0:
@@ -51,35 +51,38 @@ class DynamicProgram:
 
             min_latency = min(eligible_tas, key=lambda x: x.latency.value).latency.value
 
-            # Setup table data for these eligible TAs
-            self.tas = discretization_strategy.discretize(eligible_tas, [self.constraints_object.channels[i]])
-            self.table_width = (min_latency * factor) + 1
-            self.table_height = len(eligible_tas) + 1
+            # Setup table data for these eligible TAs.
+            # Add 1 because we need to account for the case where there are 0 TAs
+            # and 0 time (or weight in the knapsack)
+            table_width = (min_latency * factor) + 1
+            table_height = len(eligible_tas) + 1
 
-            self.table = [[0 for i in range(self.table_width)]
-                          for j in range(self.table_height)]
+            print(table_width)
+            print(table_height)
+
+            table = [[0 for i in range(table_width)]
+                          for j in range(table_height)]
 
             # Populate table
-            for j in range(1, self.table_height):
-                for k in range(0, self.table_width):
-                    if math.ceil(eligible_tas[j-1].compute_communication_length(self.constraints_object.channels[i].capacity, Milliseconds(min_latency), self.constraints_object.guard_band)*factor) > k:
-                        self.table[j][k] = self.table[j-1][k]
+            for j in range(1, table_height):
+                for k in range(0, table_width):
+                    if math.ceil(tas[(j-1) * self.discretization_strategy.num_discretizations].compute_communication_length(self.constraints_object.channels[i].capacity, Milliseconds(min_latency), self.constraints_object.guard_band)*factor) > k:
+                        table[j][k] = table[j-1][k]
                     else:
-                        sol = self.table[j-1][k]
+                        sol = table[j-1][k]
                         for l in range(((j - 1) * discretization_strategy.num_discretizations), j * discretization_strategy.num_discretizations):
-                            wk = math.ceil((((self.tas[l].bandwidth.value / self.constraints_object.channels[i].capacity.value) * min_latency) + (2 * self.constraints_object.guard_band.value)) * factor)
+                            wk = math.ceil(tas[l].compute_communication_length(self.constraints_object.channels[i].capacity, Milliseconds(min_latency), self.constraints_object.guard_band) * factor)
                             if wk <= k:
-                                curr_val = self.table[j -
-                                                      1][k-wk] + self.tas[l].value
+                                curr_val = table[j -
+                                                      1][k-wk] + tas[l].value
                                 if sol < curr_val:
                                     sol = curr_val
-                        self.table[j][k] = sol
+                        table[j][k] = sol
 
             # Prints the dynamic program
-            # print(DataFrame(self.table))
-            self._retrieve_tas(len(eligible_tas), min_latency *
-                               factor, i, self.constraints_object.channels[i].frequency.value,
-                               min_latency)
+            print(DataFrame(table))
+            self._retrieve_tas(table, len(eligible_tas), min_latency *
+                               factor, i, tas, min_latency)
 
         value = sum(ta.value for ta in self.scheduled_tas)
         run_time = time.perf_counter() - start_time
@@ -87,20 +90,20 @@ class DynamicProgram:
         return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=run_time, run_time=run_time,
                                 value=value)
 
-    def _retrieve_tas(self, row, column, index, frequency, min_latency):
+    def _retrieve_tas(self, table, row, column, index, tas, min_latency):
         if row == 0:
             return self.scheduled_tas
         else:
-            if self.table[row][column] == self.table[row-1][column]:
-                return self._retrieve_tas(row-1, column, index, frequency, min_latency)
+            if table[row][column] == table[row-1][column]:
+                return self._retrieve_tas(table, row-1, column, index, tas, min_latency)
             else:
                 for i in range((row-1) * self.discretization_strategy.num_discretizations, row * self.discretization_strategy.num_discretizations):
-                    wi = math.ceil((((self.tas[i].bandwidth.value / self.constraints_object.channels[index].capacity.value) *
+                    wi = math.ceil((((tas[i].bandwidth.value / self.constraints_object.channels[index].capacity.value) *
                                      min_latency) + (2 * self.constraints_object.guard_band.value)) * self.factor)
                     if wi <= column:
-                        if self.table[row][column] == self.table[row-1][column-wi] + self.tas[i].value:
-                            self.scheduled_tas.append(self.tas[i])
-                            return self._retrieve_tas(row-1, column - wi, index, frequency, min_latency)
+                        if table[row][column] == table[row-1][column-wi] + tas[i].value:
+                            self.scheduled_tas.append(tas[i])
+                            return self._retrieve_tas(table, row-1, column - wi, index, tas, min_latency)
 
     def __str__(self):
         return 'DynamicProgram'
