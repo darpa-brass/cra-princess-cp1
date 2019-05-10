@@ -17,6 +17,7 @@ from cp1.data_objects.processing.channel import Channel
 
 class ConstraintsObject:
     def __init__(self,
+                 id_,
                  candidate_tas,
                  channels,
                  ta_seed=None,
@@ -52,6 +53,7 @@ class ConstraintsObject:
         self.channels = channels
         self.ta_seed = ta_seed
         self.channel_seed = channel_seed
+        self.id_ = id_
 
 
     def __str__(self):
@@ -62,7 +64,8 @@ class ConstraintsObject:
                'Epoch: {4}, ' \
                'TxOp Timeout: {5}, ' \
                'Candidate TAs: [{6}], ' \
-               'Channels: [{7}]'.format(
+               'ID: {7}, ' \
+               'Channels: [{8}]'.format(
                    self.goal_throughput_bulk,
                    self.goal_throughput_voice,
                    self.goal_throughput_safety,
@@ -70,6 +73,7 @@ class ConstraintsObject:
                    self.epoch.value,
                    self.txop_timeout,
                    self.candidate_tas,
+                   self.id_,
                    self.channels
                )
 
@@ -91,6 +95,9 @@ class ConstraintsObject:
                     self.guard_band == other.guard_band and
                     self.epoch == other.epoch and
                     self.txop_timeout == other.txop_timeout and
+                    self.id_ == other.id_,
                     tas_equal and
                     channels_equal)
         return False
+
+    __repr__ = __str__

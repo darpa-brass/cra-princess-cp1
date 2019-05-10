@@ -6,6 +6,9 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import time
 from cp1.processing.algorithms.optimization_algorithm import OptimizationAlgorithm
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
+from cp1.common.logger import Logger
+
+logger = Logger().logger
 
 
 class Greedy(OptimizationAlgorithm):
@@ -27,28 +30,31 @@ class Greedy(OptimizationAlgorithm):
 
         :returns dict{int:[TA]}: A channel frequency and a list of TAs to be scheduled at that frequency.
         """
+        logger.debug('Beginning Greedy Algorithm...')
         start_time = time.perf_counter()
         value = 0
-        scheduled_tas = {}
-        for channel in self.constraints_object.channels:
-            scheduled_tas[channel.frequency.value] = []
+        scheduled_tas = []
         self.constraints_object.candidate_tas.sort(key=lambda ta: (
-            ta.min_value / ta.total_minimum_bandwidth.value), reverse=True)
+                ta.min_value / ta.total_minimum_bandwidth.value), reverse=True)
 
-        min_latency = min(eligible_tas, key=lambda x: x.latency.value).latency
+        min_latency = min(self.constraints_object.candidate_tas, key=lambda x: x.latency.value).latency
 
         for ta in self.constraints_object.candidate_tas:
             for channel in self.constraints_object.channels:
                 if ta.channel_is_eligible(channel):
-                    comm_length = ta.compute_communication_length(channel.capacity, min_latency, self.constraints_object.guard_band.value, total_minimum_bandwidth)
+                    comm_length = ta.compute_communication_length(channel.capacity, min_latency, self.constraints_object.guard_band, ta.total_minimum_bandwidth)
                     if comm_length + channel.first_available_time <= self.constraints_object.epoch.value:
-                        scheduled_tas.get(channel.frequency.value).append(ta)
+                        ta.value = ta.min_value
+                        ta.bandwidth = ta.total_minimum_bandwidth
+                        ta.channel = channel
+                        scheduled_tas.append(ta)
                         channel.first_available_time += comm_length
                         value += ta.min_value
                         channel.value += ta.min_value
                     break
 
         run_time = time.perf_counter() - start_time
+        logger.debug('Greedy Algorithm complete in {0} seconds'.format(run_time))
         return AlgorithmResult(scheduled_tas, run_time, run_time, value)
 
     def __str__(self):

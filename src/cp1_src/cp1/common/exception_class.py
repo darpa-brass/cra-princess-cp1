@@ -77,6 +77,24 @@ class NodeNotFoundException(Exception):
             self.message, self.source)
 
 
+class ChannelNotFoundException(Exception):
+    """Raise for general responses that come back empty"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(ChannelNotFoundException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
 class TAsNotFoundException(Exception):
     """Raise for TA responses that come back empty"""
 
@@ -220,6 +238,7 @@ class ComputeValueException(ValueError):
         return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
             self.message, self.source)
 
+
 class ComputeBandwidthException(ValueError):
     """Raise for invalid TA.compute_bandwidth inputs"""
 
@@ -230,6 +249,24 @@ class ComputeBandwidthException(ValueError):
         :param str source:      Which function threw the exception
         """
         super(ComputeBandwidthException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class ConfigFileException(ValueError):
+    """Raise for invalid TA.compute_bandwidth inputs"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(ConfigFileException, self).__init__(message)
         self.message = message
         self.source = source
 

@@ -1,0 +1,56 @@
+{
+  "TAs": {
+    "num_tas": 50,
+    "seeds": "timestamp",
+    "eligible_channels": [[1, [3]]],
+    "voice_bandwidth": [[0.8, [120]], [0.2, [50, 200]]],
+    "safety_bandwidth": [[0.65, [500, 1000]], [0.15, [100, 500]], [0.2, [1000, 8000]]],
+    "latency": [[1, [50, 100]]],
+    "scaling_factor": [[0.7, [0.9, 1.1]], [0.2, [0.4, 0.6]], [0.1, [2.0, 3.0]]],
+    "c": [[0.8, [0.0025, 0.0005]], [0.2, [0.0025, 0.007]]]
+  },
+  "Channels": {
+    "num_channels": 4,
+    "seeds": "timestamp",
+    "base_frequency": [4919500000, 100000],
+    "capacity": [[0.98, [10000]], [0.02, [1000, 10000]]]
+  },
+  "Constraints Object": {
+    "guard_band": 1,
+    "goal_throughput_bulk": 0,
+    "goal_throughput_voice": 0,
+    "goal_throughput_safety": 0,
+    "epoch": 100,
+    "txop_timeout": 255
+  },
+  "Algorithm":
+  {
+    "CBC": 1,
+    "Gurobi": 1,
+    "Greedy Algorithm": 1,
+    "Dynamic Program": 1
+  },
+  "Discretization Strategy":
+  {
+    "Accuracy": {
+      "epsilon": [0.9]
+    },
+    "Bandwidth": {
+      "num_discretizations": [1, 2]
+    },
+    "Value": {
+      "num_discretizations": [1, 2]
+    }
+  },
+  "Files and Database":
+  {
+    "use_orientdb": 0,
+    "constraints_db_name": "cra_constraints",
+    "mdl_db_name": "cra_mdl",
+    "mdl_output_file": "C:/dev/cp1/output/mdl/Updated-BRASS-Example_FTSchedule_0915.xml",
+    "mdl_input_file": "C:/dev/cp1/output/mdl/BRASS-Example_FTSchedule_0915.xml",
+    "remote_db_config_file": "C:/dev/cp1/conf/remote_db_config.json",
+    "local_db_config_file": "C:/dev/cp1/conf/local_db_config.json",
+    "raw_output_folder": "C:/dev/cp1/output/raw"
+  }
+}

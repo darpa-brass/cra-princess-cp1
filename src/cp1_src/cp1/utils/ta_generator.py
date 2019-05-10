@@ -17,141 +17,63 @@ from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.channel import Channel
+from cp1.utils.json_utils import extract_percentages
+from cp1.common.exception_class import ConfigFileException
 
 logger = Logger().logger
 
 
 class TAGenerator(DataGenerator):
-    def __init__(
-            self,
-            lower_minimum_voice_bandwidth=Kbps(50),
-            upper_minimum_voice_bandwidth=Kbps(200),
-            lower_minimum_safety_bandwidth=Kbps(100),
-            upper_minimum_safety_bandwidth=Kbps(8000),
-            lower_latency=Milliseconds(50),
-            upper_latency=Milliseconds(100),
-            lower_scaling_factor=0.5,
-            upper_scaling_factor=3,
-            lower_c=0.0005,
-            upper_c=0.007,
-            seed=time.time()):
-        self.lower_minimum_voice_bandwidth = lower_minimum_voice_bandwidth
-        self.upper_minimum_voice_bandwidth = upper_minimum_voice_bandwidth
-        self.lower_minimum_safety_bandwidth = lower_minimum_safety_bandwidth
-        self.upper_minimum_safety_bandwidth = upper_minimum_safety_bandwidth
-        self.lower_latency = lower_latency
-        self.upper_latency = upper_latency
-        self.lower_scaling_factor = float(lower_scaling_factor)
-        self.upper_scaling_factor = float(upper_scaling_factor)
-        self.lower_c = float(lower_c)
-        self.upper_c = float(upper_c)
-
-        random.seed(seed)
-        numpy.random.seed(seed)
-
+    def __init__(self):
+        self._extract_data()
         self._validate()
 
-    def generate(self, num_tas):
+    def generate(self):
         """
         Generates a set amount of TAs in the range of data provided by data_generator.json.
         :param int num_tas: Number of TAs to generate
         """
-        data_file = open('../../../conf/data_generator.json')
-        data = json.load(data_file)
-        voice_percentages = data['TA Generator']['voice_bandwidth']['percentages']
-        voice_ranges = data['TA Generator']['voice_bandwidth']['ranges']
-        safety_percentages = data['TA Generator']['safety_bandwidth']['percentages']
-        safety_ranges = data['TA Generator']['safety_bandwidth']['ranges']
-        latency_percentages = data['TA Generator']['latency']['percentages']
-        latency_ranges = data['TA Generator']['latency']['ranges']
-        scaling_percentages = data['TA Generator']['scaling_factor']['percentages']
-        scaling_ranges = data['TA Generator']['scaling_factor']['ranges']
-        c_percentages = data['TA Generator']['c']['percentages']
-        c_ranges = data['TA Generator']['c']['ranges']
-        data_file.close()
-
         tas = []
-        for x in range(num_tas):
+        for x in range(self.num_tas):
             tas.append(TA(
                 id_='TA{0}'.format(x+1),
                 minimum_voice_bandwidth=Kbps(
-                    choice(self._generate_within_ranges(voice_ranges), p=voice_percentages)),
+                    choice(self._generate_within_ranges(self.voice), p=extract_percentages(self.voice))),
                 minimum_safety_bandwidth=Kbps(
-                    choice(self._generate_within_ranges(safety_ranges), p=safety_percentages)),
+                    choice(self._generate_within_ranges(self.safety), p=extract_percentages(self.safety))),
                 latency=Milliseconds(choice(self._generate_within_ranges(
-                    latency_ranges), p=latency_percentages)),
+                    self.latency), p=extract_percentages(self.latency))),
                 scaling_factor=choice(self._generate_within_ranges(
-                    scaling_ranges), p=scaling_percentages),
+                    self.scaling), p=extract_percentages(self.scaling)),
                 c=choice(self._generate_within_ranges(
-                    c_ranges), p=c_percentages),
+                    self.c), p=extract_percentages(self.c)),
                 # Stub out eligible frequencies for now.
                 eligible_channels=[Frequency(1000)]))
         return tas
 
-    def generate_uniformly(self, num_tas):
-        """
-        Generates data within the bounds provided with equal probability.
-        :param int num_tas: Number of TAs to generate
-        """
-        tas = []
-        for x in range(num_tas):
-            tas.append(
-                TA(
-                    id_='TA{0}'.format(x+1),
-                    minimum_voice_bandwidth=Kbps(random.randint(
-                        self.lower_minimum_voice_bandwidth.value,
-                        self.upper_minimum_voice_bandwidth.value)),
-                    minimum_safety_bandwidth=Kbps(random.randint(
-                        self.lower_minimum_safety_bandwidth.value,
-                        self.upper_minimum_safety_bandwidth.value)),
-                    latency=Milliseconds(random.randint(
-                        self.lower_latency.value, self.upper_latency.value)),
-                    scaling_factor=random.uniform(
-                        self.lower_scaling_factor, self.upper_scaling_factor),
-                    c=random.uniform(self.lower_c, self.upper_c),
-                    # Stub out eligible frequencies for now.
-                    eligible_channels=[Frequency(1000)]))
-        return tas
+    def _extract_data(self):
+        data_file = open('C:/dev/cp1/conf/data.json')
+        data = json.load(data_file)
+        try:
+            self.num_tas = data['TAs']['num_tas']
+            self.seeds = data['TAs']['seeds']
+            self.channels = data['TAs']['eligible_channels']
+            self.voice = data['TAs']['voice_bandwidth']
+            self.safety = data['TAs']['safety_bandwidth']
+            self.latency = data['TAs']['latency']
+            self.scaling = data['TAs']['scaling_factor']
+            self.c = data['TAs']['c']
+        except Exception as ex:
+            raise ConfigFileException(ex, 'TAGenerator._extract_data')
+        data_file.close()
+
 
     def _validate(self):
-        if self.upper_minimum_voice_bandwidth.value > 300:
-            logger.warning('upper_minimum_voice_bandwidth ({0}) should be less than 300'.format(
-                self.upper_minimum_voice_bandwidth.value))
-        if self.upper_minimum_safety_bandwidth.value > 100:
-            logger.warning('upper_minimum_safety_bandwidth ({0}) should be less than 100'.format(
-                self.upper_minimum_safety_bandwidth.value))
-        if self.upper_minimum_safety_bandwidth.value > 8000:
-            logger.warning('TAGenerator.validate_ranges: upper_minimum_safety_bandwidth ({0}) must be less than 8000'.format(
-                self.upper_minimum_safety_bandwidth.value))
-        if self.upper_c > 1:
-            logger.warning(
-                'TAGenerator.validate_ranges: upper_c ({0}) must be less than 1'.format(self.upper_c))
-        if self.upper_scaling_factor > 10:
-            logger.warning('TAGenerator.validate_ranges: upper_scaling_factor ({0}) must be less than 10'.format(
-                self.upper_scaling_factor))
-        if self.lower_scaling_factor < 0:
-            raise TAGeneratorRangeException(
-                'lower_scaling_factor ({0}) must be greater than 0'.format(
-                    self.lower_scaling_factor),
-                'TAGenerator.validate_ranges')
-        if self.lower_c < 0:
-            raise TAGeneratorRangeException(
-                'lower_c ({0}) must be greater than 0'.format(self.lower_c),
-                'TAGenerator.validate_ranges')
-        if self.lower_scaling_factor > self.upper_scaling_factor:
-            raise TAGeneratorRangeException(
-                'lower_scaling_factor ({0}) must be less than or equal to upper_scaling_factor ({1})'.format(
-                    self.lower_scaling_factor,
-                    self.upper_scaling_factor),
-                'TAGenerator.validate_ranges')
-        if self.lower_latency.value > self.upper_latency.value:
-            raise TAGeneratorRangeException(
-                'lower_latency ({0}) must be less than or equal to upper_latency ({1})'.format(
-                    self.lower_latency.value,
-                    self.upper_latency.value),
-                'TAGenerator.validate_ranges')
-        if self.lower_c > self.upper_c:
-            raise TAGeneratorRangeException(
-                'lower_c ({0}) must be less than or equal to upper_c ({1})'.format(
-                    self.lower_c, self.upper_c),
-                'TAGenerator.validate_ranges')
+        self.validate_seeds(self.seeds)
+        self.validate_num_to_generate('num_tas', self.num_tas)
+        self.validate_distribution_schema('eligible_channels', self.channels)
+        self.validate_distribution_schema('voice_bandwidth', self.voice)
+        self.validate_distribution_schema('safety_bandwidth', self.safety)
+        self.validate_distribution_schema('latency', self.latency)
+        self.validate_distribution_schema('scaling_factor', self.scaling)
+        self.validate_distribution_schema('c', self.c)

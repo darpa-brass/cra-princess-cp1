@@ -27,17 +27,15 @@ class ScheduleProcessor:
         self.schedule = Schedule(
             constraints_object.epoch, constraints_object.guard_band)
 
-    def process(self, algorithm):
+    def process(self, tas):
         """Optimizes across a set of TAs and constructs a schedule. Spare time allocated to first TA.
 
         :param Algorithm algorithm: Any algorithm, integer, greedy etc.
         :rtype: dict{Channel: List[TA]}
         """
-        res = algorithm.optimize(constraints_object)
-
-        for ta in res.scheduled_tas:
+        for ta in tas:
             one_way_transmission_length = (
-                ta.total_minimum_bandwidth.value / 2) / channel.num_partitions
+                ta.bandwidth.value / 2) / channel.num_partitions
 
             up_start = channel.start_time
             up_stop = one_way_transmission_length + channel.start_time

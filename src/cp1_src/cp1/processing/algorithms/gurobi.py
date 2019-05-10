@@ -24,16 +24,19 @@ from cp1.data_objects.processing.constraints_object import ConstraintsObject
 from cp1.processing.algorithms.optimization_algorithm import OptimizationAlgorithm
 from cp1.processing.algorithms.discretization.accuracy_discretization import AccuracyDiscretization
 from cp1.processing.algorithms.discretization.bandwidth_discretization import BandwidthDiscretization
+from cp1.common.logger import Logger
 
+logger = Logger().logger
 
 
 class Gurobi(OptimizationAlgorithm):
     def __init__(self, constraints_object):
         self.constraints_object = constraints_object
 
-    def optimize(self, discretization_strategy, time_limit=None):
+    def optimize(self, discretization_strategy, time_limit=15):
         # Setup data
         start_time = time.perf_counter()
+        logger.debug('Beginning Gurobi Integer Program...')
         discretized_tas = discretization_strategy.discretize(self.constraints_object.candidate_tas, self.constraints_object.channels)
         min_latency = min(discretized_tas, key=lambda ta: ta.latency.value).latency.value
 
@@ -113,6 +116,7 @@ class Gurobi(OptimizationAlgorithm):
                 scheduled_tas.append(discretized_tas[i])
         value = sum(ta.value for ta in scheduled_tas)
 
+        logger.debug('Gurobi completed in {0} seconds'.format(run_time))
         return AlgorithmResult(scheduled_tas=scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
     def __str__(self):

@@ -10,59 +10,42 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.channel import Channel
 from cp1.utils.data_generator import DataGenerator
 from cp1.common.exception_class import ChannelGeneratorRangeException
+from cp1.utils.json_utils import extract_percentages
 
 
 class ChannelGenerator(DataGenerator):
-    def __init__(
-            self,
-            lower_capacity=Kbps(1000),
-            upper_capacity=Kbps(10000),
-            base_frequency_value=Kbps(4919500000),
-            base_frequency_incrementation=Kbps(100000),
-            seed=time.time()):
-        self.lower_capacity = lower_capacity
-        self.upper_capacity = upper_capacity
-        self.base_frequency_value = base_frequency_value
-        self.base_frequency_incrementation = base_frequency_incrementation
-
-        random.seed(seed)
-        numpy.random.seed(seed)
-
+    def __init__(self):
+        self._extract_data()
         self._validate()
 
-    def generate(self, num_channels):
-        data_file = open('../../../conf/data_generator.json')
+    def generate(self):
+        channels = []
+        for i in range(0, self.num_channels):
+            channels.append(Channel(
+                frequency=Frequency(self.base_frequency[0] +
+                                    (i * self.base_frequency[1])),
+                capacity=Kbps(choice(self._generate_within_ranges(self.capacity), p=extract_percentages(self.capacity)))))
+        return channels
+
+    def _extract_data(self):
+        data_file = open('C:/dev/cp1/conf/data.json')
         data = json.load(data_file)
-        capacity_percentages = data['Channel Generator']['capacity']['percentages']
-        capacity_ranges = data['Channel Generator']['capacity']['ranges']
-        base_frequency_value = data['Channel Generator']['base_frequency']['value']
-        base_frequency_incrementation = data['Channel Generator']['base_frequency']['incrementation']
+        try:
+            self.num_channels = data['Channels']['num_channels']
+            self.seed = data['Channels']['seeds']
+            self.base_frequency= data['Channels']['base_frequency']
+            self.capacity = data['Channels']['capacity']
+        except Exception as ex:
+            raise ConfigFileException(ex, 'ChannelGenerator._extract_data')
         data_file.close()
 
-        channels = []
-        for i in range(0, num_channels):
-            channels.append(Channel(
-                frequency=Frequency(base_frequency_value +
-                                    (i * base_frequency_incrementation)),
-                capacity=Kbps(choice(self._generate_within_ranges(capacity_ranges), p=capacity_percentages))))
-        return channels
-
-    def generate_uniformly(self, num_channels):
-        channels = []
-        for x in range(num_channels):
-            capacity = random.randint(
-                self.lower_capacity.value, self.upper_capacity.value)
-            channels.append(Channel(
-                frequency=Frequency(
-                    self.base_frequency_value.value + (x * self.base_frequency_incrementation.value)),
-                capacity=Kbps(capacity)))
-
-        return channels
-
     def _validate(self):
-        if self.lower_capacity.value > self.upper_capacity.value:
-            raise ChannelGeneratorRangeException('lower_capacity > upper_capacity, {0} > {1}'.format(
-                self.lower_capacity.value, self.upper_capacity.value))
-        if self.lower_capacity.value < 0:
-            raise ChannelGeneratorRangeException(
-                'lower_capacity < 0, {0}'.format(self.lower_capacity.value))
+        if not isinstance(self.base_frequency[0], int) or self.base_frequency[0] < 0:
+            raise ConfigFileException(
+                'Base Frequency ({0}) must be an int greater than 0'.format(self.base_frequency[0]))
+        if not isinstance(self.base_frequency[1], int):
+            raise ConfigFileException(
+                'Incrementation ({0}) must be an int'.format(self.base_frequency[1]))
+        self.validate_seeds(self.seed)
+        self.validate_num_to_generate('num_channels', self.num_channels)
+        self.validate_distribution_schema('capacity', self.capacity)

@@ -6,8 +6,8 @@
 		"port": 2424
 	},
 	"database": {
-		"username": "writer",
-		"password": "writer"
+		"username": "admin",
+		"password": "admin"
 	},
 	"testing": {
 		"database_name": "test",

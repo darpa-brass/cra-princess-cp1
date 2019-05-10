@@ -16,6 +16,9 @@ from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.constants.constants import *
+from cp1.common.logger import Logger
+
+logger = Logger().logger
 
 
 class DynamicProgram:
@@ -33,6 +36,7 @@ class DynamicProgram:
                       i.e. If factor = 2, the schedule will consider schedules at 500 microsecond intervals. If
                            If factor = 3, 330 microsecond intervals.
         """
+        logger.debug("Beginning Dynamic Program...")
         start_time = time.perf_counter()
 
         self.scheduled_tas = []
@@ -56,9 +60,6 @@ class DynamicProgram:
             # and 0 time (or weight in the knapsack)
             table_width = (min_latency * factor) + 1
             table_height = len(eligible_tas) + 1
-
-            print(table_width)
-            print(table_height)
 
             table = [[0 for i in range(table_width)]
                           for j in range(table_height)]
@@ -87,6 +88,7 @@ class DynamicProgram:
         value = sum(ta.value for ta in self.scheduled_tas)
         run_time = time.perf_counter() - start_time
 
+        logger.debug("Dynamic Program completed in {0} seconds".format(run_time))
         return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=run_time, run_time=run_time,
                                 value=value)
 
@@ -98,8 +100,7 @@ class DynamicProgram:
                 return self._retrieve_tas(table, row-1, column, index, tas, min_latency)
             else:
                 for i in range((row-1) * self.discretization_strategy.num_discretizations, row * self.discretization_strategy.num_discretizations):
-                    wi = math.ceil((((tas[i].bandwidth.value / self.constraints_object.channels[index].capacity.value) *
-                                     min_latency) + (2 * self.constraints_object.guard_band.value)) * self.factor)
+                    wi = math.ceil(tas[i].compute_communication_length(self.constraints_object.channels[index].capacity, Milliseconds(min_latency), self.constraints_object.guard_band) * self.factor)
                     if wi <= column:
                         if table[row][column] == table[row-1][column-wi] + tas[i].value:
                             self.scheduled_tas.append(tas[i])

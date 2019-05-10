@@ -23,6 +23,9 @@ from cp1.utils.ta_generator import TAGenerator
 from cp1.utils.channel_generator import ChannelGenerator
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
+from cp1.common.logger import Logger
+
+logger = Logger().logger
 
 
 class IntegerProgram(OptimizationAlgorithm):
@@ -30,7 +33,7 @@ class IntegerProgram(OptimizationAlgorithm):
         self.constraints_object = constraints_object
         self.solver_type = solver_type
 
-    def optimize(self, discretization_strategy, time_limit=None):
+    def optimize(self, discretization_strategy, time_limit=15):
         """Uses Integer Programming to select TAs for scheduling.
         Uses the Google OR Tools `API <https://developers.google.com/optimization/mip/integer_opt>`.
         This wraps any of 4 C++ based Linear Programs in Python:
@@ -45,6 +48,7 @@ class IntegerProgram(OptimizationAlgorithm):
         :param ConstraintsObject constraints_object: A Constraints Object containing all data necessary to optimize over.
         :param SolverType solver_type: The type of Mixed Integer Program solver to use. Can be GLPK, CPLEX, GUROBI or CBC.
         """
+        logger.debug('Beginning CBC Integer Program...')
         start_time = time.perf_counter()
 
         # Setup data
@@ -109,6 +113,7 @@ class IntegerProgram(OptimizationAlgorithm):
                 scheduled_tas.append(discretized_tas[i])
         value = sum(ta.value for ta in scheduled_tas)
 
+        logger.debug('CBC Integer Program complete in {0} seconds'.format(run_time))
         return AlgorithmResult(scheduled_tas=scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
     def __str__(self):

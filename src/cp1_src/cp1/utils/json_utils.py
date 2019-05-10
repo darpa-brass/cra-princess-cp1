@@ -12,6 +12,11 @@ from cra.common.constants import Constants
 
 logger = Logger().logger
 
+def extract_percentages(field):
+    perc = []
+    for x in field:
+        perc.append(x[0])
+    return perc
 
 def file_to_json(file_path):
     """

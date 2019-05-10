@@ -4,28 +4,36 @@ Any helper functions that store data in OrientDB.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 import re
+import sys
+
 from brass_api.translator.orientdb_importer import OrientDBXMLImporter as MDLImporter
 from brass_api.translator.orientdb_exporter import OrientDBXMLExporter as MDLExporter
 from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
+from brass_api.common.exception_class import BrassException
 import brass_api.orientdb.orientdb_sql as sql
 
-from cp1.data_objects.processing.ta import TA
+from cp1.data_objects.constants.constants import *
+from cp1.utils.constraint_types import ConstraintTypes
+from cp1.utils.channel_generator import ChannelGenerator
+from cp1.utils.ta_generator import TAGenerator
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.txop import TxOpTimeout
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
+from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.schedule import Schedule
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
-from cra.common.exception_class import NodeNotFoundException
+
+from cp1.common.exception_class import NodeNotFoundException
 from cp1.common.exception_class import TAsNotFoundException
 from cp1.common.exception_class import SystemWideConstraintsNotFoundException
 from cp1.common.exception_class import ConstraintsNotFoundException
+from cp1.common.exception_class import ChannelNotFoundException
 from cp1.common.logger import Logger
-from cp1.common.exception_class import StoreResultInitializationException
-from cp1.utils.constraint_types import ConstraintTypes
+
 
 
 logger = Logger().logger
@@ -93,6 +101,71 @@ class OrientDBSession(BrassOrientDBHelper):
                         txop_rids.append(txop._rid)
                         self.set_containment_relationship(
                             parent_rid=transmission_schedule._rid, child_rid=txop._rid)
+
+    def create_constraints_object(self, constraints_object):
+        constraints_object_properties = {
+            'id': constraints_object.id_,
+            'constraints_type': 'System Wide Constraint',
+            'goal_throughput_bulk': constraints_object.goal_throughput_bulk.rate.value,
+            'goal_throughput_voice': constraints_object.goal_throughput_voice.rate.value,
+            'goal_throughput_safety': constraints_object.goal_throughput_safety.rate.value,
+            'guard_band': constraints_object.guard_band.value,
+            'epoch': constraints_object.epoch.value,
+            'txop_timeout': constraints_object.txop_timeout.value,
+            'channel_seed': constraints_object.channel_seed,
+            'ta_seed': constraints_object.ta_seed,
+            'constraint_type': 'System Wide Constraint'
+        }
+        rid = self.create_node('Constraints', constraints_object_properties, identifying_field='id', identifying_value=constraints_object.id_)
+        constraints_object.rid = rid
+
+        # Create Channels and TAs
+        for channel in constraints_object.channels:
+            self.create_channel(channel)
+        for ta in constraints_object.candidate_tas:
+            self.create_ta(ta)
+
+        # Setup necessary links
+        self.link_constraint_to_tas(rid, constraints_object.candidate_tas)
+        self.link_constraint_to_channels(rid, constraints_object.channels)
+        self.link_eligible_channels(constraints_object.candidate_tas)
+
+        return rid
+
+    def link_constraint_to_tas(self, constraint_rid, tas):
+        for ta in tas:
+            self.set_containment_relationship(parent_rid=constraint_rid, child_rid=ta.rid)
+    def link_constraint_to_channels(self, constraint_rid, channels):
+        for channel in channels:
+            self.set_containment_relationship(parent_rid=constraint_rid, child_rid=channel.rid)
+    def link_eligible_channels(self, tas):
+        for ta in tas:
+            for channel in ta.eligible_channels:
+                self.set_containment_relationship(parent_rid=ta.rid, child_rid=channel.rid)
+
+    def create_channel(self, channel):
+        properties = {
+        'frequency': channel.frequency.value,
+        'capacity': channel.capacity.value
+        }
+        rid = self.create_node('Channel', properties, identifying_field='frequency', identifying_value=channel.frequency.value)
+        channel.rid = rid
+
+        return rid
+
+    def create_ta(self, ta):
+        properties = {
+        'id': ta.id_,
+        'minimum_voice_bandwidth': ta.minimum_voice_bandwidth.value,
+        'minimum_safety_bandwidth': ta.minimum_safety_bandwidth.value,
+        'latency': ta.latency.value,
+        'scaling_factor': ta.scaling_factor,
+        'c': ta.c
+        }
+        rid = self.create_node('TA', properties, identifying_field='id', identifying_value=ta.id_)
+        ta.rid = rid
+
+        return rid
 
     def update_bandwidth(self, bandwidth_rates):
         """
@@ -187,36 +260,43 @@ class OrientDBSession(BrassOrientDBHelper):
 
         :returns ConstraintsObject constraints_object: A Constraints Object
         """
-        self._orientdb_client.open_database()
-        constraints = self._get_system_wide_constraints()
-        candidate_tas = self._get_tas()
-        channels = self._create_channels(constraints)
-        self._orientdb_client.close_database()
+        orientdb_constraints_object = self._get_first_system_wide_constraints()
 
-        return ConstraintsObject(
+        connected_nodes = self.get_connected_nodes(orientdb_constraints_object._rid, filterdepth=1)
+        candidate_tas = []
+        channels = []
+
+        for node in connected_nodes:
+            if node._class == 'TA':
+                candidate_tas.append(self.construct_ta_from_node(node))
+            elif node._class == 'Channel':
+                channels.append(self.construct_channel_from_node(node))
+
+        constraints_object=ConstraintsObject(
+            id_ = orientdb_constraints_object.id,
+            candidate_tas=candidate_tas,
+            channels=channels,
             goal_throughput_bulk=BandwidthRate(
-                BandwidthTypes.bulk,
-                Kbps(constraints.goal_throughput_bulk)
+                BandwidthTypes.BULK,
+                Kbps(int(orientdb_constraints_object.goal_throughput_bulk))
             ),
             goal_throughput_voice=BandwidthRate(
-                BandwidthTypes.voice,
-                Kbps(constraints.goal_throughput_voice)
+                BandwidthTypes.VOICE,
+                Kbps(int(orientdb_constraints_object.goal_throughput_voice))
             ),
             goal_throughput_safety=BandwidthRate(
-                BandwidthTypes.safety,
-                Kbps(constraints.goal_throughput_safety)
+                BandwidthTypes.SAFETY,
+                Kbps(int(orientdb_constraints_object.goal_throughput_safety))
             ),
-            latency=Milliseconds(
-                constraints.latency / 1000),
-            guard_band=Milliseconds(
-                constraints.guard_band / 1000),
-            epoch=Milliseconds(
-                constraints.epoch / 1000),
-            candidate_tas=candidate_tas,
-            txop_timeout=TxOpTimeout(constraints.txop_timeout),
-            channels=channels)
+            guard_band=Milliseconds(int(orientdb_constraints_object.guard_band)),
+            epoch=Milliseconds(int(orientdb_constraints_object.epoch)),
+            txop_timeout=TxOpTimeout(int(orientdb_constraints_object.txop_timeout)),
+            ta_seed=orientdb_constraints_object.ta_seed,
+            channel_seed=orientdb_constraints_object.channel_seed)
 
-    def _get_system_wide_constraints(self):
+        return constraints_object
+
+    def _get_first_system_wide_constraints(self):
         orientdb_response = self.get_nodes_by_type('Constraints')
 
         if not orientdb_response:
@@ -224,10 +304,50 @@ class OrientDBSession(BrassOrientDBHelper):
                 'Constraints database {0} does not contain any Constraints objects'.format(
                     self._orientdb_client._db_name), 'OrientDBSession._get_system_wide_constraints')
 
-        if orientdb_response[0].constraint_type != ConstraintTypes.SYSTEM_WIDE.value:
-            raise SystemWideConstraintsNotFoundException(
-                'Constraints database {0} does not contain a System Wide Constraint'.format(
-                    self._orientdb_client._db_name), 'OrientDBSession._get_system_wide_constraints')
+        # try:
+        #     system_wide_constraints_objects = list(filter(lambda x: x.constraints_type != ORIENTDB_CONSTRAINTS_TYPE))
+        # except:
+        #     raise ConstraintsNotFoundException('Constraints Database {0} is missing the required constraints_type field'.format(self._orientdb_client._db_name))
+
+        # if len(orientdb_response) == 0:
+        #     raise SystemWideConstraintsNotFoundException(
+        #         'Constraints database {0} does not contain a System Wide Constraint'.format(
+        #             self._orientdb_client._db_name), 'OrientDBSession._get_system_wide_constraints')
+        for x in orientdb_response:
+            if x.constraint_type == 'System Wide Constraint':
+                return x
+        raise ConstraintsNotFoundException('Constraints Database {0} is missing a System Wide Constraints object.', 'OrientDBSession._get_system_wide_constraints')
+
+
+    def construct_ta_from_node(self, orientdb_node):
+        channel_nodes = self.get_connected_nodes(orientdb_node._rid, direction='out', filterdepth=1)
+
+        eligible_channels=[]
+        for channel_node in channel_nodes:
+            if channel_node._class == 'Channel':
+                channel = Channel(
+                    frequency=Frequency(channel.frequency),
+                    capacity=Kbps(channel.capacity)
+                )
+                eligible_channels.append(channel)
+
+        ta_obj = TA(
+            id_=orientdb_node.id,
+            minimum_voice_bandwidth=Kbps(
+                int(orientdb_node.minimum_voice_bandwidth)),
+            minimum_safety_bandwidth=Kbps(
+                int(orientdb_node.minimum_safety_bandwidth)),
+            latency=Milliseconds(int(orientdb_node.latency)),
+            scaling_factor=float(orientdb_node.scaling_factor),
+            c=float(orientdb_node.c),
+            eligible_channels=eligible_channels)
+
+        return ta_obj
+
+    def construct_channel_from_node(self, orientdb_node):
+        channel = Channel(frequency=Frequency(int(orientdb_node.frequency)),
+                            capacity=Kbps(int(orientdb_node.capacity)))
+        return channel
 
     def _get_tas(self):
         """
@@ -242,29 +362,58 @@ class OrientDBSession(BrassOrientDBHelper):
             raise TAsNotFoundException(
                 'Constraints database {0} does not contain any TAs'.format(
                     self._orientdb_client._db_name),
-                'OrientDBSession.get_tas')
+                'OrientDBSession._get_tas')
 
-        for ta in orientdb_response:
-            ta_obj = TA(
-                id_=(ta.id),
-                minimum_voice_bandwidth=Kbps(
-                    ta.minimum_voice_bandwidth),
-                minimum_safety_bandwidth=Kbps(
-                    ta.minimum_safety_bandwidth),
-                scaling_factor=ta.scaling_factor,
-                c=ta.c)
-            candidate_tas.append(ta_obj)
-
+        for ta_node in orientdb_response:
+            candidate_tas.append(self.construct_ta_from_node(ta_node))
         return candidate_tas
 
-    def create_node(self, node_type, properties={}):
+    def _get_channels(self):
+        channels = []
+        orientdb_response = self.get_nodes_by_type('Channel')
+
+        if not orientdb_response:
+            raise TAsNotFoundException(
+                'Constraints database {0} does not contain any Channels'.format(
+                    self._orientdb_client._db_name),
+                'OrientDBSession._get_channels')
+
+        for channel_node in orientdb_response:
+            channels.append(self.construct_channel_from_node(channel_node))
+        return channels
+
+    def get_nodes_by_properties(self, target_name, property_conditions=[]):
+        """
+        Get nodes that fit the property conditions specified.
+
+        :param target_name: The node class, i.e. 'TA' or 'Channel'
+        :param list property_conditions:         list of property condition strings in the form of:
+                                            name='MDL Description', description='This is a scenario 1'
+                                            Use orientdb_sql.condition_str() to help create condition strings.
+        :return:                            list of orient record objects
+        :raises BrassException:             source of exception is set to the function name
+        """
+        try:
+            sql_cmd = sql.select_sql(target_name, [property_conditions])
+            return self._orientdb_client.run_command(
+                sql_cmd
+            )
+        except:
+            raise BrassException(sys.exc_info()[1], 'BrassOrientDBHelper.get_node_by_properties')
+
+    def create_node(self, node_type, properties={}, identifying_field=None, identifying_value=None):
         if(self.explicit):
             if self.node_count == 0:
                 logger.info('Indexing Started...')
             elif(self.node_count % 100 == 0):
                 logger.info('Indexed {0} MDL Elements'.format(self.node_count))
             self.node_count += 1
-        return super(OrientDBSession, self).create_node(node_type, properties)
+        super(OrientDBSession, self).create_node(node_type, properties)
+
+        new_rid = None
+        if identifying_field is not None:
+            new_rid = self.get_nodes_by_properties(target_name=node_type, property_conditions=sql.condition_str(identifying_field, identifying_value))[0]._rid
+        return new_rid
 
     def create_node_class(self, name):
         if(self.explicit):

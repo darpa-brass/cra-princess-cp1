@@ -13,7 +13,7 @@ class BandwidthRate:
         Constructor
 
         :param BandwidthTypes type_: The bandwidth type.
-        :param int bandwidth_rate: The bandwidth rate.
+        :param Kbps bandwidth_rate: The bandwidth rate.
         """
         self.type_ = type_
         self.rate = rate

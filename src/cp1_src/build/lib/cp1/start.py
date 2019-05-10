@@ -1,55 +1,48 @@
 import re
 import os
 import sys
+import json
+import csv
+from time import strftime
 
 from ortools.linear_solver import pywraplp
 
 from cp1.common.logger import Logger
-from cp1.processing.algorithms.integer_program import IntegerProgram
+
+from cp1.processing.algorithms.discretization.bandwidth_discretization import BandwidthDiscretization
+from cp1.processing.algorithms.discretization.accuracy_discretization import AccuracyDiscretization
 from cp1.processing.algorithms.discretization.value_discretization import ValueDiscretization
-from cp1.processing.algorithms.optimization_algorithm import OptimizationAlgorithm
-from cp1.processing.bandwidth_processor import BandwidthProcessor
+from cp1.processing.algorithms.integer_program import IntegerProgram
+from cp1.processing.algorithms.dynamic_program import DynamicProgram
+from cp1.processing.algorithms.greedy import Greedy
+from cp1.processing.algorithms.gurobi import Gurobi
+
 from cp1.utils.orientdb_session import OrientDBSession
 from cp1.utils.decorators.orientdb_importer import OrientDBImporter
 from cp1.utils.decorators.orientdb_exporter import OrientDBExporter
+from cp1.utils.channel_generator import ChannelGenerator
+from cp1.utils.ta_generator import TAGenerator
+
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.txop import TxOp
-from cp1.data_objects.mdl.microseconds import Microseconds
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
-from cp1.data_objects.mdl.mdl_id import MdlId
+from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
+from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.mdl.kbps import Kbps
-from cp1.data_objects.processing.schedule import Schedule
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
 from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.processing.channel import Channel
-from cp1.utils.constraint_types import ConstraintTypes
-
-from brass_api.orientdb.brass_orientdb_client import BrassOrientDBClient
-from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
 
 logger = Logger().logger
 
-logger.info(
-    '***************************Challenge Problem 1 Started*********************')
-scenario_database_name = 'cra_scenarios'
-constraints_database_name = 'cra_constraints'
-output_file = 'mdl_files/CRA_Scenarios_After_Adaptation.xml'
-mdl_file = os.path.abspath('mdl_files/CRA_Scenarios_Before_Adaptation.xml')
-remote_db_config_file = os.path.abspath('../../../conf/remote_db_config.json')
-local_db_config_file = os.path.abspath('../../../conf/local_db_config.json')
-bandwidth_file = os.path.abspath('../../../conf/mdl_ids.json')
-config_file = os.path.abspath('../../../conf/config.json')
-output_folder = os.path.abspath('../../../output/raw')
+# config_file = input("Enter path to your data.json file [cp1/conf/data.json]: ")
+#
+# if config_file == '':
+#     config_file = '../../../conf/data.json'
 
-scenario_orientdb = OrientDBSession(
-    database_name=scenario_database_name,
-    config_file=remote_db_config_file)
-constraints_orientdb = OrientDBSession(
-    database_name=constraints_database_name,
-    config_file=local_db_config_file)
-
-########## Extract raw data ##########
+config_file = '../../../conf/data.json'
+logger.info('***************************Challenge Problem 1 Started*********************')
 with open(config_file, 'r') as config_file:
     data = json.load(config_file)
 
@@ -63,26 +56,6 @@ with open(config_file, 'r') as config_file:
     goal_throughput_safety = BandwidthRate(BandwidthTypes.SAFETY, Kbps(
         data['Constraints Object']['goal_throughput_safety']))
 
-    num_tas = data['TAs']['count']
-    lower_ta_seed = data['TAs']['seeds'][0]
-    upper_ta_seed = data['TAs']['seeds'][1]
-    num_seeds = upper_ta_seed - lower_ta_seed
-    lower_minimum_voice_bandwidth = Kbps(data['TAs']['voice_bandwidth'][0])
-    upper_minimum_voice_bandwidth = Kbps(data['TAs']['voice_bandwidth'][1])
-    lower_minimum_safety_bandwidth = Kbps(data['TAs']['safety_bandwidth'][0])
-    upper_minimum_safety_bandwidth = Kbps(data['TAs']['safety_bandwidth'][1])
-    lower_latency = Milliseconds(data['TAs']['latency'][0])
-    upper_latency = Milliseconds(data['TAs']['latency'][1])
-    lower_scaling_factor = data['TAs']['scaling_factor'][0]
-    upper_scaling_factor = data['TAs']['scaling_factor'][1]
-    lower_c = data['TAs']['c'][0]
-    upper_c = data['TAs']['c'][1]
-
-    num_channels = data['Channels']['count']
-    channel_seed = data['Channels']['seed']
-    lower_capacity = Kbps(data['Channels']['capacity'][0])
-    upper_capacity = Kbps(data['Channels']['capacity'][1])
-
     accuracy_disc_epsilons = data['Discretization Strategy']['Accuracy']['epsilon']
     bandwidth_disc_lower = data['Discretization Strategy']['Bandwidth']['num_discretizations'][0]
     bandwidth_disc_upper = data['Discretization Strategy']['Bandwidth']['num_discretizations'][1]
@@ -94,114 +67,123 @@ with open(config_file, 'r') as config_file:
     greedy = data['Algorithm']['Greedy Algorithm']
     dynamic = data['Algorithm']['Dynamic Program']
 
-logger.info(
-    '***************************Generating TAs and Channels...***********************')
+    constraints_db_name = data['Files and Database']['constraints_db_name']
+    mdl_db_name = data['Files and Database']['mdl_db_name']
+    mdl_output_file = data['Files and Database']['mdl_output_file']
+    mdl_input_file = data['Files and Database']['mdl_input_file']
+    remote_db_config_file = data['Files and Database']['remote_db_config_file']
+    local_db_config_file = data['Files and Database']['local_db_config_file']
+    raw_output_folder = data['Files and Database']['raw_output_folder']
+    use_orientdb = data['Files and Database']['use_orientdb']
+
+
+scenario_orientdb = OrientDBSession(
+    database_name=mdl_db_name,
+    config_file=local_db_config_file)
+constraints_orientdb = OrientDBSession(
+    database_name=constraints_db_name,
+    config_file=local_db_config_file)
+
+logger.info('***************************Generating TAs and Channels...***********************')
 constraints_objects = []
-channel_generator = ChannelGenerator(
-                        lower_capacity=lower_capacity,
-                        upper_capacity=upper_capacity,
-                        seed=channel_seed)
-channels = channel_generator.generate_uniformly(num_channels)
-for seed in range(lower_ta_seed, upper_ta_seed + 1):
-    ta_generator = TAGenerator(
-                    lower_minimum_voice_bandwidth=lower_minimum_voice_bandwidth,
-                    upper_minimum_voice_bandwidth=upper_minimum_voice_bandwidth,
-                    lower_minimum_safety_bandwidth=lower_minimum_safety_bandwidth,
-                    upper_minimum_safety_bandwidth=upper_minimum_safety_bandwidth,
-                    lower_latency=lower_latency,
-                    upper_latency=upper_latency,
-                    lower_scaling_factor=lower_scaling_factor,
-                    upper_scaling_factor=upper_scaling_factor,
-                    lower_c=lower_c,
-                    upper_c=upper_c,
-                    seed=seed)
-    candidate_tas = ta_generator.generate_uniformly(num_tas)
-    for ta in candidate_tas:
-        ta.eligible_channels = channels
 
-    constraints_objects.append(ConstraintsObject(
-                                    candidate_tas=candidate_tas,
-                                    channels=channels,
-                                    ta_seed=seed,
-                                    channel_seed=channel_seed,
-                                    goal_throughput_bulk=goal_throughput_bulk,
-                                    goal_throughput_voice=goal_throughput_voice,
-                                    goal_throughput_safety=goal_throughput_safety,
-                                    guard_band=guard_band,
-                                    epoch=epoch,
-                                    txop_timeout=txop_timeout))
+channels = ChannelGenerator().generate()
+candidate_tas = TAGenerator().generate()
 
-logger.info(
-    '***************************Clearing database...***********************')
-constraints_oriendb.delete_nodes_by_class('TA')
-constraints_orientdb.delete_nodes_by_class('Channel')
-constraints_orientdb.delete_nodes_by_class('Constraints Object')
+for ta in candidate_tas:
+    ta.eligible_channels = channels
 
+constraints_objects.append(ConstraintsObject(
+                                id_ = 1,
+                                candidate_tas=candidate_tas,
+                                channels=channels,
+                                ta_seed='timestamp',
+                                channel_seed='timestamp',
+                                goal_throughput_bulk=goal_throughput_bulk,
+                                goal_throughput_voice=goal_throughput_voice,
+                                goal_throughput_safety=goal_throughput_safety,
+                                guard_band=guard_band,
+                                epoch=epoch,
+                                txop_timeout=txop_timeout))
 
+if use_orientdb == 1:
+    logger.info(
+        '***************************Clearing database...***********************')
+    constraints_orientdb.open_database()
 
-logger.info(
-    '***************************Storing channels and TAs...***********************')
+    logger.info(
+        '***************************Storing Constraints Object...***********************')
+    for constraints_object in constraints_objects:
+        constraints_orientdb.create_constraints_object(constraints_object)
 
-logger.info(
-    '***************************Retrieving Constraints...***********************')
-constraints_object = constraints_orientdb.get_constraints()
-logger.debug(constraints_object)
+    logger.info(
+        '***************************Retrieving Constraints...***********************')
+    constraints_objects = [constraints_orientdb.get_constraints()]
+    constraints_orientdb.close_database()
+
+logger.debug(constraints_objects)
 
 logger.info(
     '***************************Optimizing Schedule...**************************')
-discretization_strategy = ValueDiscretization(accuracy=0.9)
-solver_type = pywraplp.Solver.CPLEX_MIXED_INTEGER_PROGRAMMING
-algorithm = IntegerProgram(discretization_strategy, solver_type)
+discretizations = []
+if accuracy_disc_epsilons != 0:
+    for x in accuracy_disc_epsilons:
+        discretizations.append(AccuracyDiscretization(1-x))
 
-schedule_processor = ScheduleProcessor(constraints_object)
-schedule_processor.process(algorithm)
+if bandwidth_disc_lower != bandwidth_disc_upper:
+    for x in range(bandwidth_disc_lower, bandwidth_disc_upper + 1):
+        discretizations.append(BandwidthDiscretization(x))
 
-logger.info(
-    '***************************Processing Bandwidth...*************************')
-process_bandwidth = BandwidthProcessor(
-    constraints_object, bandwidth_file, up_ratio=0.5)
-bandwidth_rates = process_bandwidth.process()
-logger.info(bandwidth_rates)
+if value_disc_lower != value_disc_upper:
+    for x in range(value_disc_lower, value_disc_upper + 1):
+        discretizations.append(ValueDiscretization(x))
 
-logger.info(
-    '***************************Importing MDL file...***************************')
-logger.info('Importing {0} into {1}'.format(mdl_file, scenario_database_name))
-logger.info('Parsing MDL file into intermediary data object...')
-importer = OrientDBImporter(scenario_database_name,
-                            mdl_file, remote_db_config_file)
-importer.import_xml()
-importer.orientDB_helper.close_database()
+########## Algorithms ##########
+algorithms = []
+if cbc == 1:
+    for x in constraints_objects:
+        algorithms.append(IntegerProgram(x))
 
-logger.info(
-    '***************************Updating MDL File Bandwidth...******************')
-scenario_orientdb.open_database()
-scenario_orientdb.update_bandwidth(bandwidth_rates)
+if gurobi == 1:
+    for x in constraints_objects:
+        algorithms.append(Gurobi(x))
 
-logger.info(
-    '***************************Updating MDL File Schedule...*******************')
-scenario_orientdb.update_schedule(new_schedule)
-scenario_orientdb.close_database()
+if dynamic == 1:
+    for x in constraints_objects:
+        algorithms.append(DynamicProgram(x))
 
-logger.info(
-    '***************************Exporting MDL File...***************************')
-logger.info('Exporting {0} to {1}'.format(scenario_database_name, output_file))
-exporter = OrientDBExporter(scenario_database_name,
-                            output_file, remote_db_config_file)
-exporter.export_xml()
-exporter.orientDB_helper.close_database()
+if greedy == 1:
+    for x in constraints_objects:
+        algorithms.append(Greedy(x))
 
-logger.info(
-    '********************************Results************************************')
-new_tas = set()
-new_value = 0
-for channel, ta_list in algorithm.selected_tas.items():
-    new_value += channel.value
-    for ta in ta_list:
-        new_tas.add(ta.id_.value)
+########## Run ##########
+timestamp = strftime("%Y-%m-%d %H-%M-%S")
+for discretization in discretizations:
+    for algorithm in algorithms:
 
-logger.info('New Schedule Value: {0}'.format(new_value))
-logger.info('New Schedule TAs: {0}'.format(new_tas))
-logger.info(
-    '***************************Challenge Problem 1 Complete********************')
-logger.info(
-    '***************************************************************************\n')
+        # Optimize
+        if isinstance(algorithm, Greedy):
+            res = algorithm.optimize()
+        else:
+            res = algorithm.optimize(discretization)
+
+        file_name = raw_output_folder + '/' + str(algorithm) + '_' + str(
+            discretization) + '_' + timestamp + '.csv'
+
+        discretization_write_value = None
+        if isinstance(discretization, AccuracyDiscretization):
+            num_discretizations = ''
+            accuracy = discretization.accuracy
+        else:
+            num_discretizations = discretization.num_discretizations
+            accuracy = ''
+
+        ta_print_res = ''
+        for ta in res.scheduled_tas:
+            ta_print_res += (',{0}_{1}_{2}_{3}'.format(ta.id_, ta.value, ta.bandwidth.value, ta.channel.frequency.value))
+
+        with open(file_name, 'a') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerow([algorithm.constraints_object.ta_seed, num_discretizations,
+                                accuracy, res.value, res.run_time, res.solve_time, ta_print_res])
+logger.info('***************************Challenge Problem Complete***********************')
