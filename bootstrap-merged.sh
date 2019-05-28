@@ -18,7 +18,7 @@ apt-get update
 apt-get -y install python3-dev --no-install-recommends
 apt-get -y install python3-pip --no-install-recommends
 apt-get -y install python3-setuptools --no-install-recommends
-# pip3 install --upgrade pip
+pip3 install --upgrade pip3
 pip3 install numpy
 pip3 install scipy
 pip3 install scikit-learn
