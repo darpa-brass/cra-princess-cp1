@@ -26,4 +26,4 @@ pip3 install pyorient
 pip3 install lxml
 
 # Access Control Settings
-chmod 777 ./start
+# chmod 777 ./start
