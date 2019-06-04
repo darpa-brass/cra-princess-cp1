@@ -26,3 +26,4 @@ pip3 install scikit-learn
 pip3 install pyorient
 pip3 install lxml
 pip3 install ortools
+pip3 install pandas
