@@ -1,17 +1,17 @@
-"""greedy.py
+"""greedy_optimization.py
 
 Algorithm that greedily selects TAs for scheduling.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 import time
-from cp1.processing.algorithms.optimization_algorithm import OptimizationAlgorithm
+from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.common.logger import Logger
 
 logger = Logger().logger
 
 
-class Greedy(OptimizationAlgorithm):
+class GreedyOptimization(OptimizationAlgorithm):
     def __init__(self, constraints_object):
         self.constraints_object = constraints_object
 

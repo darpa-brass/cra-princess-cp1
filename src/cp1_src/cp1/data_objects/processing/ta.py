@@ -96,10 +96,12 @@ class TA:
         return any(x.frequency.value == channel.frequency.value for x in self.eligible_channels)
 
     def compute_communication_length(self, capacity, latency, guard_band, bandwidth=None):
+        if isinstance(latency, Milliseconds):
+            latency = latency.value
         if bandwidth is None:
-            length = ((self.bandwidth.value / capacity.value) * latency.value) + (2 * guard_band.value)
+            length = ((self.bandwidth.value / capacity.value) * latency) + (2 * guard_band.value)
         else:
-            length = ((bandwidth.value / capacity.value) * latency.value) + (2 * guard_band.value)
+            length = ((bandwidth.value / capacity.value) * latency) + (2 * guard_band.value)
         return length
 
     def __str__(self):

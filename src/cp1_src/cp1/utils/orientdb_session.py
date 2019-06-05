@@ -5,6 +5,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 """
 import re
 import sys
+from functools import reduce
 
 from brass_api.translator.orientdb_importer import OrientDBXMLImporter as MDLImporter
 from brass_api.translator.orientdb_exporter import OrientDBXMLExporter as MDLExporter
@@ -12,8 +13,9 @@ from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
 from brass_api.common.exception_class import BrassException
 import brass_api.orientdb.orientdb_sql as sql
 
+from cp1.utils.mdl_utils import *
+
 from cp1.data_objects.constants.constants import *
-from cp1.utils.constraint_types import ConstraintTypes
 from cp1.utils.channel_generator import ChannelGenerator
 from cp1.utils.ta_generator import TAGenerator
 from cp1.data_objects.mdl.kbps import Kbps
@@ -24,16 +26,16 @@ from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.processing.channel import Channel
-from cp1.data_objects.processing.schedule import Schedule
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
+
 
 from cp1.common.exception_class import NodeNotFoundException
 from cp1.common.exception_class import TAsNotFoundException
 from cp1.common.exception_class import SystemWideConstraintsNotFoundException
 from cp1.common.exception_class import ConstraintsNotFoundException
-from cp1.common.exception_class import ChannelNotFoundException
+from cp1.common.exception_class import ChannelsNotFoundException
+from cp1.common.exception_class import RadioLinkNotFoundException
 from cp1.common.logger import Logger
-
 
 
 logger = Logger().logger
@@ -48,64 +50,63 @@ class OrientDBSession(BrassOrientDBHelper):
         self.node_class_count = 0
         return super(OrientDBSession, self).__init__(database_name, config_file, orientdb_client)
 
-    def update_schedule(self, schedule):
+    def update_schedule(self, txop_list):
         """
-        Deletes existing TxOp nodes in database.
         Stores the list of TxOp nodes found in schedule.
+        Creates one TxOp node per new
 
-        :param dict<str, List[TxOp]> schedule:
+        :param Schedule schedule: A Schedule object containing TxOp nodes to be added to MDL file.
         """
-        self.delete_nodes_by_class('TxOp')
-        added_txops = set()
+        # Generate a set of
+        radio_links = self.get_nodes_by_type('RadioLink')
+        radio_link_ids = {}
+        for txop in txop_list:
+            if txop.radio_link_id not in radio_link_ids:
+                for x in radio_link_rids:
+                    if radio_link == x.ID:
+                        radio_link_rid = x._rid
+                radio_link_ids[txop.radio_link_id] = radio_link_rid
 
-        radio_link_vertices = self.get_nodes_by_type(
-            'RadioLink')
-        for key in schedule:
-            # Check database contains RadioLink
-            new_txop_list = schedule[key]
-            radio_link = None
-            for vertex in radio_link_vertices:
-                if vertex.ID == key:
-                    radio_link = vertex
-            if radio_link is None:
-                logger.warn('Unable to find RadioLink with ID: [%s]', key)
+        # The original MDL file we import does not contain any TransmissionSchedule or TxOp
+        # elements, so we have to create this class before indexing TransmissionSchedules
+        try:
+            self.create_node_class('TransmissionSchedule')
+        except:
+            pass
 
-            # Get TransmissionSchedule for RadioLink
-            transmission_schedule = None
-            radio_link_children = self.get_child_nodes(
-                radio_link._rid)
-            for child in radio_link_children:
-                if child._class == 'TransmissionSchedule':
-                    transmission_schedule = child
-            if transmission_schedule is None:
-                logger.warn(
-                    'Unable to find Transmission schedule for RadioLink: [%s]',
-                    radio_link)
+        try:
+            self.create_node_class('TxOp')
+        except:
+            pass
 
-            # Insert new TxOp under TransmissionSchedule
-            txop_rids = []
-            for new_txop in new_txop_list:
-                logger.info('Adding TxOp to TransmissionSchedule: {0}, {1}, {2}'.format(
-                    key, new_txop.start_usec.value, new_txop.stop_usec.value))
-                txop_properties = {
-                    'StartUSec': int(new_txop.start_usec.value),
-                    'StopUSec': int(new_txop.stop_usec.value),
-                    'TxOpTimeout': new_txop.txop_timeout.value,
-                    'CenterFrequencyHz': new_txop.center_frequency_hz.value
+            transmission_schedule_rid = self.create_empty_node('TransmissionSchedule')
+            self.set_containment_relationship(parent_rid=radio_link_ids[id], child_rid=transmission_schedule_rid)
+            radio_link_ids[id] = transmission_schedule_rid
+
+            # Take each TransmissionSchedule and assign it to the correct RadioLink
+
+        for txop in txop_list:
+            radio_link_rid = None
+            for radio_link in radio_links:
+                if radio_link.ID == txop.radio_link_id:
+                    radio_link_rid = radio_link._rid
+            if radio_link_rid == None:
+                raise RadioLinkNotFoundException('Unable to find RadioLink ({0})'.format(txop.radio_link_id), 'OrientDBSession.update_schedule')
+
+            txop_properties = {
+                'StartUSec': int(txop.start_usec.value),
+                'StopUSec': int(txop.stop_usec.value),
+                'TxOpTimeout': txop.txop_timeout.value,
+                'CenterFrequencyHz': txop.center_frequency_hz.value
                 }
-                self.create_node("TxOp", txop_properties)
-                orientdb_txop = self.get_nodes_by_type('TxOp')
-                for txop in orientdb_txop:
-                    if txop._rid not in txop_rids and txop._rid not in added_txops:
-                        added_txops.add(txop._rid)
-                        txop_rids.append(txop._rid)
-                        self.set_containment_relationship(
-                            parent_rid=transmission_schedule._rid, child_rid=txop._rid)
+
+            txop_rid = self.create_node('TxOp', txop_properties)
+            self.set_containment_relationship(parent_rid=radio_link_ids[txop.radio_link_id], child_rid=txop_rid)
 
     def create_constraints_object(self, constraints_object):
         constraints_object_properties = {
             'id': constraints_object.id_,
-            'constraints_type': 'System Wide Constraint',
+            'constraint_type': 'System Wide Constraint',
             'goal_throughput_bulk': constraints_object.goal_throughput_bulk.rate.value,
             'goal_throughput_voice': constraints_object.goal_throughput_voice.rate.value,
             'goal_throughput_safety': constraints_object.goal_throughput_safety.rate.value,
@@ -114,7 +115,6 @@ class OrientDBSession(BrassOrientDBHelper):
             'txop_timeout': constraints_object.txop_timeout.value,
             'channel_seed': constraints_object.channel_seed,
             'ta_seed': constraints_object.ta_seed,
-            'constraint_type': 'System Wide Constraint'
         }
         rid = self.create_node('Constraints', constraints_object_properties, identifying_field='id', identifying_value=constraints_object.id_)
         constraints_object.rid = rid
@@ -128,7 +128,7 @@ class OrientDBSession(BrassOrientDBHelper):
         # Setup necessary links
         self.link_constraint_to_tas(rid, constraints_object.candidate_tas)
         self.link_constraint_to_channels(rid, constraints_object.channels)
-        self.link_eligible_channels(constraints_object.candidate_tas)
+        self.link_tas_to_channels(constraints_object.candidate_tas)
 
         return rid
 
@@ -138,7 +138,7 @@ class OrientDBSession(BrassOrientDBHelper):
     def link_constraint_to_channels(self, constraint_rid, channels):
         for channel in channels:
             self.set_containment_relationship(parent_rid=constraint_rid, child_rid=channel.rid)
-    def link_eligible_channels(self, tas):
+    def link_tas_to_channels(self, tas):
         for ta in tas:
             for channel in ta.eligible_channels:
                 self.set_containment_relationship(parent_rid=ta.rid, child_rid=channel.rid)
@@ -206,7 +206,7 @@ class OrientDBSession(BrassOrientDBHelper):
         if orientdb_response is None:
             raise NodeNotFoundException(
                 'Unable to find any RadioLinks in the database.',
-                'OrientDBRetrieval.get_scheduled_tas'
+                'OrientDBSession.get_scheduled_tas'
             )
 
         for node in orientdb_response:
@@ -301,7 +301,7 @@ class OrientDBSession(BrassOrientDBHelper):
 
         if not orientdb_response:
             raise ConstraintsNotFoundException(
-                'Constraints database {0} does not contain any Constraints objects'.format(
+                'OrientDB database [{0}] does not contain any Constraints objects'.format(
                     self._orientdb_client._db_name), 'OrientDBSession._get_system_wide_constraints')
 
         # try:
@@ -311,12 +311,12 @@ class OrientDBSession(BrassOrientDBHelper):
 
         # if len(orientdb_response) == 0:
         #     raise SystemWideConstraintsNotFoundException(
-        #         'Constraints database {0} does not contain a System Wide Constraint'.format(
+        #         'OrientDB database [{0}] does not contain a System Wide Constraint'.format(
         #             self._orientdb_client._db_name), 'OrientDBSession._get_system_wide_constraints')
         for x in orientdb_response:
             if x.constraint_type == 'System Wide Constraint':
                 return x
-        raise ConstraintsNotFoundException('Constraints Database {0} is missing a System Wide Constraints object.', 'OrientDBSession._get_system_wide_constraints')
+        raise ConstraintsNotFoundException('OrientDB database [{0}] is missing a System Wide Constraints object.', 'OrientDBSession._get_system_wide_constraints')
 
 
     def construct_ta_from_node(self, orientdb_node):
@@ -356,30 +356,40 @@ class OrientDBSession(BrassOrientDBHelper):
         :returns List[TA] candidate_tas: A list of TA's
         """
         candidate_tas = []
+
         orientdb_response = self.get_nodes_by_type('TA')
 
         if not orientdb_response:
             raise TAsNotFoundException(
-                'Constraints database {0} does not contain any TAs'.format(
+                'OrientDB database [{0}] does not contain any TAs'.format(
                     self._orientdb_client._db_name),
                 'OrientDBSession._get_tas')
 
         for ta_node in orientdb_response:
             candidate_tas.append(self.construct_ta_from_node(ta_node))
+
         return candidate_tas
 
     def _get_channels(self):
+        """
+        Retrieves nodes of class type 'Channel' from the database and constructs a :class:`cp1.src.cp1_src.cp1.data_objects.processing.Channel` for each node.
+
+        :return [Channel] channels: A list of Channel objects
+        :raises TAsNotFoundException:
+        """
         channels = []
+
         orientdb_response = self.get_nodes_by_type('Channel')
 
         if not orientdb_response:
-            raise TAsNotFoundException(
-                'Constraints database {0} does not contain any Channels'.format(
+            raise ChannelsNotFoundException(
+                'OrientDB database [{0}] does not contain any Channels'.format(
                     self._orientdb_client._db_name),
                 'OrientDBSession._get_channels')
 
         for channel_node in orientdb_response:
             channels.append(self.construct_channel_from_node(channel_node))
+
         return channels
 
     def get_nodes_by_properties(self, target_name, property_conditions=[]):
@@ -401,21 +411,70 @@ class OrientDBSession(BrassOrientDBHelper):
         except:
             raise BrassException(sys.exc_info()[1], 'BrassOrientDBHelper.get_node_by_properties')
 
-    def create_node(self, node_type, properties={}, identifying_field=None, identifying_value=None):
+    def create_node(self, node_type, properties={}):
+        """
+        Decorator function to count the number of nodes indexed into the database
+        and return the new _rid of the indexed node.
+
+        :param str node_type: The class of the node to index
+        :param dict{str: str} properties: The properties of the node to index
+
+        :returns str _rid: The OrientDB `Record ID <http://www.orientdb.com/docs/last/Tutorial-Record-ID.html>` of the indexed node.
+                           This is a unique identifier that can be used to retrieve the node or set links between this node and others.
+        """
         if(self.explicit):
             if self.node_count == 0:
                 logger.info('Indexing Started...')
             elif(self.node_count % 100 == 0):
                 logger.info('Indexed {0} MDL Elements'.format(self.node_count))
             self.node_count += 1
+
+        old_nodes = []
+        try:
+            old_nodes = self.get_nodes_by_type(node_type)
+        except:
+            pass
+
+        # Create the node
         super(OrientDBSession, self).create_node(node_type, properties)
 
-        new_rid = None
-        if identifying_field is not None:
-            new_rid = self.get_nodes_by_properties(target_name=node_type, property_conditions=sql.condition_str(identifying_field, identifying_value))[0]._rid
+        # Retreive RID
+        new_nodes = self.get_nodes_by_type(node_type)
+        new_node = next(filter(lambda x: x._rid not in set(x._rid for x in old_nodes), new_nodes), None)
+
+        if new_node is None:
+            raise NodeNotFoundException(
+                'Unable to retrieve the node that was just indexed. node_type: {0}\nproperties: {1}'.format(node_type, properties),
+                'OrientDBSession.create_node'
+            )
+
+        new_rid = new_node._rid
+
         return new_rid
 
+    def create_empty_node(self, node_type):
+        old_nodes = []
+        try:
+            old_nodes = self.get_nodes_by_type(node_type)
+        except:
+            pass
+
+        # Create the node
+        self._orientdb_client.run_command('INSERT INTO ' + node_type + ' CONTENT {}')
+
+        # Retrieve RID
+        new_nodes = self.get_nodes_by_type(node_type)
+        new_node = next(filter(lambda x: x._rid not in set(x._rid for x in old_nodes), new_nodes), None)
+
+        return new_node._rid
+
     def create_node_class(self, name):
+        """
+        A decorator function to count the number of classes created.
+        Creates an OrientDB class with the corresponding name.
+
+        :param str name: The name of the class to create
+        """
         if(self.explicit):
             if self.node_class_count == 0:
                 logger.info('Creating OrientDB classes for MDL Elements...')
@@ -426,6 +485,17 @@ class OrientDBSession(BrassOrientDBHelper):
         return super(OrientDBSession, self).create_node_class(name)
 
     def set_containment_relationship(self, parent_rid=None, child_rid=None, parent_conditions=[], child_conditions=[]):
+        """
+        A decorator function to count the number of containment edges created.
+        Creates a link of class type 'Containment' between two vertices in the database.
+
+        parent_node <- child_node
+
+        :param str parent_rid: The Record ID of the parent
+        :param str child_rid: The Record ID of the child
+        :param str parent_conditions: The search conditions of the parent node
+        :param str child_conditions: The search conditions of the child node
+        """
         if(self.explicit):
             if (self.containment_edge_count == 0):
                 logger.info('Creating Containment Edges...')
@@ -436,6 +506,17 @@ class OrientDBSession(BrassOrientDBHelper):
         return super(OrientDBSession, self).set_containment_relationship(parent_rid=parent_rid, child_rid=child_rid, parent_conditions=parent_conditions, child_conditions=child_conditions)
 
     def set_reference_relationship(self, reference_rid=None, referent_rid=None, reference_condition=[], referent_condition=[]):
+        """
+        A decorator function to count the number of reference edges created.
+        Creates a link of class type 'Reference' between two vertices in the database.
+
+        reference node -> referent node
+
+        :param str reference_rid: The Record ID of the reference node
+        :param str referent_rid: The Record ID of the referent node
+        :param str reference_condition: The search conditions of the reference node
+        :param str referent_condition: The search conditions of the referent node
+        """
         if(self.explicit):
             if (self.reference_edge_count == 0):
                 logger.info('Creating Reference Edges...')

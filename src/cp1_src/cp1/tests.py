@@ -6,9 +6,9 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
 from cp1.processing.algorithms.discretization.accuracy_discretization import AccuracyDiscretization
 from cp1.processing.algorithms.discretization.bandwidth_discretization import BandwidthDiscretization
-from cp1.processing.algorithms.gurobi import Gurobi
-from cp1.processing.algorithms.dynamic_program import DynamicProgram
-from cp1.processing.algorithms.integer_program import IntegerProgram
+from cp1.processing.algorithms.optimization.gurobi import Gurobi
+from cp1.processing.algorithms.optimization.dynamic_program import DynamicProgram
+from cp1.processing.algorithms.optimization.integer_program import IntegerProgram
 
 
 # values = [2, 4, 8, 16, 32, 64]
@@ -23,14 +23,14 @@ for seed in range(1, 10):
         channel_generator = ChannelGenerator(seed=seed)
         channels = channel_generator.generate(2)
         constraints_object = ConstraintsObject(candidate_tas=candidate_tas, channels=channels)
-        discretization_strategy = AccuracyDiscretization(1-j)
+        discretization_algorithm = AccuracyDiscretization(1-j)
 
         # Run algorithm
         cbc = IntegerProgram(constraints_object)
-        cbc_res = cbc.optimize(discretization_strategy)
+        cbc_res = cbc.optimize(discretization_algorithm)
 
         gurobi = Gurobi(constraints_object)
-        gurobi_res = gurobi.optimize(discretization_strategy)
+        gurobi_res = gurobi.optimize(discretization_algorithm)
 
         with open('gurobi_res.csv', 'a') as csv_file:
             csv_writer = csv.writer(csv_file)

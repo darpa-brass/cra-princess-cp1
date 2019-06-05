@@ -41,6 +41,42 @@ class TxOpInitializationException(ValueError):
             self.message, self.source)
 
 
+
+class RadioLinkNotFoundException(ValueError):
+    """Raise for TxOp initializations"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(RadioLinkNotFoundException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class MACAddressParseError(ValueError):
+    """Raise for exceptions in parsing SwRIs naming scheme for MAC Addresses"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(MACAddressParseError, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
 class TxOpTimeoutInitializationException(ValueError):
     """Raise for TxOpTimeout initializations"""
 
@@ -77,7 +113,7 @@ class NodeNotFoundException(Exception):
             self.message, self.source)
 
 
-class ChannelNotFoundException(Exception):
+class ChannelsNotFoundException(Exception):
     """Raise for general responses that come back empty"""
 
     def __init__(self, message, source=''):
@@ -86,7 +122,7 @@ class ChannelNotFoundException(Exception):
         :param str message:     Exception message
         :param str source:      Which function threw the exception
         """
-        super(ChannelNotFoundException, self).__init__(message)
+        super(ChannelsNotFoundException, self).__init__(message)
         self.message = message
         self.source = source
 

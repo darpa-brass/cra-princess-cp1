@@ -11,7 +11,7 @@ class AlgorithmResult:
         """
         Constructor
 
-        :param List[ScheduledTA] scheduled_tas: New schedule outputted by algorithm.
+        :param List[TA] scheduled_tas: New schedule outputted by algorithm.
         :param int solve_time: Time taken to generate schedule, does not include any of the setup.
                                For integer programs, this is the time it takes solver.solve() to run.
                                For the greedy algorithm, this is the same as the solve_time since there is

@@ -19,7 +19,7 @@ class Channel:
         self.frequency = frequency
         self.capacity = capacity
 
-        self.first_available_time = 0
+        self.start_time = 0
         self.value = 0
 
     def __str__(self):
@@ -29,7 +29,7 @@ class Channel:
                'Value: {3}'.format(
                    self.frequency,
                    self.capacity,
-                   self.first_available_time,
+                   self.start_time,
                    self.value
                )
 
@@ -37,7 +37,7 @@ class Channel:
         if isinstance(other, Channel):
             return (self.frequency == other.frequency and
                     self.capacity == other.capacity and
-                    self.first_available_time == other.first_available_time and
+                    self.start_time == other.start_time and
                     self.value == other.value)
         return False
 

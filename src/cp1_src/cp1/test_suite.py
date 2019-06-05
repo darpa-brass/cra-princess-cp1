@@ -3,10 +3,10 @@ import csv
 import json
 from time import strftime
 from ortools.linear_solver import pywraplp
-from cp1.processing.algorithms.integer_program import IntegerProgram
-from cp1.processing.algorithms.dynamic_program import DynamicProgram
-from cp1.processing.algorithms.greedy import Greedy
-from cp1.processing.algorithms.gurobi import Gurobi
+from cp1.processing.algorithms.optimization.integer_program import IntegerProgram
+from cp1.processing.algorithms.optimization.dynamic_program import DynamicProgram
+from cp1.processing.algorithms.optimization.greedy_optimization import GreedyAlgorithm
+from cp1.processing.algorithms.optimization.gurobi import Gurobi
 from cp1.utils.ta_generator import TAGenerator
 from cp1.utils.channel_generator import ChannelGenerator
 from cp1.data_objects.mdl.kbps import Kbps

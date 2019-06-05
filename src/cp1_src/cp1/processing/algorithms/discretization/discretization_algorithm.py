@@ -1,4 +1,4 @@
-"""discretization_strategy.py
+"""discretization_algorihtm.py
 
 Interface for all discretization strategies.
 Author: Tameem Samawi (tsamawi@cra.com)
@@ -6,7 +6,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import abc
 
 
-class DiscretizationStrategy(abc.ABC):
+class DiscretizationAlgorithm(abc.ABC):
 
     @abc.abstractmethod
     def discretize(self, tas, channels):

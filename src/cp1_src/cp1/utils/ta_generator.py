@@ -24,15 +24,16 @@ logger = Logger().logger
 
 
 class TAGenerator(DataGenerator):
-    def __init__(self):
-        self._extract_data()
-        self._validate()
+    def __init__(self, config_file):
+        self.config_file = config_file
 
     def generate(self):
         """
-        Generates a set amount of TAs in the range of data provided by data_generator.json.
-        :param int num_tas: Number of TAs to generate
+        Generates a set amount of TAs in the range of data provided by data_file
+        :param str data_file_path: Path to file containing generation values
         """
+        self._extract_data()
+        self._validate()
         tas = []
         for x in range(self.num_tas):
             tas.append(TA(
@@ -52,21 +53,22 @@ class TAGenerator(DataGenerator):
         return tas
 
     def _extract_data(self):
-        data_file = open('C:/dev/cp1/conf/data.json')
-        data = json.load(data_file)
-        try:
-            self.num_tas = data['TAs']['num_tas']
-            self.seeds = data['TAs']['seeds']
-            self.channels = data['TAs']['eligible_channels']
-            self.voice = data['TAs']['voice_bandwidth']
-            self.safety = data['TAs']['safety_bandwidth']
-            self.latency = data['TAs']['latency']
-            self.scaling = data['TAs']['scaling_factor']
-            self.c = data['TAs']['c']
-        except Exception as ex:
-            raise ConfigFileException(ex, 'TAGenerator._extract_data')
-        data_file.close()
-
+        """
+        Attempts to open extract the values from data_file_path.
+        """
+        with open(self.config_file) as f:
+            data = json.load(f)
+            try:
+                self.num_tas = data['TAs']['num_tas']
+                self.seeds = data['TAs']['seeds']
+                self.channels = data['TAs']['eligible_channels']
+                self.voice = data['TAs']['voice_bandwidth']
+                self.safety = data['TAs']['safety_bandwidth']
+                self.latency = data['TAs']['latency']
+                self.scaling = data['TAs']['scaling_factor']
+                self.c = data['TAs']['c']
+            except Exception as ex:
+                raise ConfigFileException(ex, 'TAGenerator._extract_data')
 
     def _validate(self):
         self.validate_seeds(self.seeds)

@@ -10,10 +10,10 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import math
 import copy
 from cp1.data_objects.constants.constants import *
-from cp1.processing.algorithms.discretization.discretization_strategy import DiscretizationStrategy
+from cp1.processing.algorithms.discretization.discretization_algorithm import DiscretizationAlgorithm
 
 
-class AccuracyDiscretization(DiscretizationStrategy):
+class AccuracyDiscretization(DiscretizationAlgorithm):
     def __init__(self, accuracy):
         self.accuracy = accuracy
 

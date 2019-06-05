@@ -14,11 +14,17 @@ from cp1.utils.json_utils import extract_percentages
 
 
 class ChannelGenerator(DataGenerator):
-    def __init__(self):
+    def __init__(self, config_file):
+        """
+        :param str config_file: The path to the JSON file containing generation data.
+        """
+        self.config_file = config_file
+    def generate(self):
+        """
+        Generates a set amount of Channels in the range of data provided by data_file.
+        """
         self._extract_data()
         self._validate()
-
-    def generate(self):
         channels = []
         for i in range(0, self.num_channels):
             channels.append(Channel(
@@ -28,24 +34,24 @@ class ChannelGenerator(DataGenerator):
         return channels
 
     def _extract_data(self):
-        data_file = open('C:/dev/cp1/conf/data.json')
-        data = json.load(data_file)
-        try:
-            self.num_channels = data['Channels']['num_channels']
-            self.seed = data['Channels']['seeds']
-            self.base_frequency= data['Channels']['base_frequency']
-            self.capacity = data['Channels']['capacity']
-        except Exception as ex:
-            raise ConfigFileException(ex, 'ChannelGenerator._extract_data')
-        data_file.close()
+        """
+        Attempts to open extract the values from data_file_path.
+        """
+        with open(self.config_file) as f:
+            data = json.load(f)
+            try:
+                self.num_channels = data['Channels']['num_channels']
+                self.seed = data['Channels']['seeds']
+                self.base_frequency= data['Channels']['base_frequency']
+                self.capacity = data['Channels']['capacity']
+            except Exception as ex:
+                raise ConfigFileException(ex, 'ChannelGenerator._extract_data')
 
     def _validate(self):
-        if not isinstance(self.base_frequency[0], int) or self.base_frequency[0] < 0:
-            raise ConfigFileException(
-                'Base Frequency ({0}) must be an int greater than 0'.format(self.base_frequency[0]))
-        if not isinstance(self.base_frequency[1], int):
-            raise ConfigFileException(
-                'Incrementation ({0}) must be an int'.format(self.base_frequency[1]))
+        """
+        Validates that the data is in the correct places.
+        """
+        self.validate_base_frequency(self.base_frequency)
         self.validate_seeds(self.seed)
         self.validate_num_to_generate('num_channels', self.num_channels)
         self.validate_distribution_schema('capacity', self.capacity)

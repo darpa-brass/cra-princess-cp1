@@ -11,11 +11,11 @@ Author: Tameem Samawi (tsamawi@cra.com)
 """
 import copy
 from cp1.data_objects.constants.constants import *
-from cp1.processing.algorithms.discretization.discretization_strategy import DiscretizationStrategy
+from cp1.processing.algorithms.discretization.discretization_algorithm import DiscretizationAlgorithm
 from cp1.data_objects.processing.ta import TA
 
 
-class ValueDiscretization(DiscretizationStrategy):
+class ValueDiscretization(DiscretizationAlgorithm):
     def __init__(self, num_discretizations):
         self.num_discretizations = num_discretizations
 

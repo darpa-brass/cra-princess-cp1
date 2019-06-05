@@ -23,7 +23,7 @@ cp1.processing.algorithms.discretization.bandwidth\_discretization module
 cp1.processing.algorithms.discretization.discretization\_strategy module
 ------------------------------------------------------------------------
 
-.. automodule:: cp1.processing.algorithms.discretization.discretization_strategy
+.. automodule:: cp1.processing.algorithms.discretization.discretization_algorithm
     :members:
     :undoc-members:
     :show-inheritance:

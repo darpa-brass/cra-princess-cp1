@@ -99,7 +99,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">[</span><span class="n">radio_link_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">txop</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Schedule.validate"><a class="viewcode-back" href="../../../../cp1.data_objects.processing.html#cp1.data_objects.processing.schedule.Schedule.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SchedulingAlgorithm.validate"><a class="viewcode-back" href="../../../../cp1.data_objects.processing.html#cp1.data_objects.processing.schedule.SchedulingAlgorithm.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Validates schedule against errors such as exceeding the epoch.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -109,26 +109,26 @@
                     <span class="k">raise</span> <span class="n">InvalidScheduleException</span><span class="p">(</span>
                         <span class="s1">&#39;Schedule not allowed to exceed epoch. Found start time of: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">txop</span><span class="o">.</span><span class="n">start_usec</span><span class="p">),</span>
-                        <span class="s1">&#39;Schedule.validate&#39;</span><span class="p">)</span>
+                        <span class="s1">&#39;SchedulingAlgorithm.validate&#39;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="o">.</span><span class="n">toSeconds</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span><span class="o">.</span><span class="n">toSeconds</span><span class="p">():</span>
                     <span class="k">raise</span> <span class="n">InvalidScheduleException</span><span class="p">(</span>
                         <span class="s1">&#39;Schedule not allowed to exceed epoch. Found stop time of: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="p">),</span>
-                        <span class="s1">&#39;Schedule.validate&#39;</span><span class="p">)</span>
+                        <span class="s1">&#39;SchedulingAlgorithm.validate&#39;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">txop</span><span class="o">.</span><span class="n">start_usec</span><span class="o">.</span><span class="n">toSeconds</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">InvalidScheduleException</span><span class="p">(</span>
                         <span class="s1">&#39;Negative start times not allowed. Found negative start time of: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">txop</span><span class="o">.</span><span class="n">start_usec</span><span class="p">),</span>
-                        <span class="s1">&#39;Schedule.validate&#39;</span><span class="p">)</span>
+                        <span class="s1">&#39;SchedulingAlgorithm.validate&#39;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="o">.</span><span class="n">toSeconds</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="n">InvalidScheduleException</span><span class="p">(</span>
                         <span class="s1">&#39;Negative stop times not allowed. Found negative stop time of: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="p">),</span>
-                        <span class="s1">&#39;Schedule.validate&#39;</span><span class="p">)</span>
+                        <span class="s1">&#39;SchedulingAlgorithm.validate&#39;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">txop</span><span class="o">.</span><span class="n">start_usec</span><span class="o">.</span><span class="n">toSeconds</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="o">.</span><span class="n">toSeconds</span><span class="p">():</span>
                     <span class="k">raise</span> <span class="n">InvalidScheduleException</span><span class="p">(</span>
                         <span class="s1">&#39;Start must be less than stop. Attempted to input a start time of: </span><span class="si">{0}</span><span class="s1"> stop time of: </span><span class="si">{1}</span><span class="s1">&#39;</span>
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txop</span><span class="o">.</span><span class="n">start_usec</span><span class="p">,</span> <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="p">),</span> <span class="s1">&#39;Schedule.validate&#39;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">txop</span><span class="o">.</span><span class="n">start_usec</span><span class="p">,</span> <span class="n">txop</span><span class="o">.</span><span class="n">stop_usec</span><span class="p">),</span> <span class="s1">&#39;SchedulingAlgorithm.validate&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

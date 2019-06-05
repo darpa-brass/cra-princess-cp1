@@ -44,6 +44,16 @@ class DataGenerator(abc.ABC):
     def generate(self, num):
         pass
 
+    def validate_base_frequency(self, base_frequency):
+        if not isinstance(base_frequency[0], int) or base_frequency[0] < 0:
+            raise ConfigFileException(
+                'Base Frequency ({0}) must be an int greater than 0'.format(base_frequency[0]),
+                'DataGenerator.validate_base_frequency')
+        if not isinstance(base_frequency[1], int):
+            raise ConfigFileException(
+                'Incrementation ({0}) must be an int'.format(base_frequency[1]),
+                'DataGenerator.validate_base_frequency')
+
     def validate_num_to_generate(self, property, value):
         if not isinstance(value, int):
             raise ConfigFileException(

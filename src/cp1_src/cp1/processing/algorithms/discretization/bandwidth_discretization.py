@@ -14,10 +14,10 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.ta import TA
-from cp1.processing.algorithms.discretization.discretization_strategy import DiscretizationStrategy
+from cp1.processing.algorithms.discretization.discretization_algorithm import DiscretizationAlgorithm
 
 
-class BandwidthDiscretization(DiscretizationStrategy):
+class BandwidthDiscretization(DiscretizationAlgorithm):
     def __init__(self, num_discretizations):
         self.num_discretizations = num_discretizations
 
