@@ -19,7 +19,7 @@ class Logger(metaclass=Singleton):
         ``cp1_logger-YYYY-mm-dd.log``
         ``i.e. cp1_logger-2019-03-12.log``
         """
-        self.logger = logging.getLogger('logger')
+        self.#logger =logging.getLogger('logger')
         formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 
         now = datetime.datetime.now()

@@ -20,7 +20,7 @@ from cp1.data_objects.processing.channel import Channel
 from cp1.utils.json_utils import extract_percentages
 from cp1.common.exception_class import ConfigFileException
 
-logger = Logger().logger
+#logger =Logger().logger
 
 
 class TAGenerator(DataGenerator):

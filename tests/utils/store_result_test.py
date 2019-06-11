@@ -14,7 +14,7 @@ from general_test_data import GeneralTestData
 
 from functools import reduce
 
-logger = Logger().logger
+#logger =Logger().logger
 
 
 class StoreResultTest(unittest.TestCase):

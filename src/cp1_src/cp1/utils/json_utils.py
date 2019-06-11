@@ -7,7 +7,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import json
 #from cp1.common.logger import Logger
 
-logger = Logger().logger
+#logger =Logger().logger
 
 def extract_percentages(field):
     perc = []

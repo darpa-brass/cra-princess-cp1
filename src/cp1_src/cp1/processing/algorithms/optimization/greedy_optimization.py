@@ -8,7 +8,7 @@ from cp1.processing.algorithms.optimization.optimization_algorithm import Optimi
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 #from cp1.common.logger import Logger
 
-logger = Logger().logger
+#logger =Logger().logger
 
 
 class GreedyOptimization(OptimizationAlgorithm):

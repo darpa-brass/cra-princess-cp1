@@ -7,7 +7,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 from brass_api.translator.orientdb_exporter import OrientDBXMLExporter
 #from cp1.common.logger import Logger
 
-logger = Logger().logger
+#logger =Logger().logger
 
 
 class OrientDBExporter(OrientDBXMLExporter):

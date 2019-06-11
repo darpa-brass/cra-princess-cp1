@@ -38,7 +38,7 @@ from cp1.common.exception_class import RadioLinkNotFoundException
 #from cp1.common.logger import Logger
 
 
-logger = Logger().logger
+#logger =Logger().logger
 
 
 class OrientDBSession(BrassOrientDBHelper):

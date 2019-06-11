@@ -13,7 +13,7 @@ from cp1.processing.algorithms.optimization.ortools_solvers import ORToolsSolver
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 
-logger = Logger().logger
+#logger =Logger().logger
 
 
 class IntegerProgram(OptimizationAlgorithm):
