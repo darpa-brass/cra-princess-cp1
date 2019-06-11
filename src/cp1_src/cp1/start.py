@@ -8,7 +8,7 @@ from ortools.linear_solver import pywraplp
 
 # from brass_mdl_tools.mdl_generator import generate_mdl_files
 
-from cp1.common.logger import Logger
+# #from cp1.common.logger import Logger
 from cp1.processing.algorithms.discretization.bandwidth_discretization import BandwidthDiscretization
 from cp1.processing.algorithms.discretization.accuracy_discretization import AccuracyDiscretization
 from cp1.processing.algorithms.discretization.value_discretization import ValueDiscretization
@@ -32,8 +32,6 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
 from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.processing.channel import Channel
-
-logger = Logger().logger
 
 
 print('***************************Challenge Problem 1 Started*********************')

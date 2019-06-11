@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='cp1',
-    version='RR1.5',
+    version='RR2',
     description='Classes and functions used to satisfy CP1 requirements.',
     author='Tameem Samawi',
     author_email='tsamawi@cra.com',
@@ -12,8 +12,7 @@ setup(
     install_requires=[
 		'pandas',
 		'ortools',
-        'numpy',
-        'gurobipy'
+        'numpy'
 	],
     packages=find_packages()
 )

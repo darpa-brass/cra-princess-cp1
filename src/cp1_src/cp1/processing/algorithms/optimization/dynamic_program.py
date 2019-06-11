@@ -11,7 +11,7 @@ from cp1.processing.algorithms.optimization.optimization_algorithm import Optimi
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.constants.constants import *
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
-from cp1.common.logger import Logger
+#from cp1.common.logger import Logger
 
 logger = Logger().logger
 
@@ -31,7 +31,7 @@ class DynamicProgram(OptimizationAlgorithm):
                       i.e. If factor = 2, the schedule will consider schedules at 500 microsecond intervals. If
                            If factor = 3, 330 microsecond intervals.
         """
-        logger.debug("Beginning Dynamic Program...")
+        print("Beginning Dynamic Program...")
         start_time = time.perf_counter()
 
         self.scheduled_tas = []
@@ -83,7 +83,7 @@ class DynamicProgram(OptimizationAlgorithm):
         value = sum(ta.value for ta in self.scheduled_tas)
         run_time = time.perf_counter() - start_time
 
-        logger.debug("Dynamic Program completed in {0} seconds".format(run_time))
+        print("Dynamic Program completed in {0} seconds".format(run_time))
         return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=run_time, run_time=run_time,
                                 value=value)
 

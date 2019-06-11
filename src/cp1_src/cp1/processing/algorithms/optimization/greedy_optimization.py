@@ -6,7 +6,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import time
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
-from cp1.common.logger import Logger
+#from cp1.common.logger import Logger
 
 logger = Logger().logger
 
@@ -30,7 +30,7 @@ class GreedyOptimization(OptimizationAlgorithm):
 
         :returns dict{int:[TA]}: A channel frequency and a list of TAs to be scheduled at that frequency.
         """
-        logger.debug('Beginning Greedy Algorithm...')
+        print('Beginning Greedy Algorithm...')
         start_time = time.perf_counter()
         value = 0
         scheduled_tas = []
@@ -54,7 +54,7 @@ class GreedyOptimization(OptimizationAlgorithm):
                     break
 
         run_time = time.perf_counter() - start_time
-        logger.debug('Greedy Algorithm complete in {0} seconds'.format(run_time))
+        print('Greedy Algorithm complete in {0} seconds'.format(run_time))
         return AlgorithmResult(scheduled_tas, run_time, run_time, value)
 
     def __str__(self):
