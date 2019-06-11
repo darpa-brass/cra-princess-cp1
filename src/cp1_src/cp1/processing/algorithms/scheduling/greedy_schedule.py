@@ -46,8 +46,6 @@ class GreedySchedule(SchedulingAlgorithm):
             down_stop = down_start + one_way_transmission_length
 
             ta.channel.start_time = down_stop + constraints_object.guard_band.value
-            print('ID: {0}'.format(ta.id_))
-            print('MAC: {0}'.format(id_to_mac(ta.id_, 'up')))
             for x in range(ta.channel.num_partitions):
                 partition_offset = x * ta.channel.partition_length
                 txop_up = TxOp(
