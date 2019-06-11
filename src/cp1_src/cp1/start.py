@@ -37,7 +37,7 @@ logger = Logger().logger
 
 
 print('***************************Challenge Problem 1 Started*********************')
-config_file = 'C:/dev/cp1/conf/data.json'
+config_file = '../../../conf/data.json'
 with open(config_file, 'r') as f:
     data = json.load(f)
 
