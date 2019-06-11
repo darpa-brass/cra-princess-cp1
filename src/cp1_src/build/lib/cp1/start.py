@@ -76,20 +76,20 @@ with open(config_file, 'r') as f:
     raw_output_folder = data['Files and Database']['raw_output_folder']
     use_orientdb = data['Files and Database']['use_orientdb']
 
-scenario_orientdb = OrientDBSession(
-    database_name=mdl_db_name,
-    config_file=remote_db_config_file)
-constraints_orientdb = OrientDBSession(
-    database_name=constraints_db_name,
-    config_file=remote_db_config_file)
-
-logger.info('Generating MDL File...')
-generate_mdl_files(ta_count=num_tas, output=mdl_input_file, base='../../../external/MDL_Shell_Generator/brass_mdl_tools/base.xml')
-
-logger.info('Importing MDL File...')
-importer = OrientDBImporter(mdl_db_name, mdl_input_file, local_db_config_file)
-importer.import_xml()
-importer.orientDB_helper.close_database()
+# scenario_orientdb = OrientDBSession(
+#     database_name=mdl_db_name,
+#     config_file=remote_db_config_file)
+# constraints_orientdb = OrientDBSession(
+#     database_name=constraints_db_name,
+#     config_file=remote_db_config_file)
+#
+# logger.info('Generating MDL File...')
+# generate_mdl_files(ta_count=num_tas, output=mdl_input_file, base='../../../external/MDL_Shell_Generator/brass_mdl_tools/base.xml')
+#
+# logger.info('Importing MDL File...')
+# importer = OrientDBImporter(mdl_db_name, mdl_input_file, local_db_config_file)
+# importer.import_xml()
+# importer.orientDB_helper.close_database()
 
 
 logger.info('Generating Constraints Objects...')
@@ -112,16 +112,16 @@ for ta in candidate_tas:
                                     guard_band=guard_band,
                                     epoch=epoch,
                                     txop_timeout=txop_timeout))
-
-if use_orientdb == 1:
-    logger.info('Storing and retrieving constraints from OrientDB...')
-    constraints_orientdb.open_database()
-    logger.info('Storing constraints...')
-    for constraints_object in constraints_objects:
-        constraints_orientdb.create_constraints_object(constraints_object)
-    logger.info('Retrieving Constraints...')
-    constraints_objects = [constraints_orientdb.get_constraints()]
-    constraints_orientdb.close_database()
+# 
+# if use_orientdb == 1:
+#     logger.info('Storing and retrieving constraints from OrientDB...')
+#     constraints_orientdb.open_database()
+#     logger.info('Storing constraints...')
+#     for constraints_object in constraints_objects:
+#         constraints_orientdb.create_constraints_object(constraints_object)
+#     logger.info('Retrieving Constraints...')
+#     constraints_objects = [constraints_orientdb.get_constraints()]
+#     constraints_orientdb.close_database()
 
 logger.info('Setting up Discretization Algorithms...')
 discretizations = []
@@ -185,16 +185,18 @@ for discretization in discretizations:
         for scheduling_algorithm in scheduling_algorithms:
             logger.info('Constructing schedule...')
             new_schedule = scheduling_algorithm.schedule(res, optimization_algorithm.constraints_object)
-
-            logger.info('Updating MDL File Schedule...')
-            scenario_orientdb.open_database()
-            scenario_orientdb.update_schedule(new_schedule)
-            scenario_orientdb.close_database()
-
-            logger.info('Exporting {0} to {1}'.format(mdl_output_file, mdl_output_file))
-            exporter = OrientDBExporter(mdl_db_name, mdl_output_file, local_db_config_file)
-            exporter.export_xml()
-            exporter.orientDB_helper.close_database()
-            sys.exit()
+            logger.info('New Schedule is:')
+            logger.info(new_schedule)
+            #
+            # logger.info('Updating MDL File Schedule...')
+            # scenario_orientdb.open_database()
+            # scenario_orientdb.update_schedule(new_schedule)
+            # scenario_orientdb.close_database()
+            #
+            # logger.info('Exporting {0} to {1}'.format(mdl_output_file, mdl_output_file))
+            # exporter = OrientDBExporter(mdl_db_name, mdl_output_file, local_db_config_file)
+            # exporter.export_xml()
+            # exporter.orientDB_helper.close_database()
+            # sys.exit()
 
 logger.info('Challenge Problem 1 Complete.')
