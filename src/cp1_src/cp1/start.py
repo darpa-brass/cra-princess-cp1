@@ -6,7 +6,7 @@ import csv
 from time import strftime
 from ortools.linear_solver import pywraplp
 
-from brass_mdl_tools.mdl_generator import generate_mdl_files
+# from brass_mdl_tools.mdl_generator import generate_mdl_files
 
 from cp1.common.logger import Logger
 from cp1.processing.algorithms.discretization.bandwidth_discretization import BandwidthDiscretization
