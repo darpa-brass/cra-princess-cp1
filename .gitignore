@@ -22,5 +22,5 @@ CRA_Scenarios_After_Adaptation.xml
 *.csv
 
 # Empty output folders
-!.output/mdl
-!.output/raw
+!.output/mdl/
+!.output/raw/
