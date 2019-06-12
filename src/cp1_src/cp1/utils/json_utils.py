@@ -5,9 +5,9 @@ Author: Tameem Samawi (tsamawi@cra.com)
 """
 
 import json
-#from cp1.common.logger import Logger
+from cp1.common.logger import Logger
 
-#logger =Logger().logger
+logger = Logger().logger
 
 def extract_percentages(field):
     perc = []
@@ -37,7 +37,7 @@ def file_to_json(file_path):
 #
 #     :returns mdl_bandwidth_set: An MDLBandwidthSet instance constructed from the input.
 #     """
-#     print('Extracting values from %s', mdl_bandwidth_dict)
+#     logger.debug('Extracting values from %s', mdl_bandwidth_dict)
 #
 #     mdl_bandwidth_rates = []
 #

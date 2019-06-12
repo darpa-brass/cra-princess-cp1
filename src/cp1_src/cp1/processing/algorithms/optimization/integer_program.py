@@ -7,13 +7,13 @@ import time
 import math
 from pandas import *
 from ortools.linear_solver import pywraplp
-#from cp1.common.logger import Logger
+from cp1.common.logger import Logger
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
 from cp1.processing.algorithms.optimization.ortools_solvers import ORToolsSolvers
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 
-#logger =Logger().logger
+logger = Logger().logger
 
 
 class IntegerProgram(OptimizationAlgorithm):
@@ -36,7 +36,7 @@ class IntegerProgram(OptimizationAlgorithm):
         :param ConstraintsObject constraints_object: A Constraints Object containing all data necessary to optimize over.
         :param SolverType solver_type: The type of Mixed Integer Program solver to use. Can be GLPK, CPLEX, GUROBI or CBC.
         """
-        print('Beginning CBC Integer Program...')
+        logger.debug('Beginning CBC Integer Program...')
         start_time = time.perf_counter()
 
         # Setup data
@@ -101,7 +101,7 @@ class IntegerProgram(OptimizationAlgorithm):
                 self.scheduled_tas.append(discretized_tas[i])
         value = sum(ta.value for ta in self.scheduled_tas)
 
-        print('CBC Integer Program complete in {0} seconds'.format(run_time))
+        logger.debug('CBC Integer Program complete in {0} seconds'.format(run_time))
         return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
     def __str__(self):

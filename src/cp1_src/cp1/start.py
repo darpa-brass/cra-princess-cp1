@@ -1,5 +1,5 @@
-import re
 import os
+import re
 import sys
 import json
 import csv
@@ -8,7 +8,11 @@ from ortools.linear_solver import pywraplp
 
 # from brass_mdl_tools.mdl_generator import generate_mdl_files
 
-# #from cp1.common.logger import Logger
+from cp1.common.logger import Logger
+logger = Logger()
+logger.setup_file_handler(os.path.abspath('../../../logs/'))
+logger = logger.logger
+
 from cp1.processing.algorithms.discretization.bandwidth_discretization import BandwidthDiscretization
 from cp1.processing.algorithms.discretization.accuracy_discretization import AccuracyDiscretization
 from cp1.processing.algorithms.discretization.value_discretization import ValueDiscretization
@@ -34,7 +38,7 @@ from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.processing.channel import Channel
 
 
-print('***************************Challenge Problem 1 Started*********************')
+logger.debug('***************************Challenge Problem 1 Started*********************')
 config_file = '../../../conf/data.json'
 with open(config_file, 'r') as f:
     data = json.load(f)
@@ -69,7 +73,7 @@ with open(config_file, 'r') as f:
     mdl_input_file = data['Files and Database']['mdl_input_file']
     raw_output_folder = data['Files and Database']['raw_output_folder']
 
-print('Generating Constraints Objects...')
+logger.debug('Generating Constraints Objects...')
 channels = ChannelGenerator(config_file).generate()
 candidate_tas = TAGenerator(config_file).generate()
 
@@ -90,7 +94,7 @@ constraints_objects.append(ConstraintsObject(
                                 epoch=epoch,
                                 txop_timeout=txop_timeout))
 
-print('Setting up Discretization Algorithms...')
+logger.debug('Setting up Discretization Algorithms...')
 discretizations = []
 if accuracy_disc_epsilons:
     for x in accuracy_disc_epsilons:
@@ -102,7 +106,7 @@ if value_disc:
     for x in value_disc:
         discretizations.append(ValueDiscretization(x))
 
-print('Setting up Optimization Algorithms...')
+logger.debug('Setting up Optimization Algorithms...')
 optimization_algorithms = []
 if cbc == 1:
     for x in constraints_objects:
@@ -117,7 +121,7 @@ if greedy_algorithm == 1:
     for x in constraints_objects:
         optimization_algorithms.append(GreedyOptimization(x))
 
-print('Setting up Scheduling Algorithms...')
+logger.debug('Setting up Scheduling Algorithms...')
 scheduling_algorithms = []
 if greedy_schedule == 1:
     scheduling_algorithms.append(GreedySchedule())
@@ -125,10 +129,10 @@ if greedy_schedule == 1:
 timestamp = strftime("%Y-%m-%d %H-%M-%S")
 for discretization in discretizations:
     for optimization_algorithm in optimization_algorithms:
-        print('Optimizing...')
+        logger.debug('Optimizing...')
         res = optimization_algorithm.optimize(discretization)
 
-        print('Writing raw results...')
+        logger.debug('Writing raw results...')
         file_name = raw_output_folder + '/' + str(optimization_algorithm) + '_' + str(
             discretization) + '_' + timestamp + '.csv'
 
@@ -150,20 +154,20 @@ for discretization in discretizations:
                                 accuracy, res.value, res.run_time, res.solve_time, ta_print_res])
 
         for scheduling_algorithm in scheduling_algorithms:
-            print('Constructing schedule...')
+            logger.debug('Constructing schedule...')
             new_schedule = scheduling_algorithm.schedule(res, optimization_algorithm.constraints_object)
-            print('New Schedule is:')
+            logger.debug('New Schedule is:')
             print(new_schedule)
             #
-            # print('Updating MDL File Schedule...')
+            # logger.debug('Updating MDL File Schedule...')
             # scenario_orientdb.open_database()
             # scenario_orientdb.update_schedule(new_schedule)
             # scenario_orientdb.close_database()
             #
-            # print('Exporting {0} to {1}'.format(mdl_output_file, mdl_output_file))
+            # logger.debug('Exporting {0} to {1}'.format(mdl_output_file, mdl_output_file))
             # exporter = OrientDBExporter(mdl_db_name, mdl_output_file, local_db_config_file)
             # exporter.export_xml()
             # exporter.orientDB_helper.close_database()
             # sys.exit()
 
-print('Challenge Problem 1 Complete.')
+logger.debug('Challenge Problem 1 Complete.')
