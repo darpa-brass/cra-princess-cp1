@@ -133,8 +133,8 @@ for discretization in discretizations:
         res = optimization_algorithm.optimize(discretization)
 
         logger.debug('Writing raw results...')
-        file_name = raw_output_folder + '/' + str(optimization_algorithm) + '_' + str(
-            discretization) + '_' + timestamp + '.csv'
+        file_name =os.path.abspath(raw_output_folder + '/' + str(optimization_algorithm) + '_' + str(
+            discretization) + '_' + timestamp + '.csv')
 
         discretization_write_value = None
         if isinstance(discretization, AccuracyDiscretization):
