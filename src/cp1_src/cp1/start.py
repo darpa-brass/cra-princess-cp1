@@ -157,7 +157,7 @@ for discretization in discretizations:
             logger.debug('Constructing schedule...')
             new_schedule = scheduling_algorithm.schedule(res, optimization_algorithm.constraints_object)
             logger.debug('New Schedule is:')
-            print(new_schedule)
+            logger.debug(new_schedule)
             #
             # logger.debug('Updating MDL File Schedule...')
             # scenario_orientdb.open_database()
