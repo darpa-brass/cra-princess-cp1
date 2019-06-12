@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-cd ./src/cp1_src
+cd ./external/adaptive-constraint-satisfaction/src/brass_api_src
+python3 setup.py install
 
+cd ../../../../src/cp1_src
 python3 setup.py install
 
 cd ./cp1
