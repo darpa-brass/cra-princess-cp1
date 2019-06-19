@@ -35,10 +35,10 @@ from cp1.common.exception_class import SystemWideConstraintsNotFoundException
 from cp1.common.exception_class import ConstraintsNotFoundException
 from cp1.common.exception_class import ChannelsNotFoundException
 from cp1.common.exception_class import RadioLinkNotFoundException
-#from cp1.common.logger import Logger
+from cp1.common.logger import Logger
 
 
-#logger =Logger().logger
+logger = Logger().logger
 
 
 class OrientDBSession(BrassOrientDBHelper):
@@ -183,7 +183,7 @@ class OrientDBSession(BrassOrientDBHelper):
             value_field_name = 'Value'
             sql_update_statement = sql.condition_str(
                 value_field_name, rate_value, '=')
-            print('Updating bandwidth: {0}, {1}, {2}'.format(
+            logger.debug('Updating bandwidth: {0}, {1}, {2}'.format(
                 slp_id, rate_node._rid, sql_update_statement))
             self.update_node(rate_node._rid, sql_update_statement)
 
@@ -424,9 +424,9 @@ class OrientDBSession(BrassOrientDBHelper):
         """
         if(self.explicit):
             if self.node_count == 0:
-                print('Indexing Started...')
+                logger.debug('Indexing Started...')
             elif(self.node_count % 100 == 0):
-                print('Indexed {0} MDL Elements'.format(self.node_count))
+                logger.debug('Indexed {0} MDL Elements'.format(self.node_count))
             self.node_count += 1
 
         old_nodes = []
@@ -477,9 +477,9 @@ class OrientDBSession(BrassOrientDBHelper):
         """
         if(self.explicit):
             if self.node_class_count == 0:
-                print('Creating OrientDB classes for MDL Elements...')
+                logger.debug('Creating OrientDB classes for MDL Elements...')
             elif(self.node_class_count % 20 == 0):
-                print('Created {0} Node Classes'.format(
+                logger.debug('Created {0} Node Classes'.format(
                     self.node_class_count))
             self.node_class_count += 1
         return super(OrientDBSession, self).create_node_class(name)
@@ -498,9 +498,9 @@ class OrientDBSession(BrassOrientDBHelper):
         """
         if(self.explicit):
             if (self.containment_edge_count == 0):
-                print('Creating Containment Edges...')
+                logger.debug('Creating Containment Edges...')
             elif(self.containment_edge_count % 100 == 0):
-                print('Created {0} Containment Edges'.format(
+                logger.debug('Created {0} Containment Edges'.format(
                     self.containment_edge_count))
             self.containment_edge_count += 1
         return super(OrientDBSession, self).set_containment_relationship(parent_rid=parent_rid, child_rid=child_rid, parent_conditions=parent_conditions, child_conditions=child_conditions)
@@ -519,9 +519,9 @@ class OrientDBSession(BrassOrientDBHelper):
         """
         if(self.explicit):
             if (self.reference_edge_count == 0):
-                print('Creating Reference Edges...')
+                logger.debug('Creating Reference Edges...')
             elif(self.reference_edge_count % 10 == 0):
-                print('Created {0} Reference Edges'.format(
+                logger.debug('Created {0} Reference Edges'.format(
                     self.reference_edge_count))
             self.reference_edge_count += 1
         return super(OrientDBSession, self).set_reference_relationship(reference_rid=reference_rid, referent_rid=referent_rid, reference_condition=reference_condition, referent_condition=referent_condition)

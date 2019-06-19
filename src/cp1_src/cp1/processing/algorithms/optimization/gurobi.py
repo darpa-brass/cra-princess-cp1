@@ -12,9 +12,9 @@ from gurobipy import *
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
-#from cp1.common.logger import Logger
+from cp1.common.logger import Logger
 
-#logger =Logger().logger
+logger = Logger().logger
 
 
 class Gurobi(OptimizationAlgorithm):
@@ -24,7 +24,7 @@ class Gurobi(OptimizationAlgorithm):
     def optimize(self, discretization_algorithm, time_limit=15):
         # Setup data
         start_time = time.perf_counter()
-        print('Beginning Gurobi Integer Program...')
+        logger.debug('Beginning Gurobi Integer Program...')
         discretized_tas = discretization_algorithm.discretize(self.constraints_object.candidate_tas, self.constraints_object.channels)
         min_latency = min(discretized_tas, key=lambda ta: ta.latency.value).latency.value
 
@@ -104,7 +104,7 @@ class Gurobi(OptimizationAlgorithm):
                 self.scheduled_tas.append(discretized_tas[i])
         value = sum(ta.value for ta in self.scheduled_tas)
 
-        print('Gurobi completed in {0} seconds'.format(run_time))
+        logger.debug('Gurobi completed in {0} seconds'.format(run_time))
         return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
     def __str__(self):

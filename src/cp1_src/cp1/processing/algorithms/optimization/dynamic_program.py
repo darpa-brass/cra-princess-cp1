@@ -1,6 +1,6 @@
 """dynamic_program.py
 
-A Dynamic Program that schedules TAs. 
+A Dynamic Program that schedules TAs.
 """
 import time
 import numpy
@@ -11,9 +11,9 @@ from cp1.processing.algorithms.optimization.optimization_algorithm import Optimi
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.constants.constants import *
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
-#from cp1.common.logger import Logger
+from cp1.common.logger import Logger
 
-#logger =Logger().logger
+logger = Logger().logger
 
 
 class DynamicProgram(OptimizationAlgorithm):

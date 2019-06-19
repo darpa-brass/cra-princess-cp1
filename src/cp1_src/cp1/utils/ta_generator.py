@@ -11,7 +11,7 @@ import time
 from numpy.random import choice
 from cp1.utils.data_generator import DataGenerator
 from cp1.data_objects.mdl.frequency import Frequency
-#from cp1.common.logger import Logger
+from cp1.common.logger import Logger
 from cp1.common.exception_class import TAGeneratorRangeException
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.ta import TA
@@ -20,7 +20,7 @@ from cp1.data_objects.processing.channel import Channel
 from cp1.utils.json_utils import extract_percentages
 from cp1.common.exception_class import ConfigFileException
 
-#logger =Logger().logger
+logger = Logger().logger
 
 
 class TAGenerator(DataGenerator):

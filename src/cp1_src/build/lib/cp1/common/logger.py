@@ -3,12 +3,13 @@
 Module that configures a singleton logger.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-import os
+import os.path
 import sys
 import datetime
 import logging
 from pathlib import Path
 from cp1.common.singleton import Singleton
+from cp1.data_objects.constants.constants import LOGGING_DIR
 
 
 class Logger(metaclass=Singleton):
@@ -20,15 +21,16 @@ class Logger(metaclass=Singleton):
         ``i.e. cp1_logger-2019-03-12.log``
         """
         self.logger = logging.getLogger('logger')
-        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-
-        now = datetime.datetime.now()
-        logs_path = str(Path(__file__).resolve().parents[3]) + '\/logs'
-        file_handler = logging.FileHandler(
-            filename=logs_path + now.strftime("-%Y-%m-%d") + '.log')
-        file_handler.setFormatter(formatter)
-        self.logger.addHandler(file_handler)
+        self.logger.setLevel(logging.DEBUG)
+        self.formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 
         console_handler = logging.StreamHandler()
-        console_handler.setFormatter(formatter)
+        console_handler.setFormatter(self.formatter)
         self.logger.addHandler(console_handler)
+
+    def setup_file_handler(self, logging_dir):
+        now = datetime.datetime.now()
+        file_handler = logging.FileHandler(
+            filename= logging_dir + 'cp1_logger' + now.strftime("-%Y-%m-%d") + '.log')
+        file_handler.setFormatter(self.formatter)
+        self.logger.addHandler(file_handler)
