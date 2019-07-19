@@ -27,13 +27,13 @@
     {
       "CBC": 1,
       "Gurobi": 0,
-      "Greedy": 1,
-      "Dynamic Program": 1
+      "Greedy": 0,
+      "Dynamic Program": 0
     },
     "Scheduling":
     {
       "Greedy Schedule": 1,
-      "OS Schedule": 1
+      "OS Schedule": 0
     },
     "Discretization":
     {
@@ -41,20 +41,20 @@
         "epsilon": [0.9]
       },
       "Bandwidth": {
-        "num_discretizations": [100]
+        "num_discretizations": []
       },
       "Value": {
-        "num_discretizations": [100]
+        "num_discretizations": []
       }
     }
   },
   "Files and Database":
   {
-    "orientdb_config_file": "../conf/local_db_config.json",
+    "orientdb_config_file": "../../../conf/local_db_config.json",
     "constraints_db_name": "cra_constraints",
     "mdl_db_name": "cra_mdl",
-    "mdl_input_file": "../output/mdl/output_mdl_file.xml",
-    "mdl_output_folder": "../output/mdl",
-    "raw_output_folder": "../output/raw"
+    "mdl_input_file": "../../../output/mdl/output_mdl_file.xml",
+    "mdl_output_folder": "../../../output/mdl",
+    "raw_output_folder": "../../../output/raw"
   }
 }

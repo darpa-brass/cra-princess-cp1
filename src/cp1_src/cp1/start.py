@@ -252,7 +252,7 @@ for discretization_algorithm in discretization_algorithms:
             logger.debug('Writing raw results...')
             write_raw_results()
 
-            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + file_name + '.xml'))
+            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + 'output_mdl.xml'))
             export_mdl_file()
             logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
 
