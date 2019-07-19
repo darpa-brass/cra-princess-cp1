@@ -1,8 +1,6 @@
 setup.py
 cp1/__init__.py
 cp1/start.py
-cp1/test_suite.py
-cp1/tests.py
 cp1.egg-info/PKG-INFO
 cp1.egg-info/SOURCES.txt
 cp1.egg-info/dependency_links.txt
@@ -31,6 +29,7 @@ cp1/data_objects/processing/algorithm_result.py
 cp1/data_objects/processing/channel.py
 cp1/data_objects/processing/constraints_object.py
 cp1/data_objects/processing/executor.py
+cp1/data_objects/processing/scheduling_job.py
 cp1/data_objects/processing/ta.py
 cp1/processing/__init__.py
 cp1/processing/bandwidth_processor.py
@@ -50,6 +49,7 @@ cp1/processing/algorithms/optimization/optimization_algorithm.py
 cp1/processing/algorithms/optimization/ortools_solvers.py
 cp1/processing/algorithms/scheduling/__init__.py
 cp1/processing/algorithms/scheduling/greedy_schedule.py
+cp1/processing/algorithms/scheduling/os_schedule.py
 cp1/processing/algorithms/scheduling/scheduling_algorithm.py
 cp1/utils/__init__.py
 cp1/utils/channel_generator.py

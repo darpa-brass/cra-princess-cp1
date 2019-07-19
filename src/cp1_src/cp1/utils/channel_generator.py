@@ -3,14 +3,16 @@ import json
 import numpy
 import time
 from numpy.random import choice
+
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.channel import Channel
 from cp1.utils.data_generator import DataGenerator
-from cp1.common.exception_class import ChannelGeneratorRangeException
 from cp1.utils.json_utils import extract_percentages
+from cp1.common.exception_class import ChannelGeneratorRangeException
+from cp1.common.exception_class import ConfigFileException
 
 
 class ChannelGenerator(DataGenerator):
@@ -41,7 +43,6 @@ class ChannelGenerator(DataGenerator):
             data = json.load(f)
             try:
                 self.num_channels = data['Channels']['num_channels']
-                self.seed = data['Channels']['seeds']
                 self.base_frequency= data['Channels']['base_frequency']
                 self.capacity = data['Channels']['capacity']
             except Exception as ex:
@@ -52,6 +53,5 @@ class ChannelGenerator(DataGenerator):
         Validates that the data is in the correct places.
         """
         self.validate_base_frequency(self.base_frequency)
-        self.validate_seeds(self.seed)
         self.validate_num_to_generate('num_channels', self.num_channels)
         self.validate_distribution_schema('capacity', self.capacity)

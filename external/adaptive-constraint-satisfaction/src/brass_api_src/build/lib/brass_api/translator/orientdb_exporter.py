@@ -17,7 +17,7 @@ from brass_api.orientdb.orientdb_helper import *
 from brass_api.translator import xml_util
 
 '''
-TODO: 
+TODO:
 [1] Add schema validation!!!!
 [2] Move main() to a separate test program.
 '''
@@ -104,8 +104,6 @@ def main(database, config_file, xml_file):
     :param      str database:     orientDB database name
     :return:
     """
-
-
     try:
         processor=OrientDBXMLExporter(database, xml_file, config_file)
         processor.export_xml()
@@ -137,4 +135,3 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     main(options.database, options.config, options.xml)
-    

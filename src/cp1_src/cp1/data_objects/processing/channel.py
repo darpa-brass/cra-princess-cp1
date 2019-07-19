@@ -23,10 +23,10 @@ class Channel:
         self.value = 0
 
     def __str__(self):
-        return 'Frequency: {0}, ' \
-               'Capacity: {1}, ' \
-               'First available time: {2}, '\
-               'Value: {3}'.format(
+        return 'frequency: {0}, ' \
+               'capacity: {1}, ' \
+               'start_time: {2}, '\
+               'value: {3}'.format(
                    self.frequency,
                    self.capacity,
                    self.start_time,

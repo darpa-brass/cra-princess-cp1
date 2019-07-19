@@ -52,21 +52,13 @@ class OrientDBSession(BrassOrientDBHelper):
 
     def update_schedule(self, txop_list):
         """
-        Stores the list of TxOp nodes found in schedule.
-        Creates one TxOp node per new
+        Stores the list of TxOp nodes found in schedule in the MDL file.
+        Tries to create TransmissionSchedule and TxOp classes if they don't exist.
+        Creates one TransmissionSchedule node for each TA we are interested in scheduling.
 
-        :param Schedule schedule: A Schedule object containing TxOp nodes to be added to MDL file.
+
+        :param [TxOp] txop_list: A list of TxOp objects
         """
-        # Generate a set of
-        radio_links = self.get_nodes_by_type('RadioLink')
-        radio_link_ids = {}
-        for txop in txop_list:
-            if txop.radio_link_id not in radio_link_ids:
-                for x in radio_link_rids:
-                    if radio_link == x.ID:
-                        radio_link_rid = x._rid
-                radio_link_ids[txop.radio_link_id] = radio_link_rid
-
         # The original MDL file we import does not contain any TransmissionSchedule or TxOp
         # elements, so we have to create this class before indexing TransmissionSchedules
         try:
@@ -79,31 +71,69 @@ class OrientDBSession(BrassOrientDBHelper):
         except:
             pass
 
-            transmission_schedule_rid = self.create_empty_node('TransmissionSchedule')
-            self.set_containment_relationship(parent_rid=radio_link_ids[id], child_rid=transmission_schedule_rid)
-            radio_link_ids[id] = transmission_schedule_rid
+        try:
+            self.delete_nodes_by_class('TransmissionSchedule')
+        except:
+            pass
+        try:
+            self.delete_nodes_by_class('TxOp')
+        except:
+            pass
+            
+        radio_links = self.get_nodes_by_type('RadioLink')
 
-            # Take each TransmissionSchedule and assign it to the correct RadioLink
-
+        # Generate a Dictionary of RadioLinks
+        radio_link_rids = {}
         for txop in txop_list:
-            radio_link_rid = None
-            for radio_link in radio_links:
-                if radio_link.ID == txop.radio_link_id:
-                    radio_link_rid = radio_link._rid
-            if radio_link_rid == None:
-                raise RadioLinkNotFoundException('Unable to find RadioLink ({0})'.format(txop.radio_link_id), 'OrientDBSession.update_schedule')
+            if txop.radio_link_id not in radio_link_rids:
+                radio_link_rids[txop.radio_link_id] = ''
 
+        # Match RadioLinks to their corresponding RIDs
+        transmission_schedule_rids = {}
+        for rl in radio_link_rids:
+            i = 0
+            found = False
+            for orient_record in radio_links:
+                if rl == orient_record.ID:
+                    radio_link_rids[rl] = orient_record._rid
+                    transmission_schedule_rid = self.create_node('TransmissionSchedule', {'uid': 'TransmissionSchedule-{0}'.format(i)})
+                    transmission_schedule_rids[rl] = transmission_schedule_rid
+                    self.set_containment_relationship(parent_rid=orient_record._rid, child_rid=transmission_schedule_rid)
+                    found = True
+                    i += 1
+                    break
+            if found == False:
+                raise RadioLinkNotFoundException('Unable to find RadioLink ({0}) in OrientDB database'.format(rl), 'OrientDBSession.update_schedule')
+
+        # Create TxOp objects in OrientDB and connect them to RadioLinks
+        i = 0
+        for txop in txop_list:
             txop_properties = {
                 'StartUSec': int(txop.start_usec.value),
                 'StopUSec': int(txop.stop_usec.value),
                 'TxOpTimeout': txop.txop_timeout.value,
-                'CenterFrequencyHz': txop.center_frequency_hz.value
+                'CenterFrequencyHz': txop.center_frequency_hz.value,
+                'uid': 'TxOp-{0}'.format(i)
                 }
 
             txop_rid = self.create_node('TxOp', txop_properties)
-            self.set_containment_relationship(parent_rid=radio_link_ids[txop.radio_link_id], child_rid=txop_rid)
+            self.set_containment_relationship(parent_rid=transmission_schedule_rids[txop.radio_link_id], child_rid=txop_rid)
+            i += 1
 
-    def create_constraints_object(self, constraints_object):
+    def store_constraints(self, constraints_object):
+        try:
+            self.create_node_class('TA')
+        except:
+            pass
+        try:
+            self.create_node_class('Channel')
+        except:
+            pass
+        try:
+            self.create_node_class('Constraints')
+        except:
+            pass
+
         constraints_object_properties = {
             'id': constraints_object.id_,
             'constraint_type': 'System Wide Constraint',
@@ -116,8 +146,7 @@ class OrientDBSession(BrassOrientDBHelper):
             'channel_seed': constraints_object.channel_seed,
             'ta_seed': constraints_object.ta_seed,
         }
-        rid = self.create_node('Constraints', constraints_object_properties, identifying_field='id', identifying_value=constraints_object.id_)
-        constraints_object.rid = rid
+        constraints_object.rid = self.create_node('Constraints', constraints_object_properties)
 
         # Create Channels and TAs
         for channel in constraints_object.channels:
@@ -126,11 +155,11 @@ class OrientDBSession(BrassOrientDBHelper):
             self.create_ta(ta)
 
         # Setup necessary links
-        self.link_constraint_to_tas(rid, constraints_object.candidate_tas)
-        self.link_constraint_to_channels(rid, constraints_object.channels)
+        self.link_constraint_to_tas(constraints_object.rid, constraints_object.candidate_tas)
+        self.link_constraint_to_channels(constraints_object.rid, constraints_object.channels)
         self.link_tas_to_channels(constraints_object.candidate_tas)
 
-        return rid
+        return constraints_object.rid
 
     def link_constraint_to_tas(self, constraint_rid, tas):
         for ta in tas:
@@ -141,17 +170,17 @@ class OrientDBSession(BrassOrientDBHelper):
     def link_tas_to_channels(self, tas):
         for ta in tas:
             for channel in ta.eligible_channels:
-                self.set_containment_relationship(parent_rid=ta.rid, child_rid=channel.rid)
+                self.set_containment_relationship(parent_rid=ta.rid,
+                                                  child_rid=channel.rid)
 
     def create_channel(self, channel):
         properties = {
         'frequency': channel.frequency.value,
         'capacity': channel.capacity.value
         }
-        rid = self.create_node('Channel', properties, identifying_field='frequency', identifying_value=channel.frequency.value)
-        channel.rid = rid
+        channel.rid = self.create_node('Channel', properties)
 
-        return rid
+        return channel.rid
 
     def create_ta(self, ta):
         properties = {
@@ -162,10 +191,9 @@ class OrientDBSession(BrassOrientDBHelper):
         'scaling_factor': ta.scaling_factor,
         'c': ta.c
         }
-        rid = self.create_node('TA', properties, identifying_field='id', identifying_value=ta.id_)
-        ta.rid = rid
+        ta.rid = self.create_node('TA', properties)
 
-        return rid
+        return ta.rid
 
     def update_bandwidth(self, bandwidth_rates):
         """
@@ -320,14 +348,14 @@ class OrientDBSession(BrassOrientDBHelper):
 
 
     def construct_ta_from_node(self, orientdb_node):
-        channel_nodes = self.get_connected_nodes(orientdb_node._rid, direction='out', filterdepth=1)
+        orient_record = self.get_connected_nodes(orientdb_node._rid, direction='in', filterdepth=1)
 
         eligible_channels=[]
-        for channel_node in channel_nodes:
-            if channel_node._class == 'Channel':
+        for record in orient_record:
+            if record._class == 'Channel':
                 channel = Channel(
-                    frequency=Frequency(channel.frequency),
-                    capacity=Kbps(channel.capacity)
+                    frequency=Frequency(int(record.frequency)),
+                    capacity=Kbps(int(record.capacity))
                 )
                 eligible_channels.append(channel)
 

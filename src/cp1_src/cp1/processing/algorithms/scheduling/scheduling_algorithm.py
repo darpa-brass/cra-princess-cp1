@@ -9,7 +9,7 @@ from cp1.common.exception_class import InvalidScheduleException
 
 class SchedulingAlgorithm(abc.ABC):
     @abc.abstractmethod
-    def schedule(self, algorithm_result):
+    def schedule(self, algorithm_result, constraints_object):
         pass
 
     def validate(self, txop_list):
