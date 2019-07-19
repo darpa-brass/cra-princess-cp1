@@ -15,7 +15,7 @@ class GreedyOptimization(OptimizationAlgorithm):
     def __init__(self, constraints_object):
         self.constraints_object = constraints_object
 
-    def optimize(self):
+    def optimize(self, discretization_algorithm=None):
         """Greedily selects TAs for scheduling.
         Sorts the candidate TAs based on the ratio between utility threshold and minimum bandwidth.
         Then iterates through the sorted list to schedule TAs on the first available channel.
@@ -30,7 +30,7 @@ class GreedyOptimization(OptimizationAlgorithm):
 
         :returns dict{int:[TA]}: A channel frequency and a list of TAs to be scheduled at that frequency.
         """
-        logger.debug('Beginning Greedy Algorithm...')
+        logger.debug('Beginning Greedy Optimization...')
         start_time = time.perf_counter()
         value = 0
         scheduled_tas = []
@@ -43,19 +43,19 @@ class GreedyOptimization(OptimizationAlgorithm):
             for channel in self.constraints_object.channels:
                 if ta.channel_is_eligible(channel):
                     comm_length = ta.compute_communication_length(channel.capacity, min_latency, self.constraints_object.guard_band, ta.total_minimum_bandwidth)
-                    if comm_length + channel.first_available_time <= self.constraints_object.epoch.value:
+                    if comm_length + channel.start_time <= self.constraints_object.epoch.value:
                         ta.value = ta.min_value
                         ta.bandwidth = ta.total_minimum_bandwidth
                         ta.channel = channel
                         scheduled_tas.append(ta)
-                        channel.first_available_time += comm_length
+                        channel.start_time += comm_length
                         value += ta.min_value
                         channel.value += ta.min_value
                     break
 
         run_time = time.perf_counter() - start_time
-        logger.debug('Greedy Algorithm complete in {0} seconds'.format(run_time))
-        return AlgorithmResult(scheduled_tas, run_time, run_time, value)
+        logger.debug('Greedy Optimization complete in {0} seconds'.format(run_time))
+        return AlgorithmResult(constraints_object=self.constraints_object, scheduled_tas=scheduled_tas, run_time=run_time, solve_time=run_time, value=value)
 
     def __str__(self):
         return 'Greedy'

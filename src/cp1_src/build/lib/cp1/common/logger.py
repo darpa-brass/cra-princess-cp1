@@ -3,13 +3,12 @@
 Module that configures a singleton logger.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-import os.path
+import os
 import sys
 import datetime
 import logging
 from pathlib import Path
 from cp1.common.singleton import Singleton
-from cp1.data_objects.constants.constants import LOGGING_DIR
 
 
 class Logger(metaclass=Singleton):

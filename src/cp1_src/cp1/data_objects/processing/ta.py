@@ -29,13 +29,13 @@ class TA:
         Constructor
 
         :param str id_: The ID of the TA.
-        :param Kbps minimum_voice_bandwidth: The minimum required voice bandwidth to get this TA in the air.
-        :param Kbps minimum_safety_bandwidth: The minimum required safety bandwidth to get this TA in the air.
+        :param Kbps minimum_voice_bandwidth: The minimum required voice bandwidth to get this TA in the air
+        :param Kbps minimum_safety_bandwidth: The minimum required safety bandwidth to get this TA in the air
         :param Milliseconds latency: The maximum delay between radio transmissions
         :param int scaling_factor: The amount by which to scale the overall value by onc.
         :param int c: The coefficient of a sample value function. For now it's set to 1 because there is no real value
                   function.
-        :param List[Frequency] eligible_channels: The list of channels communication is permissible over.
+        :param List[Channel] eligible_channels: The list of channels communication is permissible over.
         :param Kbps bandwidth: The amount of bandwidth assigned to this TA
         :param int value: The amount of value this TA provides at a some bandwidth
         :param int max_value: The value this TA provides at MAX_BANDWIDTH
@@ -50,6 +50,7 @@ class TA:
         self.c = float(c)
         self.eligible_channels = eligible_channels
         self.bandwidth = bandwidth
+        self.channel = channel
         self.value = value
         self.min_value = self.compute_value(self.total_minimum_bandwidth.value)
         self.max_value = self.compute_value(MAX_BANDWIDTH)

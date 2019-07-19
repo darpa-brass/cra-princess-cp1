@@ -64,7 +64,7 @@ class Gurobi(OptimizationAlgorithm):
                 coeffs.append(coeff)
                 constrs.append(m.getConstrByName('r_{0}'.format(j)))
 
-            # Constraint: TAs only allowed to communicate on specific channel
+            # Constraint: TA only allowed to communicate over eligible_channels
             for j in range(len(self.constraints_object.channels) + len(self.constraints_object.candidate_tas), 2 * len(self.constraints_object.channels) + len(self.constraints_object.candidate_tas)):
                 coeff = 1
                 if discretized_tas[i].channel_is_eligible(self.constraints_object.channels[(i // discretization_algorithm.num_discretizations) % len(self.constraints_object.channels)]):
@@ -105,7 +105,7 @@ class Gurobi(OptimizationAlgorithm):
         value = sum(ta.value for ta in self.scheduled_tas)
 
         logger.debug('Gurobi completed in {0} seconds'.format(run_time))
-        return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
+        return AlgorithmResult(constraints_object=self.constraints_object, scheduled_tas=self.scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
     def __str__(self):
         return 'Gurobi'

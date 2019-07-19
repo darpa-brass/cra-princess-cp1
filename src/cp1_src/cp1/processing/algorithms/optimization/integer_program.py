@@ -98,11 +98,12 @@ class IntegerProgram(OptimizationAlgorithm):
         self.scheduled_tas = []
         for i in range(0, len(discretized_tas)):
             if ta_vector[i].solution_value() > 0:
+                discretized_tas[j].compute_communication_length(discretized_tas[j].channel.capacity, Milliseconds(min_latency), self.constraints_object.guard_band)
                 self.scheduled_tas.append(discretized_tas[i])
         value = sum(ta.value for ta in self.scheduled_tas)
 
         logger.debug('CBC Integer Program complete in {0} seconds'.format(run_time))
-        return AlgorithmResult(scheduled_tas=self.scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
+        return AlgorithmResult(constraints_object=self.constraints_object, scheduled_tas=self.scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
     def __str__(self):
         return 'CBC'

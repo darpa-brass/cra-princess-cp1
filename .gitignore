@@ -20,7 +20,3 @@ eggs/
 CRA_Scenarios_After_Adaptation.xml
 *.txt
 *.csv
-
-# Empty output folders
-!.output/mdl/
-!.output/raw/

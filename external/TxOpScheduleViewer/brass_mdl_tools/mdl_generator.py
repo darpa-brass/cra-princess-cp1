@@ -1,6 +1,5 @@
 import argparse
 from lxml import etree
-import sys
 
 ns = {"xsd": "http://www.w3.org/2001/XMLSchema",
       "mdl": "http://www.wsmr.army.mil/RCC/schemas/MDL",
@@ -143,15 +142,10 @@ def make_group(destination_mac):
     """)
 
 
-def generate_mdl_files(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
-    parser = argparse.ArgumentParser()
-    parser.add_argument('count', type=int, help="Number of TAs to generate. (1-255)")
-    parser.add_argument("--base", default="base.xml", help="Base XML location.")
-    parser.add_argument("--output", default="output.xml", help="Output XML location.")
-
+def generate_mdl_file(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
     if ta_count > 255 or ta_count < 1:
         print("Count must be in range 1-255.")
-        sys.exit()
+        return(-1)
 
     # initialize MDL file
     mdl_parser = etree.XMLParser(remove_blank_text=True)
@@ -166,10 +160,10 @@ def generate_mdl_files(ta_count, base='../base.xml', output='../../../../output/
     downlink_qos_refs = base_mdl.find("//mdl:QoSPolicy[@ID='QoS4_SimpleUplink']//mdl:RadioLinkRefs", **n)
 
     for i in range(ta_count):
-        ground_mac = 0x1000 + i
-        ta_mac = 0x2000 + i
-        uplink_mac = 0xF000 + i
-        downlink_mac = 0xF100 + i
+        ground_mac = 0x1000 + i + 1
+        ta_mac = 0x2000 + i + 1
+        uplink_mac = 0xF000 + i + 1
+        downlink_mac = 0xF100 + i + 1
 
         # add ground radio
         ground = make_radio(f"ground_{i}")
