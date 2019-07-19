@@ -61,6 +61,7 @@ def update_mdl_schedule():
     scenario_orientdb.close_database()
 
 def generate_constraints_objects():
+    local_constraints_objects = []
     channels = ChannelGenerator(config_file).generate()
     candidate_tas = TAGenerator(config_file).generate(channels)
 
@@ -79,6 +80,8 @@ def generate_constraints_objects():
         guard_band=guard_band,
         epoch=epoch,
         txop_timeout=txop_timeout))
+
+    return local_constraints_objects
 
 def store_and_retrieve_constraints():
     constraints_orientdb = OrientDBSession(
@@ -107,18 +110,18 @@ def setup_discretization_algorithms():
         for x in value_disc:
             discretization_algorithms.append(ValueDiscretization(x))
 
-def setup_optimization_algorithms():
+def setup_optimization_algorithms(local_constraints_objects):
     if cbc == 1:
-        for x in orientdb_constraints_objects:
+        for x in local_constraints_objects:
             optimization_algorithms.append(IntegerProgram(deepcopy(x)))
     if gurobi == 1:
-        for x in orientdb_constraints_objects:
+        for x in local_constraints_objects:
             optimization_algorithms.append(Gurobi(deepcopy(x)))
     if dynamic == 1:
-        for x in orientdb_constraints_objects:
+        for x in local_constraints_objects:
             optimization_algorithms.append(DynamicProgram(deepcopy(x)))
     if greedy_algorithm == 1:
-        for x in orientdb_constraints_objects:
+        for x in local_constraints_objects:
             optimization_algorithms.append(GreedyOptimization(deepcopy(x)))
 
 def determine_file_name():
@@ -205,7 +208,6 @@ scenario_orientdb = OrientDBSession(
 constraints_orientdb = OrientDBSession(
     database_name=constraints_db_name,
     config_file=orientdb_config_file)
-local_constraints_objects = []
 orientdb_constraints_objects = []
 discretization_algorithms = []
 optimization_algorithms = []
@@ -223,16 +225,16 @@ logger.info('Importing MDL File...')
 import_mdl_file()
 
 logger.debug('Generating Constraints Objects...')
-generate_constraints_objects()
+local_constraints_objects = generate_constraints_objects()
 
 logger.info('Storing and Retrieving Constraints in OrientDB...')
-store_and_retrieve_constraints()
+# store_and_retrieve_constraints()
 
 logger.info('Setting up Discretization Algorithms...')
 setup_discretization_algorithms()
 
 logger.debug('Setting up Optimization Algorithms...')
-setup_optimization_algorithms()
+setup_optimization_algorithms(local_constraints_objects)
 
 logger.debug('Setting up Scheduling Algorithms...')
 setup_scheduling_algorithms()
@@ -252,7 +254,7 @@ for discretization_algorithm in discretization_algorithms:
             logger.debug('Writing raw results...')
             write_raw_results()
 
-            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + file_name + '.xml'))
+            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + 'output_mdl.xml'))
             export_mdl_file()
             logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
 
