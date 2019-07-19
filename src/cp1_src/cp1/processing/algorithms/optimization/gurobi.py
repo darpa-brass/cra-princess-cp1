@@ -8,7 +8,7 @@ import math
 import sys
 import csv
 from pandas import *
-from gurobipy import *
+# from gurobipy import *
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm

@@ -202,12 +202,12 @@ with open(config_file, 'r') as f:
     raw_output_folder = os.path.abspath(
         data['Files and Database']['raw_output_folder'])
 
-scenario_orientdb = OrientDBSession(
-    database_name=mdl_db_name,
-    config_file=orientdb_config_file)
-constraints_orientdb = OrientDBSession(
-    database_name=constraints_db_name,
-    config_file=orientdb_config_file)
+# scenario_orientdb = OrientDBSession(
+#     database_name=mdl_db_name,
+#     config_file=orientdb_config_file)
+# constraints_orientdb = OrientDBSession(
+#     database_name=constraints_db_name,
+#     config_file=orientdb_config_file)
 orientdb_constraints_objects = []
 discretization_algorithms = []
 optimization_algorithms = []
@@ -215,14 +215,14 @@ scheduling_algorithms = []
 timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
 file_name = ''
 
-logger.info('Generating MDL File...')
-generate_mdl_file(
-    ta_count=num_tas,
-    output=mdl_input_file,
-    base='../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml')
-
-logger.info('Importing MDL File...')
-import_mdl_file()
+# logger.info('Generating MDL File...')
+# generate_mdl_file(
+#     ta_count=num_tas,
+#     output=mdl_input_file,
+#     base='../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml')
+#
+# logger.info('Importing MDL File...')
+# import_mdl_file()
 
 logger.debug('Generating Constraints Objects...')
 local_constraints_objects = generate_constraints_objects()
@@ -247,15 +247,16 @@ for discretization_algorithm in discretization_algorithms:
         for scheduling_algorithm in scheduling_algorithms:
             logger.info('Constructing schedule...')
             new_schedule = scheduling_algorithm.schedule(deepcopy(res))
+            print(new_schedule)
 
-            logger.info('Updating MDL File Schedule...')
-            update_mdl_schedule()
+            # logger.info('Updating MDL File Schedule...')
+            # update_mdl_schedule()
 
             logger.debug('Writing raw results...')
             write_raw_results()
 
-            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + 'output_mdl.xml'))
-            export_mdl_file()
+            # logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + 'output_mdl.xml'))
+            # export_mdl_file()
             logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
 
 
