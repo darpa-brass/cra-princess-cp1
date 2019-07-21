@@ -4,10 +4,10 @@ Data object representing a TA.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 import math
+from datetime import timedelta
 from cp1.common.exception_class import ComputeValueException
 from cp1.common.exception_class import ComputeBandwidthException
 from cp1.data_objects.mdl.kbps import Kbps
-from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.constants.constants import *
 
@@ -25,13 +25,13 @@ class TA:
             bandwidth=None,
             value=None,
             channel=None):
-        """
+        """# Append the channel to the list of eligible channels
         Constructor
 
         :param str id_: The ID of the TA.
         :param Kbps minimum_voice_bandwidth: The minimum required voice bandwidth to get this TA in the air
         :param Kbps minimum_safety_bandwidth: The minimum required safety bandwidth to get this TA in the air
-        :param Milliseconds latency: The maximum delay between radio transmissions
+        :param timedelta latency: The maximum delay between radio transmissions
         :param int scaling_factor: The amount by which to scale the overall value by onc.
         :param int c: The coefficient of a sample value function. For now it's set to 1 because there is no real value
                   function.
@@ -53,7 +53,7 @@ class TA:
         self.channel = channel
         self.value = value
         self.min_value = self.compute_value(self.total_minimum_bandwidth.value)
-        self.max_value = self.compute_value(MAX_BANDWIDTH)
+        self.max_value = self.compute_value(MAX_BANDWIDTH.value)
 
     def compute_bandwidth(self, x):
         """
@@ -68,7 +68,7 @@ class TA:
         elif x < self.max_value:
             return -math.log(1 - (x/(100*self.scaling_factor))) / self.c
         else:
-            return MAX_BANDWIDTH
+            return MAX_BANDWIDTH.value
 
     def compute_value(self, x):
         """Computes value as a function of bandwidth.
@@ -86,24 +86,22 @@ class TA:
                 'TA.compute_value')
         elif x < self.total_minimum_bandwidth.value:
             return 0.0
-        elif x < MAX_BANDWIDTH:
+        elif x < MAX_BANDWIDTH.value:
             return self.scaling_factor * \
                 (100 - 100 * (math.e ** (-self.c * x)))
         else:
             return self.scaling_factor * \
-                (100 - 100 * (math.e ** (-self.c * MAX_BANDWIDTH)))
+                (100 - 100 * (math.e ** (-self.c * MAX_BANDWIDTH.value)))
 
     def channel_is_eligible(self, channel):
         return any(x.frequency.value == channel.frequency.value for x in self.eligible_channels)
 
     def compute_communication_length(self, capacity, latency, guard_band, bandwidth=None):
-        if isinstance(latency, Milliseconds):
-            latency = latency.value
         if bandwidth is None:
-            length = ((self.bandwidth.value / capacity.value) * latency) + (2 * guard_band.value)
+            length = ((self.bandwidth.value / capacity.value) * latency.microseconds) + (2 * guard_band.microseconds)
         else:
-            length = ((bandwidth.value / capacity.value) * latency) + (2 * guard_band.value)
-        return length
+            length = ((bandwidth.value / capacity.value) * latency.microseconds) + (2 * guard_band.microseconds)
+        return timedelta(microseconds=length)
 
     def __str__(self):
         return '<id_: {0}, ' \
@@ -122,7 +120,7 @@ class TA:
                    self.minimum_voice_bandwidth.value,
                    self.minimum_safety_bandwidth.value,
                    self.total_minimum_bandwidth,
-                   self.latency.value,
+                   self.latency.microseconds,
                    self.scaling_factor,
                    self.c,
                    self.eligible_channels,
@@ -137,7 +135,7 @@ class TA:
                     self.minimum_voice_bandwidth == other.minimum_voice_bandwidth and
                     self.minimum_safety_bandwidth == other.minimum_safety_bandwidth and
                     self.total_minimum_bandwidth == other.total_minimum_bandwidth and
-                    self.latency == other.latency and
+                    self.latency.microseconds == other.latency.microseconds and
                     self.scaling_factor == other.scaling_factor and
                     self.c == other.c and
                     self.eligible_channels == other.eligible_channels and

@@ -20,8 +20,6 @@ cp1/data_objects/mdl/frequency.py
 cp1/data_objects/mdl/id_set.py
 cp1/data_objects/mdl/kbps.py
 cp1/data_objects/mdl/mdl_id.py
-cp1/data_objects/mdl/microseconds.py
-cp1/data_objects/mdl/milliseconds.py
 cp1/data_objects/mdl/txop.py
 cp1/data_objects/mdl/txop_timeout.py
 cp1/data_objects/processing/__init__.py
@@ -49,6 +47,7 @@ cp1/processing/algorithms/optimization/optimization_algorithm.py
 cp1/processing/algorithms/optimization/ortools_solvers.py
 cp1/processing/algorithms/scheduling/__init__.py
 cp1/processing/algorithms/scheduling/greedy_schedule.py
+cp1/processing/algorithms/scheduling/hybrid_scheduler.py
 cp1/processing/algorithms/scheduling/os_schedule.py
 cp1/processing/algorithms/scheduling/scheduling_algorithm.py
 cp1/utils/__init__.py
@@ -61,3 +60,4 @@ cp1/utils/ta_generator.py
 cp1/utils/decorators/__init__.py
 cp1/utils/decorators/orientdb_exporter.py
 cp1/utils/decorators/orientdb_importer.py
+cp1/utils/decorators/timedelta.py

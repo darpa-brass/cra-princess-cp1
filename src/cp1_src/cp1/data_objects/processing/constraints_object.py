@@ -3,8 +3,7 @@
 Data object representing a constraints object.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-from cp1.data_objects.mdl.milliseconds import Milliseconds
-from cp1.data_objects.mdl.microseconds import Microseconds
+from datetime import timedelta
 from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
@@ -20,16 +19,15 @@ class ConstraintsObject:
                  id_,
                  candidate_tas,
                  channels,
-                 ta_seed=None,
-                 channel_seed=None,
+                 seed,
                  goal_throughput_bulk=BandwidthRate(
                      BandwidthTypes.BULK, Kbps(100)),
                  goal_throughput_voice=BandwidthRate(
                      BandwidthTypes.VOICE, Kbps(100)),
                  goal_throughput_safety=BandwidthRate(
                      BandwidthTypes.SAFETY, Kbps(100)),
-                 guard_band=Milliseconds(1),
-                 epoch=Milliseconds(100),
+                 guard_band=timedelta(microseconds=1000),
+                 epoch=timedelta(microseconds=100000),
                  txop_timeout=TxOpTimeout(255)
                 ):
         """
@@ -38,10 +36,12 @@ class ConstraintsObject:
         :param BandwidthRate goal_throughput_bulk: The new value for all Bulk ServiceLevelProfiles.
         :param BandwidthRate goal_throughput_voice: The new value for all Voice ServiceLevelProfiles.
         :param BandwidthRate goal_throughput_safety: The new value for all Safety ServiceLevelProfiles.
-        :param Milliseconds guard_band: The unused part of the radio spectrum between radio bands to prevent interference.
+        :param timedelta guard_band: The unused part of the radio spectrum between radio bands to prevent interference.
+        :param timedelta epoch: The epoch of the MDL file.
         :param TxOpTimeout txop_timeout: The timeout value for TxOp nodes
         :param List[TA] candidate_tas: List of potential TA's.
         :param List[Channel] channels: Channel specific data such as the amount of throughput available
+        :param int seed: The number that was used to seed the random generator
         """
         self.goal_throughput_bulk = goal_throughput_bulk
         self.goal_throughput_voice = goal_throughput_voice
@@ -51,8 +51,7 @@ class ConstraintsObject:
         self.txop_timeout = txop_timeout
         self.candidate_tas = candidate_tas
         self.channels = channels
-        self.ta_seed = ta_seed
-        self.channel_seed = channel_seed
+        self.seed = seed
         self.id_ = id_
 
 
@@ -69,8 +68,8 @@ class ConstraintsObject:
                    self.goal_throughput_bulk,
                    self.goal_throughput_voice,
                    self.goal_throughput_safety,
-                   self.guard_band.value,
-                   self.epoch.value,
+                   self.guard_band.microseconds,
+                   self.epoch.microseconds,
                    self.txop_timeout,
                    self.candidate_tas,
                    self.id_,

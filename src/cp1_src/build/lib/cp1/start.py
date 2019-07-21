@@ -6,12 +6,15 @@ logger = logger.logger
 
 from ortools.linear_solver import pywraplp
 from copy import deepcopy
+from datetime import timedelta
 import time
 import csv
 import json
 import sys
 import re
+import shutil
 
+from brass_visualization_tools.TxOpSchedViewer import visualize_mdl
 from brass_mdl_tools.mdl_generator import generate_mdl_file
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.ta import TA
@@ -20,7 +23,6 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
-from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.txop import TxOp
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.utils.ta_generator import TAGenerator
@@ -47,7 +49,7 @@ def import_mdl_file():
 def export_mdl_file():
     exporter = OrientDBExporter(
         mdl_db_name,
-        mdl_output_folder + '\\' + file_name + '.xml',
+        mdl_output,
         orientdb_config_file)
     exporter.export_xml()
     exporter.orientDB_helper.close_database()
@@ -61,27 +63,24 @@ def update_mdl_schedule():
     scenario_orientdb.close_database()
 
 def generate_constraints_objects():
-    local_constraints_objects = []
-    channels = ChannelGenerator(config_file).generate()
-    candidate_tas = TAGenerator(config_file).generate(channels)
+    for seed in range(seeds[0], seeds[1] + 1):
+        channels = ChannelGenerator(config_file).generate(seed)
+        candidate_tas = TAGenerator(config_file).generate(channels, seed)
 
-    for ta in candidate_tas:
-        ta.eligible_channels = channels
+        for ta in candidate_tas:
+            ta.eligible_channels = channels
 
-    local_constraints_objects.append(ConstraintsObject(
-        id_=1,
-        candidate_tas=candidate_tas,
-        channels=channels,
-        ta_seed='timestamp',
-        channel_seed='timestamp',
-        goal_throughput_bulk=goal_throughput_bulk,
-        goal_throughput_voice=goal_throughput_voice,
-        goal_throughput_safety=goal_throughput_safety,
-        guard_band=guard_band,
-        epoch=epoch,
-        txop_timeout=txop_timeout))
-
-    return local_constraints_objects
+        local_constraints_objects.append(ConstraintsObject(
+            id_=1,
+            candidate_tas=candidate_tas,
+            channels=channels,
+            seed=seed,
+            goal_throughput_bulk=goal_throughput_bulk,
+            goal_throughput_voice=goal_throughput_voice,
+            goal_throughput_safety=goal_throughput_safety,
+            guard_band=guard_band,
+            epoch=epoch,
+            txop_timeout=txop_timeout))
 
 def store_and_retrieve_constraints():
     constraints_orientdb = OrientDBSession(
@@ -90,8 +89,9 @@ def store_and_retrieve_constraints():
     constraints_orientdb.open_database(over_write=True)
     for constraints_object in local_constraints_objects:
         constraints_orientdb.store_constraints(constraints_object)
-    orientdb_constraints_objects.append(constraints_orientdb.get_constraints())
+    orientdb_constraints_objects = constraints_orientdb.get_constraints()
     constraints_orientdb.close_database()
+    return orientdb_constraints_objects
 
 def setup_scheduling_algorithms():
     if greedy_schedule == 1:
@@ -110,18 +110,18 @@ def setup_discretization_algorithms():
         for x in value_disc:
             discretization_algorithms.append(ValueDiscretization(x))
 
-def setup_optimization_algorithms(local_constraints_objects):
+def setup_optimization_algorithms(orientdb_constraints_objects):
     if cbc == 1:
-        for x in local_constraints_objects:
+        for x in orientdb_constraints_objects:
             optimization_algorithms.append(IntegerProgram(deepcopy(x)))
     if gurobi == 1:
-        for x in local_constraints_objects:
+        for x in orientdb_constraints_objects:
             optimization_algorithms.append(Gurobi(deepcopy(x)))
     if dynamic == 1:
-        for x in local_constraints_objects:
+        for x in orientdb_constraints_objects:
             optimization_algorithms.append(DynamicProgram(deepcopy(x)))
     if greedy_algorithm == 1:
-        for x in local_constraints_objects:
+        for x in orientdb_constraints_objects:
             optimization_algorithms.append(GreedyOptimization(deepcopy(x)))
 
 def determine_file_name():
@@ -129,8 +129,7 @@ def determine_file_name():
         disc_write_value = discretization_algorithm.accuracy
     else:
         disc_write_value = discretization_algorithm.num_discretizations
-
-    file_name = '{0}({1})_{2}_{3}_{4}'.format(str(discretization_algorithm), disc_write_value, str(optimization_algorithm), str(scheduling_algorithm), timemstamp)
+    return '{0}({1})_{2}_{3}_{4}'.format(str(discretization_algorithm), disc_write_value, str(optimization_algorithm), str(scheduling_algorithm), timestamp)
 
 
 def write_raw_results():
@@ -152,7 +151,7 @@ def write_raw_results():
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
             [
-                optimization_algorithm.constraints_object.ta_seed,
+                optimization_algorithm.constraints_object.seed,
                 num_discretizations,
                 accuracy,
                 res.value,
@@ -169,8 +168,8 @@ with open(config_file, 'r') as f:
     num_tas = data['TAs']['num_tas']
     num_channels = data['Channels']['num_channels']
 
-    guard_band = Milliseconds(data['Constraints Object']['guard_band'])
-    epoch = Milliseconds(data['Constraints Object']['epoch'])
+    guard_band = timedelta(microseconds=(data['Constraints Object']['guard_band']))
+    epoch = timedelta(microseconds=(data['Constraints Object']['epoch']))
     txop_timeout = TxOpTimeout(data['Constraints Object']['txop_timeout'])
     goal_throughput_bulk = BandwidthRate(BandwidthTypes.BULK, Kbps(
         data['Constraints Object']['goal_throughput_bulk']))
@@ -178,6 +177,7 @@ with open(config_file, 'r') as f:
         data['Constraints Object']['goal_throughput_voice']))
     goal_throughput_safety = BandwidthRate(BandwidthTypes.SAFETY, Kbps(
         data['Constraints Object']['goal_throughput_safety']))
+    seeds = data['Constraints Object']['seeds']
 
     accuracy_disc_epsilons = data['Algorithms']['Discretization']['Accuracy']['epsilon']
     bandwidth_disc = data['Algorithms']['Discretization']['Bandwidth']['num_discretizations']
@@ -186,11 +186,12 @@ with open(config_file, 'r') as f:
     cbc = data['Algorithms']['Optimization']['CBC']
     gurobi = data['Algorithms']['Optimization']['Gurobi']
     greedy_algorithm = data['Algorithms']['Optimization']['Greedy']
-    dynamic = data['Algorithms']['Optimization']['Dynamic Program']
+    dynamic = data['Algorithms']['Optimization']['Dynamic']
 
-    greedy_schedule = data['Algorithms']['Scheduling']['Greedy Schedule']
-    os_schedule = data['Algorithms']['Scheduling']['OS Schedule']
+    greedy_schedule = data['Algorithms']['Scheduling']['Greedy']
+    os_schedule = data['Algorithms']['Scheduling']['OS']
 
+    visualize = data['Files and Database']['visualize']
     constraints_db_name = data['Files and Database']['constraints_db_name']
     mdl_db_name = data['Files and Database']['mdl_db_name']
     orientdb_config_file = os.path.abspath(
@@ -208,12 +209,13 @@ scenario_orientdb = OrientDBSession(
 constraints_orientdb = OrientDBSession(
     database_name=constraints_db_name,
     config_file=orientdb_config_file)
+local_constraints_objects = []
 orientdb_constraints_objects = []
 discretization_algorithms = []
 optimization_algorithms = []
 scheduling_algorithms = []
-timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
-file_name = ''
+timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
+mdl_output = ''
 
 logger.info('Generating MDL File...')
 generate_mdl_file(
@@ -225,16 +227,16 @@ logger.info('Importing MDL File...')
 import_mdl_file()
 
 logger.debug('Generating Constraints Objects...')
-local_constraints_objects = generate_constraints_objects()
+generate_constraints_objects()
 
 logger.info('Storing and Retrieving Constraints in OrientDB...')
-# store_and_retrieve_constraints()
+orientdb_constraints_objects = store_and_retrieve_constraints()
 
 logger.info('Setting up Discretization Algorithms...')
 setup_discretization_algorithms()
 
 logger.debug('Setting up Optimization Algorithms...')
-setup_optimization_algorithms(local_constraints_objects)
+setup_optimization_algorithms(orientdb_constraints_objects)
 
 logger.debug('Setting up Scheduling Algorithms...')
 setup_scheduling_algorithms()
@@ -251,11 +253,14 @@ for discretization_algorithm in discretization_algorithms:
             logger.info('Updating MDL File Schedule...')
             update_mdl_schedule()
 
-            logger.debug('Writing raw results...')
+            logger.debug('Writing results...')
+            file_name = determine_file_name()
+            mdl_output = mdl_output_folder + '\\' + file_name + '.xml'
             write_raw_results()
-
-            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + 'output_mdl.xml'))
             export_mdl_file()
+            if visualize == 1:
+                print(mdl_output)
+                visualize_mdl(mdl_output)
             logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
 
 

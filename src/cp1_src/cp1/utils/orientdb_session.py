@@ -6,6 +6,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import re
 import sys
 from functools import reduce
+from datetime import timedelta
 
 from brass_api.translator.orientdb_importer import OrientDBXMLImporter as MDLImporter
 from brass_api.translator.orientdb_exporter import OrientDBXMLExporter as MDLExporter
@@ -21,7 +22,6 @@ from cp1.utils.ta_generator import TAGenerator
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.txop import TxOpTimeout
 from cp1.data_objects.mdl.frequency import Frequency
-from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.processing.ta import TA
@@ -79,7 +79,7 @@ class OrientDBSession(BrassOrientDBHelper):
             self.delete_nodes_by_class('TxOp')
         except:
             pass
-            
+
         radio_links = self.get_nodes_by_type('RadioLink')
 
         # Generate a Dictionary of RadioLinks
@@ -109,8 +109,8 @@ class OrientDBSession(BrassOrientDBHelper):
         i = 0
         for txop in txop_list:
             txop_properties = {
-                'StartUSec': int(txop.start_usec.value),
-                'StopUSec': int(txop.stop_usec.value),
+                'StartUSec': int(txop.start_usec.microseconds),
+                'StopUSec': int(txop.stop_usec.microseconds),
                 'TxOpTimeout': txop.txop_timeout.value,
                 'CenterFrequencyHz': txop.center_frequency_hz.value,
                 'uid': 'TxOp-{0}'.format(i)
@@ -140,11 +140,10 @@ class OrientDBSession(BrassOrientDBHelper):
             'goal_throughput_bulk': constraints_object.goal_throughput_bulk.rate.value,
             'goal_throughput_voice': constraints_object.goal_throughput_voice.rate.value,
             'goal_throughput_safety': constraints_object.goal_throughput_safety.rate.value,
-            'guard_band': constraints_object.guard_band.value,
-            'epoch': constraints_object.epoch.value,
+            'guard_band': int(constraints_object.guard_band.microseconds / 1000),
+            'epoch': int(constraints_object.epoch.microseconds  / 1000),
             'txop_timeout': constraints_object.txop_timeout.value,
-            'channel_seed': constraints_object.channel_seed,
-            'ta_seed': constraints_object.ta_seed,
+            'seed': constraints_object.seed
         }
         constraints_object.rid = self.create_node('Constraints', constraints_object_properties)
 
@@ -187,7 +186,7 @@ class OrientDBSession(BrassOrientDBHelper):
         'id': ta.id_,
         'minimum_voice_bandwidth': ta.minimum_voice_bandwidth.value,
         'minimum_safety_bandwidth': ta.minimum_safety_bandwidth.value,
-        'latency': ta.latency.value,
+        'latency': int(ta.latency.microseconds / 1000),
         'scaling_factor': ta.scaling_factor,
         'c': ta.c
         }
@@ -288,43 +287,44 @@ class OrientDBSession(BrassOrientDBHelper):
 
         :returns ConstraintsObject constraints_object: A Constraints Object
         """
-        orientdb_constraints_object = self._get_first_system_wide_constraints()
+        orientdb_constraints_objects = self._get_system_wide_constraints()
 
-        connected_nodes = self.get_connected_nodes(orientdb_constraints_object._rid, filterdepth=1)
-        candidate_tas = []
-        channels = []
+        constraints_objects = []
+        for orientdb_constraints_object in orientdb_constraints_objects:
+            connected_nodes = self.get_connected_nodes(orientdb_constraints_object._rid, filterdepth=1)
+            candidate_tas = []
+            channels = []
 
-        for node in connected_nodes:
-            if node._class == 'TA':
-                candidate_tas.append(self.construct_ta_from_node(node))
-            elif node._class == 'Channel':
-                channels.append(self.construct_channel_from_node(node))
+            for node in connected_nodes:
+                if node._class == 'TA':
+                    candidate_tas.append(self.construct_ta_from_node(node))
+                elif node._class == 'Channel':
+                    channels.append(self.construct_channel_from_node(node))
 
-        constraints_object=ConstraintsObject(
-            id_ = orientdb_constraints_object.id,
-            candidate_tas=candidate_tas,
-            channels=channels,
-            goal_throughput_bulk=BandwidthRate(
-                BandwidthTypes.BULK,
-                Kbps(int(orientdb_constraints_object.goal_throughput_bulk))
-            ),
-            goal_throughput_voice=BandwidthRate(
-                BandwidthTypes.VOICE,
-                Kbps(int(orientdb_constraints_object.goal_throughput_voice))
-            ),
-            goal_throughput_safety=BandwidthRate(
-                BandwidthTypes.SAFETY,
-                Kbps(int(orientdb_constraints_object.goal_throughput_safety))
-            ),
-            guard_band=Milliseconds(int(orientdb_constraints_object.guard_band)),
-            epoch=Milliseconds(int(orientdb_constraints_object.epoch)),
-            txop_timeout=TxOpTimeout(int(orientdb_constraints_object.txop_timeout)),
-            ta_seed=orientdb_constraints_object.ta_seed,
-            channel_seed=orientdb_constraints_object.channel_seed)
+            constraints_objects.append(ConstraintsObject(
+                id_ = orientdb_constraints_object.id,
+                candidate_tas=candidate_tas,
+                channels=channels,
+                goal_throughput_bulk=BandwidthRate(
+                    BandwidthTypes.BULK,
+                    Kbps(int(orientdb_constraints_object.goal_throughput_bulk))
+                ),
+                goal_throughput_voice=BandwidthRate(
+                    BandwidthTypes.VOICE,
+                    Kbps(int(orientdb_constraints_object.goal_throughput_voice))
+                ),
+                goal_throughput_safety=BandwidthRate(
+                    BandwidthTypes.SAFETY,
+                    Kbps(int(orientdb_constraints_object.goal_throughput_safety))
+                ),
+                guard_band=timedelta(microseconds=1000 * int(orientdb_constraints_object.guard_band)),
+                epoch=timedelta(microseconds=1000 * int(orientdb_constraints_object.epoch)),
+                txop_timeout=TxOpTimeout(int(orientdb_constraints_object.txop_timeout)),
+                seed=orientdb_constraints_object.seed))
 
-        return constraints_object
+        return constraints_objects
 
-    def _get_first_system_wide_constraints(self):
+    def _get_system_wide_constraints(self):
         orientdb_response = self.get_nodes_by_type('Constraints')
 
         if not orientdb_response:
@@ -341,10 +341,12 @@ class OrientDBSession(BrassOrientDBHelper):
         #     raise SystemWideConstraintsNotFoundException(
         #         'OrientDB database [{0}] does not contain a System Wide Constraint'.format(
         #             self._orientdb_client._db_name), 'OrientDBSession._get_system_wide_constraints')
+        constraints_objects = []
         for x in orientdb_response:
             if x.constraint_type == 'System Wide Constraint':
-                return x
-        raise ConstraintsNotFoundException('OrientDB database [{0}] is missing a System Wide Constraints object.', 'OrientDBSession._get_system_wide_constraints')
+                constraints_objects.append(x)
+        return constraints_objects
+        # raise ConstraintsNotFoundException('OrientDB database is missing a System Wide Constraints object.', 'OrientDBSession._get_system_wide_constraints')
 
 
     def construct_ta_from_node(self, orientdb_node):
@@ -365,7 +367,7 @@ class OrientDBSession(BrassOrientDBHelper):
                 int(orientdb_node.minimum_voice_bandwidth)),
             minimum_safety_bandwidth=Kbps(
                 int(orientdb_node.minimum_safety_bandwidth)),
-            latency=Milliseconds(int(orientdb_node.latency)),
+            latency=timedelta(microseconds=1000*int(orientdb_node.latency)),
             scaling_factor=float(orientdb_node.scaling_factor),
             c=float(orientdb_node.c),
             eligible_channels=eligible_channels)
