@@ -1,0 +1,12 @@
+Algorithm Data Objects package
+=================================
+
+Algorithm Result Module
+-----------------------------------
+
+.. automodule:: cp1.data_objects.algorithm.algorithm_result
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+    

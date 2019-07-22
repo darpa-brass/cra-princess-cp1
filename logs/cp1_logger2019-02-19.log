@@ -1,0 +1,112 @@
+2019-02-19 11:25:19,304 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:25:19,304 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:25:43,826 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:25:43,826 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:26:14,363 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:26:14,363 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:26:44,183 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:26:44,183 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:27:24,571 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:27:24,572 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:27:24,587 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 11:27:36,296 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:27:36,296 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:27:36,310 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 11:27:36,311 INFO ***************************Optimizing Schedule...**************************
+2019-02-19 11:34:13,615 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:34:13,615 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:34:34,235 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:34:34,235 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:34:54,048 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:34:54,048 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:35:14,500 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:35:14,500 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:35:14,504 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 11:35:14,504 INFO ***************************Optimizing Schedule...**************************
+2019-02-19 11:35:14,504 INFO MdlId: TA3 selected for scheduling on frequency 4919500000
+2019-02-19 11:35:14,504 INFO MdlId: TA1 selected for scheduling on frequency 4919500000
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 0.0, StopUSec: 10000.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: 11000.0, StartUSec: 11000.0, StopUSec: 21000.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 50000.0, StopUSec: 60000.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: 61000.0, StartUSec: 61000.0, StopUSec: 71000.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 22000.0, StopUSec: 34500.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: 35500.0, StartUSec: 35500.0, StopUSec: 48000.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 72000.0, StopUSec: 84500.0
+2019-02-19 11:35:14,504 INFO Scheduled TxOp: Frequency: 4919500000, ID: 85500.0, StartUSec: 85500.0, StopUSec: 98000.0
+2019-02-19 11:36:05,721 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:36:05,721 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:36:24,212 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 11:36:24,213 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 11:36:24,225 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 11:36:24,226 INFO ***************************Optimizing Schedule...**************************
+2019-02-19 11:36:24,226 INFO MdlId: TA3 selected for scheduling on frequency 4919500000
+2019-02-19 11:36:24,227 INFO MdlId: TA1 selected for scheduling on frequency 4919500000
+2019-02-19 11:36:24,228 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 0.0, StopUSec: 10000.0
+2019-02-19 11:36:24,228 INFO Scheduled TxOp: Frequency: 4919500000, ID: 11000.0, StartUSec: 11000.0, StopUSec: 21000.0
+2019-02-19 11:36:24,229 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 50000.0, StopUSec: 60000.0
+2019-02-19 11:36:24,229 INFO Scheduled TxOp: Frequency: 4919500000, ID: 61000.0, StartUSec: 61000.0, StopUSec: 71000.0
+2019-02-19 11:36:24,230 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 22000.0, StopUSec: 34500.0
+2019-02-19 11:36:24,231 INFO Scheduled TxOp: Frequency: 4919500000, ID: 35500.0, StartUSec: 35500.0, StopUSec: 48000.0
+2019-02-19 11:36:24,234 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 72000.0, StopUSec: 84500.0
+2019-02-19 11:36:24,235 INFO Scheduled TxOp: Frequency: 4919500000, ID: 85500.0, StartUSec: 85500.0, StopUSec: 98000.0
+2019-02-19 13:07:19,258 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 13:07:19,259 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 13:07:19,274 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 13:07:19,275 INFO ***************************Optimizing Schedule...**************************
+2019-02-19 13:07:19,275 INFO MdlId: TA3 selected for scheduling on frequency 4919500000
+2019-02-19 13:07:19,276 INFO MdlId: TA1 selected for scheduling on frequency 4919500000
+2019-02-19 13:07:19,277 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 0.0, StopUSec: 10000.0
+2019-02-19 13:07:19,277 INFO Scheduled TxOp: Frequency: 4919500000, ID: 11000.0, StartUSec: 11000.0, StopUSec: 21000.0
+2019-02-19 13:07:19,278 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 50000.0, StopUSec: 60000.0
+2019-02-19 13:07:19,278 INFO Scheduled TxOp: Frequency: 4919500000, ID: 61000.0, StartUSec: 61000.0, StopUSec: 71000.0
+2019-02-19 13:07:19,281 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 22000.0, StopUSec: 34500.0
+2019-02-19 13:07:19,281 INFO Scheduled TxOp: Frequency: 4919500000, ID: 35500.0, StartUSec: 35500.0, StopUSec: 48000.0
+2019-02-19 13:07:19,282 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 72000.0, StopUSec: 84500.0
+2019-02-19 13:07:19,283 INFO Scheduled TxOp: Frequency: 4919500000, ID: 85500.0, StartUSec: 85500.0, StopUSec: 98000.0
+2019-02-19 13:07:19,284 INFO ***************************Processing Bandwidth...*************************
+2019-02-19 13:07:19,287 INFO [('GR1_to_TA3_SLP_1_20', 500000), ('TA3_to_GndGrp1_SLP_1_20', 500000), ('GR1_to_TA3_SLP_1_301', 500000), ('TA3_to_GndGrp1_SLP_1_301', 500000), ('GR1_to_TA3_SLP_1_40', 500000), ('TA3_to_GndGrp1_SLP_1_40', 500000), ('GR1_to_TA1_SLP_1_20', 500000), ('TA1_to_GndGrp1_SLP_1_20', 500000), ('GR1_to_TA1_SLP_1_301', 500000), ('TA1_to_GndGrp1_SLP_1_301', 500000), ('GR1_to_TA1_SLP_1_40', 500000), ('TA1_to_GndGrp1_SLP_1_40', 500000), ('GR1_to_TA2_SLP_1_20', 500000), ('TA2_to_GndGrp1_SLP_1_20', 500000), ('GR1_to_TA2_SLP_1_301', 500000), ('TA2_to_GndGrp1_SLP_1_301', 500000), ('GR1_to_TA2_SLP_1_40', 500000), ('TA2_to_GndGrp1_SLP_1_40', 500000)]
+2019-02-19 13:07:19,288 INFO ***************************Importing MDL file...***************************
+2019-02-19 13:07:19,288 INFO Importing C:\dev\cp1\src\cp1_src\cp1\mdl_files\CRA_Scenarios_Before_Adaptation.xml into cra_scenarios
+2019-02-19 13:07:19,289 INFO Parsing MDL file into intermediary data object...
+2019-02-19 13:07:20,251 INFO Creating OrientDB classes for MDL Elements...
+2019-02-19 13:07:21,135 INFO Created 20 Node Classes
+2019-02-19 13:07:21,989 INFO Created 40 Node Classes
+2019-02-19 13:07:22,922 INFO Created 60 Node Classes
+2019-02-19 13:07:24,019 INFO Indexing Started...
+2019-02-19 13:07:28,285 INFO Indexed 100 MDL Elements
+2019-02-19 13:07:32,573 INFO Indexed 200 MDL Elements
+2019-02-19 13:07:37,636 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 13:07:37,636 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 13:07:37,649 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 13:07:37,649 INFO ***************************Optimizing Schedule...**************************
+2019-02-19 13:07:37,650 INFO MdlId: TA3 selected for scheduling on frequency 4919500000
+2019-02-19 13:07:37,650 INFO MdlId: TA1 selected for scheduling on frequency 4919500000
+2019-02-19 13:07:37,651 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 0.0, StopUSec: 10000.0
+2019-02-19 13:07:37,651 INFO Scheduled TxOp: Frequency: 4919500000, ID: 11000.0, StartUSec: 11000.0, StopUSec: 21000.0
+2019-02-19 13:07:37,652 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA3, StartUSec: 50000.0, StopUSec: 60000.0
+2019-02-19 13:07:37,652 INFO Scheduled TxOp: Frequency: 4919500000, ID: 61000.0, StartUSec: 61000.0, StopUSec: 71000.0
+2019-02-19 13:07:37,653 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 22000.0, StopUSec: 34500.0
+2019-02-19 13:07:37,653 INFO Scheduled TxOp: Frequency: 4919500000, ID: 35500.0, StartUSec: 35500.0, StopUSec: 48000.0
+2019-02-19 13:07:37,654 INFO Scheduled TxOp: Frequency: 4919500000, ID: GR1_to_TA1, StartUSec: 72000.0, StopUSec: 84500.0
+2019-02-19 13:07:37,654 INFO Scheduled TxOp: Frequency: 4919500000, ID: 85500.0, StartUSec: 85500.0, StopUSec: 98000.0
+2019-02-19 13:07:37,655 INFO ***************************Processing Bandwidth...*************************
+2019-02-19 13:07:37,660 INFO [('GR1_to_TA3_SLP_1_20', 500000), ('TA3_to_GndGrp1_SLP_1_20', 500000), ('GR1_to_TA3_SLP_1_301', 500000), ('TA3_to_GndGrp1_SLP_1_301', 500000), ('GR1_to_TA3_SLP_1_40', 500000), ('TA3_to_GndGrp1_SLP_1_40', 500000), ('GR1_to_TA1_SLP_1_20', 500000), ('TA1_to_GndGrp1_SLP_1_20', 500000), ('GR1_to_TA1_SLP_1_301', 500000), ('TA1_to_GndGrp1_SLP_1_301', 500000), ('GR1_to_TA1_SLP_1_40', 500000), ('TA1_to_GndGrp1_SLP_1_40', 500000), ('GR1_to_TA2_SLP_1_20', 500000), ('TA2_to_GndGrp1_SLP_1_20', 500000), ('GR1_to_TA2_SLP_1_301', 500000), ('TA2_to_GndGrp1_SLP_1_301', 500000), ('GR1_to_TA2_SLP_1_40', 500000), ('TA2_to_GndGrp1_SLP_1_40', 500000)]
+2019-02-19 13:07:37,661 INFO ***************************Importing MDL file...***************************
+2019-02-19 13:07:37,662 INFO Importing C:\dev\cp1\src\cp1_src\cp1\mdl_files\CRA_Scenarios_Before_Adaptation.xml into cra_scenarios
+2019-02-19 13:07:37,662 INFO Parsing MDL file into intermediary data object...
+2019-02-19 13:07:38,678 INFO Creating OrientDB classes for MDL Elements...
+2019-02-19 13:07:39,615 INFO Created 20 Node Classes
+2019-02-19 13:07:40,528 INFO Created 40 Node Classes
+2019-02-19 13:07:41,485 INFO Created 60 Node Classes
+2019-02-19 13:07:42,369 INFO Indexing Started...
+2019-02-19 13:07:46,487 INFO Indexed 100 MDL Elements
+2019-02-19 13:07:50,793 INFO Indexed 200 MDL Elements
+2019-02-19 13:07:55,087 INFO Indexed 300 MDL Elements
+2019-02-19 13:08:00,546 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 13:08:00,546 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 13:08:00,558 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 13:08:00,558 INFO ***************************Optimizing Schedule...**************************
+2019-02-19 13:08:04,081 INFO ***************************Challenge Problem 1 Started*********************
+2019-02-19 13:08:04,081 INFO ***************************Retrieving Constraints...***********************
+2019-02-19 13:08:04,093 DEBUG Goal Throughput Bulk: bandwidth_type: BandwidthTypes.BULK, value: 1000, Goal Throughput Voice: bandwidth_type: BandwidthTypes.VOICE, value: 1000, Goal Throughput Safety: bandwidth_type: BandwidthTypes.SAFETY, value: 1000, Latency: 50.0, Guard Band: 1.0, Epoch: 100.0, TxOp Timeout: TxOpTimeout: 255, Candidate TAs: [[<id_: TA1, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA2, total_minimum_bandwidth: 50, minimum_voice_bandwidth: 25, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>, <id_: TA3, total_minimum_bandwidth: 40, minimum_voice_bandwidth: 15, minimum_safety_bandwidth: 25, scaling_factor: 1.0, c: 0.05>]], Channels: [[<frequency: 4919500000, length: 100.0>, <frequency: 4919600000, length: 100.0>]]
+2019-02-19 13:08:04,094 INFO ***************************Optimizing Schedule...**************************

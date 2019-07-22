@@ -1,0 +1,34 @@
+Algorithms package
+=================================
+
+Submodules
+---------------
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   Discretization Strategies <cp1.processing.schedule.algorithms.discretization.rst>
+
+Integer Programming Module
+-----------------------------------
+.. automodule:: cp1.processing.schedule.algorithms.integer_program
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+Greedy Algorithm Module
+-----------------------------------
+.. automodule:: cp1.processing.schedule.algorithms.greedy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+Optimization Algorithm Interface Module
+-------------------------------------------
+.. automodule:: cp1.processing.schedule.algorithms.optimization_algorithm
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:

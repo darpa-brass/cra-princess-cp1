@@ -1,0 +1,36 @@
+Discretization package
+=================================
+
+
+Discretization Strategy Interface Module
+--------------------------------------------
+.. automodule:: cp1.processing.algorithms.discretization.discretization_strategy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+Accuracy Discretization Module
+-----------------------------------
+.. automodule:: cp1.processing.schedule.algorithms.discretization.accuracy_discretization
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+
+Bandwidth Discretization Module
+-----------------------------------
+.. automodule:: cp1.processing.schedule.algorithms.discretization.bandwidth_discretization
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:
+
+Value Discretization Module
+-----------------------------------
+.. automodule:: cp1.processing.schedule.algorithms.discretization.value_discretization
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :private-members:

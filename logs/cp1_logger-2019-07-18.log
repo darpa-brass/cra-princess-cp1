@@ -1,0 +1,1411 @@
+2019-07-18 10:09:22,379 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:09:22,432 INFO Generating MDL File...
+2019-07-18 10:09:22,461 INFO Importing MDL File...
+2019-07-18 10:09:25,500 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:09:25,927 DEBUG Created 20 Node Classes
+2019-07-18 10:09:26,331 DEBUG Created 40 Node Classes
+2019-07-18 10:09:26,929 DEBUG Created 60 Node Classes
+2019-07-18 10:09:27,356 DEBUG Created 80 Node Classes
+2019-07-18 10:09:27,374 DEBUG Indexing Started...
+2019-07-18 10:09:27,726 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:09:28,003 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:09:28,510 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:09:28,932 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:09:29,198 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:09:29,549 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:09:29,973 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:09:30,463 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:09:31,026 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:09:31,687 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:09:32,420 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:09:33,236 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:09:34,120 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:09:35,070 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:09:36,117 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:09:36,760 DEBUG Creating Containment Edges...
+2019-07-18 10:09:37,965 DEBUG Created 100 Containment Edges
+2019-07-18 10:09:39,071 DEBUG Created 200 Containment Edges
+2019-07-18 10:09:40,190 DEBUG Created 300 Containment Edges
+2019-07-18 10:09:41,300 DEBUG Created 400 Containment Edges
+2019-07-18 10:09:42,400 DEBUG Created 500 Containment Edges
+2019-07-18 10:09:43,502 DEBUG Created 600 Containment Edges
+2019-07-18 10:09:44,588 DEBUG Created 700 Containment Edges
+2019-07-18 10:09:45,692 DEBUG Created 800 Containment Edges
+2019-07-18 10:09:46,823 DEBUG Created 900 Containment Edges
+2019-07-18 10:09:47,980 DEBUG Created 1000 Containment Edges
+2019-07-18 10:09:49,082 DEBUG Created 1100 Containment Edges
+2019-07-18 10:09:50,162 DEBUG Created 1200 Containment Edges
+2019-07-18 10:09:51,271 DEBUG Created 1300 Containment Edges
+2019-07-18 10:09:52,418 DEBUG Created 1400 Containment Edges
+2019-07-18 10:09:53,579 DEBUG Created 1500 Containment Edges
+2019-07-18 10:09:54,702 DEBUG Creating Reference Edges...
+2019-07-18 10:09:54,828 DEBUG Created 10 Reference Edges
+2019-07-18 10:09:54,952 DEBUG Created 20 Reference Edges
+2019-07-18 10:09:55,080 DEBUG Created 30 Reference Edges
+2019-07-18 10:09:55,196 DEBUG Created 40 Reference Edges
+2019-07-18 10:09:55,319 DEBUG Created 50 Reference Edges
+2019-07-18 10:09:55,533 DEBUG Created 60 Reference Edges
+2019-07-18 10:09:55,669 DEBUG Created 70 Reference Edges
+2019-07-18 10:09:55,790 DEBUG Created 80 Reference Edges
+2019-07-18 10:09:55,919 DEBUG Created 90 Reference Edges
+2019-07-18 10:09:56,059 DEBUG Created 100 Reference Edges
+2019-07-18 10:09:56,201 DEBUG Created 110 Reference Edges
+2019-07-18 10:09:56,336 DEBUG Created 120 Reference Edges
+2019-07-18 10:09:56,464 DEBUG Created 130 Reference Edges
+2019-07-18 10:09:56,594 DEBUG Created 140 Reference Edges
+2019-07-18 10:09:56,723 DEBUG Created 150 Reference Edges
+2019-07-18 10:09:56,864 DEBUG Created 160 Reference Edges
+2019-07-18 10:09:57,015 DEBUG Created 170 Reference Edges
+2019-07-18 10:09:57,139 DEBUG Created 180 Reference Edges
+2019-07-18 10:09:57,260 DEBUG Created 190 Reference Edges
+2019-07-18 10:09:57,383 DEBUG Created 200 Reference Edges
+2019-07-18 10:09:57,447 DEBUG Generating Constraints Objects...
+2019-07-18 10:09:57,455 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 10:10:00,041 INFO Setting up Discretization Algorithms...
+2019-07-18 10:10:00,041 DEBUG Setting up Optimization Algorithms...
+2019-07-18 10:10:00,046 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 10:10:00,047 DEBUG Optimizing...
+2019-07-18 10:10:00,047 DEBUG Beginning CBC Integer Program...
+2019-07-18 10:10:00,162 DEBUG CBC Integer Program complete in 0.11504526195231486 seconds
+2019-07-18 10:10:00,164 INFO Constructing schedule...
+2019-07-18 10:37:34,261 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:37:34,298 INFO Generating MDL File...
+2019-07-18 10:37:34,326 INFO Importing MDL File...
+2019-07-18 10:37:37,166 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:37:37,540 DEBUG Created 20 Node Classes
+2019-07-18 10:37:38,048 DEBUG Created 40 Node Classes
+2019-07-18 10:37:38,627 DEBUG Created 60 Node Classes
+2019-07-18 10:37:39,157 DEBUG Created 80 Node Classes
+2019-07-18 10:37:39,181 DEBUG Indexing Started...
+2019-07-18 10:37:39,571 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:37:39,848 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:37:40,333 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:37:40,847 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:37:41,093 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:37:41,396 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:37:41,785 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:37:42,269 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:37:42,802 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:37:43,467 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:37:44,157 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:37:44,947 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:37:45,847 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:37:46,790 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:37:47,787 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:37:48,411 DEBUG Creating Containment Edges...
+2019-07-18 10:37:49,534 DEBUG Created 100 Containment Edges
+2019-07-18 10:37:50,625 DEBUG Created 200 Containment Edges
+2019-07-18 10:37:51,761 DEBUG Created 300 Containment Edges
+2019-07-18 10:37:52,865 DEBUG Created 400 Containment Edges
+2019-07-18 10:37:53,946 DEBUG Created 500 Containment Edges
+2019-07-18 10:37:55,066 DEBUG Created 600 Containment Edges
+2019-07-18 10:37:56,173 DEBUG Created 700 Containment Edges
+2019-07-18 10:37:57,247 DEBUG Created 800 Containment Edges
+2019-07-18 10:37:58,347 DEBUG Created 900 Containment Edges
+2019-07-18 10:37:59,462 DEBUG Created 1000 Containment Edges
+2019-07-18 10:38:00,563 DEBUG Created 1100 Containment Edges
+2019-07-18 10:38:01,676 DEBUG Created 1200 Containment Edges
+2019-07-18 10:38:02,791 DEBUG Created 1300 Containment Edges
+2019-07-18 10:38:03,881 DEBUG Created 1400 Containment Edges
+2019-07-18 10:38:04,967 DEBUG Created 1500 Containment Edges
+2019-07-18 10:38:06,118 DEBUG Creating Reference Edges...
+2019-07-18 10:38:06,232 DEBUG Created 10 Reference Edges
+2019-07-18 10:38:06,356 DEBUG Created 20 Reference Edges
+2019-07-18 10:38:06,489 DEBUG Created 30 Reference Edges
+2019-07-18 10:38:06,748 DEBUG Created 40 Reference Edges
+2019-07-18 10:38:06,890 DEBUG Created 50 Reference Edges
+2019-07-18 10:38:07,018 DEBUG Created 60 Reference Edges
+2019-07-18 10:38:07,137 DEBUG Created 70 Reference Edges
+2019-07-18 10:38:07,259 DEBUG Created 80 Reference Edges
+2019-07-18 10:38:07,379 DEBUG Created 90 Reference Edges
+2019-07-18 10:38:07,501 DEBUG Created 100 Reference Edges
+2019-07-18 10:38:07,626 DEBUG Created 110 Reference Edges
+2019-07-18 10:38:07,841 DEBUG Created 120 Reference Edges
+2019-07-18 10:38:07,986 DEBUG Created 130 Reference Edges
+2019-07-18 10:38:08,140 DEBUG Created 140 Reference Edges
+2019-07-18 10:38:08,305 DEBUG Created 150 Reference Edges
+2019-07-18 10:38:08,463 DEBUG Created 160 Reference Edges
+2019-07-18 10:38:08,707 DEBUG Created 170 Reference Edges
+2019-07-18 10:38:08,823 DEBUG Created 180 Reference Edges
+2019-07-18 10:38:08,947 DEBUG Created 190 Reference Edges
+2019-07-18 10:38:09,127 DEBUG Created 200 Reference Edges
+2019-07-18 10:38:09,185 DEBUG Generating Constraints Objects...
+2019-07-18 10:38:09,194 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 10:38:11,803 INFO Setting up Discretization Algorithms...
+2019-07-18 10:38:11,804 DEBUG Setting up Optimization Algorithms...
+2019-07-18 10:38:11,808 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 10:38:11,808 DEBUG Optimizing...
+2019-07-18 10:38:11,809 DEBUG Beginning CBC Integer Program...
+2019-07-18 10:38:11,891 DEBUG CBC Integer Program complete in 0.08138794387461494 seconds
+2019-07-18 10:38:11,892 INFO Constructing schedule...
+2019-07-18 10:38:55,147 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:38:55,197 INFO Generating MDL File...
+2019-07-18 10:38:55,223 INFO Importing MDL File...
+2019-07-18 10:38:57,793 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:38:58,187 DEBUG Created 20 Node Classes
+2019-07-18 10:38:58,861 DEBUG Created 40 Node Classes
+2019-07-18 10:38:59,267 DEBUG Created 60 Node Classes
+2019-07-18 10:38:59,867 DEBUG Created 80 Node Classes
+2019-07-18 10:38:59,884 DEBUG Indexing Started...
+2019-07-18 10:39:00,257 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:39:00,523 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:39:01,043 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:39:01,577 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:39:01,837 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:39:02,161 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:39:02,590 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:39:03,076 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:39:03,641 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:39:04,302 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:39:05,070 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:39:05,901 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:39:06,787 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:39:07,808 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:39:08,929 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:39:09,622 DEBUG Creating Containment Edges...
+2019-07-18 10:39:17,037 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:39:17,075 INFO Generating MDL File...
+2019-07-18 10:39:17,102 INFO Importing MDL File...
+2019-07-18 10:39:19,856 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:39:20,446 DEBUG Created 20 Node Classes
+2019-07-18 10:39:20,884 DEBUG Created 40 Node Classes
+2019-07-18 10:39:21,542 DEBUG Created 60 Node Classes
+2019-07-18 10:39:22,199 DEBUG Created 80 Node Classes
+2019-07-18 10:39:22,222 DEBUG Indexing Started...
+2019-07-18 10:39:22,569 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:39:22,836 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:39:23,329 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:39:23,725 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:39:23,971 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:39:24,320 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:39:24,729 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:39:25,201 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:39:25,740 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:39:26,384 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:39:27,086 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:39:27,886 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:39:28,770 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:39:29,700 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:39:30,702 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:39:31,329 DEBUG Creating Containment Edges...
+2019-07-18 10:39:32,461 DEBUG Created 100 Containment Edges
+2019-07-18 10:39:33,630 DEBUG Created 200 Containment Edges
+2019-07-18 10:39:34,772 DEBUG Created 300 Containment Edges
+2019-07-18 10:39:35,870 DEBUG Created 400 Containment Edges
+2019-07-18 10:39:36,967 DEBUG Created 500 Containment Edges
+2019-07-18 10:39:38,072 DEBUG Created 600 Containment Edges
+2019-07-18 10:39:39,155 DEBUG Created 700 Containment Edges
+2019-07-18 10:39:40,262 DEBUG Created 800 Containment Edges
+2019-07-18 10:39:41,386 DEBUG Created 900 Containment Edges
+2019-07-18 10:39:42,487 DEBUG Created 1000 Containment Edges
+2019-07-18 10:39:43,623 DEBUG Created 1100 Containment Edges
+2019-07-18 10:39:44,731 DEBUG Created 1200 Containment Edges
+2019-07-18 10:39:45,849 DEBUG Created 1300 Containment Edges
+2019-07-18 10:39:47,020 DEBUG Created 1400 Containment Edges
+2019-07-18 10:39:48,183 DEBUG Created 1500 Containment Edges
+2019-07-18 10:39:49,256 DEBUG Creating Reference Edges...
+2019-07-18 10:39:49,375 DEBUG Created 10 Reference Edges
+2019-07-18 10:39:49,506 DEBUG Created 20 Reference Edges
+2019-07-18 10:39:49,634 DEBUG Created 30 Reference Edges
+2019-07-18 10:39:49,752 DEBUG Created 40 Reference Edges
+2019-07-18 10:39:49,879 DEBUG Created 50 Reference Edges
+2019-07-18 10:39:50,011 DEBUG Created 60 Reference Edges
+2019-07-18 10:39:50,193 DEBUG Created 70 Reference Edges
+2019-07-18 10:39:50,314 DEBUG Created 80 Reference Edges
+2019-07-18 10:39:50,462 DEBUG Created 90 Reference Edges
+2019-07-18 10:39:50,581 DEBUG Created 100 Reference Edges
+2019-07-18 10:39:50,704 DEBUG Created 110 Reference Edges
+2019-07-18 10:39:50,836 DEBUG Created 120 Reference Edges
+2019-07-18 10:39:50,956 DEBUG Created 130 Reference Edges
+2019-07-18 10:39:51,084 DEBUG Created 140 Reference Edges
+2019-07-18 10:39:51,214 DEBUG Created 150 Reference Edges
+2019-07-18 10:39:51,333 DEBUG Created 160 Reference Edges
+2019-07-18 10:39:51,453 DEBUG Created 170 Reference Edges
+2019-07-18 10:39:51,579 DEBUG Created 180 Reference Edges
+2019-07-18 10:39:51,755 DEBUG Created 190 Reference Edges
+2019-07-18 10:39:51,929 DEBUG Created 200 Reference Edges
+2019-07-18 10:39:51,986 DEBUG Generating Constraints Objects...
+2019-07-18 10:39:51,995 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 10:39:54,365 INFO Setting up Discretization Algorithms...
+2019-07-18 10:39:54,366 DEBUG Setting up Optimization Algorithms...
+2019-07-18 10:39:54,370 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 10:39:54,370 DEBUG Optimizing...
+2019-07-18 10:39:54,370 DEBUG Beginning CBC Integer Program...
+2019-07-18 10:39:54,454 DEBUG CBC Integer Program complete in 0.08265454509551697 seconds
+2019-07-18 10:39:54,455 INFO Constructing schedule...
+2019-07-18 10:42:16,828 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:42:16,871 INFO Generating MDL File...
+2019-07-18 10:42:16,900 INFO Importing MDL File...
+2019-07-18 10:42:19,746 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:42:20,280 DEBUG Created 20 Node Classes
+2019-07-18 10:42:20,671 DEBUG Created 40 Node Classes
+2019-07-18 10:42:21,259 DEBUG Created 60 Node Classes
+2019-07-18 10:42:21,821 DEBUG Created 80 Node Classes
+2019-07-18 10:42:21,842 DEBUG Indexing Started...
+2019-07-18 10:42:22,187 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:42:22,433 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:42:22,968 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:42:23,358 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:42:23,590 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:42:23,918 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:42:24,358 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:42:24,827 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:42:25,390 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:42:26,019 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:42:26,728 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:42:27,525 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:42:28,407 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:42:29,346 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:42:30,355 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:42:30,968 DEBUG Creating Containment Edges...
+2019-07-18 10:42:32,128 DEBUG Created 100 Containment Edges
+2019-07-18 10:42:33,350 DEBUG Created 200 Containment Edges
+2019-07-18 10:42:34,638 DEBUG Created 300 Containment Edges
+2019-07-18 10:42:35,989 DEBUG Created 400 Containment Edges
+2019-07-18 10:42:37,197 DEBUG Created 500 Containment Edges
+2019-07-18 10:42:38,333 DEBUG Created 600 Containment Edges
+2019-07-18 10:42:39,443 DEBUG Created 700 Containment Edges
+2019-07-18 10:42:40,606 DEBUG Created 800 Containment Edges
+2019-07-18 10:42:41,794 DEBUG Created 900 Containment Edges
+2019-07-18 10:42:42,916 DEBUG Created 1000 Containment Edges
+2019-07-18 10:42:44,119 DEBUG Created 1100 Containment Edges
+2019-07-18 10:42:45,279 DEBUG Created 1200 Containment Edges
+2019-07-18 10:42:46,403 DEBUG Created 1300 Containment Edges
+2019-07-18 10:42:47,499 DEBUG Created 1400 Containment Edges
+2019-07-18 10:42:48,641 DEBUG Created 1500 Containment Edges
+2019-07-18 10:42:49,852 DEBUG Creating Reference Edges...
+2019-07-18 10:42:49,975 DEBUG Created 10 Reference Edges
+2019-07-18 10:42:50,103 DEBUG Created 20 Reference Edges
+2019-07-18 10:42:50,325 DEBUG Created 30 Reference Edges
+2019-07-18 10:42:50,458 DEBUG Created 40 Reference Edges
+2019-07-18 10:42:50,602 DEBUG Created 50 Reference Edges
+2019-07-18 10:42:50,725 DEBUG Created 60 Reference Edges
+2019-07-18 10:42:50,873 DEBUG Created 70 Reference Edges
+2019-07-18 10:42:50,998 DEBUG Created 80 Reference Edges
+2019-07-18 10:42:51,116 DEBUG Created 90 Reference Edges
+2019-07-18 10:42:51,239 DEBUG Created 100 Reference Edges
+2019-07-18 10:42:51,429 DEBUG Created 110 Reference Edges
+2019-07-18 10:42:51,556 DEBUG Created 120 Reference Edges
+2019-07-18 10:42:51,677 DEBUG Created 130 Reference Edges
+2019-07-18 10:42:51,807 DEBUG Created 140 Reference Edges
+2019-07-18 10:42:51,941 DEBUG Created 150 Reference Edges
+2019-07-18 10:42:52,062 DEBUG Created 160 Reference Edges
+2019-07-18 10:42:52,179 DEBUG Created 170 Reference Edges
+2019-07-18 10:42:52,310 DEBUG Created 180 Reference Edges
+2019-07-18 10:42:52,434 DEBUG Created 190 Reference Edges
+2019-07-18 10:42:52,563 DEBUG Created 200 Reference Edges
+2019-07-18 10:42:52,627 DEBUG Generating Constraints Objects...
+2019-07-18 10:42:52,637 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 10:42:55,088 INFO Setting up Discretization Algorithms...
+2019-07-18 10:42:55,088 DEBUG Setting up Optimization Algorithms...
+2019-07-18 10:42:55,093 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 10:42:55,093 DEBUG Optimizing...
+2019-07-18 10:42:55,093 DEBUG Beginning CBC Integer Program...
+2019-07-18 10:42:55,176 DEBUG CBC Integer Program complete in 0.08233613170395947 seconds
+2019-07-18 10:42:55,177 INFO Constructing schedule...
+2019-07-18 10:44:21,857 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:44:21,896 INFO Generating MDL File...
+2019-07-18 10:44:21,927 INFO Importing MDL File...
+2019-07-18 10:44:24,470 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:44:25,085 DEBUG Created 20 Node Classes
+2019-07-18 10:44:25,698 DEBUG Created 40 Node Classes
+2019-07-18 10:44:26,235 DEBUG Created 60 Node Classes
+2019-07-18 10:44:26,753 DEBUG Created 80 Node Classes
+2019-07-18 10:44:26,772 DEBUG Indexing Started...
+2019-07-18 10:44:27,130 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:44:27,391 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:44:27,891 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:44:28,339 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:44:28,599 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:44:28,906 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:44:29,306 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:44:29,772 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:44:30,338 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:44:31,044 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:44:31,736 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:44:32,531 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:44:33,415 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:44:34,361 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:44:35,378 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:44:36,004 DEBUG Creating Containment Edges...
+2019-07-18 10:44:37,146 DEBUG Created 100 Containment Edges
+2019-07-18 10:44:38,253 DEBUG Created 200 Containment Edges
+2019-07-18 10:44:39,371 DEBUG Created 300 Containment Edges
+2019-07-18 10:44:40,476 DEBUG Created 400 Containment Edges
+2019-07-18 10:44:41,575 DEBUG Created 500 Containment Edges
+2019-07-18 10:44:42,663 DEBUG Created 600 Containment Edges
+2019-07-18 10:44:43,801 DEBUG Created 700 Containment Edges
+2019-07-18 10:44:44,885 DEBUG Created 800 Containment Edges
+2019-07-18 10:44:46,006 DEBUG Created 900 Containment Edges
+2019-07-18 10:44:47,131 DEBUG Created 1000 Containment Edges
+2019-07-18 10:44:48,246 DEBUG Created 1100 Containment Edges
+2019-07-18 10:44:49,345 DEBUG Created 1200 Containment Edges
+2019-07-18 10:44:50,441 DEBUG Created 1300 Containment Edges
+2019-07-18 10:44:51,533 DEBUG Created 1400 Containment Edges
+2019-07-18 10:44:52,662 DEBUG Created 1500 Containment Edges
+2019-07-18 10:44:53,712 DEBUG Creating Reference Edges...
+2019-07-18 10:44:53,833 DEBUG Created 10 Reference Edges
+2019-07-18 10:44:53,952 DEBUG Created 20 Reference Edges
+2019-07-18 10:44:54,072 DEBUG Created 30 Reference Edges
+2019-07-18 10:44:54,197 DEBUG Created 40 Reference Edges
+2019-07-18 10:44:54,313 DEBUG Created 50 Reference Edges
+2019-07-18 10:44:54,433 DEBUG Created 60 Reference Edges
+2019-07-18 10:44:54,551 DEBUG Created 70 Reference Edges
+2019-07-18 10:44:54,669 DEBUG Created 80 Reference Edges
+2019-07-18 10:44:54,823 DEBUG Created 90 Reference Edges
+2019-07-18 10:44:54,945 DEBUG Created 100 Reference Edges
+2019-07-18 10:44:55,072 DEBUG Created 110 Reference Edges
+2019-07-18 10:44:55,201 DEBUG Created 120 Reference Edges
+2019-07-18 10:44:55,334 DEBUG Created 130 Reference Edges
+2019-07-18 10:44:55,455 DEBUG Created 140 Reference Edges
+2019-07-18 10:44:55,578 DEBUG Created 150 Reference Edges
+2019-07-18 10:44:55,706 DEBUG Created 160 Reference Edges
+2019-07-18 10:44:55,836 DEBUG Created 170 Reference Edges
+2019-07-18 10:44:55,969 DEBUG Created 180 Reference Edges
+2019-07-18 10:44:56,095 DEBUG Created 190 Reference Edges
+2019-07-18 10:44:56,220 DEBUG Created 200 Reference Edges
+2019-07-18 10:44:56,275 DEBUG Generating Constraints Objects...
+2019-07-18 10:44:56,284 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 10:44:58,643 INFO Setting up Discretization Algorithms...
+2019-07-18 10:44:58,643 DEBUG Setting up Optimization Algorithms...
+2019-07-18 10:44:58,648 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 10:44:58,648 DEBUG Optimizing...
+2019-07-18 10:44:58,648 DEBUG Beginning CBC Integer Program...
+2019-07-18 10:44:58,730 DEBUG CBC Integer Program complete in 0.08149760784446476 seconds
+2019-07-18 10:44:58,732 INFO Constructing schedule...
+2019-07-18 10:45:36,047 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 10:45:36,095 INFO Generating MDL File...
+2019-07-18 10:45:36,121 INFO Importing MDL File...
+2019-07-18 10:45:38,789 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 10:45:39,399 DEBUG Created 20 Node Classes
+2019-07-18 10:45:39,935 DEBUG Created 40 Node Classes
+2019-07-18 10:45:40,454 DEBUG Created 60 Node Classes
+2019-07-18 10:45:41,159 DEBUG Created 80 Node Classes
+2019-07-18 10:45:41,178 DEBUG Indexing Started...
+2019-07-18 10:45:41,539 DEBUG Indexed 100 MDL Elements
+2019-07-18 10:45:41,794 DEBUG Indexed 200 MDL Elements
+2019-07-18 10:45:42,290 DEBUG Indexed 300 MDL Elements
+2019-07-18 10:45:42,733 DEBUG Indexed 400 MDL Elements
+2019-07-18 10:45:42,975 DEBUG Indexed 500 MDL Elements
+2019-07-18 10:45:43,297 DEBUG Indexed 600 MDL Elements
+2019-07-18 10:45:43,710 DEBUG Indexed 700 MDL Elements
+2019-07-18 10:45:44,184 DEBUG Indexed 800 MDL Elements
+2019-07-18 10:45:44,718 DEBUG Indexed 900 MDL Elements
+2019-07-18 10:45:45,362 DEBUG Indexed 1000 MDL Elements
+2019-07-18 10:45:46,107 DEBUG Indexed 1100 MDL Elements
+2019-07-18 10:45:46,862 DEBUG Indexed 1200 MDL Elements
+2019-07-18 10:45:47,749 DEBUG Indexed 1300 MDL Elements
+2019-07-18 10:45:48,686 DEBUG Indexed 1400 MDL Elements
+2019-07-18 10:45:49,692 DEBUG Indexed 1500 MDL Elements
+2019-07-18 10:45:50,293 DEBUG Creating Containment Edges...
+2019-07-18 10:45:51,474 DEBUG Created 100 Containment Edges
+2019-07-18 10:45:52,766 DEBUG Created 200 Containment Edges
+2019-07-18 10:45:53,937 DEBUG Created 300 Containment Edges
+2019-07-18 10:45:55,096 DEBUG Created 400 Containment Edges
+2019-07-18 10:45:56,224 DEBUG Created 500 Containment Edges
+2019-07-18 10:45:57,353 DEBUG Created 600 Containment Edges
+2019-07-18 10:45:58,471 DEBUG Created 700 Containment Edges
+2019-07-18 10:45:59,604 DEBUG Created 800 Containment Edges
+2019-07-18 10:46:00,741 DEBUG Created 900 Containment Edges
+2019-07-18 10:46:01,921 DEBUG Created 1000 Containment Edges
+2019-07-18 10:46:03,107 DEBUG Created 1100 Containment Edges
+2019-07-18 10:46:04,240 DEBUG Created 1200 Containment Edges
+2019-07-18 10:46:05,385 DEBUG Created 1300 Containment Edges
+2019-07-18 10:46:06,527 DEBUG Created 1400 Containment Edges
+2019-07-18 10:46:07,680 DEBUG Created 1500 Containment Edges
+2019-07-18 10:46:08,874 DEBUG Creating Reference Edges...
+2019-07-18 10:46:09,065 DEBUG Created 10 Reference Edges
+2019-07-18 10:46:09,197 DEBUG Created 20 Reference Edges
+2019-07-18 10:46:09,321 DEBUG Created 30 Reference Edges
+2019-07-18 10:46:09,456 DEBUG Created 40 Reference Edges
+2019-07-18 10:46:09,579 DEBUG Created 50 Reference Edges
+2019-07-18 10:46:09,715 DEBUG Created 60 Reference Edges
+2019-07-18 10:46:09,848 DEBUG Created 70 Reference Edges
+2019-07-18 10:46:09,972 DEBUG Created 80 Reference Edges
+2019-07-18 10:46:10,111 DEBUG Created 90 Reference Edges
+2019-07-18 10:46:10,234 DEBUG Created 100 Reference Edges
+2019-07-18 10:46:10,361 DEBUG Created 110 Reference Edges
+2019-07-18 10:46:10,488 DEBUG Created 120 Reference Edges
+2019-07-18 10:46:10,620 DEBUG Created 130 Reference Edges
+2019-07-18 10:46:10,746 DEBUG Created 140 Reference Edges
+2019-07-18 10:46:10,877 DEBUG Created 150 Reference Edges
+2019-07-18 10:46:11,016 DEBUG Created 160 Reference Edges
+2019-07-18 10:46:11,144 DEBUG Created 170 Reference Edges
+2019-07-18 10:46:11,270 DEBUG Created 180 Reference Edges
+2019-07-18 10:46:11,400 DEBUG Created 190 Reference Edges
+2019-07-18 10:46:11,531 DEBUG Created 200 Reference Edges
+2019-07-18 10:46:11,583 DEBUG Generating Constraints Objects...
+2019-07-18 10:46:11,592 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 10:46:13,826 INFO Setting up Discretization Algorithms...
+2019-07-18 10:46:13,826 DEBUG Setting up Optimization Algorithms...
+2019-07-18 10:46:13,831 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 10:46:13,831 DEBUG Optimizing...
+2019-07-18 10:46:13,831 DEBUG Beginning CBC Integer Program...
+2019-07-18 10:46:13,913 DEBUG CBC Integer Program complete in 0.08107270403845503 seconds
+2019-07-18 10:46:13,914 INFO Constructing schedule...
+2019-07-18 11:50:43,055 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 11:53:11,517 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:34:53,274 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:35:37,715 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:36:11,347 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:36:45,873 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:36:45,914 INFO Generating MDL File...
+2019-07-18 13:36:45,943 INFO Importing MDL File...
+2019-07-18 13:36:48,588 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 13:36:48,964 DEBUG Created 20 Node Classes
+2019-07-18 13:36:49,460 DEBUG Created 40 Node Classes
+2019-07-18 13:36:49,837 DEBUG Created 60 Node Classes
+2019-07-18 13:36:50,226 DEBUG Created 80 Node Classes
+2019-07-18 13:36:50,247 DEBUG Indexing Started...
+2019-07-18 13:36:50,591 DEBUG Indexed 100 MDL Elements
+2019-07-18 13:36:50,884 DEBUG Indexed 200 MDL Elements
+2019-07-18 13:36:51,427 DEBUG Indexed 300 MDL Elements
+2019-07-18 13:36:51,833 DEBUG Indexed 400 MDL Elements
+2019-07-18 13:36:52,087 DEBUG Indexed 500 MDL Elements
+2019-07-18 13:36:52,423 DEBUG Indexed 600 MDL Elements
+2019-07-18 13:36:52,844 DEBUG Indexed 700 MDL Elements
+2019-07-18 13:36:53,353 DEBUG Indexed 800 MDL Elements
+2019-07-18 13:36:53,933 DEBUG Indexed 900 MDL Elements
+2019-07-18 13:36:54,617 DEBUG Indexed 1000 MDL Elements
+2019-07-18 13:36:55,348 DEBUG Indexed 1100 MDL Elements
+2019-07-18 13:36:56,158 DEBUG Indexed 1200 MDL Elements
+2019-07-18 13:36:57,068 DEBUG Indexed 1300 MDL Elements
+2019-07-18 13:36:58,100 DEBUG Indexed 1400 MDL Elements
+2019-07-18 13:36:59,174 DEBUG Indexed 1500 MDL Elements
+2019-07-18 13:36:59,839 DEBUG Creating Containment Edges...
+2019-07-18 13:37:00,981 DEBUG Created 100 Containment Edges
+2019-07-18 13:37:02,083 DEBUG Created 200 Containment Edges
+2019-07-18 13:37:03,279 DEBUG Created 300 Containment Edges
+2019-07-18 13:37:04,439 DEBUG Created 400 Containment Edges
+2019-07-18 13:37:05,552 DEBUG Created 500 Containment Edges
+2019-07-18 13:37:06,668 DEBUG Created 600 Containment Edges
+2019-07-18 13:37:07,778 DEBUG Created 700 Containment Edges
+2019-07-18 13:37:08,886 DEBUG Created 800 Containment Edges
+2019-07-18 13:37:09,994 DEBUG Created 900 Containment Edges
+2019-07-18 13:37:11,130 DEBUG Created 1000 Containment Edges
+2019-07-18 13:37:12,277 DEBUG Created 1100 Containment Edges
+2019-07-18 13:37:13,394 DEBUG Created 1200 Containment Edges
+2019-07-18 13:37:14,529 DEBUG Created 1300 Containment Edges
+2019-07-18 13:37:15,681 DEBUG Created 1400 Containment Edges
+2019-07-18 13:37:16,793 DEBUG Created 1500 Containment Edges
+2019-07-18 13:37:17,908 DEBUG Creating Reference Edges...
+2019-07-18 13:37:18,021 DEBUG Created 10 Reference Edges
+2019-07-18 13:37:18,145 DEBUG Created 20 Reference Edges
+2019-07-18 13:37:18,283 DEBUG Created 30 Reference Edges
+2019-07-18 13:37:18,414 DEBUG Created 40 Reference Edges
+2019-07-18 13:37:18,547 DEBUG Created 50 Reference Edges
+2019-07-18 13:37:18,684 DEBUG Created 60 Reference Edges
+2019-07-18 13:37:18,819 DEBUG Created 70 Reference Edges
+2019-07-18 13:37:18,986 DEBUG Created 80 Reference Edges
+2019-07-18 13:37:19,128 DEBUG Created 90 Reference Edges
+2019-07-18 13:37:19,286 DEBUG Created 100 Reference Edges
+2019-07-18 13:37:19,439 DEBUG Created 110 Reference Edges
+2019-07-18 13:37:19,571 DEBUG Created 120 Reference Edges
+2019-07-18 13:37:19,740 DEBUG Created 130 Reference Edges
+2019-07-18 13:37:19,877 DEBUG Created 140 Reference Edges
+2019-07-18 13:37:20,006 DEBUG Created 150 Reference Edges
+2019-07-18 13:37:20,172 DEBUG Created 160 Reference Edges
+2019-07-18 13:37:20,296 DEBUG Created 170 Reference Edges
+2019-07-18 13:37:20,417 DEBUG Created 180 Reference Edges
+2019-07-18 13:37:20,545 DEBUG Created 190 Reference Edges
+2019-07-18 13:37:20,666 DEBUG Created 200 Reference Edges
+2019-07-18 13:37:20,719 DEBUG Generating Constraints Objects...
+2019-07-18 13:37:20,731 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 13:55:08,906 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:55:08,945 INFO Generating MDL File...
+2019-07-18 13:55:08,972 INFO Importing MDL File...
+2019-07-18 13:55:12,116 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 13:55:12,450 DEBUG Created 20 Node Classes
+2019-07-18 13:55:13,247 DEBUG Created 40 Node Classes
+2019-07-18 13:55:13,885 DEBUG Created 60 Node Classes
+2019-07-18 13:55:14,335 DEBUG Created 80 Node Classes
+2019-07-18 13:55:14,354 DEBUG Indexing Started...
+2019-07-18 13:55:14,723 DEBUG Indexed 100 MDL Elements
+2019-07-18 13:55:14,979 DEBUG Indexed 200 MDL Elements
+2019-07-18 13:55:15,469 DEBUG Indexed 300 MDL Elements
+2019-07-18 13:55:15,885 DEBUG Indexed 400 MDL Elements
+2019-07-18 13:55:16,122 DEBUG Indexed 500 MDL Elements
+2019-07-18 13:55:16,441 DEBUG Indexed 600 MDL Elements
+2019-07-18 13:55:16,873 DEBUG Indexed 700 MDL Elements
+2019-07-18 13:55:17,366 DEBUG Indexed 800 MDL Elements
+2019-07-18 13:55:17,914 DEBUG Indexed 900 MDL Elements
+2019-07-18 13:55:18,571 DEBUG Indexed 1000 MDL Elements
+2019-07-18 13:55:19,304 DEBUG Indexed 1100 MDL Elements
+2019-07-18 13:55:20,099 DEBUG Indexed 1200 MDL Elements
+2019-07-18 13:55:21,000 DEBUG Indexed 1300 MDL Elements
+2019-07-18 13:55:21,969 DEBUG Indexed 1400 MDL Elements
+2019-07-18 13:55:23,042 DEBUG Indexed 1500 MDL Elements
+2019-07-18 13:55:23,671 DEBUG Creating Containment Edges...
+2019-07-18 13:55:25,019 DEBUG Created 100 Containment Edges
+2019-07-18 13:55:26,156 DEBUG Created 200 Containment Edges
+2019-07-18 13:55:27,306 DEBUG Created 300 Containment Edges
+2019-07-18 13:55:28,469 DEBUG Created 400 Containment Edges
+2019-07-18 13:55:29,618 DEBUG Created 500 Containment Edges
+2019-07-18 13:55:30,740 DEBUG Created 600 Containment Edges
+2019-07-18 13:55:31,952 DEBUG Created 700 Containment Edges
+2019-07-18 13:55:33,101 DEBUG Created 800 Containment Edges
+2019-07-18 13:55:34,234 DEBUG Created 900 Containment Edges
+2019-07-18 13:55:35,374 DEBUG Created 1000 Containment Edges
+2019-07-18 13:55:36,519 DEBUG Created 1100 Containment Edges
+2019-07-18 13:55:37,702 DEBUG Created 1200 Containment Edges
+2019-07-18 13:55:38,845 DEBUG Created 1300 Containment Edges
+2019-07-18 13:55:39,982 DEBUG Created 1400 Containment Edges
+2019-07-18 13:55:41,124 DEBUG Created 1500 Containment Edges
+2019-07-18 13:55:42,234 DEBUG Creating Reference Edges...
+2019-07-18 13:55:42,418 DEBUG Created 10 Reference Edges
+2019-07-18 13:55:42,547 DEBUG Created 20 Reference Edges
+2019-07-18 13:55:42,673 DEBUG Created 30 Reference Edges
+2019-07-18 13:55:42,803 DEBUG Created 40 Reference Edges
+2019-07-18 13:55:42,932 DEBUG Created 50 Reference Edges
+2019-07-18 13:55:43,061 DEBUG Created 60 Reference Edges
+2019-07-18 13:55:43,186 DEBUG Created 70 Reference Edges
+2019-07-18 13:55:43,313 DEBUG Created 80 Reference Edges
+2019-07-18 13:55:43,440 DEBUG Created 90 Reference Edges
+2019-07-18 13:55:43,579 DEBUG Created 100 Reference Edges
+2019-07-18 13:55:43,699 DEBUG Created 110 Reference Edges
+2019-07-18 13:55:43,851 DEBUG Created 120 Reference Edges
+2019-07-18 13:55:43,972 DEBUG Created 130 Reference Edges
+2019-07-18 13:55:44,111 DEBUG Created 140 Reference Edges
+2019-07-18 13:55:44,231 DEBUG Created 150 Reference Edges
+2019-07-18 13:55:44,352 DEBUG Created 160 Reference Edges
+2019-07-18 13:55:44,492 DEBUG Created 170 Reference Edges
+2019-07-18 13:55:44,619 DEBUG Created 180 Reference Edges
+2019-07-18 13:55:44,754 DEBUG Created 190 Reference Edges
+2019-07-18 13:55:44,886 DEBUG Created 200 Reference Edges
+2019-07-18 13:55:44,953 DEBUG Generating Constraints Objects...
+2019-07-18 13:55:44,961 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 13:57:29,481 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:57:52,964 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:58:41,097 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:58:41,143 INFO Generating MDL File...
+2019-07-18 13:58:41,170 INFO Importing MDL File...
+2019-07-18 13:58:44,030 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 13:58:44,576 DEBUG Created 20 Node Classes
+2019-07-18 13:58:44,984 DEBUG Created 40 Node Classes
+2019-07-18 13:58:45,476 DEBUG Created 60 Node Classes
+2019-07-18 13:58:46,064 DEBUG Created 80 Node Classes
+2019-07-18 13:58:46,085 DEBUG Indexing Started...
+2019-07-18 13:58:46,461 DEBUG Indexed 100 MDL Elements
+2019-07-18 13:58:46,742 DEBUG Indexed 200 MDL Elements
+2019-07-18 13:58:47,262 DEBUG Indexed 300 MDL Elements
+2019-07-18 13:58:47,678 DEBUG Indexed 400 MDL Elements
+2019-07-18 13:58:47,938 DEBUG Indexed 500 MDL Elements
+2019-07-18 13:58:48,305 DEBUG Indexed 600 MDL Elements
+2019-07-18 13:58:48,745 DEBUG Indexed 700 MDL Elements
+2019-07-18 13:58:49,228 DEBUG Indexed 800 MDL Elements
+2019-07-18 13:58:49,807 DEBUG Indexed 900 MDL Elements
+2019-07-18 13:58:50,480 DEBUG Indexed 1000 MDL Elements
+2019-07-18 13:58:51,242 DEBUG Indexed 1100 MDL Elements
+2019-07-18 13:58:52,062 DEBUG Indexed 1200 MDL Elements
+2019-07-18 13:58:52,968 DEBUG Indexed 1300 MDL Elements
+2019-07-18 13:58:53,989 DEBUG Indexed 1400 MDL Elements
+2019-07-18 13:58:55,044 DEBUG Indexed 1500 MDL Elements
+2019-07-18 13:58:55,693 DEBUG Creating Containment Edges...
+2019-07-18 13:58:56,920 DEBUG Created 100 Containment Edges
+2019-07-18 13:58:58,070 DEBUG Created 200 Containment Edges
+2019-07-18 13:58:59,215 DEBUG Created 300 Containment Edges
+2019-07-18 13:59:00,348 DEBUG Created 400 Containment Edges
+2019-07-18 13:59:01,464 DEBUG Created 500 Containment Edges
+2019-07-18 13:59:02,589 DEBUG Created 600 Containment Edges
+2019-07-18 13:59:03,732 DEBUG Created 700 Containment Edges
+2019-07-18 13:59:04,922 DEBUG Created 800 Containment Edges
+2019-07-18 13:59:06,043 DEBUG Created 900 Containment Edges
+2019-07-18 13:59:07,196 DEBUG Created 1000 Containment Edges
+2019-07-18 13:59:08,332 DEBUG Created 1100 Containment Edges
+2019-07-18 13:59:09,490 DEBUG Created 1200 Containment Edges
+2019-07-18 13:59:10,697 DEBUG Created 1300 Containment Edges
+2019-07-18 13:59:11,878 DEBUG Created 1400 Containment Edges
+2019-07-18 13:59:13,036 DEBUG Created 1500 Containment Edges
+2019-07-18 13:59:14,141 DEBUG Creating Reference Edges...
+2019-07-18 13:59:14,274 DEBUG Created 10 Reference Edges
+2019-07-18 13:59:14,398 DEBUG Created 20 Reference Edges
+2019-07-18 13:59:14,527 DEBUG Created 30 Reference Edges
+2019-07-18 13:59:14,653 DEBUG Created 40 Reference Edges
+2019-07-18 13:59:14,791 DEBUG Created 50 Reference Edges
+2019-07-18 13:59:14,925 DEBUG Created 60 Reference Edges
+2019-07-18 13:59:15,056 DEBUG Created 70 Reference Edges
+2019-07-18 13:59:15,182 DEBUG Created 80 Reference Edges
+2019-07-18 13:59:15,305 DEBUG Created 90 Reference Edges
+2019-07-18 13:59:15,433 DEBUG Created 100 Reference Edges
+2019-07-18 13:59:15,573 DEBUG Created 110 Reference Edges
+2019-07-18 13:59:15,696 DEBUG Created 120 Reference Edges
+2019-07-18 13:59:15,839 DEBUG Created 130 Reference Edges
+2019-07-18 13:59:15,972 DEBUG Created 140 Reference Edges
+2019-07-18 13:59:16,102 DEBUG Created 150 Reference Edges
+2019-07-18 13:59:16,293 DEBUG Created 160 Reference Edges
+2019-07-18 13:59:16,487 DEBUG Created 170 Reference Edges
+2019-07-18 13:59:16,607 DEBUG Created 180 Reference Edges
+2019-07-18 13:59:16,727 DEBUG Created 190 Reference Edges
+2019-07-18 13:59:16,857 DEBUG Created 200 Reference Edges
+2019-07-18 13:59:16,928 DEBUG Generating Constraints Objects...
+2019-07-18 13:59:16,936 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 13:59:19,463 INFO Setting up Discretization Algorithms...
+2019-07-18 13:59:19,463 DEBUG Setting up Optimization Algorithms...
+2019-07-18 13:59:19,468 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 13:59:19,469 DEBUG Optimizing...
+2019-07-18 13:59:19,469 DEBUG Beginning CBC Integer Program...
+2019-07-18 13:59:49,116 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 13:59:49,155 INFO Generating MDL File...
+2019-07-18 13:59:49,183 INFO Importing MDL File...
+2019-07-18 13:59:52,033 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 13:59:52,486 DEBUG Created 20 Node Classes
+2019-07-18 13:59:53,039 DEBUG Created 40 Node Classes
+2019-07-18 13:59:53,536 DEBUG Created 60 Node Classes
+2019-07-18 13:59:53,928 DEBUG Created 80 Node Classes
+2019-07-18 13:59:53,946 DEBUG Indexing Started...
+2019-07-18 13:59:54,300 DEBUG Indexed 100 MDL Elements
+2019-07-18 13:59:54,564 DEBUG Indexed 200 MDL Elements
+2019-07-18 13:59:55,082 DEBUG Indexed 300 MDL Elements
+2019-07-18 13:59:55,500 DEBUG Indexed 400 MDL Elements
+2019-07-18 13:59:55,746 DEBUG Indexed 500 MDL Elements
+2019-07-18 13:59:56,063 DEBUG Indexed 600 MDL Elements
+2019-07-18 13:59:56,486 DEBUG Indexed 700 MDL Elements
+2019-07-18 13:59:56,961 DEBUG Indexed 800 MDL Elements
+2019-07-18 13:59:57,535 DEBUG Indexed 900 MDL Elements
+2019-07-18 13:59:58,192 DEBUG Indexed 1000 MDL Elements
+2019-07-18 13:59:58,951 DEBUG Indexed 1100 MDL Elements
+2019-07-18 13:59:59,741 DEBUG Indexed 1200 MDL Elements
+2019-07-18 14:00:00,733 DEBUG Indexed 1300 MDL Elements
+2019-07-18 14:00:01,718 DEBUG Indexed 1400 MDL Elements
+2019-07-18 14:00:02,765 DEBUG Indexed 1500 MDL Elements
+2019-07-18 14:00:03,421 DEBUG Creating Containment Edges...
+2019-07-18 14:00:04,590 DEBUG Created 100 Containment Edges
+2019-07-18 14:00:05,952 DEBUG Created 200 Containment Edges
+2019-07-18 14:00:07,258 DEBUG Created 300 Containment Edges
+2019-07-18 14:00:08,414 DEBUG Created 400 Containment Edges
+2019-07-18 14:00:09,552 DEBUG Created 500 Containment Edges
+2019-07-18 14:00:10,691 DEBUG Created 600 Containment Edges
+2019-07-18 14:00:11,846 DEBUG Created 700 Containment Edges
+2019-07-18 14:00:12,990 DEBUG Created 800 Containment Edges
+2019-07-18 14:00:14,137 DEBUG Created 900 Containment Edges
+2019-07-18 14:00:15,279 DEBUG Created 1000 Containment Edges
+2019-07-18 14:00:16,429 DEBUG Created 1100 Containment Edges
+2019-07-18 14:00:17,623 DEBUG Created 1200 Containment Edges
+2019-07-18 14:00:18,828 DEBUG Created 1300 Containment Edges
+2019-07-18 14:00:19,991 DEBUG Created 1400 Containment Edges
+2019-07-18 14:00:21,176 DEBUG Created 1500 Containment Edges
+2019-07-18 14:00:22,402 DEBUG Creating Reference Edges...
+2019-07-18 14:00:22,542 DEBUG Created 10 Reference Edges
+2019-07-18 14:00:22,671 DEBUG Created 20 Reference Edges
+2019-07-18 14:00:22,804 DEBUG Created 30 Reference Edges
+2019-07-18 14:00:22,939 DEBUG Created 40 Reference Edges
+2019-07-18 14:00:23,381 DEBUG Created 50 Reference Edges
+2019-07-18 14:00:23,509 DEBUG Created 60 Reference Edges
+2019-07-18 14:00:23,631 DEBUG Created 70 Reference Edges
+2019-07-18 14:00:23,757 DEBUG Created 80 Reference Edges
+2019-07-18 14:00:23,905 DEBUG Created 90 Reference Edges
+2019-07-18 14:00:24,031 DEBUG Created 100 Reference Edges
+2019-07-18 14:00:24,159 DEBUG Created 110 Reference Edges
+2019-07-18 14:00:24,438 DEBUG Created 120 Reference Edges
+2019-07-18 14:00:24,614 DEBUG Created 130 Reference Edges
+2019-07-18 14:00:24,756 DEBUG Created 140 Reference Edges
+2019-07-18 14:00:24,884 DEBUG Created 150 Reference Edges
+2019-07-18 14:00:25,012 DEBUG Created 160 Reference Edges
+2019-07-18 14:00:25,139 DEBUG Created 170 Reference Edges
+2019-07-18 14:00:25,270 DEBUG Created 180 Reference Edges
+2019-07-18 14:00:25,429 DEBUG Created 190 Reference Edges
+2019-07-18 14:00:25,553 DEBUG Created 200 Reference Edges
+2019-07-18 14:00:25,614 DEBUG Generating Constraints Objects...
+2019-07-18 14:00:25,623 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 14:00:27,996 INFO Setting up Discretization Algorithms...
+2019-07-18 14:00:27,996 DEBUG Setting up Optimization Algorithms...
+2019-07-18 14:00:28,002 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 14:00:28,002 DEBUG Optimizing...
+2019-07-18 14:00:28,002 DEBUG Beginning CBC Integer Program...
+2019-07-18 14:01:37,306 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 14:01:37,346 INFO Generating MDL File...
+2019-07-18 14:01:37,374 INFO Importing MDL File...
+2019-07-18 14:01:40,556 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 14:01:40,940 DEBUG Created 20 Node Classes
+2019-07-18 14:01:41,452 DEBUG Created 40 Node Classes
+2019-07-18 14:01:41,994 DEBUG Created 60 Node Classes
+2019-07-18 14:01:42,661 DEBUG Created 80 Node Classes
+2019-07-18 14:01:42,683 DEBUG Indexing Started...
+2019-07-18 14:01:43,055 DEBUG Indexed 100 MDL Elements
+2019-07-18 14:01:43,313 DEBUG Indexed 200 MDL Elements
+2019-07-18 14:01:43,860 DEBUG Indexed 300 MDL Elements
+2019-07-18 14:01:44,279 DEBUG Indexed 400 MDL Elements
+2019-07-18 14:01:44,520 DEBUG Indexed 500 MDL Elements
+2019-07-18 14:01:44,850 DEBUG Indexed 600 MDL Elements
+2019-07-18 14:01:45,269 DEBUG Indexed 700 MDL Elements
+2019-07-18 14:01:45,754 DEBUG Indexed 800 MDL Elements
+2019-07-18 14:01:46,297 DEBUG Indexed 900 MDL Elements
+2019-07-18 14:01:46,963 DEBUG Indexed 1000 MDL Elements
+2019-07-18 14:01:47,737 DEBUG Indexed 1100 MDL Elements
+2019-07-18 14:01:48,527 DEBUG Indexed 1200 MDL Elements
+2019-07-18 14:01:49,493 DEBUG Indexed 1300 MDL Elements
+2019-07-18 14:01:50,465 DEBUG Indexed 1400 MDL Elements
+2019-07-18 14:01:51,502 DEBUG Indexed 1500 MDL Elements
+2019-07-18 14:01:52,123 DEBUG Creating Containment Edges...
+2019-07-18 14:01:53,259 DEBUG Created 100 Containment Edges
+2019-07-18 14:01:54,387 DEBUG Created 200 Containment Edges
+2019-07-18 14:01:55,621 DEBUG Created 300 Containment Edges
+2019-07-18 14:01:56,828 DEBUG Created 400 Containment Edges
+2019-07-18 14:01:57,940 DEBUG Created 500 Containment Edges
+2019-07-18 14:01:59,044 DEBUG Created 600 Containment Edges
+2019-07-18 14:02:00,137 DEBUG Created 700 Containment Edges
+2019-07-18 14:02:01,240 DEBUG Created 800 Containment Edges
+2019-07-18 14:02:02,335 DEBUG Created 900 Containment Edges
+2019-07-18 14:02:03,440 DEBUG Created 1000 Containment Edges
+2019-07-18 14:02:04,531 DEBUG Created 1100 Containment Edges
+2019-07-18 14:02:05,628 DEBUG Created 1200 Containment Edges
+2019-07-18 14:02:06,721 DEBUG Created 1300 Containment Edges
+2019-07-18 14:02:07,841 DEBUG Created 1400 Containment Edges
+2019-07-18 14:02:08,947 DEBUG Created 1500 Containment Edges
+2019-07-18 14:02:10,012 DEBUG Creating Reference Edges...
+2019-07-18 14:02:10,215 DEBUG Created 10 Reference Edges
+2019-07-18 14:02:10,367 DEBUG Created 20 Reference Edges
+2019-07-18 14:02:10,522 DEBUG Created 30 Reference Edges
+2019-07-18 14:02:10,820 DEBUG Created 40 Reference Edges
+2019-07-18 14:02:10,952 DEBUG Created 50 Reference Edges
+2019-07-18 14:02:11,070 DEBUG Created 60 Reference Edges
+2019-07-18 14:02:11,190 DEBUG Created 70 Reference Edges
+2019-07-18 14:02:11,311 DEBUG Created 80 Reference Edges
+2019-07-18 14:02:11,442 DEBUG Created 90 Reference Edges
+2019-07-18 14:02:11,647 DEBUG Created 100 Reference Edges
+2019-07-18 14:02:11,777 DEBUG Created 110 Reference Edges
+2019-07-18 14:02:11,904 DEBUG Created 120 Reference Edges
+2019-07-18 14:02:12,032 DEBUG Created 130 Reference Edges
+2019-07-18 14:02:12,152 DEBUG Created 140 Reference Edges
+2019-07-18 14:02:12,270 DEBUG Created 150 Reference Edges
+2019-07-18 14:02:12,400 DEBUG Created 160 Reference Edges
+2019-07-18 14:02:12,526 DEBUG Created 170 Reference Edges
+2019-07-18 14:02:12,644 DEBUG Created 180 Reference Edges
+2019-07-18 14:02:12,761 DEBUG Created 190 Reference Edges
+2019-07-18 14:02:12,889 DEBUG Created 200 Reference Edges
+2019-07-18 14:02:12,944 DEBUG Generating Constraints Objects...
+2019-07-18 14:02:12,952 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 14:02:15,366 INFO Setting up Discretization Algorithms...
+2019-07-18 14:02:15,367 DEBUG Setting up Optimization Algorithms...
+2019-07-18 14:02:15,371 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 14:02:15,372 DEBUG Optimizing...
+2019-07-18 14:02:15,372 DEBUG Beginning CBC Integer Program...
+2019-07-18 14:02:15,508 DEBUG CBC Integer Program complete in 0.13515044063053608 seconds
+2019-07-18 14:02:15,509 INFO Constructing schedule...
+2019-07-18 14:02:15,523 INFO Updating MDL File Schedule...
+2019-07-18 14:02:15,611 DEBUG Writing results...
+2019-07-18 14:02:15,644 DEBUG Exporting OrientDB Nodes...
+2019-07-18 14:02:15,732 DEBUG Exported 100 Nodes
+2019-07-18 14:02:15,812 DEBUG Exported 200 Nodes
+2019-07-18 14:02:15,892 DEBUG Exported 300 Nodes
+2019-07-18 14:02:15,974 DEBUG Exported 400 Nodes
+2019-07-18 14:02:16,041 DEBUG Exported 500 Nodes
+2019-07-18 14:02:16,109 DEBUG Exported 600 Nodes
+2019-07-18 14:02:16,173 DEBUG Exported 700 Nodes
+2019-07-18 14:02:16,242 DEBUG Exported 800 Nodes
+2019-07-18 14:02:16,311 DEBUG Exported 900 Nodes
+2019-07-18 14:02:16,377 DEBUG Exported 1000 Nodes
+2019-07-18 14:02:16,448 DEBUG Exported 1100 Nodes
+2019-07-18 14:02:16,523 DEBUG Exported 1200 Nodes
+2019-07-18 14:02:16,596 DEBUG Exported 1300 Nodes
+2019-07-18 14:02:16,673 DEBUG Exported 1400 Nodes
+2019-07-18 14:02:16,748 DEBUG Exported 1500 Nodes
+2019-07-18 14:02:16,818 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 14:02:16,818 DEBUG Optimizing...
+2019-07-18 14:02:16,819 DEBUG Beginning CBC Integer Program...
+2019-07-18 14:02:16,938 DEBUG CBC Integer Program complete in 0.11859329688681286 seconds
+2019-07-18 14:02:16,939 INFO Constructing schedule...
+2019-07-18 14:02:16,952 INFO Updating MDL File Schedule...
+2019-07-18 14:02:17,018 DEBUG Writing results...
+2019-07-18 14:02:17,039 DEBUG Exporting OrientDB Nodes...
+2019-07-18 14:02:17,122 DEBUG Exported 100 Nodes
+2019-07-18 14:02:17,204 DEBUG Exported 200 Nodes
+2019-07-18 14:02:17,287 DEBUG Exported 300 Nodes
+2019-07-18 14:02:17,374 DEBUG Exported 400 Nodes
+2019-07-18 14:02:17,456 DEBUG Exported 500 Nodes
+2019-07-18 14:02:17,539 DEBUG Exported 600 Nodes
+2019-07-18 14:02:17,622 DEBUG Exported 700 Nodes
+2019-07-18 14:02:17,689 DEBUG Exported 800 Nodes
+2019-07-18 14:02:17,757 DEBUG Exported 900 Nodes
+2019-07-18 14:02:17,831 DEBUG Exported 1000 Nodes
+2019-07-18 14:02:17,910 DEBUG Exported 1100 Nodes
+2019-07-18 14:02:17,985 DEBUG Exported 1200 Nodes
+2019-07-18 14:02:18,063 DEBUG Exported 1300 Nodes
+2019-07-18 14:02:18,140 DEBUG Exported 1400 Nodes
+2019-07-18 14:02:18,215 DEBUG Exported 1500 Nodes
+2019-07-18 14:02:18,282 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 14:02:18,283 DEBUG Optimizing...
+2019-07-18 14:02:18,283 DEBUG Beginning CBC Integer Program...
+2019-07-18 14:02:35,552 DEBUG CBC Integer Program complete in 17.26472177087212 seconds
+2019-07-18 14:02:35,576 INFO Constructing schedule...
+2019-07-18 14:02:35,593 INFO Updating MDL File Schedule...
+2019-07-18 14:02:35,650 DEBUG Writing results...
+2019-07-18 14:02:35,673 DEBUG Exporting OrientDB Nodes...
+2019-07-18 14:02:35,760 DEBUG Exported 100 Nodes
+2019-07-18 14:02:35,846 DEBUG Exported 200 Nodes
+2019-07-18 14:02:35,927 DEBUG Exported 300 Nodes
+2019-07-18 14:02:36,017 DEBUG Exported 400 Nodes
+2019-07-18 14:02:36,089 DEBUG Exported 500 Nodes
+2019-07-18 14:02:36,161 DEBUG Exported 600 Nodes
+2019-07-18 14:02:36,230 DEBUG Exported 700 Nodes
+2019-07-18 14:02:36,298 DEBUG Exported 800 Nodes
+2019-07-18 14:02:36,366 DEBUG Exported 900 Nodes
+2019-07-18 14:02:36,432 DEBUG Exported 1000 Nodes
+2019-07-18 14:02:36,503 DEBUG Exported 1100 Nodes
+2019-07-18 14:02:36,570 DEBUG Exported 1200 Nodes
+2019-07-18 14:02:36,637 DEBUG Exported 1300 Nodes
+2019-07-18 14:02:36,704 DEBUG Exported 1400 Nodes
+2019-07-18 14:02:36,773 DEBUG Exported 1500 Nodes
+2019-07-18 14:02:36,834 INFO **********Optimization Algorithm: CBC, Discretization: BandwidthDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 14:02:36,835 DEBUG Optimizing...
+2019-07-18 14:02:36,836 DEBUG Beginning CBC Integer Program...
+2019-07-18 14:02:54,168 DEBUG CBC Integer Program complete in 17.328235545513017 seconds
+2019-07-18 14:02:54,205 INFO Constructing schedule...
+2019-07-18 14:02:54,219 INFO Updating MDL File Schedule...
+2019-07-18 14:02:54,281 DEBUG Writing results...
+2019-07-18 14:02:54,303 DEBUG Exporting OrientDB Nodes...
+2019-07-18 14:02:54,389 DEBUG Exported 100 Nodes
+2019-07-18 14:02:54,473 DEBUG Exported 200 Nodes
+2019-07-18 14:02:54,574 DEBUG Exported 300 Nodes
+2019-07-18 14:02:54,677 DEBUG Exported 400 Nodes
+2019-07-18 14:02:54,769 DEBUG Exported 500 Nodes
+2019-07-18 14:02:54,847 DEBUG Exported 600 Nodes
+2019-07-18 14:02:54,914 DEBUG Exported 700 Nodes
+2019-07-18 14:02:54,988 DEBUG Exported 800 Nodes
+2019-07-18 14:02:55,064 DEBUG Exported 900 Nodes
+2019-07-18 14:02:55,143 DEBUG Exported 1000 Nodes
+2019-07-18 14:02:55,226 DEBUG Exported 1100 Nodes
+2019-07-18 14:02:55,303 DEBUG Exported 1200 Nodes
+2019-07-18 14:02:55,380 DEBUG Exported 1300 Nodes
+2019-07-18 14:02:55,458 DEBUG Exported 1400 Nodes
+2019-07-18 14:02:55,549 DEBUG Exported 1500 Nodes
+2019-07-18 14:02:55,625 INFO **********Optimization Algorithm: CBC, Discretization: Value Discretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 14:02:55,626 DEBUG ***************************Challenge Problem 1 Complete********************
+2019-07-18 14:03:48,895 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 14:03:48,942 INFO Generating MDL File...
+2019-07-18 14:03:48,969 INFO Importing MDL File...
+2019-07-18 14:03:51,805 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 14:03:52,157 DEBUG Created 20 Node Classes
+2019-07-18 14:03:52,555 DEBUG Created 40 Node Classes
+2019-07-18 14:03:52,980 DEBUG Created 60 Node Classes
+2019-07-18 14:03:53,518 DEBUG Created 80 Node Classes
+2019-07-18 14:03:53,535 DEBUG Indexing Started...
+2019-07-18 14:03:53,889 DEBUG Indexed 100 MDL Elements
+2019-07-18 14:03:54,159 DEBUG Indexed 200 MDL Elements
+2019-07-18 14:03:54,649 DEBUG Indexed 300 MDL Elements
+2019-07-18 14:03:55,161 DEBUG Indexed 400 MDL Elements
+2019-07-18 14:03:55,426 DEBUG Indexed 500 MDL Elements
+2019-07-18 14:03:55,764 DEBUG Indexed 600 MDL Elements
+2019-07-18 14:03:56,203 DEBUG Indexed 700 MDL Elements
+2019-07-18 14:03:56,723 DEBUG Indexed 800 MDL Elements
+2019-07-18 14:03:57,338 DEBUG Indexed 900 MDL Elements
+2019-07-18 14:03:58,048 DEBUG Indexed 1000 MDL Elements
+2019-07-18 14:03:58,867 DEBUG Indexed 1100 MDL Elements
+2019-07-18 14:03:59,765 DEBUG Indexed 1200 MDL Elements
+2019-07-18 14:04:00,711 DEBUG Indexed 1300 MDL Elements
+2019-07-18 14:04:01,717 DEBUG Indexed 1400 MDL Elements
+2019-07-18 14:04:02,777 DEBUG Indexed 1500 MDL Elements
+2019-07-18 14:04:03,449 DEBUG Creating Containment Edges...
+2019-07-18 14:04:04,690 DEBUG Created 100 Containment Edges
+2019-07-18 14:04:05,865 DEBUG Created 200 Containment Edges
+2019-07-18 14:04:07,074 DEBUG Created 300 Containment Edges
+2019-07-18 14:04:08,235 DEBUG Created 400 Containment Edges
+2019-07-18 14:04:09,392 DEBUG Created 500 Containment Edges
+2019-07-18 14:04:10,549 DEBUG Created 600 Containment Edges
+2019-07-18 14:04:11,751 DEBUG Created 700 Containment Edges
+2019-07-18 14:04:12,912 DEBUG Created 800 Containment Edges
+2019-07-18 14:04:14,115 DEBUG Created 900 Containment Edges
+2019-07-18 14:04:15,295 DEBUG Created 1000 Containment Edges
+2019-07-18 14:04:16,481 DEBUG Created 1100 Containment Edges
+2019-07-18 14:04:17,652 DEBUG Created 1200 Containment Edges
+2019-07-18 14:04:18,834 DEBUG Created 1300 Containment Edges
+2019-07-18 14:04:20,050 DEBUG Created 1400 Containment Edges
+2019-07-18 14:04:24,173 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 14:04:24,220 INFO Generating MDL File...
+2019-07-18 14:04:24,239 INFO Importing MDL File...
+2019-07-18 14:04:26,932 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 14:04:27,364 DEBUG Created 20 Node Classes
+2019-07-18 14:04:27,951 DEBUG Created 40 Node Classes
+2019-07-18 14:04:28,350 DEBUG Created 60 Node Classes
+2019-07-18 14:04:28,924 DEBUG Created 80 Node Classes
+2019-07-18 14:04:29,023 DEBUG Indexing Started...
+2019-07-18 14:04:29,315 DEBUG Indexed 100 MDL Elements
+2019-07-18 14:04:29,595 DEBUG Indexed 200 MDL Elements
+2019-07-18 14:04:29,765 DEBUG Indexed 300 MDL Elements
+2019-07-18 14:04:30,009 DEBUG Indexed 400 MDL Elements
+2019-07-18 14:04:30,333 DEBUG Indexed 500 MDL Elements
+2019-07-18 14:04:30,449 DEBUG Creating Containment Edges...
+2019-07-18 14:04:30,929 DEBUG Created 100 Containment Edges
+2019-07-18 14:04:31,492 DEBUG Created 200 Containment Edges
+2019-07-18 14:04:31,976 DEBUG Created 300 Containment Edges
+2019-07-18 14:04:32,494 DEBUG Created 400 Containment Edges
+2019-07-18 14:04:33,019 DEBUG Created 500 Containment Edges
+2019-07-18 14:04:33,252 DEBUG Creating Reference Edges...
+2019-07-18 14:04:33,306 DEBUG Created 10 Reference Edges
+2019-07-18 14:04:33,361 DEBUG Created 20 Reference Edges
+2019-07-18 14:04:33,418 DEBUG Created 30 Reference Edges
+2019-07-18 14:04:33,474 DEBUG Created 40 Reference Edges
+2019-07-18 14:04:33,527 DEBUG Created 50 Reference Edges
+2019-07-18 14:04:33,557 DEBUG Generating Constraints Objects...
+2019-07-18 14:24:19,074 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 14:24:35,424 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 14:24:35,465 INFO Generating MDL File...
+2019-07-18 14:24:35,484 INFO Importing MDL File...
+2019-07-18 14:24:38,544 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 14:24:38,974 DEBUG Created 20 Node Classes
+2019-07-18 14:24:39,578 DEBUG Created 40 Node Classes
+2019-07-18 14:24:39,982 DEBUG Created 60 Node Classes
+2019-07-18 14:24:40,437 DEBUG Created 80 Node Classes
+2019-07-18 14:24:40,455 DEBUG Indexing Started...
+2019-07-18 14:24:40,699 DEBUG Indexed 100 MDL Elements
+2019-07-18 14:24:41,001 DEBUG Indexed 200 MDL Elements
+2019-07-18 14:24:41,195 DEBUG Indexed 300 MDL Elements
+2019-07-18 14:24:41,504 DEBUG Indexed 400 MDL Elements
+2019-07-18 14:24:41,847 DEBUG Indexed 500 MDL Elements
+2019-07-18 14:24:41,961 DEBUG Creating Containment Edges...
+2019-07-18 14:24:42,486 DEBUG Created 100 Containment Edges
+2019-07-18 14:24:43,015 DEBUG Created 200 Containment Edges
+2019-07-18 14:24:43,529 DEBUG Created 300 Containment Edges
+2019-07-18 14:24:44,055 DEBUG Created 400 Containment Edges
+2019-07-18 14:24:44,568 DEBUG Created 500 Containment Edges
+2019-07-18 14:24:44,793 DEBUG Creating Reference Edges...
+2019-07-18 14:24:44,849 DEBUG Created 10 Reference Edges
+2019-07-18 14:24:44,906 DEBUG Created 20 Reference Edges
+2019-07-18 14:24:44,963 DEBUG Created 30 Reference Edges
+2019-07-18 14:24:45,021 DEBUG Created 40 Reference Edges
+2019-07-18 14:24:45,079 DEBUG Created 50 Reference Edges
+2019-07-18 14:24:45,110 DEBUG Generating Constraints Objects...
+2019-07-18 15:01:25,217 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 15:01:25,268 INFO Generating MDL File...
+2019-07-18 15:01:25,289 INFO Importing MDL File...
+2019-07-18 15:01:27,994 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 15:01:28,376 DEBUG Created 20 Node Classes
+2019-07-18 15:01:28,887 DEBUG Created 40 Node Classes
+2019-07-18 15:01:29,289 DEBUG Created 60 Node Classes
+2019-07-18 15:01:29,969 DEBUG Created 80 Node Classes
+2019-07-18 15:01:29,991 DEBUG Indexing Started...
+2019-07-18 15:01:30,255 DEBUG Indexed 100 MDL Elements
+2019-07-18 15:01:30,545 DEBUG Indexed 200 MDL Elements
+2019-07-18 15:01:30,751 DEBUG Indexed 300 MDL Elements
+2019-07-18 15:01:30,985 DEBUG Indexed 400 MDL Elements
+2019-07-18 15:01:31,298 DEBUG Indexed 500 MDL Elements
+2019-07-18 15:01:31,410 DEBUG Creating Containment Edges...
+2019-07-18 15:01:31,932 DEBUG Created 100 Containment Edges
+2019-07-18 15:01:32,429 DEBUG Created 200 Containment Edges
+2019-07-18 15:01:32,934 DEBUG Created 300 Containment Edges
+2019-07-18 15:01:33,447 DEBUG Created 400 Containment Edges
+2019-07-18 15:01:33,949 DEBUG Created 500 Containment Edges
+2019-07-18 15:01:34,178 DEBUG Creating Reference Edges...
+2019-07-18 15:01:34,238 DEBUG Created 10 Reference Edges
+2019-07-18 15:01:34,299 DEBUG Created 20 Reference Edges
+2019-07-18 15:01:34,354 DEBUG Created 30 Reference Edges
+2019-07-18 15:01:34,409 DEBUG Created 40 Reference Edges
+2019-07-18 15:01:34,463 DEBUG Created 50 Reference Edges
+2019-07-18 15:01:34,493 DEBUG Generating Constraints Objects...
+2019-07-18 15:01:56,609 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 15:01:56,648 INFO Generating MDL File...
+2019-07-18 15:01:56,667 INFO Importing MDL File...
+2019-07-18 15:01:59,274 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 15:01:59,911 DEBUG Created 20 Node Classes
+2019-07-18 15:02:00,320 DEBUG Created 40 Node Classes
+2019-07-18 15:02:01,077 DEBUG Created 60 Node Classes
+2019-07-18 15:02:01,512 DEBUG Created 80 Node Classes
+2019-07-18 15:02:01,537 DEBUG Indexing Started...
+2019-07-18 15:02:01,747 DEBUG Indexed 100 MDL Elements
+2019-07-18 15:02:02,023 DEBUG Indexed 200 MDL Elements
+2019-07-18 15:02:02,201 DEBUG Indexed 300 MDL Elements
+2019-07-18 15:02:02,437 DEBUG Indexed 400 MDL Elements
+2019-07-18 15:02:02,774 DEBUG Indexed 500 MDL Elements
+2019-07-18 15:02:02,892 DEBUG Creating Containment Edges...
+2019-07-18 15:02:03,435 DEBUG Created 100 Containment Edges
+2019-07-18 15:02:03,963 DEBUG Created 200 Containment Edges
+2019-07-18 15:02:04,459 DEBUG Created 300 Containment Edges
+2019-07-18 15:02:04,975 DEBUG Created 400 Containment Edges
+2019-07-18 15:02:05,478 DEBUG Created 500 Containment Edges
+2019-07-18 15:02:05,706 DEBUG Creating Reference Edges...
+2019-07-18 15:02:05,762 DEBUG Created 10 Reference Edges
+2019-07-18 15:02:05,823 DEBUG Created 20 Reference Edges
+2019-07-18 15:02:05,884 DEBUG Created 30 Reference Edges
+2019-07-18 15:02:05,946 DEBUG Created 40 Reference Edges
+2019-07-18 15:02:06,007 DEBUG Created 50 Reference Edges
+2019-07-18 15:02:06,038 DEBUG Generating Constraints Objects...
+2019-07-18 15:02:06,042 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 15:02:08,585 INFO Setting up Discretization Algorithms...
+2019-07-18 15:02:08,586 DEBUG Setting up Optimization Algorithms...
+2019-07-18 15:02:08,590 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 15:02:08,590 DEBUG Optimizing...
+2019-07-18 15:02:08,591 DEBUG Beginning CBC Integer Program...
+2019-07-18 15:02:08,601 DEBUG CBC Integer Program complete in 0.009783718673482053 seconds
+2019-07-18 15:02:08,602 INFO Constructing schedule...
+2019-07-18 15:02:08,604 INFO Updating MDL File Schedule...
+2019-07-18 15:02:08,669 DEBUG Writing results...
+2019-07-18 15:02:08,691 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:02:08,786 DEBUG Exported 100 Nodes
+2019-07-18 15:02:08,881 DEBUG Exported 200 Nodes
+2019-07-18 15:02:08,959 DEBUG Exported 300 Nodes
+2019-07-18 15:02:09,031 DEBUG Exported 400 Nodes
+2019-07-18 15:02:09,095 DEBUG Exported 500 Nodes
+2019-07-18 15:02:09,124 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 15:02:09,125 INFO Constructing schedule...
+2019-07-18 15:02:09,130 INFO Updating MDL File Schedule...
+2019-07-18 15:02:09,189 DEBUG Writing results...
+2019-07-18 15:02:09,213 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:02:09,303 DEBUG Exported 100 Nodes
+2019-07-18 15:02:09,380 DEBUG Exported 200 Nodes
+2019-07-18 15:02:09,466 DEBUG Exported 300 Nodes
+2019-07-18 15:02:09,552 DEBUG Exported 400 Nodes
+2019-07-18 15:02:09,630 DEBUG Exported 500 Nodes
+2019-07-18 15:02:09,665 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 15:02:09,665 DEBUG Optimizing...
+2019-07-18 15:08:37,880 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 15:08:37,918 INFO Generating MDL File...
+2019-07-18 15:08:37,940 INFO Importing MDL File...
+2019-07-18 15:08:40,539 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 15:08:40,954 DEBUG Created 20 Node Classes
+2019-07-18 15:08:41,410 DEBUG Created 40 Node Classes
+2019-07-18 15:08:41,844 DEBUG Created 60 Node Classes
+2019-07-18 15:08:42,227 DEBUG Created 80 Node Classes
+2019-07-18 15:08:42,253 DEBUG Indexing Started...
+2019-07-18 15:08:42,553 DEBUG Indexed 100 MDL Elements
+2019-07-18 15:08:42,874 DEBUG Indexed 200 MDL Elements
+2019-07-18 15:08:43,049 DEBUG Indexed 300 MDL Elements
+2019-07-18 15:08:43,310 DEBUG Indexed 400 MDL Elements
+2019-07-18 15:08:43,657 DEBUG Indexed 500 MDL Elements
+2019-07-18 15:08:43,783 DEBUG Creating Containment Edges...
+2019-07-18 15:08:44,315 DEBUG Created 100 Containment Edges
+2019-07-18 15:08:44,834 DEBUG Created 200 Containment Edges
+2019-07-18 15:08:45,355 DEBUG Created 300 Containment Edges
+2019-07-18 15:08:45,860 DEBUG Created 400 Containment Edges
+2019-07-18 15:08:46,376 DEBUG Created 500 Containment Edges
+2019-07-18 15:08:46,648 DEBUG Creating Reference Edges...
+2019-07-18 15:08:46,704 DEBUG Created 10 Reference Edges
+2019-07-18 15:08:46,759 DEBUG Created 20 Reference Edges
+2019-07-18 15:08:46,823 DEBUG Created 30 Reference Edges
+2019-07-18 15:08:46,889 DEBUG Created 40 Reference Edges
+2019-07-18 15:08:46,944 DEBUG Created 50 Reference Edges
+2019-07-18 15:08:46,971 DEBUG Generating Constraints Objects...
+2019-07-18 15:08:46,976 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 15:08:49,238 INFO Setting up Discretization Algorithms...
+2019-07-18 15:08:49,238 DEBUG Setting up Optimization Algorithms...
+2019-07-18 15:08:49,243 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 15:08:49,243 DEBUG Optimizing...
+2019-07-18 15:08:49,244 DEBUG Beginning CBC Integer Program...
+2019-07-18 15:08:49,254 DEBUG CBC Integer Program complete in 0.010073217449194904 seconds
+2019-07-18 15:08:49,255 INFO Constructing schedule...
+2019-07-18 15:08:49,257 INFO Updating MDL File Schedule...
+2019-07-18 15:08:49,327 DEBUG Writing results...
+2019-07-18 15:08:49,361 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:08:49,466 DEBUG Exported 100 Nodes
+2019-07-18 15:08:49,553 DEBUG Exported 200 Nodes
+2019-07-18 15:08:49,645 DEBUG Exported 300 Nodes
+2019-07-18 15:08:49,723 DEBUG Exported 400 Nodes
+2019-07-18 15:08:49,801 DEBUG Exported 500 Nodes
+2019-07-18 15:08:49,833 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 15:08:49,833 INFO Constructing schedule...
+2019-07-18 15:08:49,841 INFO Updating MDL File Schedule...
+2019-07-18 15:08:49,914 DEBUG Writing results...
+2019-07-18 15:08:49,937 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:08:50,032 DEBUG Exported 100 Nodes
+2019-07-18 15:08:50,122 DEBUG Exported 200 Nodes
+2019-07-18 15:08:50,218 DEBUG Exported 300 Nodes
+2019-07-18 15:08:50,307 DEBUG Exported 400 Nodes
+2019-07-18 15:08:50,390 DEBUG Exported 500 Nodes
+2019-07-18 15:08:50,423 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 15:08:50,424 DEBUG Optimizing...
+2019-07-18 15:16:10,871 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 15:16:10,906 INFO Generating MDL File...
+2019-07-18 15:16:10,927 INFO Importing MDL File...
+2019-07-18 15:16:14,156 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 15:16:14,561 DEBUG Created 20 Node Classes
+2019-07-18 15:16:15,081 DEBUG Created 40 Node Classes
+2019-07-18 15:16:15,614 DEBUG Created 60 Node Classes
+2019-07-18 15:16:16,168 DEBUG Created 80 Node Classes
+2019-07-18 15:16:16,187 DEBUG Indexing Started...
+2019-07-18 15:16:16,406 DEBUG Indexed 100 MDL Elements
+2019-07-18 15:16:16,710 DEBUG Indexed 200 MDL Elements
+2019-07-18 15:16:16,911 DEBUG Indexed 300 MDL Elements
+2019-07-18 15:16:17,204 DEBUG Indexed 400 MDL Elements
+2019-07-18 15:16:17,563 DEBUG Indexed 500 MDL Elements
+2019-07-18 15:16:17,689 DEBUG Creating Containment Edges...
+2019-07-18 15:16:18,264 DEBUG Created 100 Containment Edges
+2019-07-18 15:16:18,846 DEBUG Created 200 Containment Edges
+2019-07-18 15:16:19,359 DEBUG Created 300 Containment Edges
+2019-07-18 15:16:19,903 DEBUG Created 400 Containment Edges
+2019-07-18 15:16:20,439 DEBUG Created 500 Containment Edges
+2019-07-18 15:16:20,682 DEBUG Creating Reference Edges...
+2019-07-18 15:16:20,746 DEBUG Created 10 Reference Edges
+2019-07-18 15:16:20,816 DEBUG Created 20 Reference Edges
+2019-07-18 15:16:20,874 DEBUG Created 30 Reference Edges
+2019-07-18 15:16:20,928 DEBUG Created 40 Reference Edges
+2019-07-18 15:16:20,990 DEBUG Created 50 Reference Edges
+2019-07-18 15:16:21,019 DEBUG Generating Constraints Objects...
+2019-07-18 15:16:21,024 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 15:16:23,452 INFO Setting up Discretization Algorithms...
+2019-07-18 15:16:23,453 DEBUG Setting up Optimization Algorithms...
+2019-07-18 15:16:23,457 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 15:16:23,458 DEBUG Optimizing...
+2019-07-18 15:16:23,458 DEBUG Beginning CBC Integer Program...
+2019-07-18 15:16:23,469 DEBUG CBC Integer Program complete in 0.009883509359872719 seconds
+2019-07-18 15:16:23,469 INFO Constructing schedule...
+2019-07-18 15:16:23,471 INFO Updating MDL File Schedule...
+2019-07-18 15:16:23,532 DEBUG Writing results...
+2019-07-18 15:16:23,555 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:16:23,650 DEBUG Exported 100 Nodes
+2019-07-18 15:16:23,737 DEBUG Exported 200 Nodes
+2019-07-18 15:16:23,823 DEBUG Exported 300 Nodes
+2019-07-18 15:16:23,905 DEBUG Exported 400 Nodes
+2019-07-18 15:16:23,976 DEBUG Exported 500 Nodes
+2019-07-18 15:16:24,007 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 15:16:24,007 INFO Constructing schedule...
+2019-07-18 15:16:24,011 INFO Updating MDL File Schedule...
+2019-07-18 15:16:24,079 DEBUG Writing results...
+2019-07-18 15:16:24,102 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:16:24,190 DEBUG Exported 100 Nodes
+2019-07-18 15:16:24,269 DEBUG Exported 200 Nodes
+2019-07-18 15:16:24,360 DEBUG Exported 300 Nodes
+2019-07-18 15:16:24,450 DEBUG Exported 400 Nodes
+2019-07-18 15:16:24,539 DEBUG Exported 500 Nodes
+2019-07-18 15:16:24,572 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 15:16:24,572 DEBUG Optimizing...
+2019-07-18 15:29:06,468 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 15:29:06,497 INFO Generating MDL File...
+2019-07-18 15:29:06,516 INFO Importing MDL File...
+2019-07-18 15:29:09,158 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 15:29:09,582 DEBUG Created 20 Node Classes
+2019-07-18 15:29:10,299 DEBUG Created 40 Node Classes
+2019-07-18 15:29:10,776 DEBUG Created 60 Node Classes
+2019-07-18 15:29:11,418 DEBUG Created 80 Node Classes
+2019-07-18 15:29:11,510 DEBUG Indexing Started...
+2019-07-18 15:29:11,719 DEBUG Indexed 100 MDL Elements
+2019-07-18 15:29:12,022 DEBUG Indexed 200 MDL Elements
+2019-07-18 15:29:12,222 DEBUG Indexed 300 MDL Elements
+2019-07-18 15:29:12,464 DEBUG Indexed 400 MDL Elements
+2019-07-18 15:29:12,782 DEBUG Indexed 500 MDL Elements
+2019-07-18 15:29:12,897 DEBUG Creating Containment Edges...
+2019-07-18 15:29:13,399 DEBUG Created 100 Containment Edges
+2019-07-18 15:29:13,898 DEBUG Created 200 Containment Edges
+2019-07-18 15:29:14,392 DEBUG Created 300 Containment Edges
+2019-07-18 15:29:14,943 DEBUG Created 400 Containment Edges
+2019-07-18 15:29:15,437 DEBUG Created 500 Containment Edges
+2019-07-18 15:29:15,671 DEBUG Creating Reference Edges...
+2019-07-18 15:29:15,732 DEBUG Created 10 Reference Edges
+2019-07-18 15:29:15,794 DEBUG Created 20 Reference Edges
+2019-07-18 15:29:15,856 DEBUG Created 30 Reference Edges
+2019-07-18 15:29:15,914 DEBUG Created 40 Reference Edges
+2019-07-18 15:29:15,971 DEBUG Created 50 Reference Edges
+2019-07-18 15:29:15,998 DEBUG Generating Constraints Objects...
+2019-07-18 15:29:16,004 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 15:29:18,523 INFO Setting up Discretization Algorithms...
+2019-07-18 15:29:18,524 DEBUG Setting up Optimization Algorithms...
+2019-07-18 15:29:18,528 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 15:29:18,528 DEBUG Optimizing...
+2019-07-18 15:29:18,529 DEBUG Beginning CBC Integer Program...
+2019-07-18 15:29:18,540 DEBUG CBC Integer Program complete in 0.010328864967333536 seconds
+2019-07-18 15:29:18,541 INFO Constructing schedule...
+2019-07-18 15:29:18,543 INFO Updating MDL File Schedule...
+2019-07-18 15:29:18,685 DEBUG Writing results...
+2019-07-18 15:29:18,710 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:29:18,806 DEBUG Exported 100 Nodes
+2019-07-18 15:29:18,898 DEBUG Exported 200 Nodes
+2019-07-18 15:29:18,991 DEBUG Exported 300 Nodes
+2019-07-18 15:29:19,074 DEBUG Exported 400 Nodes
+2019-07-18 15:29:19,145 DEBUG Exported 500 Nodes
+2019-07-18 15:29:19,172 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 15:29:19,173 INFO Constructing schedule...
+2019-07-18 15:29:19,177 INFO Updating MDL File Schedule...
+2019-07-18 15:29:19,235 DEBUG Writing results...
+2019-07-18 15:29:19,257 DEBUG Exporting OrientDB Nodes...
+2019-07-18 15:29:19,346 DEBUG Exported 100 Nodes
+2019-07-18 15:29:19,427 DEBUG Exported 200 Nodes
+2019-07-18 15:29:19,525 DEBUG Exported 300 Nodes
+2019-07-18 15:29:19,615 DEBUG Exported 400 Nodes
+2019-07-18 15:29:19,694 DEBUG Exported 500 Nodes
+2019-07-18 15:29:19,726 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 15:29:19,726 DEBUG Optimizing...
+2019-07-18 16:18:37,179 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 16:18:37,211 INFO Generating MDL File...
+2019-07-18 16:18:37,232 INFO Importing MDL File...
+2019-07-18 16:18:40,198 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 16:18:40,696 DEBUG Created 20 Node Classes
+2019-07-18 16:18:41,251 DEBUG Created 40 Node Classes
+2019-07-18 16:18:41,876 DEBUG Created 60 Node Classes
+2019-07-18 16:18:42,244 DEBUG Created 80 Node Classes
+2019-07-18 16:18:42,393 DEBUG Indexing Started...
+2019-07-18 16:18:42,633 DEBUG Indexed 100 MDL Elements
+2019-07-18 16:18:42,909 DEBUG Indexed 200 MDL Elements
+2019-07-18 16:18:43,102 DEBUG Indexed 300 MDL Elements
+2019-07-18 16:18:43,354 DEBUG Indexed 400 MDL Elements
+2019-07-18 16:18:43,700 DEBUG Indexed 500 MDL Elements
+2019-07-18 16:18:43,813 DEBUG Creating Containment Edges...
+2019-07-18 16:18:44,312 DEBUG Created 100 Containment Edges
+2019-07-18 16:18:44,801 DEBUG Created 200 Containment Edges
+2019-07-18 16:18:45,275 DEBUG Created 300 Containment Edges
+2019-07-18 16:18:45,777 DEBUG Created 400 Containment Edges
+2019-07-18 16:18:46,256 DEBUG Created 500 Containment Edges
+2019-07-18 16:18:46,472 DEBUG Creating Reference Edges...
+2019-07-18 16:18:46,534 DEBUG Created 10 Reference Edges
+2019-07-18 16:18:46,589 DEBUG Created 20 Reference Edges
+2019-07-18 16:18:46,644 DEBUG Created 30 Reference Edges
+2019-07-18 16:18:46,712 DEBUG Created 40 Reference Edges
+2019-07-18 16:18:46,783 DEBUG Created 50 Reference Edges
+2019-07-18 16:18:46,815 DEBUG Generating Constraints Objects...
+2019-07-18 16:18:46,820 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 16:18:49,198 INFO Setting up Discretization Algorithms...
+2019-07-18 16:18:49,198 DEBUG Setting up Optimization Algorithms...
+2019-07-18 16:18:49,203 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 16:18:49,204 DEBUG Optimizing...
+2019-07-18 16:18:49,204 DEBUG Beginning CBC Integer Program...
+2019-07-18 16:18:49,214 DEBUG CBC Integer Program complete in 0.008926153481601841 seconds
+2019-07-18 16:18:49,215 INFO Constructing schedule...
+2019-07-18 16:18:49,217 INFO Updating MDL File Schedule...
+2019-07-18 16:18:49,294 DEBUG Writing results...
+2019-07-18 16:18:49,318 DEBUG Exporting OrientDB Nodes...
+2019-07-18 16:18:49,422 DEBUG Exported 100 Nodes
+2019-07-18 16:18:49,522 DEBUG Exported 200 Nodes
+2019-07-18 16:18:49,605 DEBUG Exported 300 Nodes
+2019-07-18 16:18:49,686 DEBUG Exported 400 Nodes
+2019-07-18 16:18:49,751 DEBUG Exported 500 Nodes
+2019-07-18 16:18:49,780 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 16:18:49,780 INFO Constructing schedule...
+2019-07-18 16:18:49,785 INFO Updating MDL File Schedule...
+2019-07-18 16:18:49,842 DEBUG Writing results...
+2019-07-18 16:18:49,864 DEBUG Exporting OrientDB Nodes...
+2019-07-18 16:18:49,962 DEBUG Exported 100 Nodes
+2019-07-18 16:18:50,054 DEBUG Exported 200 Nodes
+2019-07-18 16:18:50,160 DEBUG Exported 300 Nodes
+2019-07-18 16:18:50,251 DEBUG Exported 400 Nodes
+2019-07-18 16:18:50,334 DEBUG Exported 500 Nodes
+2019-07-18 16:18:50,373 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 16:18:50,373 DEBUG Optimizing...
+2019-07-18 16:19:11,393 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 16:19:11,432 INFO Generating MDL File...
+2019-07-18 16:19:11,450 INFO Importing MDL File...
+2019-07-18 16:19:14,247 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 16:19:14,743 DEBUG Created 20 Node Classes
+2019-07-18 16:19:15,309 DEBUG Created 40 Node Classes
+2019-07-18 16:19:15,904 DEBUG Created 60 Node Classes
+2019-07-18 16:19:16,648 DEBUG Created 80 Node Classes
+2019-07-18 16:19:16,674 DEBUG Indexing Started...
+2019-07-18 16:19:16,900 DEBUG Indexed 100 MDL Elements
+2019-07-18 16:19:17,187 DEBUG Indexed 200 MDL Elements
+2019-07-18 16:19:17,368 DEBUG Indexed 300 MDL Elements
+2019-07-18 16:19:17,605 DEBUG Indexed 400 MDL Elements
+2019-07-18 16:19:17,915 DEBUG Indexed 500 MDL Elements
+2019-07-18 16:19:18,081 DEBUG Creating Containment Edges...
+2019-07-18 16:19:18,579 DEBUG Created 100 Containment Edges
+2019-07-18 16:19:19,066 DEBUG Created 200 Containment Edges
+2019-07-18 16:19:19,612 DEBUG Created 300 Containment Edges
+2019-07-18 16:19:20,104 DEBUG Created 400 Containment Edges
+2019-07-18 16:19:20,597 DEBUG Created 500 Containment Edges
+2019-07-18 16:19:20,852 DEBUG Creating Reference Edges...
+2019-07-18 16:19:20,909 DEBUG Created 10 Reference Edges
+2019-07-18 16:19:20,960 DEBUG Created 20 Reference Edges
+2019-07-18 16:19:21,015 DEBUG Created 30 Reference Edges
+2019-07-18 16:19:21,067 DEBUG Created 40 Reference Edges
+2019-07-18 16:19:21,123 DEBUG Created 50 Reference Edges
+2019-07-18 16:19:21,157 DEBUG Generating Constraints Objects...
+2019-07-18 16:19:21,162 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 16:19:23,306 INFO Setting up Discretization Algorithms...
+2019-07-18 16:19:23,306 DEBUG Setting up Optimization Algorithms...
+2019-07-18 16:19:23,311 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 16:19:23,311 DEBUG Optimizing...
+2019-07-18 16:19:23,312 DEBUG Beginning CBC Integer Program...
+2019-07-18 16:19:23,322 DEBUG CBC Integer Program complete in 0.00899561908308227 seconds
+2019-07-18 16:19:23,322 INFO Constructing schedule...
+2019-07-18 16:19:23,325 INFO Updating MDL File Schedule...
+2019-07-18 16:19:23,390 DEBUG Writing results...
+2019-07-18 16:19:23,414 DEBUG Exporting OrientDB Nodes...
+2019-07-18 16:19:23,511 DEBUG Exported 100 Nodes
+2019-07-18 16:19:23,600 DEBUG Exported 200 Nodes
+2019-07-18 16:19:23,685 DEBUG Exported 300 Nodes
+2019-07-18 16:19:23,757 DEBUG Exported 400 Nodes
+2019-07-18 16:19:23,817 DEBUG Exported 500 Nodes
+2019-07-18 16:19:23,843 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 16:19:23,844 INFO Constructing schedule...
+2019-07-18 16:19:23,849 INFO Updating MDL File Schedule...
+2019-07-18 16:19:23,986 DEBUG Writing results...
+2019-07-18 16:19:24,009 DEBUG Exporting OrientDB Nodes...
+2019-07-18 16:19:24,103 DEBUG Exported 100 Nodes
+2019-07-18 16:19:24,199 DEBUG Exported 200 Nodes
+2019-07-18 16:19:24,287 DEBUG Exported 300 Nodes
+2019-07-18 16:19:24,373 DEBUG Exported 400 Nodes
+2019-07-18 16:19:24,452 DEBUG Exported 500 Nodes
+2019-07-18 16:19:24,479 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 16:19:24,480 DEBUG Optimizing...
+2019-07-18 16:21:36,605 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 16:21:36,638 INFO Generating MDL File...
+2019-07-18 16:21:36,657 INFO Importing MDL File...
+2019-07-18 16:21:39,283 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 16:21:40,053 DEBUG Created 20 Node Classes
+2019-07-18 16:21:40,494 DEBUG Created 40 Node Classes
+2019-07-18 16:21:41,315 DEBUG Created 60 Node Classes
+2019-07-18 16:21:41,854 DEBUG Created 80 Node Classes
+2019-07-18 16:21:41,873 DEBUG Indexing Started...
+2019-07-18 16:21:42,101 DEBUG Indexed 100 MDL Elements
+2019-07-18 16:21:42,438 DEBUG Indexed 200 MDL Elements
+2019-07-18 16:21:42,618 DEBUG Indexed 300 MDL Elements
+2019-07-18 16:21:42,868 DEBUG Indexed 400 MDL Elements
+2019-07-18 16:21:43,233 DEBUG Indexed 500 MDL Elements
+2019-07-18 16:21:43,368 DEBUG Creating Containment Edges...
+2019-07-18 16:21:43,922 DEBUG Created 100 Containment Edges
+2019-07-18 16:21:44,489 DEBUG Created 200 Containment Edges
+2019-07-18 16:21:44,984 DEBUG Created 300 Containment Edges
+2019-07-18 16:21:45,487 DEBUG Created 400 Containment Edges
+2019-07-18 16:21:45,992 DEBUG Created 500 Containment Edges
+2019-07-18 16:21:46,216 DEBUG Creating Reference Edges...
+2019-07-18 16:21:46,269 DEBUG Created 10 Reference Edges
+2019-07-18 16:21:46,320 DEBUG Created 20 Reference Edges
+2019-07-18 16:21:46,374 DEBUG Created 30 Reference Edges
+2019-07-18 16:21:46,427 DEBUG Created 40 Reference Edges
+2019-07-18 16:21:46,482 DEBUG Created 50 Reference Edges
+2019-07-18 16:21:46,511 DEBUG Generating Constraints Objects...
+2019-07-18 16:21:46,517 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 16:21:48,883 INFO Setting up Discretization Algorithms...
+2019-07-18 16:21:48,884 DEBUG Setting up Optimization Algorithms...
+2019-07-18 16:21:48,889 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 16:21:48,890 DEBUG Optimizing...
+2019-07-18 16:21:48,890 DEBUG Beginning CBC Integer Program...
+2019-07-18 16:21:48,901 DEBUG CBC Integer Program complete in 0.009697680060480914 seconds
+2019-07-18 16:21:48,901 INFO Constructing schedule...
+2019-07-18 16:21:48,904 INFO Updating MDL File Schedule...
+2019-07-18 16:21:49,063 DEBUG Writing results...
+2019-07-18 16:21:49,085 DEBUG Exporting OrientDB Nodes...
+2019-07-18 16:21:49,187 DEBUG Exported 100 Nodes
+2019-07-18 16:21:49,272 DEBUG Exported 200 Nodes
+2019-07-18 16:21:49,355 DEBUG Exported 300 Nodes
+2019-07-18 16:21:49,449 DEBUG Exported 400 Nodes
+2019-07-18 16:21:49,528 DEBUG Exported 500 Nodes
+2019-07-18 16:21:49,559 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
+2019-07-18 16:21:49,559 INFO Constructing schedule...
+2019-07-18 16:21:49,564 INFO Updating MDL File Schedule...
+2019-07-18 16:21:49,621 DEBUG Writing results...
+2019-07-18 16:21:49,644 DEBUG Exporting OrientDB Nodes...
+2019-07-18 16:21:49,739 DEBUG Exported 100 Nodes
+2019-07-18 16:21:49,817 DEBUG Exported 200 Nodes
+2019-07-18 16:21:49,893 DEBUG Exported 300 Nodes
+2019-07-18 16:21:49,980 DEBUG Exported 400 Nodes
+2019-07-18 16:21:50,057 DEBUG Exported 500 Nodes
+2019-07-18 16:21:50,090 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: OS Schedule*********
+2019-07-18 16:21:50,090 DEBUG Optimizing...
+2019-07-18 16:33:30,485 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-18 16:33:30,520 INFO Generating MDL File...
+2019-07-18 16:33:30,541 INFO Importing MDL File...
+2019-07-18 16:33:33,002 DEBUG Creating OrientDB classes for MDL Elements...
+2019-07-18 16:33:33,569 DEBUG Created 20 Node Classes
+2019-07-18 16:33:33,973 DEBUG Created 40 Node Classes
+2019-07-18 16:33:34,348 DEBUG Created 60 Node Classes
+2019-07-18 16:33:34,994 DEBUG Created 80 Node Classes
+2019-07-18 16:33:35,012 DEBUG Indexing Started...
+2019-07-18 16:33:35,227 DEBUG Indexed 100 MDL Elements
+2019-07-18 16:33:35,554 DEBUG Indexed 200 MDL Elements
+2019-07-18 16:33:35,764 DEBUG Indexed 300 MDL Elements
+2019-07-18 16:33:36,025 DEBUG Indexed 400 MDL Elements
+2019-07-18 16:33:36,428 DEBUG Indexed 500 MDL Elements
+2019-07-18 16:33:36,548 DEBUG Creating Containment Edges...
+2019-07-18 16:33:37,130 DEBUG Created 100 Containment Edges
+2019-07-18 16:33:37,724 DEBUG Created 200 Containment Edges
+2019-07-18 16:33:38,299 DEBUG Created 300 Containment Edges
+2019-07-18 16:33:38,895 DEBUG Created 400 Containment Edges
+2019-07-18 16:33:39,443 DEBUG Created 500 Containment Edges
+2019-07-18 16:33:39,692 DEBUG Creating Reference Edges...
+2019-07-18 16:33:39,771 DEBUG Created 10 Reference Edges
+2019-07-18 16:33:39,852 DEBUG Created 20 Reference Edges
+2019-07-18 16:33:39,912 DEBUG Created 30 Reference Edges
+2019-07-18 16:33:39,979 DEBUG Created 40 Reference Edges
+2019-07-18 16:33:40,041 DEBUG Created 50 Reference Edges
+2019-07-18 16:33:40,072 DEBUG Generating Constraints Objects...
+2019-07-18 16:33:40,079 INFO Storing and Retrieving Constraints in OrientDB...
+2019-07-18 16:33:42,182 INFO Setting up Discretization Algorithms...
+2019-07-18 16:33:42,182 DEBUG Setting up Optimization Algorithms...
+2019-07-18 16:33:42,185 DEBUG Setting up Scheduling Algorithms...
+2019-07-18 16:33:42,185 DEBUG Optimizing...
