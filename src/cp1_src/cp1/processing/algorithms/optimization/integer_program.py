@@ -3,7 +3,6 @@
 Algorithm that uses an integer program to selects TAs for scheduling.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-from datetime import timedelta
 import time
 import math
 from pandas import *
@@ -11,6 +10,7 @@ from ortools.linear_solver import pywraplp
 from cp1.common.logger import Logger
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
 from cp1.processing.algorithms.optimization.ortools_solvers import ORToolsSolvers
+from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 
 logger = Logger().logger
@@ -42,7 +42,7 @@ class IntegerProgram(OptimizationAlgorithm):
         # Setup data
         discretized_tas = discretization_algorithm.discretize(self.constraints_object.candidate_tas, self.constraints_object.channels)
 
-        min_latency = min(discretized_tas, key=lambda ta: ta.latency).latency
+        min_latency = float(min(discretized_tas, key=lambda ta: ta.latency.value).latency.value)
         solver = pywraplp.Solver('MDLScheduling', self.solver_type)
         if time_limit is not None:
             solver.SetTimeLimit(time_limit * 1000)
@@ -60,11 +60,11 @@ class IntegerProgram(OptimizationAlgorithm):
 
         # Constraint: TA must fit on specific channel
         for i in range(0, len(self.constraints_object.channels)):
-            constraints.append(solver.Constraint(-solver.infinity(), min_latency.microseconds))
+            constraints.append(solver.Constraint(-solver.infinity(), min_latency))
             for j in range(0, len(discretized_tas)):
                 coeff = 0
                 if (math.floor(j / (discretization_algorithm.num_discretizations)) % len(self.constraints_object.channels)) == i:
-                        coeff = discretized_tas[j].compute_communication_length(self.constraints_object.channels[i].capacity, min_latency, self.constraints_object.guard_band).microseconds
+                        coeff = discretized_tas[j].compute_communication_length(self.constraints_object.channels[i].capacity, Milliseconds(min_latency), self.constraints_object.guard_band)
                 constraints[i].SetCoefficient(ta_vector[j], coeff)
 
         # Constraint: Same TA must not communicate on multiple channels
@@ -98,7 +98,7 @@ class IntegerProgram(OptimizationAlgorithm):
         self.scheduled_tas = []
         for i in range(0, len(discretized_tas)):
             if ta_vector[i].solution_value() > 0:
-                discretized_tas[j].compute_communication_length(discretized_tas[j].channel.capacity, min_latency, self.constraints_object.guard_band)
+                discretized_tas[j].compute_communication_length(discretized_tas[j].channel.capacity, Milliseconds(min_latency), self.constraints_object.guard_band)
                 self.scheduled_tas.append(discretized_tas[i])
         value = sum(ta.value for ta in self.scheduled_tas)
 

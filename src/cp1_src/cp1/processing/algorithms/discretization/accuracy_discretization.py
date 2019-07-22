@@ -31,7 +31,7 @@ class AccuracyDiscretization(DiscretizationAlgorithm):
                     disc_ta = copy.deepcopy(ta)
                     if value > ta.max_value:
                         disc_ta.value = disc_ta.max_value
-                        disc_ta.bandwidth = MAX_BANDWIDTH
+                        disc_ta.bandwidth = Kbps(MAX_BANDWIDTH)
                     else:
                         disc_ta.value = value
                         disc_ta.bandwidth = Kbps(disc_ta.compute_bandwidth(value))

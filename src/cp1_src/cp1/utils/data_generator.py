@@ -8,19 +8,17 @@ import random
 from cp1.common.exception_class import ConfigFileException
 
 class DataGenerator(abc.ABC):
-    def _generate_within_ranges(self, ranges, seed=None):
+    def _generate_within_ranges(self, ranges):
         """
         Takes in a field from data_generator.json and generates one value for each range.
         If either of the two numbers in the range are a float, it will produce a
         float.
 
         :param [[]] ranges: The list of ranges for a variable.
-        :param int seed: The number to seed random with
 
         :return [] vals: One value generated for each range.
         """
         vals = []
-
         for i in range(0, len(ranges)):
             if len(ranges[i][1]) == 1:
                 vals.append(ranges[i][1][0])

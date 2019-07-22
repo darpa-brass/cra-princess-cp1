@@ -34,11 +34,12 @@ In this case, the output of :func:`ProcessBandwidth.process() <cp1.processing.pr
 
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-import os
-import json
 from cp1.data_objects.processing.schedule import Schedule
+from cp1.data_objects.mdl.microseconds import Microseconds
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
+import os
+import json
 
 
 class BandwidthProcessor:

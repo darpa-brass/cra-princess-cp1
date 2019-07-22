@@ -1,11 +1,17 @@
+import random
 import json
 import numpy
+import time
+from numpy.random import choice
 
 from cp1.data_objects.mdl.frequency import Frequency
+from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
+from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.channel import Channel
 from cp1.utils.data_generator import DataGenerator
 from cp1.utils.json_utils import extract_percentages
+from cp1.common.exception_class import ChannelGeneratorRangeException
 from cp1.common.exception_class import ConfigFileException
 
 
@@ -18,18 +24,15 @@ class ChannelGenerator(DataGenerator):
     def generate(self):
         """
         Generates a set amount of Channels in the range of data provided by data_file.
-
-        :param int seed: The number to seed random and numpy.random with
         """
         self._extract_data()
         self._validate()
-
         channels = []
         for i in range(0, self.num_channels):
             channels.append(Channel(
                 frequency=Frequency(self.base_frequency[0] +
                                     (i * self.base_frequency[1])),
-                capacity=Kbps(numpy.random.choice(self._generate_within_ranges(self.capacity), p=extract_percentages(self.capacity)))))
+                capacity=Kbps(choice(self._generate_within_ranges(self.capacity), p=extract_percentages(self.capacity)))))
         return channels
 
     def _extract_data(self):

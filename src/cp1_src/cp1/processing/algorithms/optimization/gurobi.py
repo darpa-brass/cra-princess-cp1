@@ -9,6 +9,7 @@ import sys
 import csv
 from pandas import *
 from gurobipy import *
+from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
 from cp1.common.logger import Logger
@@ -25,7 +26,7 @@ class Gurobi(OptimizationAlgorithm):
         start_time = time.perf_counter()
         logger.debug('Beginning Gurobi Integer Program...')
         discretized_tas = discretization_algorithm.discretize(self.constraints_object.candidate_tas, self.constraints_object.channels)
-        min_latency = min(discretized_tas, key=lambda ta: ta.latency.microseconds).latency
+        min_latency = min(discretized_tas, key=lambda ta: ta.latency.value).latency.value
 
         # Construct empty constraints
         m = Model()
@@ -51,7 +52,7 @@ class Gurobi(OptimizationAlgorithm):
             for j in range(0, len(self.constraints_object.channels)):
                 coeff = 0
                 if j == ((i // discretization_algorithm.num_discretizations) % len(self.constraints_object.channels)):
-                    coeff = discretized_tas[i].compute_communication_length(self.constraints_object.channels[j].capacity, min_latency, self.constraints_object.guard_band)
+                    coeff = discretized_tas[i].compute_communication_length(self.constraints_object.channels[j].capacity, Milliseconds(min_latency), self.constraints_object.guard_band)
                 coeffs.append(coeff)
                 constrs.append(m.getConstrByName('r_{0}'.format(j)))
 
@@ -77,7 +78,7 @@ class Gurobi(OptimizationAlgorithm):
 
         # Set the right hand side of all constraints
         for i in range(0, len(self.constraints_object.channels)):
-            m.getConstrByName('r_{0}'.format(i)).setAttr('rhs', min_latency.microseconds)
+            m.getConstrByName('r_{0}'.format(i)).setAttr('rhs', min_latency)
         for i in range(len(self.constraints_object.channels), len(self.constraints_object.channels) + len(self.constraints_object.candidate_tas)):
             m.getConstrByName('r_{0}'.format(i)).setAttr('rhs', 1)
         for i in range(len(self.constraints_object.channels) + len(self.constraints_object.candidate_tas), 2 * len(self.constraints_object.channels) + len(self.constraints_object.candidate_tas)):

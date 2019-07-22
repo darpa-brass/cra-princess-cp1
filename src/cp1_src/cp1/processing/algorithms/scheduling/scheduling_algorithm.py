@@ -43,11 +43,11 @@ class SchedulingAlgorithm(abc.ABC):
                     'Start must be less than stop. Attempted to input a start time of: {0} stop time of: {1}'
                     .format(txop.start_usec, txop.stop_usec), 'SchedulingAlgorithm.validate')
 
-        ordered_txops.sort(key=lambda x: x.start_usec, reverse=True)
+        ordered_txops.sort(key=lambda x: x.start_usec.value, reverse=True)
         for i in range(len(ordered_txops)):
             if i == 0:
                 continue
-            if ordered_txops[i].start_usec.microsecond - ordered_txops[i-1].start_usec.microsecond < self.guard_band.microsecond:
+            if ordered_txops[i].start_usec.value - ordered_txops[i-1].start_usec.value < self.guard_band.value:
                 raise InvalidScheduleException(
                     'Guard band violation: {0} {1}'
                     .format(ordered_txops[i], ordered_txops[i-1]), 'SchedulingAlgorithm.validate')

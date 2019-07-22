@@ -6,14 +6,11 @@ logger = logger.logger
 
 from ortools.linear_solver import pywraplp
 from copy import deepcopy
-from datetime import timedelta
 import time
 import csv
 import json
 import sys
 import re
-import shutil
-import subprocess
 
 from brass_mdl_tools.mdl_generator import generate_mdl_file
 from cp1.data_objects.processing.channel import Channel
@@ -23,6 +20,7 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
+from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.txop import TxOp
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.utils.ta_generator import TAGenerator
@@ -41,18 +39,15 @@ from cp1.processing.algorithms.discretization.bandwidth_discretization import Ba
 
 
 def import_mdl_file():
-    """Imports the mdl_imput_file into the OrientDB database mdl_db_name using
-       the credentials specified in orientdb_config_file
-    """
     importer = OrientDBImporter(mdl_db_name, mdl_input_file,
                                 orientdb_config_file)
     importer.import_xml()
     importer.orientDB_helper.close_database()
 
-def export_mdl_file():
+def export_mdl_file(file_name):
     exporter = OrientDBExporter(
         mdl_db_name,
-        mdl_output,
+        mdl_output_folder + '\\' + file_name + '.xml',
         orientdb_config_file)
     exporter.export_xml()
     exporter.orientDB_helper.close_database()
@@ -66,56 +61,34 @@ def update_mdl_schedule():
     scenario_orientdb.close_database()
 
 def generate_constraints_objects():
-    """Either generates ConstraintsObjects based on a timestamp, or in the range
-       of seed[0] to seed[1] + 1.
+    channels = ChannelGenerator(config_file).generate()
+    candidate_tas = TAGenerator(config_file).generate(channels)
 
-       i.e. [0, 0] = seeded at 0
-            [1, 5] = seeds 1, 2, 3, 4, 5
-    """
-    def generate(seeds):
-        channels = ChannelGenerator(config_file).generate()
-        candidate_tas = TAGenerator(config_file).generate(channels)
+    for ta in candidate_tas:
+        ta.eligible_channels = channels
 
-        for ta in candidate_tas:
-            ta.eligible_channels = channels
-
-        local_constraints_objects.append(ConstraintsObject(
-            id_=1,
-            candidate_tas=candidate_tas,
-            channels=channels,
-            seed=seed,
-            goal_throughput_bulk=goal_throughput_bulk,
-            goal_throughput_voice=goal_throughput_voice,
-            goal_throughput_safety=goal_throughput_safety,
-            guard_band=guard_band,
-            epoch=epoch,
-            txop_timeout=txop_timeout))
-
-    if seeds == 'timestamp':
-        generate(seeds)
-    else:
-        for seed in range(seeds[0], seeds[1] + 1):
-            generate(seed)
+    local_constraints_objects.append(ConstraintsObject(
+        id_=1,
+        candidate_tas=candidate_tas,
+        channels=channels,
+        ta_seed='timestamp',
+        channel_seed='timestamp',
+        goal_throughput_bulk=goal_throughput_bulk,
+        goal_throughput_voice=goal_throughput_voice,
+        goal_throughput_safety=goal_throughput_safety,
+        guard_band=guard_band,
+        epoch=epoch,
+        txop_timeout=txop_timeout))
 
 def store_and_retrieve_constraints():
-    """Stores all ConstraintsObjects in local_constraints_objects into
-       the OrientDB database constraints_db_name using the credentials specified
-       in orientdb_config_file. Then retrieves those same constraints. This was
-       written to show how we might interact with OrientDB before receiving
-       actual constraints from SwRI.
-
-       :return [<ConstraintsObject>] orientdb_constraints_objects: The list of
-       ConstraintsObjects in the database constraints_db_name
-    """
     constraints_orientdb = OrientDBSession(
         database_name=constraints_db_name,
         config_file=orientdb_config_file)
     constraints_orientdb.open_database(over_write=True)
     for constraints_object in local_constraints_objects:
         constraints_orientdb.store_constraints(constraints_object)
-    orientdb_constraints_objects = constraints_orientdb.get_constraints()
+    orientdb_constraints_objects.append(constraints_orientdb.get_constraints())
     constraints_orientdb.close_database()
-    return orientdb_constraints_objects
 
 def setup_scheduling_algorithms():
     if greedy_schedule == 1:
@@ -134,7 +107,7 @@ def setup_discretization_algorithms():
         for x in value_disc:
             discretization_algorithms.append(ValueDiscretization(x))
 
-def setup_optimization_algorithms(orientdb_constraints_objects):
+def setup_optimization_algorithms():
     if cbc == 1:
         for x in orientdb_constraints_objects:
             optimization_algorithms.append(IntegerProgram(deepcopy(x)))
@@ -153,20 +126,11 @@ def determine_file_name():
         disc_write_value = discretization_algorithm.accuracy
     else:
         disc_write_value = discretization_algorithm.num_discretizations
-    return '{0}({1})_{2}_{3}_{4}'.format(str(discretization_algorithm), disc_write_value, str(optimization_algorithm), str(scheduling_algorithm), timestamp)
 
-def clear_files():
-    folders = [raw_output_folder, mdl_output_folder]
-    for folder in folders:
-        for file in os.listdir(folder):
-            file_path = os.path.join(folder, file)
-            try:
-                if os.path.isfile(file_path):
-                    os.unlink(file_path)
-            except Exception as e:
-                print(e)
+    file_name = '{0}({1})_{2}_{3}_{4}'.format(str(discretization_algorithm), disc_write_value, str(optimization_algorithm), str(scheduling_algorithm), timestamp)
+    return file_name
 
-def write_raw_results():
+def write_raw_results(file_name):
     if isinstance(discretization_algorithm, AccuracyDiscretization):
         num_discretizations = ''
         accuracy = discretization_algorithm.accuracy
@@ -185,7 +149,7 @@ def write_raw_results():
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
             [
-                optimization_algorithm.constraints_object.seed,
+                optimization_algorithm.constraints_object.ta_seed,
                 num_discretizations,
                 accuracy,
                 res.value,
@@ -202,8 +166,8 @@ with open(config_file, 'r') as f:
     num_tas = data['TAs']['num_tas']
     num_channels = data['Channels']['num_channels']
 
-    guard_band = timedelta(microseconds=(data['Constraints Object']['guard_band']))
-    epoch = timedelta(microseconds=(data['Constraints Object']['epoch']))
+    guard_band = Milliseconds(data['Constraints Object']['guard_band'])
+    epoch = Milliseconds(data['Constraints Object']['epoch'])
     txop_timeout = TxOpTimeout(data['Constraints Object']['txop_timeout'])
     goal_throughput_bulk = BandwidthRate(BandwidthTypes.BULK, Kbps(
         data['Constraints Object']['goal_throughput_bulk']))
@@ -211,7 +175,6 @@ with open(config_file, 'r') as f:
         data['Constraints Object']['goal_throughput_voice']))
     goal_throughput_safety = BandwidthRate(BandwidthTypes.SAFETY, Kbps(
         data['Constraints Object']['goal_throughput_safety']))
-    seeds = data['Constraints Object']['seeds']
 
     accuracy_disc_epsilons = data['Algorithms']['Discretization']['Accuracy']['epsilon']
     bandwidth_disc = data['Algorithms']['Discretization']['Bandwidth']['num_discretizations']
@@ -220,14 +183,11 @@ with open(config_file, 'r') as f:
     cbc = data['Algorithms']['Optimization']['CBC']
     gurobi = data['Algorithms']['Optimization']['Gurobi']
     greedy_algorithm = data['Algorithms']['Optimization']['Greedy']
-    dynamic = data['Algorithms']['Optimization']['Dynamic']
+    dynamic = data['Algorithms']['Optimization']['Dynamic Program']
 
-    greedy_schedule = data['Algorithms']['Scheduling']['Greedy']
-    os_schedule = data['Algorithms']['Scheduling']['OS']
+    greedy_schedule = data['Algorithms']['Scheduling']['Greedy Schedule']
+    os_schedule = data['Algorithms']['Scheduling']['OS Schedule']
 
-    visualize = data['Files and Database']['visualize']
-    clear = data['Files and Database']['clear']
-    use_orientdb = data['Files and Database']['use_orientdb']
     constraints_db_name = data['Files and Database']['constraints_db_name']
     mdl_db_name = data['Files and Database']['mdl_db_name']
     orientdb_config_file = os.path.abspath(
@@ -238,10 +198,6 @@ with open(config_file, 'r') as f:
         data['Files and Database']['mdl_output_folder'])
     raw_output_folder = os.path.abspath(
         data['Files and Database']['raw_output_folder'])
-
-if clear == 1:
-    logger.info('Deleting previous runs...')
-    clear_files()
 
 scenario_orientdb = OrientDBSession(
     database_name=mdl_db_name,
@@ -254,69 +210,52 @@ orientdb_constraints_objects = []
 discretization_algorithms = []
 optimization_algorithms = []
 scheduling_algorithms = []
-timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
-mdl_output = ''
+timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
+file_name = ''
 
-# if use_orientdb == 1:
-#     logger.info('Generating MDL File...')
-#     generate_mdl_file(
-#         ta_count=num_tas,
-#         output=mdl_input_file,
-#         base='../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml')
-#
-#     logger.info('Importing MDL File...')
-#     import_mdl_file()
+logger.info('Generating MDL File...')
+generate_mdl_file(
+    ta_count=num_tas,
+    output=mdl_input_file,
+    base='../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml')
+
+logger.info('Importing MDL File...')
+import_mdl_file()
 
 logger.debug('Generating Constraints Objects...')
 generate_constraints_objects()
 
 logger.info('Storing and Retrieving Constraints in OrientDB...')
-if use_orientdb == 1:
-    constraints_objects = store_and_retrieve_constraints()
-else:
-    constraints_objects = local_constraints_objects
+store_and_retrieve_constraints()
 
-for co in constraints_objects:
-    logger.info(co)
-    logger.info('\n************\n')
-#
-# logger.info('Setting up Discretization Algorithms...')
-# setup_discretization_algorithms()
-#
-# logger.debug('Setting up Optimization Algorithms...')
-# setup_optimization_algorithms(orientdb_constraints_objects)
-#
-# logger.debug('Setting up Scheduling Algorithms...')
-# setup_scheduling_algorithms()
-#
-# for discretization_algorithm in discretization_algorithms:
-#     for optimization_algorithm in optimization_algorithms:
-#         logger.debug('Optimizing...')
-#         res = optimization_algorithm.optimize(discretization_algorithm)
-#
-#         for scheduling_algorithm in scheduling_algorithms:
-#             logger.info('Constructing schedule...')
-#             new_schedule = scheduling_algorithm.schedule(deepcopy(res))
-#
-#             if use_orientdb == 1:
-#                 logger.info('Updating MDL File Schedule...')
-#                 update_mdl_schedule()
-#
-#             logger.debug('Writing results...')
-#             file_name = determine_file_name()
-#             mdl_output = mdl_output_folder + '\\' + file_name + '.xml'
-#             write_raw_results()
-#
-#             if use_orientdb == 1:
-#                 export_mdl_file()
-#
-#             if visualize == 1:
-#                 os.system("start /wait cmd /c \
-#                            python \
-#                            c:/dev/cp1/external/TxOpScheduleViewer/brass_visualization_tools/TxOpSchedViewer.py \
-#                            {0}".format(mdl_output))
-#
-#             logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
+logger.info('Setting up Discretization Algorithms...')
+setup_discretization_algorithms()
+
+logger.debug('Setting up Optimization Algorithms...')
+setup_optimization_algorithms()
+
+logger.debug('Setting up Scheduling Algorithms...')
+setup_scheduling_algorithms()
+
+for discretization_algorithm in discretization_algorithms:
+    for optimization_algorithm in optimization_algorithms:
+        logger.debug('Optimizing...')
+        res = optimization_algorithm.optimize(discretization_algorithm)
+
+        for scheduling_algorithm in scheduling_algorithms:
+            logger.info('Constructing schedule...')
+            new_schedule = scheduling_algorithm.schedule(deepcopy(res))
+
+            logger.info('Updating MDL File Schedule...')
+            update_mdl_schedule()
+
+            logger.debug('Writing raw results...')
+            file_name = determine_file_name()
+            write_raw_results(file_name)
+
+            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + file_name + '.xml'))
+            export_mdl_file(file_name)
+            logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
 
 
 logger.debug(

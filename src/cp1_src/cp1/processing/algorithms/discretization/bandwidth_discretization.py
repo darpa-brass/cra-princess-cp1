@@ -11,6 +11,7 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import copy
 from cp1.data_objects.constants.constants import *
 from cp1.data_objects.mdl.kbps import Kbps
+from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.ta import TA
 from cp1.processing.algorithms.discretization.discretization_algorithm import DiscretizationAlgorithm
@@ -24,7 +25,7 @@ class BandwidthDiscretization(DiscretizationAlgorithm):
         discretized_tas = []
         for ta in tas:
             for channel in channels:
-                discretization_length = int(MAX_BANDWIDTH.value - ta.total_minimum_bandwidth.value)/self.num_discretizations
+                discretization_length = int(MAX_BANDWIDTH - ta.total_minimum_bandwidth.value)/self.num_discretizations
                 for i in range(0, self.num_discretizations):
                     disc_ta = copy.deepcopy(ta)
                     disc_ta.channel = channel

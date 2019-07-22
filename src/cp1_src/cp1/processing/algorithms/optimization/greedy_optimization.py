@@ -37,13 +37,13 @@ class GreedyOptimization(OptimizationAlgorithm):
         self.constraints_object.candidate_tas.sort(key=lambda ta: (
                 ta.min_value / ta.total_minimum_bandwidth.value), reverse=True)
 
-        min_latency = min(self.constraints_object.candidate_tas, key=lambda x: x.latency.microseconds).latency
+        min_latency = min(self.constraints_object.candidate_tas, key=lambda x: x.latency.value).latency
 
         for ta in self.constraints_object.candidate_tas:
             for channel in self.constraints_object.channels:
                 if ta.channel_is_eligible(channel):
                     comm_length = ta.compute_communication_length(channel.capacity, min_latency, self.constraints_object.guard_band, ta.total_minimum_bandwidth)
-                    if comm_length + channel.start_time <= self.constraints_object.epoch:
+                    if comm_length + channel.start_time <= self.constraints_object.epoch.value:
                         ta.value = ta.min_value
                         ta.bandwidth = ta.total_minimum_bandwidth
                         ta.channel = channel
@@ -58,6 +58,6 @@ class GreedyOptimization(OptimizationAlgorithm):
         return AlgorithmResult(constraints_object=self.constraints_object, scheduled_tas=scheduled_tas, run_time=run_time, solve_time=run_time, value=value)
 
     def __str__(self):
-        return 'GreedyOptimization'
+        return 'Greedy'
 
     __repr__ = __str__
