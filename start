@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-cd ./src/cp1_src/cp1
+cd ./src/cp1_src
+python3 setup.py install
+
+cd ./cp1
 python3 start.py
