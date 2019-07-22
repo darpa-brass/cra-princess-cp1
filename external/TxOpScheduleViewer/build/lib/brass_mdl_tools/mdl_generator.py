@@ -212,7 +212,3 @@ def generate_mdl_file(ta_count, base='../base.xml', output='../../../../output/m
 
     with open(output, "w") as f:
         f.write(etree.tounicode(base_mdl, pretty_print=True))
-
-
-if __name__ == "__main__":
-    main()

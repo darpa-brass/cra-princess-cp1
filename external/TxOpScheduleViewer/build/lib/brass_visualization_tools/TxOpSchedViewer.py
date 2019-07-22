@@ -36,7 +36,7 @@ debug = 0               # Debug value: initially 0, e.g. no debug
 
 class RanConfig:
     """Class to contain RAN Configuration info"""
-
+    
     def __init__(self, name, id_attr, freq=0, epoch_ms=0, guard_ms=0.0):
         self.name = name
         self.id = id_attr
@@ -49,7 +49,7 @@ class RanConfig:
 
     def add_link(self, link):
         self.links.append(link)
-
+    
     def check_guardbands(self):
         txop_list = []
         for l in self.links:
@@ -70,7 +70,7 @@ class RanConfig:
 
 class QoSPolicy:
     """Class to contain QoSPolicy info"""
-
+    
     def __init__(self, name, id_attr, lmmc=0, ac=0, lmax=1000000):
         self.name = name
         self.id = id_attr
@@ -85,7 +85,7 @@ class QoSPolicy:
 
 class TxOp:
     """Class to contain TxOp info"""
-
+    
     def __init__(self, freq=0, start_usec=0, stop_usec=0, timeout=0):
         self.freq = freq
         self.start_usec = start_usec
@@ -100,7 +100,7 @@ class TxOp:
 
 class RadioLink:
     """Class to contain Radio Link info"""
-
+    
     def __init__(self, name, id_attr, src, dst, qp=None, lat=0):
         self.name = name
         self.id = id_attr
@@ -113,9 +113,6 @@ class RadioLink:
         self.alloc_bw_mbps = 0
         self.latency_point_value = 0
         self.throughput_point_value = 0
-        self.greedy_tx_dur_per_epoch_usec = 0
-        self.greedy_alloc_bw_mbps = 0
-        self.greedy_throughput_point_value = 0
 
     def add_txop(self, txop):
         self.tx_sched.append(txop)
@@ -128,7 +125,7 @@ class RadioLink:
                                     int(self.tx_sched[0].start_usec)
         else:
             self.max_latency_usec = 0
-
+        
         # iterate through the Link's TxOp Schedule, and compare latencies between TxOps with the previous max latency
         for i in range(len(self.tx_sched) - 1):
             temp_latency = int(self.tx_sched[i+1].start_usec) - (int(self.tx_sched[i].stop_usec) + 1)
@@ -138,7 +135,7 @@ class RadioLink:
     def calc_alloc_bw_mbps(self, epoch_ms):
         self.alloc_bw_mbps = ((int(self.tx_dur_per_epoch_usec) * (1000 / int(epoch_ms))) / 1000000) * MAX_BW_MBPS
 
-    def calc_latency_value(self, max_points_thd_ms, min_points_thd_ms, multiplier):
+    def calc_latency_value(self, max_points_thd_ms, min_points_thd_ms):
         if self.max_latency_usec < int(max_points_thd_ms*1000):
             self.latency_point_value = 100
         elif self.max_latency_usec < int(min_points_thd_ms*1000):
@@ -149,9 +146,8 @@ class RadioLink:
                 self.latency_point_value = 0
         else:
             self.latency_point_value = 0
-        self.latency_point_value = self.latency_point_value * multiplier
 
-    def calc_throughput_value(self, min_points_thd, max_points_thd, coef, multiplier):
+    def calc_throughput_value(self, min_points_thd, max_points_thd, coef):
         alloc_bw_kbps = self.alloc_bw_mbps * 1000
         if alloc_bw_kbps < min_points_thd:
             self.throughput_point_value = 0.0
@@ -159,20 +155,6 @@ class RadioLink:
             self.throughput_point_value = 100 - (100 * (math.e ** ((-1 * coef) * alloc_bw_kbps)))
         else:
             self.throughput_point_value = 100 - (100 * (math.e ** ((-1 * coef) * max_points_thd)))
-        self.throughput_point_value = self.throughput_point_value * multiplier
-
-    def calc_greedy_alloc_bw_mbps(self, epoch_ms):
-        self.greedy_alloc_bw_mbps = ((int(self.greedy_tx_dur_per_epoch_usec) * (1000 / int(epoch_ms))) / 1000000) * MAX_BW_MBPS
-
-    def calc_greedy_throughput_value(self, min_points_thd, max_points_thd, coef, multiplier):
-        alloc_bw_kbps = self.greedy_alloc_bw_mbps * 1000
-        if alloc_bw_kbps < min_points_thd:
-            self.greedy_throughput_point_value = 0.0
-        elif alloc_bw_kbps < max_points_thd:
-            self.greedy_throughput_point_value = (100 - 100 * (math.e ** ((-1 * coef) * alloc_bw_kbps)))
-        else:
-            self.greedy_throughput_point_value = 100 - (100 * (math.e ** ((-1 * coef) * max_points_thd)))
-        self.greedy_throughput_point_value = self.greedy_throughput_point_value * multiplier
 
 
 # ------------------------------------------------------------------------------
@@ -196,8 +178,8 @@ def print_banner():
                                                border_d['RS']), text_d['BORDER'])
     banner_pad.addstr(2, 0, "{0}{1}{2}".format(border_d['BL'], horizon, border_d['BR']), text_d['BORDER'])
     banner_pad.noutrefresh(0, 0, 0, 0, 3, width - 1)
-
-
+    
+    
 # ------------------------------------------------------------------------------
 
 
@@ -207,7 +189,7 @@ def print_file_info(f, name, config, s_file):
     global text_d
 
     height, width = stdscr.getmaxyx()
-
+    
     msg1 = "MDL File: {}".format(f)
     msg2 = "Name: {}".format(name)
     msg3 = "Configuration Version: {}".format(config)
@@ -223,7 +205,7 @@ def print_file_info(f, name, config, s_file):
     else:
         file_info_pad.addstr(3, 0, "{0:>102}".format('Score File Not Found: {0}'.format(s_file)),
                              text_d['ERROR_BLACK'] | BOLD | curses.A_UNDERLINE)
-
+    
     if (height-1) >= 9:
         file_info_pad.noutrefresh(0, 0, 4, 2, 7, (width-1))
     else:
@@ -237,9 +219,9 @@ def print_ran_stats(ran):
     global stdscr
     global ran_pad
     global text_d
-
+    
     height, width = stdscr.getmaxyx()
-
+    
     ran_pad.addstr(0, 0, " RAN Configuration Name:.....   {0:70}".format(ran.name),
                    text_d['BG'] | curses.A_REVERSE | BOLD)
     ran_pad.addstr(1, 0, " Center Frequency:...........   {0} MHz{1:60}".format(int(ran.freq)/1000000, ' '),
@@ -248,15 +230,15 @@ def print_ran_stats(ran):
                    text_d['BG'] | curses.A_REVERSE | BOLD)
     ran_pad.addstr(3, 0, " Guard Time:.................   {0:0.3f} ms{1:62}".format(ran.guard_ms, ' '),
                    text_d['BG'] | curses.A_REVERSE | BOLD)
-
+    
     start_row_pos = 9
     last_row_pos = 12
-
+    
     if (height-1) >= last_row_pos:
         ran_pad.noutrefresh(0, 0, start_row_pos, 2, last_row_pos, (width-1))
     elif (height-1) >= start_row_pos:
         ran_pad.noutrefresh(0, 0, start_row_pos, 2, (height-1), (width-1))
-
+        
 
 # ------------------------------------------------------------------------------
 
@@ -265,22 +247,22 @@ def print_links_info(links, num_rans):
     global stdscr
     global link_info_pad
     global text_d
-
+    
     height, width = stdscr.getmaxyx()
-
+    
     rows_needed = 1
     for l in links:
         if len(l.tx_sched) == 0:
             rows_needed += 4 + 1
         else:
             rows_needed += 4 + len(l.tx_sched)
-
+    
     link_info_pad = curses.newpad(rows_needed, 102)
     link_info_pad.bkgd(text_d['BG'])
-
+    
     link_info_pad.addstr(0, 0, "{0:^102}".format("RAN DETAILS"), text_d['BG'] | curses.A_UNDERLINE)
     link_info_pad.addstr(0, 96, "SCORE", text_d['BG'] | curses.A_UNDERLINE)
-
+    
     start_row = 1
     for idx, link in enumerate(links, start=0):
         print_link_info(link, start_row, idx)
@@ -288,10 +270,10 @@ def print_links_info(links, num_rans):
             start_row += 4 + len(link.tx_sched)
         else:
             start_row += 4 + 1
-
+    
     start_row_num = 16 + (5 * num_rans)
     last_row_num = start_row_num + rows_needed
-
+    
     if (height-1) >= last_row_num:
         link_info_pad.noutrefresh(0, 0, start_row_num, 2, last_row_num, (width-1))
     elif (height-1) >= start_row_num:
@@ -325,14 +307,14 @@ def print_link_info(link, row, cp):
         else:
             link_info_pad.addstr(row+2, 84, "{0:.3f} ms".format(int(link.max_latency_usec) / 1000),
                                  txt_color | curses.A_UNDERLINE)
-
+            
     else:
         if int(link.qos_policy.max_latency_usec) == 1000000.0:
             link_info_pad.addstr(row+1, 84, "N/A", txt_color)
         else:
             link_info_pad.addstr(row+1, 84, "{0:.3f} ms".format(int(link.qos_policy.max_latency_usec) / 1000),
                                  txt_color)
-
+    
         if link.max_latency_usec == 0:
             if link.qos_policy.max_latency_usec < 1000000.0:
                 link_info_pad.addstr(row+2, 84, "{0:^9}".format('N/A'),
@@ -343,10 +325,10 @@ def print_link_info(link, row, cp):
         elif link.max_latency_usec < link.qos_policy.max_latency_usec:
             link_info_pad.addstr(row+2, 84, "{0:.3f} ms".format(int(link.max_latency_usec) / 1000),
                                  txt_color | curses.A_UNDERLINE)
-        else:
+        else: 
             link_info_pad.addstr(row+2, 84, "{0:.3f} ms".format(int(link.max_latency_usec) / 1000),
                                  txt_color | curses.A_UNDERLINE | curses.A_REVERSE)
-
+    
     if link.qos_policy is None:
         link_info_pad.addstr(row+3, 84, "No QoS Policy!", txt_color |
                              BOLD | curses.A_REVERSE)
@@ -354,7 +336,7 @@ def print_link_info(link, row, cp):
     else:
         qp_ac_mbps = int(link.qos_policy.ac) / 1000000    # get QoS Policy rate in Mbps
         link_info_pad.addstr(row+3, 84, "{0:0.3f} Mbps".format(qp_ac_mbps), txt_color)
-
+        
         if qp_ac_mbps <= link.alloc_bw_mbps:
             link_info_pad.addstr(row+4, 84, "{0:0.3f} Mbps".format(link.alloc_bw_mbps), txt_color)
         else:
@@ -377,7 +359,7 @@ def print_link_info(link, row, cp):
 
 def print_txops_info(txops, row, cp):
     global link_info_pad
-
+    
     for idx, txop in enumerate(txops, start=0):
         print_txop_info(txop, idx, row+idx, cp)
 
@@ -390,14 +372,14 @@ def print_txop_info(txop, idx, row, cp):
 
     txt_color = curses.color_pair((cp % 10) + 1)
     txop_str = "  TxOp {0}: {1:6d} - {2:6d} us (TTL: {3:3d}) @ {4} MHz  \r".format(
-              idx+1, int(txop.start_usec), int(txop.stop_usec), int(txop.timeout),
+              idx+1, int(txop.start_usec), int(txop.stop_usec), int(txop.timeout), 
               int(txop.freq)/1000000)
 
     link_info_pad.addstr(row, 0, txop_str, txt_color)
-
+    
     if debug >= 2:
         print("  TxOp {0}: {1:6d} - {2:6d} us (TTL: {3:3d}) @ {4} MHz\r".format(
-              idx+1, int(txop.start_usec), int(txop.stop_usec), int(txop.timeout),
+              idx+1, int(txop.start_usec), int(txop.stop_usec), int(txop.timeout), 
               int(txop.freq)/1000000))
 
 
@@ -409,16 +391,16 @@ def print_txops_in_all_rans(rans, sel):
     global epoch_pad
     global txop_display_pad
     global text_d
-
+    
     height, width = stdscr.getmaxyx()
-
+    
     rows_needed = (len(rans) * 5)
     epoch_pad = curses.newpad(rows_needed, 102)
     epoch_pad.bkgd(text_d['BG'])
 
     start_row_num = 15
     last_row_num = start_row_num + rows_needed
-
+    
     for idx, ran in enumerate(rans, start=0):
         print_txops_in_epoch(ran, idx, sel)
 
@@ -436,7 +418,7 @@ def print_txops_in_epoch(ran, ran_num, sel):
     global epoch_pad
     global txop_display_pad
     global text_d
-
+    
     epoch_ms = ran.epoch_ms
     links = ran.links
 
@@ -444,7 +426,7 @@ def print_txops_in_epoch(ran, ran_num, sel):
     bar = (int(epoch_ms))/100
     scale_str = "one bar = {} ms".format(bar)
     horizon = border_d['TS'] * 100
-
+    
     if ran_num == sel:
         epoch_pad.addstr(start_row_num, 0, "{0:>102}".format(scale_str), text_d['BG'] | curses.A_REVERSE)
         epoch_pad.addstr(start_row_num, 0, "{0}.)  {1}\t|\tBW Efficiency: {2:5.2f}%".
@@ -482,7 +464,7 @@ def print_txops_in_epoch(ran, ran_num, sel):
                          text_d['BG'])
         epoch_pad.addstr(start_row_num + 3, 0, "{0}{1}{2}".format(border_d['BL'], horizon, border_d['BR']),
                          text_d['BG'])
-
+    
     for idx, link in enumerate(links, start=0):
         for txop in link.tx_sched:
             need_half_block_right = False
@@ -491,7 +473,7 @@ def print_txops_in_epoch(ran, ran_num, sel):
             stop_pos = (int(txop.stop_usec) / 1000) / bar
             frac_start = 0
             frac_stop = 0
-
+            
             if math.floor(start_pos) > 0:
                 frac_start = start_pos % math.floor(start_pos)
             start_pos = math.floor(start_pos)
@@ -499,7 +481,7 @@ def print_txops_in_epoch(ran, ran_num, sel):
                 start_pos += 1
             elif frac_start >= 0.25:
                 need_half_block_right = True
-
+            
             if math.floor(stop_pos) > 0:
                 frac_stop = stop_pos % math.floor(stop_pos)
             stop_pos = math.floor(stop_pos)
@@ -507,7 +489,7 @@ def print_txops_in_epoch(ran, ran_num, sel):
                 stop_pos += 1
             elif frac_stop >= 0.25:
                 need_half_block_left = True
-
+            
             num_bars = stop_pos - start_pos
             if need_half_block_right and need_half_block_left:
                 graphic = u'\u2590' + u'\u2588' * int(num_bars-1) + u'\u258c'
@@ -551,7 +533,7 @@ def print_toolbar():
 def print_too_short(width):
     global stdscr
     global text_d
-
+    
     bangs = '!' * int((width-49)/2)
     msg1 = bangs + '  DID YOU WANT TO SEE SOMETHING IN THIS WINDOW?  ' + bangs
     msg2 = bangs + '    TRY MAKING THE WINDOW A LITTLE BIT DEEPER.   ' + bangs
@@ -567,7 +549,7 @@ def print_too_short(width):
 def print_too_skinny(width):
     global stdscr
     global text_d
-
+    
     bangs = '!' * int((width-34)/2)
     msg1 = bangs + '  NOT SURE WHAT YOU EXPECT TO  ' + bangs
     msg2 = bangs + '  SEE ON SUCH A SKINNY SCREEN  ' + bangs
@@ -577,7 +559,7 @@ def print_too_skinny(width):
     stdscr.addstr(1, 0, "{0:^{1}}".format(msg2, width), text_d['ERROR_BLACK'] | BOLD | BLINK)
     stdscr.addstr(2, 0, "{0:^{1}}".format(msg3, width), text_d['ERROR_BLACK'] | BOLD | BLINK)
     stdscr.addstr(3, 0, "{0:^{1}}".format(msg4, width), text_d['ERROR_BLACK'] | BOLD | BLINK)
-
+    
 
 # ------------------------------------------------------------------------------
 
@@ -660,104 +642,6 @@ def init_text_colors():
 
 
 # ------------------------------------------------------------------------------
-
-def generated_sorted_list(rans_list, link_scores):
-    scored_links = []
-
-    if link_scores is not None:
-        for ran in rans_list:
-            greedy_ran = {"Epoch": int(ran.epoch_ms)/1000, "Guard_Band": ran.guard_ms/1000, "Links": []}  # s, s
-            for l in ran.links:
-                link_data = {}
-                for d in link_scores:
-                    if "Link" in d:
-                        if (int(l.src) == int(d['Link']['LinkSrc'])) and (int(l.dst) == int(d['Link']['LinkDst'])):
-                            link_data = {"Link": l}
-                            bandwidth = {}
-                            latency = {}
-                            bandwidth['bw_min_thd'] = 0
-                            bandwidth['bw_max_thd'] = 0
-                            bandwidth['bw_coef'] = 0
-                            if "Latency" in d:
-                                if "max_thd" in d['Latency']:
-                                    latency['lat_max_thd'] = d['Latency']['max_thd']
-                                if "min_thd" in d['Latency']:
-                                    latency['lat_min_thd'] = d['Latency']['min_thd']
-                            else:
-                                if debug >= 1:
-                                    print("The key 'Latency' was not found in the dictionary for the specified link.")
-
-                            if "Bandwidth" in d:
-                                if "min_thd" in d['Bandwidth']:
-                                    bandwidth['bw_min_thd'] = d['Bandwidth']['min_thd']
-                                if "max_thd" in d['Bandwidth']:
-                                    bandwidth['bw_max_thd'] = d['Bandwidth']['max_thd']
-                                if "coef" in d['Bandwidth']:
-                                    bandwidth['bw_coef'] = d['Bandwidth']['coef']
-                            else:
-                                if debug >= 1:
-                                    print("The key 'Bandwidth' was not found in the dictionary for the specified link.")
-
-                            link_data["Bandwith_Data"] = bandwidth
-                            link_data["Latency_Data"] = latency
-                            greedy_ran["Links"].append(link_data)
-                        else:
-                            if debug >= 1:
-                                print("No match of SRC and DST: this link is {0} --> {1}\r".format(l.src, l.dst))
-                    else:
-                        if debug >= 1:
-                            print("No match for key 'Link' in score file for link.\r")
-            if greedy_ran["Links"]:
-                scored_links.append(greedy_ran)
-
-    for ran in scored_links:
-        ran["Links"] = sorted(ran["Links"], key=lambda x: x["Bandwith_Data"]["bw_coef"], reverse=True)
-
-    return scored_links
-
-
-def min_required_schedule(rans_list, link_scores):
-
-
-    sorted_rans = generated_sorted_list(rans_list, link_scores)
-
-
-def max_requested_schedule(rans_list, link_scores, mult):
-    bandwidth = MAX_BW_MBPS * 1000  # kb/s
-
-    sorted_rans = generated_sorted_list(rans_list, link_scores)
-    for ran in sorted_rans:
-        gb = ran["Guard_Band"]  # s
-        epoch = ran["Epoch"]   # s
-        epoch_ms = epoch * 1000
-        uepoch = epoch * 1000000  # us
-        ugb = gb * 1000000
-        links = ran["Links"]
-        epoch_remaining = uepoch  # us
-        for link_data in links:
-            link = link_data["Link"]
-            bw_data = link_data["Bandwith_Data"]
-            lat_data = link_data["Latency_Data"]
-            min_point_threshold = bw_data['bw_min_thd']  # s
-            min_point_threshold_time = min_point_threshold / bandwidth  # s
-            mix_point_threshold_time_per_epoch = min_point_threshold_time * uepoch  # us
-            max_point_threshold = bw_data['bw_max_thd']  # s
-            max_point_threshold_time = max_point_threshold / bandwidth  # s
-            max_point_threshold_time_per_epoch = max_point_threshold_time * uepoch  # us
-            coef = bw_data['bw_coef']
-            latency = lat_data["lat_min_thd"] / 1000  # us
-            guard_band_count = math.ceil(max_point_threshold_time / latency)  # s/s
-            total_gb_time = guard_band_count * ugb  # s
-            bw_consumed = max_point_threshold_time_per_epoch+total_gb_time
-            if epoch_remaining > bw_consumed:
-                link.greedy_tx_dur_per_epoch_usec = max_point_threshold_time_per_epoch
-                link.calc_greedy_alloc_bw_mbps(epoch_ms)
-                link.calc_greedy_throughput_value(min_point_threshold, max_point_threshold, coef, mult)
-                epoch_remaining = epoch_remaining - bw_consumed
-
-
-# ------------------------------------------------------------------------------
-
 
 def write_report_to_json(rans_list):
     new_rans_list = copy.deepcopy(rans_list)
@@ -923,7 +807,6 @@ def run_schedule_viewer():
                             bw_min_thd = 0
                             bw_max_thd = 0
                             bw_coef = 0
-                            mult = 1
                             if "Latency" in d:
                                 if "max_thd" in d['Latency']:
                                     lat_max_thd = d['Latency']['max_thd']
@@ -942,20 +825,14 @@ def run_schedule_viewer():
                             else:
                                 if debug >= 1:
                                     print("The key 'Bandwidth' was not found in the dictionary for the specified link.")
-                            if "Multiplier" in d:
-                                mult = d["Multiplier"]
-                            else:
-                                if debug >= 1:
-                                    print("The key 'Multiplier' was not found in the dictionary for the specified link.")
-                            l.calc_latency_value(int(lat_max_thd), int(lat_min_thd), mult)
-                            l.calc_throughput_value(bw_min_thd, bw_max_thd, bw_coef, mult)
+                            l.calc_latency_value(int(lat_max_thd), int(lat_min_thd))
+                            l.calc_throughput_value(bw_min_thd, bw_max_thd, bw_coef)
                         else:
                             if debug >= 1:
                                 print("No match of SRC and DST: this link is {0} --> {1}\r".format(l.src, l.dst))
                     else:
                         if debug >= 1:
                             print("No match for key 'Link' in score file for link.\r")
-        max_requested_schedule(rans_list, ld_link_scores, mult)
 
     write_report_to_json(rans_list)
 
@@ -965,7 +842,7 @@ def run_schedule_viewer():
 # ------------------------------------------------------------------------------
 
 
-def main(stdscr):
+def main(stdscr):  
     global mdl_file
     global score_file
     global text_d

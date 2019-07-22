@@ -435,3 +435,5 @@
 2019-07-22 08:12:45,753 DEBUG Exported 1600 Nodes
 2019-07-22 08:12:45,760 INFO **********Optimization Algorithm: CBC, Discretization: AccuracyDiscretization, Scheduling Algorithm: Greedy Scheduler*********
 2019-07-22 08:12:45,761 DEBUG ***************************Challenge Problem 1 Complete********************
+2019-07-22 14:30:14,346 DEBUG ***************************Challenge Problem 1 Started*********************
+2019-07-22 14:30:14,382 INFO Generating MDL File...

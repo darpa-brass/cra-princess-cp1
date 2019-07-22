@@ -219,44 +219,44 @@ generate_mdl_file(
     output=mdl_input_file,
     base='../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml')
 
-logger.info('Importing MDL File...')
-import_mdl_file()
-
-logger.debug('Generating Constraints Objects...')
-generate_constraints_objects()
-
-logger.info('Storing and Retrieving Constraints in OrientDB...')
-store_and_retrieve_constraints()
-
-logger.info('Setting up Discretization Algorithms...')
-setup_discretization_algorithms()
-
-logger.debug('Setting up Optimization Algorithms...')
-setup_optimization_algorithms()
-
-logger.debug('Setting up Scheduling Algorithms...')
-setup_scheduling_algorithms()
-
-for discretization_algorithm in discretization_algorithms:
-    for optimization_algorithm in optimization_algorithms:
-        logger.debug('Optimizing...')
-        res = optimization_algorithm.optimize(discretization_algorithm)
-
-        for scheduling_algorithm in scheduling_algorithms:
-            logger.info('Constructing schedule...')
-            new_schedule = scheduling_algorithm.schedule(deepcopy(res))
-
-            logger.info('Updating MDL File Schedule...')
-            update_mdl_schedule()
-
-            logger.debug('Writing raw results...')
-            file_name = determine_file_name()
-            write_raw_results(file_name)
-
-            logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + file_name + '.xml'))
-            export_mdl_file(file_name)
-            logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
-
-
-logger.debug(
-    '***************************Challenge Problem 1 Complete********************')
+# logger.info('Importing MDL File...')
+# import_mdl_file()
+#
+# logger.debug('Generating Constraints Objects...')
+# generate_constraints_objects()
+#
+# logger.info('Storing and Retrieving Constraints in OrientDB...')
+# store_and_retrieve_constraints()
+#
+# logger.info('Setting up Discretization Algorithms...')
+# setup_discretization_algorithms()
+#
+# logger.debug('Setting up Optimization Algorithms...')
+# setup_optimization_algorithms()
+#
+# logger.debug('Setting up Scheduling Algorithms...')
+# setup_scheduling_algorithms()
+#
+# for discretization_algorithm in discretization_algorithms:
+#     for optimization_algorithm in optimization_algorithms:
+#         logger.debug('Optimizing...')
+#         res = optimization_algorithm.optimize(discretization_algorithm)
+#
+#         for scheduling_algorithm in scheduling_algorithms:
+#             logger.info('Constructing schedule...')
+#             new_schedule = scheduling_algorithm.schedule(deepcopy(res))
+#
+#             logger.info('Updating MDL File Schedule...')
+#             update_mdl_schedule()
+#
+#             logger.debug('Writing raw results...')
+#             file_name = determine_file_name()
+#             write_raw_results(file_name)
+#
+#             logger.info('Exporting MDL File {0}'.format(mdl_output_folder + '\\' + file_name + '.xml'))
+#             export_mdl_file(file_name)
+#             logger.info('**********Optimization Algorithm: {0}, Discretization: {1}, Scheduling Algorithm: {2}*********'.format(optimization_algorithm, discretization_algorithm, scheduling_algorithm))
+#
+#
+# logger.debug(
+#     '***************************Challenge Problem 1 Complete********************')
