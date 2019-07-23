@@ -8,11 +8,9 @@ ns = {"xsd": "http://www.w3.org/2001/XMLSchema",
 
 # shortcut dictionary for passing common arguments
 n = {"namespaces": ns}
-
-
 def make_radio(identifier):
     return etree.fromstring(
-    f"""
+    f'''
 <NetworkNode ID="Node_{identifier}" xmlns='http://www.wsmr.army.mil/RCC/schemas/MDL'>
     <Name>{identifier}</Name>
     <Description>Radio {identifier}</Description>
@@ -112,12 +110,10 @@ def make_radio(identifier):
         </Modules>
     </InternalStructure>
 </NetworkNode>
-    """)
-
-
+    ''')
 def make_link(source_radio, source_mac, destination_mac):
     return etree.fromstring(
-    f"""
+    f'''
 <RadioLink ID="RadioLink_{source_mac}to{destination_mac}" xmlns='http://www.wsmr.army.mil/RCC/schemas/MDL'>
     <Name>{source_mac} to {destination_mac}</Name>
     <SourceRadioRef IDREF="TMA_{source_radio}"/>
@@ -129,19 +125,15 @@ def make_link(source_radio, source_mac, destination_mac):
     <EncryptionEnabled>false</EncryptionEnabled>
     <EncryptionKeyID>0</EncryptionKeyID>
 </RadioLink>
-    """)
-
-
+    ''')
 def make_group(destination_mac):
     return etree.fromstring(
-    f"""
+    f'''
 <RadioGroup ID="RadioGroup_RAN_4919_{destination_mac}" xmlns='http://www.wsmr.army.mil/RCC/schemas/MDL'>
     <Name>{destination_mac} Receive Group</Name>
     <GroupRFMACAddress>{destination_mac}</GroupRFMACAddress>
 </RadioGroup>
-    """)
-
-
+    ''')
 def generate_mdl_file(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
     if ta_count > 255 or ta_count < 1:
         print("Count must be in range 1-255.")

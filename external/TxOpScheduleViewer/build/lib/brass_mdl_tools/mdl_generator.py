@@ -8,8 +8,6 @@ ns = {"xsd": "http://www.w3.org/2001/XMLSchema",
 
 # shortcut dictionary for passing common arguments
 n = {"namespaces": ns}
-
-
 def make_radio(identifier):
     return etree.fromstring(
     f"""
@@ -113,8 +111,6 @@ def make_radio(identifier):
     </InternalStructure>
 </NetworkNode>
     """)
-
-
 def make_link(source_radio, source_mac, destination_mac):
     return etree.fromstring(
     f"""
@@ -130,8 +126,6 @@ def make_link(source_radio, source_mac, destination_mac):
     <EncryptionKeyID>0</EncryptionKeyID>
 </RadioLink>
     """)
-
-
 def make_group(destination_mac):
     return etree.fromstring(
     f"""
@@ -140,8 +134,6 @@ def make_group(destination_mac):
     <GroupRFMACAddress>{destination_mac}</GroupRFMACAddress>
 </RadioGroup>
     """)
-
-
 def generate_mdl_file(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
     if ta_count > 255 or ta_count < 1:
         print("Count must be in range 1-255.")
