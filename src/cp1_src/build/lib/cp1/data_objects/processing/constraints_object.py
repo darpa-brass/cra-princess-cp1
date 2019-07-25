@@ -20,8 +20,7 @@ class ConstraintsObject:
                  id_,
                  candidate_tas,
                  channels,
-                 ta_seed=None,
-                 channel_seed=None,
+                 seed=None,
                  goal_throughput_bulk=BandwidthRate(
                      BandwidthTypes.BULK, Kbps(100)),
                  goal_throughput_voice=BandwidthRate(
@@ -51,8 +50,7 @@ class ConstraintsObject:
         self.txop_timeout = txop_timeout
         self.candidate_tas = candidate_tas
         self.channels = channels
-        self.ta_seed = ta_seed
-        self.channel_seed = channel_seed
+        self.seed = seed
         self.id_ = id_
 
 
