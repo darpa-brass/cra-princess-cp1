@@ -1,5 +1,5 @@
 import unittest
-from cp1.utils.channel_generator import ChannelGenerator
+from cp1.utils.data_generators.channel_generator import ChannelGenerator
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.milliseconds import Milliseconds

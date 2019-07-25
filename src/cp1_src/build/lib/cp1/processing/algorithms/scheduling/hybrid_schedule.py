@@ -8,7 +8,7 @@ from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.data_objects.processing.constraints_object import ConstraintsObject
 from cp1.data_objects.processing.ta import TA
 from cp1.data_objects.processing.channel import Channel
-from cp1.utils.mdl_utils import *
+from cp1.utils.file_utils.mdl_utils import *
 from cp1.processing.algorithms.scheduling.scheduling_algorithm import SchedulingAlgorithm
 
 

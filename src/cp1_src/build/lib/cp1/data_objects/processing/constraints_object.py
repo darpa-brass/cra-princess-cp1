@@ -10,8 +10,8 @@ from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.ta import TA
-from cp1.utils.channel_generator import ChannelGenerator
-from cp1.utils.ta_generator import TAGenerator
+from cp1.utils.data_generators.channel_generator import ChannelGenerator
+from cp1.utils.data_generators.ta_generator import TAGenerator
 from cp1.data_objects.processing.channel import Channel
 
 

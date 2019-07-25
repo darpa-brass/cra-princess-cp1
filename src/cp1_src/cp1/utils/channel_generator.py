@@ -9,8 +9,8 @@ from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.channel import Channel
-from cp1.utils.data_generator import DataGenerator
-from cp1.utils.json_utils import extract_percentages
+from cp1.utils.data_generators.data_generator import DataGenerator
+from cp1.utils.file_utils.json_utils import extract_percentages
 from cp1.common.exception_class import ChannelGeneratorRangeException
 from cp1.common.exception_class import ConfigFileException
 

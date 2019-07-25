@@ -10,8 +10,8 @@ import numpy
 import time
 from numpy.random import choice
 
-from cp1.utils.data_generator import DataGenerator
-from cp1.utils.json_utils import extract_percentages
+from cp1.utils.data_generators.data_generator import DataGenerator
+from cp1.utils.file_utils.json_utils import extract_percentages
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.processing.ta import TA

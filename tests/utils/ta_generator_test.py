@@ -1,5 +1,5 @@
 import unittest
-from cp1.utils.ta_generator import TAGenerator
+from cp1.utils.data_generators.ta_generator import TAGenerator
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.id_set import IdSet
 from cp1.common.exception_class import TAGeneratorRangeException

@@ -9,7 +9,7 @@ from cp1.data_objects.mdl.microseconds import Microseconds
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
 from cp1.processing.algorithms.scheduling.scheduling_algorithm import SchedulingAlgorithm
-from cp1.utils.mdl_utils import *
+from cp1.utils.file_utils.mdl_utils import *
 
 
 class GreedySchedule(SchedulingAlgorithm):

@@ -5,7 +5,7 @@ software schedules tasks; a priority queue with allowed interruptions.
 """
 from cp1.data_objects.processing.scheduling_job import SchedulingJob
 from cp1.data_objects.constants.constants import *
-from cp1.utils.mdl_utils import *
+from cp1.utils.file_utils.mdl_utils import *
 import random
 
 

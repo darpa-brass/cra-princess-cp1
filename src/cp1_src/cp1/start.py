@@ -23,11 +23,11 @@ from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
 from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.txop import TxOp
 from cp1.data_objects.mdl.frequency import Frequency
-from cp1.utils.ta_generator import TAGenerator
-from cp1.utils.channel_generator import ChannelGenerator
+from cp1.utils.data_generators.ta_generator import TAGenerator
+from cp1.utils.data_generators.channel_generator import ChannelGenerator
 from cp1.utils.decorators.orientdb_exporter import OrientDBExporter
 from cp1.utils.decorators.orientdb_importer import OrientDBImporter
-from cp1.utils.orientdb_session import OrientDBSession
+from cp1.utils.orientdb.orientdb_session import OrientDBSession
 from cp1.processing.algorithms.scheduling.os_schedule import OSSchedule
 from cp1.processing.algorithms.scheduling.greedy_schedule import GreedySchedule
 from cp1.processing.algorithms.optimization.greedy_optimization import GreedyOptimization

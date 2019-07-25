@@ -13,11 +13,11 @@ from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
 from brass_api.common.exception_class import BrassException
 import brass_api.orientdb.orientdb_sql as sql
 
-from cp1.utils.mdl_utils import *
+from cp1.utils.file_utils.mdl_utils import *
 
 from cp1.data_objects.constants.constants import *
-from cp1.utils.channel_generator import ChannelGenerator
-from cp1.utils.ta_generator import TAGenerator
+from cp1.utils.data_generators.channel_generator import ChannelGenerator
+from cp1.utils.data_generators.ta_generator import TAGenerator
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.txop import TxOpTimeout
 from cp1.data_objects.mdl.frequency import Frequency
