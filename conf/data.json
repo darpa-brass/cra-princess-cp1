@@ -50,7 +50,7 @@
   },
   "Files and Database":
   {
-    "orientdb_config_file": "../../../conf/local_db_config.json",
+    "orientdb_config_file": "../../../conf/orientdb_config.json",
     "constraints_db_name": "cra_constraints",
     "mdl_db_name": "cra_mdl",
     "mdl_input_file": "../../../output/mdl/output_mdl_file.xml",
