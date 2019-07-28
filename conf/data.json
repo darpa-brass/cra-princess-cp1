@@ -1,17 +1,17 @@
 {
   "TAs": {
-    "num_tas": 20,
+    "num_tas": 15,
     "eligible_channels": [[1, [1]]],
-    "voice_bandwidth": [[1, [1900]], [0, [50, 200]]],
-    "safety_bandwidth": [[0, [500, 1000]], [0, [100, 500]], [1, [1000]]],
-    "latency": [[0, [50, 50]], [0, [25, 25]], [1, [50]]],
-    "scaling_factor": [[0.7, [0.9, 1.1]], [0.2, [0.4, 0.6]], [0.1, [2.0, 3.0]]],
-    "c": [[1, [0.0005]]]
+    "voice_bandwidth": [[0.8, [120]], [0.2, [50, 200]]],
+    "safety_bandwidth": [[0.65, [500, 1000]], [0.15, [100, 500]], [0.2, [1000, 8000]]],
+    "latency": [[1, [50]]],
+    "scaling_factor": [[0.2, [0.4, 0.6]], [0.7, [0.9, 1.1]], [0.1, [2.0, 3.0]]],
+    "c": [[0.8, [0.0005, 0.0025]], [0.2, [0.0025, 0.007]]]
   },
   "Channels": {
     "num_channels": 1,
     "base_frequency": [4919500000, 100000],
-    "capacity": [[1, [10000]], [0, [1000, 10000]]]
+    "capacity": [[0.98, [10000]], [0.02, [1000, 10000]]]
   },
   "Constraints Object": {
     "guard_band": 1,
@@ -19,26 +19,27 @@
     "goal_throughput_voice": 0,
     "goal_throughput_safety": 0,
     "epoch": 100,
-    "txop_timeout": 255
+    "txop_timeout": 255,
+    "seeds": [0, 0]
   },
   "Algorithms":
   {
     "Optimization":
     {
-      "CBC": 1,
+      "CBC": 0,
       "Gurobi": 0,
       "Greedy": 0,
-      "Dynamic Program": 0
+      "Dynamic": 1
     },
     "Scheduling":
     {
-      "Greedy Schedule": 1,
-      "OS Schedule": 0
+      "Greedy": 0,
+      "Hybrid": 1
     },
     "Discretization":
     {
       "Accuracy": {
-        "epsilon": [0.9]
+        "epsilon": [0.1]
       },
       "Bandwidth": {
         "num_discretizations": []
@@ -50,10 +51,13 @@
   },
   "Files and Database":
   {
+    "orientdb": 1,
+    "visualize": 0,
+    "clear": 1,
     "orientdb_config_file": "../../../conf/orientdb_config.json",
     "constraints_db_name": "cra_constraints",
     "mdl_db_name": "cra_mdl",
-    "mdl_input_file": "../../../output/mdl/output_mdl_file.xml",
+    "mdl_shell_file": "../../../output/mdl/mdl_shell.xml",
     "mdl_output_folder": "../../../output/mdl",
     "raw_output_folder": "../../../output/raw"
   }

@@ -34,6 +34,6 @@ class ValueDiscretization(DiscretizationAlgorithm):
         return discretized_tas
 
     def __str__(self):
-        return 'Value Discretization'
+        return 'ValueDiscretization'
 
     __repr__ = __str__

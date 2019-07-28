@@ -1,0 +1,21 @@
+# Byte-compiled
+__pycache__/
+
+# IntelliJ specific
+.idea/
+*.iml
+
+# Log files
+*.log
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+eggs/
+*.egg
+*.egg-info/
+
+# Outputs
+*.txt
+*.csv

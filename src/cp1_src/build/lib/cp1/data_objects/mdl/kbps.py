@@ -32,3 +32,7 @@ class Kbps:
         if isinstance(other, Kbps):
             return self.value == other.value
         return False
+
+    def __iadd__(self, other):
+        self.value += other.value
+        return self
