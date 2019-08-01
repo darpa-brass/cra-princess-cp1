@@ -164,7 +164,7 @@ def write_raw_results():
         bw_eff_print += ('{0},{1}').format(channel_frequency, efficiency)
     bw_eff_print = bw_eff_print[:-1]
 
-    with open(raw_output_folder + '\/' + file_name + '.csv', 'a') as csv_file:
+    with open(raw_output_folder + '/' + file_name + '.csv', 'a') as csv_file:
         csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_NONE, escapechar='\\')
         csv_writer.writerow(
             [
@@ -296,7 +296,7 @@ for discretization_algorithm in discretization_algorithms:
 
                     logger.debug('Writing results...')
                     file_name = determine_file_name()
-                    mdl_output = mdl_output_folder + '\/' + file_name + '.xml'
+                    mdl_output = mdl_output_folder + '/' + file_name + '.xml'
                     write_raw_results()
                     export_mdl_file()
                     if visualize == 1:
