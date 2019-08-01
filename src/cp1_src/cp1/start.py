@@ -1,7 +1,7 @@
 import os
 from cp1.common.logger import Logger
 logger = Logger()
-logger.setup_file_handler(os.path.abspath('../../../logs/'))
+logger.setup_file_handler(os.path.abspath('/data'))
 logger = logger.logger
 
 from ortools.linear_solver import pywraplp

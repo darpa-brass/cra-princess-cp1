@@ -58,7 +58,7 @@
     "constraints_db_name": "cra_constraints",
     "mdl_db_name": "cra_mdl",
     "mdl_shell_file": "../../../output/mdl/mdl_shell.xml",
-    "mdl_output_folder": "../../../output/mdl",
-    "raw_output_folder": "../../../output/raw"
+    "mdl_output_folder": "/data",
+    "raw_output_folder": "/data"
   }
 }
