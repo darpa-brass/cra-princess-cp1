@@ -53,7 +53,7 @@
   {
     "orientdb": 1,
     "visualize": 0,
-    "clear": 1,
+    "clear": 0,
     "orientdb_config_file": "../../../conf/orientdb_config.json",
     "constraints_db_name": "cra_constraints",
     "mdl_db_name": "cra_mdl",
