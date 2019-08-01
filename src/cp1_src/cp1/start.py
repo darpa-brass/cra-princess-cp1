@@ -1,7 +1,7 @@
 import os
 from cp1.common.logger import Logger
 logger = Logger()
-logging_dir = '/data/logging'
+logging_dir = '/data/logging/'
 os.makedirs(logging_dir, exist_ok=True)
 logger.setup_file_handler(logging_dir)
 logger = logger.logger
