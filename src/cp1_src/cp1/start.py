@@ -2,7 +2,7 @@ import os
 from cp1.common.logger import Logger
 logger = Logger()
 logging_dir = '/data/logging'
-os.makedirs(logging_dir)
+os.makedirs(logging_dir, exist_ok=True)
 logger.setup_file_handler(logging_dir)
 logger = logger.logger
 
@@ -228,8 +228,8 @@ if clear == 1:
     clear_files()
 
 # Create output folders in docker container
-os.makedirs(mdl_output_folder)
-os.makedirs(raw_output_folder)
+os.makedirs(mdl_output_folder, exist_ok=True)
+os.makedirs(raw_output_folder, exist_ok=True)
 
 scenario_orientdb = OrientDBSession(
     database_name=mdl_db_name,
