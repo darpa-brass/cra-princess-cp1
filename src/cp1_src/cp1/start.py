@@ -1,7 +1,9 @@
 import os
 from cp1.common.logger import Logger
 logger = Logger()
-logger.setup_file_handler(os.path.abspath('/data'))
+logging_dir = '/data/logging'
+os.makedirs(logging_dir)
+logger.setup_file_handler(logging_dir)
 logger = logger.logger
 
 from ortools.linear_solver import pywraplp
@@ -162,7 +164,7 @@ def write_raw_results():
         bw_eff_print += ('{0},{1}').format(channel_frequency, efficiency)
     bw_eff_print = bw_eff_print[:-1]
 
-    with open(raw_output_folder + '\\' + file_name + '.csv', 'a') as csv_file:
+    with open(raw_output_folder + '\/' + file_name + '.csv', 'a') as csv_file:
         csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_NONE, escapechar='\\')
         csv_writer.writerow(
             [
@@ -224,6 +226,10 @@ with open(config_file, 'r') as f:
 if clear == 1:
     logger.info('Deleting previous runs...')
     clear_files()
+
+# Create output folders in docker container
+os.makedirs(mdl_output_folder)
+os.makedirs(raw_output_folder)
 
 scenario_orientdb = OrientDBSession(
     database_name=mdl_db_name,
@@ -290,7 +296,7 @@ for discretization_algorithm in discretization_algorithms:
 
                     logger.debug('Writing results...')
                     file_name = determine_file_name()
-                    mdl_output = mdl_output_folder + '\\' + file_name + '.xml'
+                    mdl_output = mdl_output_folder + '\/' + file_name + '.xml'
                     write_raw_results()
                     export_mdl_file()
                     if visualize == 1:
