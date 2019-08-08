@@ -6,10 +6,10 @@ Author: Tameem Samawi (tsamawi@cra.com)
 """
 
 import unittest
+from datetime import time
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.kbps import Kbps
-from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.common.exception_class import ChannelInitializationException
 
 
@@ -17,8 +17,8 @@ class ChannelTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.valid_channel_frequency = Frequency(4919500000)
-        cls.valid_channel_length = Milliseconds(100)
-        cls.valid_channel_latency = Milliseconds(50)
+        cls.valid_channel_length = time(microsecond=100000)
+        cls.valid_channel_latency = time(microsecond=50000)
         cls.valid_channel_capacity = Kbps(100000)
 
         cls.valid_channel = Channel(
@@ -30,10 +30,10 @@ class ChannelTest(unittest.TestCase):
     def test_valid_channel_init(self):
         self.assertEqual(self.valid_channel_frequency.value,
                          self.valid_channel.frequency.value)
-        self.assertEqual(self.valid_channel_length.value,
-                         self.valid_channel.length.value)
-        self.assertEqual(self.valid_channel_latency.value,
-                         self.valid_channel.latency.value)
+        self.assertEqual(self.valid_channel_length.microsecond,
+                         self.valid_channel.length.microsecond)
+        self.assertEqual(self.valid_channel_latency.microsecond,
+                         self.valid_channel.latency.microsecond)
         self.assertEqual(self.valid_channel_capacity.value,
                          self.valid_channel.capacity.value)
 

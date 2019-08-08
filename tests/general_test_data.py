@@ -7,7 +7,7 @@ This program contains test database connection information, a mock pyorient node
 Author: Tameem Samawi (tsamawi@cra.com)
 
 """
-from cra.utils.json_utils import file_to_json
+from cra.utils.file_utils.json_utils import file_to_json
 
 
 class GeneralTestData:

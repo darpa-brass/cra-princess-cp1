@@ -23,6 +23,24 @@ class ChannelGeneratorRangeException(ValueError):
             self.message, self.source)
 
 
+class InvalidLatencyRequirementException(ValueError):
+    """Raise for TAs whose latency requirements exceed half the MDL epoch"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(InvalidLatencyRequirementException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
 class TxOpInitializationException(ValueError):
     """Raise for TxOp initializations"""
 
@@ -40,6 +58,23 @@ class TxOpInitializationException(ValueError):
         return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
             self.message, self.source)
 
+
+class SchedulingJobInitializationException(ValueError):
+    """Raise for SchedulingJob initializations"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(SchedulingJobInitializationException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
 
 
 class RadioLinkNotFoundException(ValueError):
@@ -249,6 +284,24 @@ class InvalidScheduleException(ValueError):
         :param str source:      Which function threw the exception
         """
         super(InvalidScheduleException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class ScheduleInitializationException(ValueError):
+    """Raise for invalid schedule initializations"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(ScheduleInitializationException, self).__init__(message)
         self.message = message
         self.source = source
 

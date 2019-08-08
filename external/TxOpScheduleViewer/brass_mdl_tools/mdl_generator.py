@@ -141,8 +141,7 @@ def make_group(destination_mac):
 </RadioGroup>
     """)
 
-
-def generate_mdl_file(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
+def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
     if ta_count > 255 or ta_count < 1:
         print("Count must be in range 1-255.")
         return(-1)
@@ -212,7 +211,3 @@ def generate_mdl_file(ta_count, base='../base.xml', output='../../../../output/m
 
     with open(output, "w") as f:
         f.write(etree.tounicode(base_mdl, pretty_print=True))
-
-
-if __name__ == "__main__":
-    main()

@@ -4,8 +4,8 @@ Data object representing a radio channel.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 from cp1.data_objects.mdl.frequency import Frequency
-from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.mdl.kbps import Kbps
+from datetime import timedelta
 
 
 class Channel:
@@ -19,7 +19,7 @@ class Channel:
         self.frequency = frequency
         self.capacity = capacity
 
-        self.start_time = 0
+        self.start_time = timedelta(microseconds=0)
         self.value = 0
 
     def __str__(self):
@@ -29,7 +29,7 @@ class Channel:
                'value: {3}'.format(
                    self.frequency,
                    self.capacity,
-                   self.start_time,
+                   self.start_time.microseconds,
                    self.value
                )
 

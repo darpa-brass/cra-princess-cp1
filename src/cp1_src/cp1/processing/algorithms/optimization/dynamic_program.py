@@ -2,16 +2,17 @@
 
 A Dynamic Program that schedules TAs.
 """
-import time
+from time import perf_counter
 import numpy
 import math
 import copy
 from pandas import *
 from cp1.processing.algorithms.optimization.optimization_algorithm import OptimizationAlgorithm
-from cp1.data_objects.mdl.milliseconds import Milliseconds
 from cp1.data_objects.constants.constants import *
 from cp1.data_objects.processing.algorithm_result import AlgorithmResult
 from cp1.common.logger import Logger
+from cp1.utils.decorators.timedelta import timedelta
+
 
 logger = Logger().logger
 
@@ -21,7 +22,7 @@ class DynamicProgram(OptimizationAlgorithm):
         self.constraints_object = constraints_object
         self.scheduled_tas = []
 
-    def optimize(self, discretization_algorithm, factor=DYNAMIC_PROGRAM_FACTOR):
+    def optimize(self, discretization_algorithm, constraints_object, factor=DYNAMIC_PROGRAM_FACTOR):
         """
         i = channel index
         j = num_tas
@@ -32,7 +33,7 @@ class DynamicProgram(OptimizationAlgorithm):
                            If factor = 3, 330 microsecond intervals.
         """
         print("Beginning Dynamic Program...")
-        start_time = time.perf_counter()
+        start_time = perf_counter()
 
         self.scheduled_tas = []
         self.discretization_algorithm = discretization_algorithm
@@ -48,12 +49,11 @@ class DynamicProgram(OptimizationAlgorithm):
             if len(eligible_tas) == 0:
                 continue
 
-            min_latency = min(eligible_tas, key=lambda x: x.latency.value).latency.value
-
+            min_latency = timedelta(milliseconds=(min(eligible_tas, key=lambda x: x.latency.microseconds).latency.microseconds / 1000)) # Convert to ms so we don't mess up the table
             # Setup table data for these eligible TAs.
             # Add 1 because we need to account for the case where there are 0 TAs
             # and 0 time (or weight in the knapsack)
-            table_width = (min_latency * factor) + 1
+            table_width = int((min_latency.milliseconds * factor) + 1)
             table_height = len(eligible_tas) + 1
 
             table = [[0 for i in range(table_width)]
@@ -62,12 +62,12 @@ class DynamicProgram(OptimizationAlgorithm):
             # Populate table
             for j in range(1, table_height):
                 for k in range(0, table_width):
-                    if math.ceil(discretized_tas[(j-1) * self.discretization_algorithm.num_discretizations].compute_communication_length(self.constraints_object.channels[i].capacity, Milliseconds(min_latency), self.constraints_object.guard_band)*factor) > k:
+                    if math.ceil((discretized_tas[(j-1) * self.discretization_algorithm.num_discretizations].compute_communication_length(self.constraints_object.channels[i].capacity, timedelta(microseconds=min_latency.microseconds), self.constraints_object.guard_band).microseconds/1000)*factor) > k:
                         table[j][k] = table[j-1][k]
                     else:
                         sol = table[j-1][k]
                         for l in range(((j - 1) * discretization_algorithm.num_discretizations), j * discretization_algorithm.num_discretizations):
-                            wk = math.ceil(discretized_tas[l].compute_communication_length(self.constraints_object.channels[i].capacity, Milliseconds(min_latency), self.constraints_object.guard_band) * factor)
+                            wk = math.ceil((discretized_tas[l].compute_communication_length(self.constraints_object.channels[i].capacity, min_latency, self.constraints_object.guard_band).microseconds / 1000)* factor)
                             if wk <= k:
                                 curr_val = table[j - 1][k-wk] + discretized_tas[l].value
                                 if sol < curr_val:
@@ -76,13 +76,15 @@ class DynamicProgram(OptimizationAlgorithm):
 
             # Prints the dynamic program
             print(DataFrame(table))
-            self._retrieve_tas(table, len(eligible_tas), min_latency *
-                               factor, i, discretized_tas, min_latency)
+            self._retrieve_tas(table, len(eligible_tas), int(min_latency.milliseconds *
+                               factor), i, discretized_tas, min_latency)
 
         value = sum(ta.value for ta in self.scheduled_tas)
-        run_time = time.perf_counter() - start_time
+        run_time = perf_counter() - start_time
 
         print("Dynamic Program completed in {0} seconds".format(run_time))
+        self.round_bandwidth_values(self.scheduled_tas)
+
         return AlgorithmResult(constraints_object=self.constraints_object, scheduled_tas=self.scheduled_tas, solve_time=run_time, run_time=run_time,
                                 value=value)
 
@@ -94,7 +96,7 @@ class DynamicProgram(OptimizationAlgorithm):
                 return self._retrieve_tas(table, row-1, column, index, discretized_tas, min_latency)
             else:
                 for i in range((row-1) * self.discretization_algorithm.num_discretizations, row * self.discretization_algorithm.num_discretizations):
-                    wi = math.ceil(discretized_tas[i].compute_communication_length(self.constraints_object.channels[index].capacity, Milliseconds(min_latency), self.constraints_object.guard_band) * self.factor)
+                    wi = math.ceil((discretized_tas[i].compute_communication_length(self.constraints_object.channels[index].capacity, min_latency, self.constraints_object.guard_band).microseconds / 1000) * self.factor)
                     if wi <= column:
                         if table[row][column] == table[row-1][column-wi] + discretized_tas[i].value:
                             self.scheduled_tas.append(discretized_tas[i])

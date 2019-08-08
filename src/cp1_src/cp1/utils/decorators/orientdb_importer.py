@@ -5,7 +5,7 @@ Developed to provide a progress update while exporting MDL files.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 from brass_api.translator.orientdb_importer import OrientDBXMLImporter
-from cp1.utils.orientdb_session import OrientDBSession
+from cp1.utils.orientdb.orientdb_session import OrientDBSession
 
 
 class OrientDBImporter(OrientDBXMLImporter):

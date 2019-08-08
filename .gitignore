@@ -17,6 +17,5 @@ eggs/
 *.egg-info/
 
 # Outputs
-CRA_Scenarios_After_Adaptation.xml
 *.txt
 *.csv

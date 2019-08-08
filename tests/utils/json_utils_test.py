@@ -1,6 +1,6 @@
 import unittest
 import os
-from cra.utils.json_utils import create_mdl_bandwidth_set, file_to_json
+from cra.utils.file_utils.json_utils import create_mdl_bandwidth_set, file_to_json
 from json_utils_test_data import JsonUtilsTestData
 from cra.scenarios.common.constants import Constants
 from cra.scenarios.mdl_data.mdl_bandwidth_rate import MDLBandwidthRate
