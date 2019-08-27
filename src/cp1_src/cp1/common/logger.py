@@ -28,6 +28,10 @@ class Logger(metaclass=Singleton):
         self.logger.addHandler(console_handler)
 
     def setup_file_handler(self, logging_dir):
+        """Sets the handler of this class to be a filehandler which outputs to the logging_dir folder.
+
+        :param str logging_dir: The directory where logs should be output
+        """
         now = datetime.datetime.now()
         file_handler = logging.FileHandler(
             filename= logging_dir + 'cp1_logger' + now.strftime("-%Y-%m-%d") + '.log')

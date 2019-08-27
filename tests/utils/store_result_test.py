@@ -2,12 +2,12 @@ import sys
 sys.path.insert(0, '../../')
 from general_test_data import GeneralTestData
 import unittest
-from cra.scenarios.optimization.optimization_result import OptimizationResult
+from cra.scenarios.optimization.optimizer_result import OptimizerResult
 from cra.scenarios.mdl_data.mdl_frequency import MDLFrequency
 from cra.scenarios.mdl_data.mdl_txop import TxOp
 from cra.scenarios.optimization.store_result import StoreResult
 from cra.utils.logger import Logger
-from optimization_result_test_data import OptimizationResultTestData
+from optimizer_result_test_data import OptimizerResultTestData
 from unittest.mock import patch
 from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
 from general_test_data import GeneralTestData
@@ -80,9 +80,9 @@ class StoreResultTest(unittest.TestCase):
 
     # @patch('brass_api.orientdb.orientdb_helper.BrassOrientDBHelper')
     # def test_update_schedule(self, MockBrassOrientDBHelper):
-    #     (OptimizationResultTestData.valid_mdl_schedule,
-    #      OptimizationResultTestData.valid_mdl_bandwidth_set,
-    #      OptimizationResultTestData.valid_mdl_frequency)
+    #     (OptimizerResultTestData.valid_mdl_schedule,
+    #      OptimizerResultTestData.valid_mdl_bandwidth_set,
+    #      OptimizerResultTestData.valid_mdl_frequency)
 
 # TODO Is it enough to just test that our update_frequency method makes calls to the database?
 # The actual call to update node does not pass in a txop list.

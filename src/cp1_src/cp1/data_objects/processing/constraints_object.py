@@ -3,15 +3,15 @@
 Data object representing a constraints object.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-from datetime import timedelta
+from cp1.utils.decorators.timedelta import timedelta
 from cp1.data_objects.mdl.bandwidth_rate import BandwidthRate
 from cp1.data_objects.mdl.bandwidth_types import BandwidthTypes
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
 from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.processing.ta import TA
-from cp1.utils.data_generators.channel_generator import ChannelGenerator
-from cp1.utils.data_generators.ta_generator import TAGenerator
 from cp1.data_objects.processing.channel import Channel
+from cp1.data_objects.constants.constants import MDL_MIN_INTERVAL
+from cp1.utils.string_utils import *
 
 
 class ConstraintsObject:
@@ -53,27 +53,36 @@ class ConstraintsObject:
         self.channels = channels
         self.seed = seed
         self.id_ = id_
+        self.deadline_window = guard_band + MDL_MIN_INTERVAL
 
 
     def __str__(self):
-        return 'Goal Throughput Bulk: {0}, ' \
-               'Goal Throughput Voice: {1}, ' \
-               'Goal Throughput Safety: {2}, ' \
-               'Guard Band: {3}, ' \
-               'Epoch: {4}, ' \
-               'TxOp Timeout: {5}, ' \
-               'Candidate TAs: [{6}], ' \
-               'ID: {7}, ' \
-               'Channels: [{8}]'.format(
+        ta_str = ''
+        for ta in self.candidate_tas:
+            ta_str += str(ta) + '\n'
+
+        channel_str = ''
+        for channel in self.channels:
+            channel_str += str(channel) + '\n'
+
+        return 'ID: {0}\n\
+Goal Throughput Bulk: {1}\n\
+Goal Throughput Voice: {2}\n\
+Goal Throughput Safety: {3}\n\
+Guard Band: {4}\n\
+Epoch: {5}\n\
+TxOp Timeout: {6}\n\
+Candidate TAs: {7}\
+Channels: {8}'.format(
+                   self.id_,
                    self.goal_throughput_bulk,
                    self.goal_throughput_voice,
                    self.goal_throughput_safety,
                    self.guard_band.microseconds,
                    self.epoch.microseconds,
                    self.txop_timeout,
-                   self.candidate_tas,
-                   self.id_,
-                   self.channels
+                   ta_str,
+                   channel_str
                )
 
     def __eq__(self, other):

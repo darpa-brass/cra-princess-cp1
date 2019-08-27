@@ -1,0 +1,236 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.processing.algorithms.discretization package &#8212; CP1 RR3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cp1.processing.algorithms.optimization package" href="cp1.processing.algorithms.optimizer.html" />
+    <link rel="prev" title="cp1.processing.algorithms package" href="cp1.processing.algorithms.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cp1-processing-algorithms-discretization-package">
+<h1>cp1.processing.algorithms.discretization package<a class="headerlink" href="#cp1-processing-algorithms-discretization-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.processing.algorithms.discretizer.accuracy_discretization">
+<span id="cp1-processing-algorithms-discretization-accuracy-discretization-module"></span><h2>cp1.processing.algorithms.discretizer.accuracy_discretization module<a class="headerlink" href="#module-cp1.processing.algorithms.discretizer.accuracy_discretization" title="Permalink to this headline">¶</a></h2>
+<p>accuracy_discretization.py</p>
+<p>Provides a gurantee on the accuracy of the overall solution in relation to the optimal solution.
+Guaranteed accuracy is: 1 - accuracy
+i.e. accuracy = 0.001, therefore guaranteed accuracy is 99.999
+disc_count = (1 - 0.001) * (100 / ta.min_value)</p>
+<p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.discretizer.accuracy_discretization.AccuracyDiscretizer">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.discretizer.accuracy_discretization.</code><code class="descname">AccuracyDiscretizer</code><span class="sig-paren">(</span><em>accuracy</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.accuracy_discretization.AccuracyDiscretizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cp1.processing.algorithms.discretizer.discretizer.Discretizer" title="cp1.processing.algorithms.discretizer.discretizer.Discretizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.processing.algorithms.discretizer.discretizer.Discretizer</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.discretizer.accuracy_discretization.AccuracyDiscretizer.discretize">
+<code class="descname">discretize</code><span class="sig-paren">(</span><em>tas</em>, <em>channels</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.accuracy_discretization.AccuracyDiscretizer.discretize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.discretizer.bandwidth_discretization">
+<span id="cp1-processing-algorithms-discretization-bandwidth-discretization-module"></span><h2>cp1.processing.algorithms.discretizer.bandwidth_discretization module<a class="headerlink" href="#module-cp1.processing.algorithms.discretizer.bandwidth_discretization" title="Permalink to this headline">¶</a></h2>
+<p>bandwidth_discretization.py</p>
+<p>Discretizes uniformly with respect to bandwidth.
+i.e. disc_count = 100, ta.min_bandwidth = 200
+8000 - 200 = 1800
+1800 / 100 = 180
+[200, 380, 560, 740, 820, 1000…]</p>
+<p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.discretizer.bandwidth_discretization.BandwidthDiscretizer">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.discretizer.bandwidth_discretization.</code><code class="descname">BandwidthDiscretizer</code><span class="sig-paren">(</span><em>disc_count</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.bandwidth_discretization.BandwidthDiscretizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cp1.processing.algorithms.discretizer.discretizer.Discretizer" title="cp1.processing.algorithms.discretizer.discretizer.Discretizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.processing.algorithms.discretizer.discretizer.Discretizer</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.discretizer.bandwidth_discretization.BandwidthDiscretizer.discretize">
+<code class="descname">discretize</code><span class="sig-paren">(</span><em>tas</em>, <em>channels</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.bandwidth_discretization.BandwidthDiscretizer.discretize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.discretizer.discretizer">
+<span id="cp1-processing-algorithms-discretization-discretization-algorithm-module"></span><h2>cp1.processing.algorithms.discretizer.discretizer module<a class="headerlink" href="#module-cp1.processing.algorithms.discretizer.discretizer" title="Permalink to this headline">¶</a></h2>
+<p>discretization_algorihtm.py</p>
+<p>Interface for all discretization strategies.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.discretizer.discretizer.Discretizer">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.discretizer.discretizer.</code><code class="descname">Discretizer</code><a class="headerlink" href="#cp1.processing.algorithms.discretizer.discretizer.Discretizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.discretizer.discretizer.Discretizer.discretize">
+<code class="descname">discretize</code><span class="sig-paren">(</span><em>tas</em>, <em>channels</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.discretizer.Discretizer.discretize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.discretizer.discretization_type">
+<span id="cp1-processing-algorithms-discretization-discretization-type-module"></span><h2>cp1.processing.algorithms.discretizer.discretization_type module<a class="headerlink" href="#module-cp1.processing.algorithms.discretizer.discretization_type" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.discretizer.discretization_type.</code><code class="descname">DiscretizationType</code><a class="headerlink" href="#cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType.ACCURACY">
+<code class="descname">ACCURACY</code><em class="property"> = 2</em><a class="headerlink" href="#cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType.ACCURACY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType.BANDWIDTH">
+<code class="descname">BANDWIDTH</code><em class="property"> = 0</em><a class="headerlink" href="#cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType.BANDWIDTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType.VALUE">
+<code class="descname">VALUE</code><em class="property"> = 1</em><a class="headerlink" href="#cp1.processing.algorithms.discretizer.discretization_type.DiscretizationType.VALUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.discretizer.value_discretization">
+<span id="cp1-processing-algorithms-discretization-value-discretization-module"></span><h2>cp1.processing.algorithms.discretizer.value_discretization module<a class="headerlink" href="#module-cp1.processing.algorithms.discretizer.value_discretization" title="Permalink to this headline">¶</a></h2>
+<p>value_discretization.py</p>
+<p>Discretizes uniformly with respect to min_value.
+i.e. disc_count = 100, ta.min_value = 20
+ta.compute_value(8000) = 85
+85 - 20 = 65
+65 / 100 = 6.5
+[ta.compute_bandwidth(ta.min_value + 6.5), ta.compute_bandwidth(ta.min_value) + 13 etc…]</p>
+<p>Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.discretizer.value_discretization.ValueDiscretizer">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.discretizer.value_discretization.</code><code class="descname">ValueDiscretizer</code><span class="sig-paren">(</span><em>disc_count</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.value_discretization.ValueDiscretizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cp1.processing.algorithms.discretizer.discretizer.Discretizer" title="cp1.processing.algorithms.discretizer.discretizer.Discretizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.processing.algorithms.discretizer.discretizer.Discretizer</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.discretizer.value_discretization.ValueDiscretizer.discretize">
+<code class="descname">discretize</code><span class="sig-paren">(</span><em>tas</em>, <em>channels</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.discretizer.value_discretization.ValueDiscretizer.discretize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.discretization">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp1.processing.algorithms.discretization" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CP1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.processing.html">cp1.processing package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.processing.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.html#module-cp1.processing.bandwidth_processor">cp1.processing.bandwidth_processor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.html#module-cp1.processing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.utils.html">cp1.utils package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.data_objects.html">cp1.data_objects package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.common.html">cp1.common package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.processing.html">cp1.processing package</a><ul>
+  <li><a href="cp1.processing.algorithms.html">cp1.processing.algorithms package</a><ul>
+      <li>Previous: <a href="cp1.processing.algorithms.html" title="previous chapter">cp1.processing.algorithms package</a></li>
+      <li>Next: <a href="cp1.processing.algorithms.optimizer.html" title="next chapter">cp1.processing.algorithms.optimization package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Tameem Samawi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cp1.processing.algorithms.discretizer.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

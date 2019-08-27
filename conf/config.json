@@ -1,0 +1,82 @@
+{
+  "Testing": {
+    "TAs": {
+      "num": 5,
+      "eligible_frequencies": [2, 2, 2, 2, 2],
+      "total_min_bw": [50, 50, 50, 50, 50],
+      "latency": [10, 10, 10, 10, 10],
+      "scaling_factor": [2, 2, 1, 1, 1],
+      "c": [0.0005, 0.0005, 0.0005, 0.0005, 0.0005]
+    },
+    "Channels": {
+      "num": 2,
+      "capacity": 200
+    }
+  },
+  "Constraints":
+  {
+    "candidate_tas": {
+      "num": 10,
+      "eligible_frequencies": [[1, [1]]],
+      "voice_bandwidth": [[0.8, [120]], [0.2, [50, 200]]],
+      "safety_bandwidth": [[0.65, [500, 1000]], [0.15, [100, 500]], [0.2, [1000, 8000]]],
+      "latency": [[0.8, [25]], [0.2, [10]]],
+      "scaling_factor": [[0.2, [0.4, 0.6]], [0.7, [0.9, 1.1]], [0.1, [2.0, 3.0]]],
+      "c": [[0.8, [0.0005, 0.0025]], [0.2, [0.0025, 0.007]]]
+    },
+    "channels": {
+      "num": 1,
+      "frequency": [4919500000, 100000],
+      "capacity": [[0.98, [10000]], [0.02, [1000, 10000]]]
+    },
+    "guard_band": 1,
+    "goal_throughput_bulk": 0,
+    "goal_throughput_voice": 0,
+    "goal_throughput_safety": 0,
+    "epoch": 100,
+    "txop_timeout": 255
+  },
+  "Algorithms":
+  {
+    "Discretizers":
+    {
+      "Accuracy": {
+        "epsilons": []
+      },
+      "Bandwidth": {
+        "discs": [100]
+      },
+      "Value": {
+        "discs": []
+      }
+    },
+    "Optimizers":
+    {
+      "CBC": 0,
+      "Gurobi": 0,
+      "Greedy": 1,
+      "Dynamic": 0
+    },
+    "Schedulers":
+    {
+      "Conservative": 0,
+      "Hybrid": 1
+    }
+  },
+  "Perturbations":
+  {
+    "perturb": 1,
+    "num_tas_to_reconsider": 1,
+    "increase_ta_min_bw": 10,
+    "drop_channel": 0,
+    "change_channel_capacity": 0
+  },
+  "Miscellaneous":
+  {
+    "testing": 0,
+    "orientdb": 1,
+    "visualize": 0,
+    "clear": 1,
+    "instances": [1]
+  }
+}

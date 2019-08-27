@@ -5,11 +5,11 @@ Author: Tameem Samawi (tsamawi@cra.com)
 """
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.kbps import Kbps
-from datetime import timedelta
+from cp1.utils.decorators.timedelta import timedelta
 
 
 class Channel:
-    def __init__(self, frequency=Kbps(4919500000), capacity=Kbps(10000)):
+    def __init__(self, frequency, capacity):
         """
         Constructor
 
@@ -35,10 +35,10 @@ class Channel:
 
     def __eq__(self, other):
         if isinstance(other, Channel):
-            return (self.frequency == other.frequency and
-                    self.capacity == other.capacity and
-                    self.start_time == other.start_time and
-                    self.value == other.value)
+            return self.frequency.value == other.frequency.value
         return False
+
+    def __hash__(self):
+      return hash(self.frequency.value)
 
     __repr__ = __str__

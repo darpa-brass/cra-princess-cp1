@@ -3,7 +3,7 @@
 Data Object to house an OS Scheduling job.
 """
 from datetime import timedelta
-
+from cp1.common.exception_class import SchedulingJobInitializationException
 
 class SchedulingJob:
     def __init__(self, ta, job_length, start_deadline, release_date, direction):

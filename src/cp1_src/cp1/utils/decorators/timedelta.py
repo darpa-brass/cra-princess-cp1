@@ -8,5 +8,7 @@ from datetime import timedelta as timedelta_
 
 class timedelta(timedelta_):
     def __init__(self, *args, **kwargs):
-        self.milliseconds = kwargs.get('milliseconds')
         super(timedelta, self).__init__()
+
+    def get_milliseconds(self):
+        return int(self.microseconds / 1000)

@@ -26,3 +26,5 @@ class Frequency:
         if isinstance(other, Frequency):
             return self.value == other.value
         return False
+
+    __repr__ = __str__

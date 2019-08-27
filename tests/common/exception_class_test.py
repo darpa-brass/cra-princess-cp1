@@ -66,9 +66,9 @@ class ExceptionClassTest(unittest.TestCase):
         x = TxOpInitializationException('Test')
         self.assertIsInstance(x, TxOpInitializationException)
 
-    def test_optimization_result_initialization_exception(self):
-        x = OptimizationResultInitializationException('Test')
-        self.assertIsInstance(x, OptimizationResultInitializationException)
+    def test_optimizer_result_initialization_exception(self):
+        x = OptimizerResultInitializationException('Test')
+        self.assertIsInstance(x, OptimizerResultInitializationException)
 
     def test_schedule_initialization_exception(self):
         x = ScheduleInitializationException('Test')

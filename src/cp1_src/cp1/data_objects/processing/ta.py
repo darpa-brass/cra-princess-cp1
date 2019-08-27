@@ -4,10 +4,11 @@ Data object representing a TA.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 import math
-from datetime import timedelta
+from cp1.utils.decorators.timedelta import timedelta
 from cp1.common.exception_class import ComputeValueException
 from cp1.common.exception_class import ComputeBandwidthException
 from cp1.data_objects.mdl.kbps import Kbps
+from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.constants.constants import *
 
@@ -21,12 +22,11 @@ class TA:
             latency,
             scaling_factor,
             c,
-            eligible_channels=None,
-            bandwidth=0,
-            value=None,
-            channel=None):
-        """# Append the channel to the list of eligible channels
-        Constructor
+            eligible_frequencies,
+            bandwidth=Kbps(0),
+            channel=None,
+            value=0):
+        """Constructor
 
         :param str id_: The ID of the TA.
         :param Kbps minimum_voice_bandwidth: The minimum required voice bandwidth to get this TA in the air
@@ -35,30 +35,33 @@ class TA:
         :param int scaling_factor: The amount by which to scale the overall value by onc.
         :param int c: The coefficient of a sample value function. For now it's set to 1 because there is no real value
                   function.
-        :param List[Channel] eligible_channels: The list of channels communication is permissible over.
+        :param List[Channel] eligible_frequencies: The list of channels communication is permissible over.
         :param Kbps bandwidth: The amount of bandwidth assigned to this TA
+        :param Channel channel: The channel this TA has been assigned to communicate on
+        :param timedelta channel: The channel this TA has been assigned to communicate on
         :param int value: The amount of value this TA provides at a some bandwidth
-        :param int max_value: The value this TA provides at MAX_BANDWIDTH
         """
         self.id_ = id_
         self.minimum_voice_bandwidth = minimum_voice_bandwidth
         self.minimum_safety_bandwidth = minimum_safety_bandwidth
-        self.total_minimum_bandwidth = Kbps(
-            minimum_voice_bandwidth.value + minimum_safety_bandwidth.value)
         self.latency = latency
         self.scaling_factor = float(scaling_factor)
         self.c = float(c)
-        self.eligible_channels = eligible_channels
+        self.eligible_frequencies = eligible_frequencies
         self.bandwidth = bandwidth
         self.channel = channel
         self.value = value
-        self.min_value = self.compute_value(self.total_minimum_bandwidth.value)
-        self.max_value = self.compute_value(MAX_BANDWIDTH.value)
+        self.total_minimum_bandwidth = Kbps(
+            minimum_voice_bandwidth.value + minimum_safety_bandwidth.value)
+        self.min_value = self.compute_value_at_bandwidth(self.total_minimum_bandwidth)
+        self.max_value = self.compute_value_at_bandwidth(MAX_BANDWIDTH)
 
-    def compute_bandwidth(self, x):
+    def compute_bandwidth_at_value(self, x):
+        """Computes bandwidth required to achieve a certain value.
+
+        :param int x: The desired amount of value this TA should provide.
+        :returns int bandwidth: The amount of bandwidth this TA will require to provide the specified value.
         """
-        Computes bandwidth as a function of value."""
-
         if x < 0:
             raise ComputeBandwidthException(
                 'Value must be greater than 0: {0}'.format(x),
@@ -70,16 +73,14 @@ class TA:
         else:
             return MAX_BANDWIDTH.value
 
-    def compute_value(self, x):
-        """Computes value as a function of bandwidth.
-        If the provided bandwidth is less than the total minimum bandwidth, which is the
-        sum of the safety and voice bandwidth requirements, this TA provides 0 value.
-        It is impossible to assign over 2000 Kbps to a given TA, so this equation
-        caps out at that value.
+    def compute_value_at_bandwidth(self, x):
+        """Computes value provided at a certain bandwidth.
 
-        :param int x: The amount of bandwidth allocated to this TA.
+        :param Kbps x: The amount of bandwidth allocated to this TA.
         :returns int value: The value this TA provides at that bandwidth.
         """
+        x = x.value
+
         if x < 0:
             raise ComputeValueException(
                 'Bandwidth must be greater than 0: {0}'.format(x),
@@ -93,40 +94,53 @@ class TA:
             return self.scaling_factor * \
                 (100 - 100 * (math.e ** (-self.c * MAX_BANDWIDTH.value)))
 
-    def channel_is_eligible(self, channel):
-        return any(x.frequency.value == channel.frequency.value for x in self.eligible_channels)
+    def compute_communication_length(self, channel_capacity, latency, guard_band=timedelta(microseconds=0)):
+        """Returns the amount of bandwidth required to allocate to this TA within the min_interval.
+        The output will be a multiple of min_interval + 2 * guard_band.
 
-    def compute_communication_length(self, capacity, latency, guard_band, bandwidth=None):
-        """Returns the amount of bandwidth required to allocate to this TA based on the channel and guard_band
-
-        :param Kbps capacity: The capacity of the channel
-        :param timedelta latency: The latency of this TA
+        :param Kbps channel_capacity: The capacity of the channel
         :param timedelta guard_band: The guard_band requirement
-        :param Kbps bandwidth: The bandwidth allocated to this TA
-
         :returns timedelta communication_length: The amount of time this TA must communicate for to meet it's bandwidth requirement
         """
-        if bandwidth is None:
-            length = ((self.bandwidth.value / capacity.value) * latency.microseconds) + (2 * guard_band.microseconds)
-        else:
-            length = ((bandwidth.value / capacity.value) * latency.microseconds) + (2 * guard_band.microseconds)
+        two_way_min_interval = 2 * MDL_MIN_INTERVAL
+        communication_length = ((self.bandwidth.value / channel_capacity.value) * latency.microseconds) + (2 * guard_band.microseconds)
 
-        time_from_minimum_discretization = length % MDL_MIN_INTERVAL.microseconds
-        length += (MDL_MIN_INTERVAL.microseconds - time_from_minimum_discretization)
-        return timedelta(microseconds=length)
+        # Round value to return within the specified MIN_INTERVAL
+        dist_from_interval = two_way_min_interval.microseconds - ((communication_length - 2 * guard_band.microseconds) %  two_way_min_interval.microseconds)
+        communication_length += dist_from_interval
 
-    def compute_bandwidth_requirement(self, capacity, latency, communication_length):
+        return timedelta(microseconds=communication_length)
+
+    def compute_bw_from_comm_len(self, capacity, latency, communication_length):
         """Returns the amount of bandwidth required to allocate to this TA based on the amount of time this TA communicates for
-        This is the inverse of `compute_communication_length`
 
         :param timedelta communication_length: The time this TA communicates for
-
         :returns Kbps bandwidth_required: The amount of bandwidth this TA requires to communicate
         """
         bandwidth_required = (capacity.value / latency.microseconds) * communication_length.microseconds
         return Kbps(bandwidth_required)
 
+    def discretized_on_current_channel(self, channel):
+        """Determines if a TA has been discretized to communicate on a input channel.
+
+        :param Channel channel: The channel to check
+        :returns Boolean:
+        """
+        return channel.frequency.value == self.channel.frequency.value
+
+    def channel_is_eligible(self, channel):
+        """Determines if a TA is eligible to communicate on a channel.
+
+        :param Channel channel: The channel to check
+        :returns Boolean:
+        """
+        return any(x.value == channel.frequency.value for x in self.eligible_frequencies)
+
     def __str__(self):
+        channel_print_val = ''
+        if self.channel != None:
+            channel_print_val = self.channel.frequency.value
+
         return '<id_: {0}, ' \
                'minimum_voice_bandwidth: {1}, ' \
                'minimum_safety_bandwidth: {2}, ' \
@@ -134,11 +148,12 @@ class TA:
                'latency: {4}, ' \
                'scaling_factor: {5}, ' \
                'c: {6}, ' \
-               'eligible_channels: {7}, ' \
+               'eligible_frequencies: {7}, ' \
                'bandwidth: {8}, ' \
-               'value: {9}, ' \
-               'min_value: {10}, ' \
-               'max_value: {11}>'.format(
+               'channel: {9}, ' \
+               'value: {10}, ' \
+               'min_value: {11}, ' \
+               'max_value: {12}>'.format(
                    self.id_,
                    self.minimum_voice_bandwidth.value,
                    self.minimum_safety_bandwidth.value,
@@ -146,26 +161,16 @@ class TA:
                    self.latency.microseconds,
                    self.scaling_factor,
                    self.c,
-                   self.eligible_channels,
-                   self.bandwidth,
+                   self.eligible_frequencies,
+                   self.bandwidth.value,
+                   channel_print_val,
                    self.value,
                    self.min_value,
                    self.max_value)
 
     def __eq__(self, other):
         if isinstance(other, TA):
-            return (self.id_ == other.id_ and
-                    self.minimum_voice_bandwidth == other.minimum_voice_bandwidth and
-                    self.minimum_safety_bandwidth == other.minimum_safety_bandwidth and
-                    self.total_minimum_bandwidth == other.total_minimum_bandwidth and
-                    self.latency.microseconds == other.latency.microseconds and
-                    self.scaling_factor == other.scaling_factor and
-                    self.c == other.c and
-                    self.eligible_channels == other.eligible_channels and
-                    self.bandwidth == other.bandwidth and
-                    self.value == other.value and
-                    self.min_value == other.min_value and
-                    self.max_value == other.max_value)
+            return self.id_ == other.id_ 
         return False
 
     __repr__ = __str__

@@ -1,0 +1,358 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.utils.orientdb package &#8212; CP1 RR3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cp1.data_objects package" href="cp1.data_objects.html" />
+    <link rel="prev" title="cp1.utils.file_utils package" href="cp1.utils.file_utils.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cp1-utils-orientdb-package">
+<h1>cp1.utils.orientdb package<a class="headerlink" href="#cp1-utils-orientdb-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.utils.orientdb_session">
+<span id="cp1-utils-orientdb-orientdb-session-module"></span><h2>cp1.utils.orientdb_session module<a class="headerlink" href="#module-cp1.utils.orientdb_session" title="Permalink to this headline">¶</a></h2>
+<p>orientdb_session.py</p>
+<p>Any helper functions that store data in OrientDB.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.utils.orientdb_session.OrientDBSession">
+<em class="property">class </em><code class="descclassname">cp1.utils.orientdb_session.</code><code class="descname">OrientDBSession</code><span class="sig-paren">(</span><em>database_name=None</em>, <em>config_file=None</em>, <em>orientdb_client=None</em>, <em>explicit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">brass_api.orientdb.orientdb_helper.BrassOrientDBHelper</span></code></p>
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.construct_channel_from_node">
+<code class="descname">construct_channel_from_node</code><span class="sig-paren">(</span><em>orientdb_node</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.construct_channel_from_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.construct_ta_from_node">
+<code class="descname">construct_ta_from_node</code><span class="sig-paren">(</span><em>orientdb_node</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.construct_ta_from_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.create_channel">
+<code class="descname">create_channel</code><span class="sig-paren">(</span><em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.create_channel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.create_empty_node">
+<code class="descname">create_empty_node</code><span class="sig-paren">(</span><em>node_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.create_empty_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.create_node">
+<code class="descname">create_node</code><span class="sig-paren">(</span><em>node_type</em>, <em>properties={}</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.create_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator function to count the number of nodes indexed into the database
+and return the new _rid of the indexed node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>node_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The class of the node to index</li>
+<li><strong>dict{str</strong> – str} properties: The properties of the node to index</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns str _rid:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">The OrientDB <cite>Record ID &lt;http://www.orientdb.com/docs/last/Tutorial-Record-ID.html&gt;</cite> of the indexed node.
+This is a unique identifier that can be used to retrieve the node or set links between this node and others.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.create_node_class">
+<code class="descname">create_node_class</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.create_node_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator function to count the number of classes created.
+Creates an OrientDB class with the corresponding name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the class to create</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.create_ta">
+<code class="descname">create_ta</code><span class="sig-paren">(</span><em>ta</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.create_ta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.delete_nodes_by_class">
+<code class="descname">delete_nodes_by_class</code><span class="sig-paren">(</span><em>clazz</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.delete_nodes_by_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes all nodes of given class type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>clazz</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Class type to delete.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves constraints from the provided database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Returns ConstraintsObject constraints_object:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">A Constraints Object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.get_nodes_by_properties">
+<code class="descname">get_nodes_by_properties</code><span class="sig-paren">(</span><em>target_name</em>, <em>property_conditions=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.get_nodes_by_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get nodes that fit the property conditions specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>target_name</strong> – The node class, i.e. ‘TA’ or ‘Channel’</li>
+<li><strong>property_conditions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of property condition strings in the form of:
+name=’MDL Description’, description=’This is a scenario 1’
+Use orientdb_sql.condition_str() to help create condition strings.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of orient record objects</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>BrassException</strong> – source of exception is set to the function name</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.get_scheduled_tas">
+<code class="descname">get_scheduled_tas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.get_scheduled_tas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a list of TAs that have been scheduled in an MDL file in the database.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.link_constraint_to_channels">
+<code class="descname">link_constraint_to_channels</code><span class="sig-paren">(</span><em>constraint_rid</em>, <em>channels</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.link_constraint_to_channels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.link_constraint_to_tas">
+<code class="descname">link_constraint_to_tas</code><span class="sig-paren">(</span><em>constraint_rid</em>, <em>tas</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.link_constraint_to_tas" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.link_tas_to_channels">
+<code class="descname">link_tas_to_channels</code><span class="sig-paren">(</span><em>tas</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.link_tas_to_channels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.set_containment_relationship">
+<code class="descname">set_containment_relationship</code><span class="sig-paren">(</span><em>parent_rid=None</em>, <em>child_rid=None</em>, <em>parent_conditions=[]</em>, <em>child_conditions=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.set_containment_relationship" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator function to count the number of containment edges created.
+Creates a link of class type ‘Containment’ between two vertices in the database.</p>
+<p>parent_node &lt;- child_node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parent_rid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Record ID of the parent</li>
+<li><strong>child_rid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Record ID of the child</li>
+<li><strong>parent_conditions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The search conditions of the parent node</li>
+<li><strong>child_conditions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The search conditions of the child node</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.set_reference_relationship">
+<code class="descname">set_reference_relationship</code><span class="sig-paren">(</span><em>reference_rid=None</em>, <em>referent_rid=None</em>, <em>reference_condition=[]</em>, <em>referent_condition=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.set_reference_relationship" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator function to count the number of reference edges created.
+Creates a link of class type ‘Reference’ between two vertices in the database.</p>
+<p>reference node -&gt; referent node</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>reference_rid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Record ID of the reference node</li>
+<li><strong>referent_rid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Record ID of the referent node</li>
+<li><strong>reference_condition</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The search conditions of the reference node</li>
+<li><strong>referent_condition</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The search conditions of the referent node</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.store_constraints">
+<code class="descname">store_constraints</code><span class="sig-paren">(</span><em>constraints_object</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.store_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.update_bandwidth">
+<code class="descname">update_bandwidth</code><span class="sig-paren">(</span><em>bandwidth_rates</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.update_bandwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the Value field of a ServiceLevelProfile’s Rate vertex.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bandwidth_rates</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – New Value to update Rate with.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.utils.orientdb_session.OrientDBSession.update_schedule">
+<code class="descname">update_schedule</code><span class="sig-paren">(</span><em>txop_list</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.utils.orientdb_session.OrientDBSession.update_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the list of TxOp nodes found in schedule in the MDL file.
+Tries to create TransmissionSchedule and TxOp classes if they don’t exist.
+Creates one TransmissionSchedule node for each TA we are interested in scheduling.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>txop_list</strong> (<em>[</em><a class="reference internal" href="cp1.data_objects.mdl.html#cp1.data_objects.mdl.txop.TxOp" title="cp1.data_objects.mdl.txop.TxOp"><em>TxOp</em></a><em>]</em>) – A list of TxOp objects</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.utils.orientdb">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp1.utils.orientdb" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CP1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cp1.processing.html">cp1.processing package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.utils.html">cp1.utils package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.utils.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.utils.html#module-cp1.utils">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.data_objects.html">cp1.data_objects package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.common.html">cp1.common package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.utils.html">cp1.utils package</a><ul>
+      <li>Previous: <a href="cp1.utils.file_utils.html" title="previous chapter">cp1.utils.file_utils package</a></li>
+      <li>Next: <a href="cp1.data_objects.html" title="next chapter">cp1.data_objects package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Tameem Samawi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cp1.utils.orientdb.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

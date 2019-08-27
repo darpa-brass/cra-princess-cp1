@@ -5,8 +5,8 @@ Author: Tameem Samawi(tsamawi@cra.com)
 """
 
 
-class ChannelGeneratorRangeException(ValueError):
-    """Raise for channel generators with invalid ranges"""
+class ChannelGeneratorException(ValueError):
+    """Raise for inavalid values passed into the ChannelGenerator.generate() function"""
 
     def __init__(self, message, source=''):
         """Constructor
@@ -14,7 +14,78 @@ class ChannelGeneratorRangeException(ValueError):
         :param str message:     Exception message
         :param str source:      Which function threw the exception
         """
-        super(ChannelGeneratorRangeException, self).__init__(message)
+        super(ChannelGeneratorException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class DeadlineCompetitionException(ValueError):
+    """Raise for too many TAs competing to communicate within the same communication block."""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(DeadlineCompetitionException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+class PercentageRangeFormatException(ValueError):
+    """Raise for invalid PRF fields"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(PercentageRangeFormatException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class InvalidNumToGenerateException(ValueError):
+    """Raise when the number of objects to generate is invalid in any DataGenerator class"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(InvalidNumToGenerateException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class InvalidSeedException(ValueError):
+    """Raise for invalid seeds to generate fields"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(InvalidSeedException, self).__init__(message)
         self.message = message
         self.source = source
 

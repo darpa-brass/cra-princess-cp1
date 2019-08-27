@@ -1,0 +1,277 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cp1.processing.algorithms.optimization package &#8212; CP1 RR3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cp1.processing.algorithms.scheduling package" href="cp1.processing.algorithms.scheduler.html" />
+    <link rel="prev" title="cp1.processing.algorithms.discretization package" href="cp1.processing.algorithms.discretizer.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cp1-processing-algorithms-optimization-package">
+<h1>cp1.processing.algorithms.optimization package<a class="headerlink" href="#cp1-processing-algorithms-optimization-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimizer.dynamic_program">
+<span id="cp1-processing-algorithms-optimization-dynamic-program-module"></span><h2>cp1.processing.algorithms.optimizer.dynamic_program module<a class="headerlink" href="#module-cp1.processing.algorithms.optimizer.dynamic_program" title="Permalink to this headline">¶</a></h2>
+<p>dynamic_program.py</p>
+<p>A Dynamic Program that schedules TAs.</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.optimizer.dynamic_program.DynamicProgram">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.optimizer.dynamic_program.</code><code class="descname">DynamicProgram</code><span class="sig-paren">(</span><em>constraints_object</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.dynamic_program.DynamicProgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer" title="cp1.processing.algorithms.optimizer.optimizer.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.processing.algorithms.optimizer.optimizer.Optimizer</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.dynamic_program.DynamicProgram.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>discretizer</em>, <em>constraints_object</em>, <em>factor=3</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.dynamic_program.DynamicProgram.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>i = channel index
+j = num_tas
+k = time in the table
+l = the bandwidth sample for a set of TAs
+:param int factor: The granularity of this solution, 1 kth of a millisecond.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>i.e. If factor = 2, the schedule will consider schedules at 500 microsecond intervals. If</dt>
+<dd>If factor = 3, 330 microsecond intervals.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimizer.greedy_optimization">
+<span id="cp1-processing-algorithms-optimization-greedy-optimization-module"></span><h2>cp1.processing.algorithms.optimizer.greedy_optimization module<a class="headerlink" href="#module-cp1.processing.algorithms.optimizer.greedy_optimization" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimizer.gurobi">
+<span id="cp1-processing-algorithms-optimization-gurobi-module"></span><h2>cp1.processing.algorithms.optimizer.gurobi module<a class="headerlink" href="#module-cp1.processing.algorithms.optimizer.gurobi" title="Permalink to this headline">¶</a></h2>
+<p>gurobi.py</p>
+<p>Integer program written in Gurobi’s Python API to select TAs for scheduling.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.optimizer.gurobi.Gurobi">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.optimizer.gurobi.</code><code class="descname">Gurobi</code><span class="sig-paren">(</span><em>constraints_object</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.gurobi.Gurobi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer" title="cp1.processing.algorithms.optimizer.optimizer.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.processing.algorithms.optimizer.optimizer.Optimizer</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.gurobi.Gurobi.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>discretizer</em>, <em>time_limit=15</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.gurobi.Gurobi.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimizer.integer_program">
+<span id="cp1-processing-algorithms-optimization-integer-program-module"></span><h2>cp1.processing.algorithms.optimizer.integer_program module<a class="headerlink" href="#module-cp1.processing.algorithms.optimizer.integer_program" title="Permalink to this headline">¶</a></h2>
+<p>integer_program.py</p>
+<p>Algorithm that uses an integer program to selects TAs for scheduling.
+Author: Tameem Samawi (<a class="reference external" href="mailto:tsamawi&#37;&#52;&#48;cra&#46;com">tsamawi<span>&#64;</span>cra<span>&#46;</span>com</a>)</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.optimizer.integer_program.IntegerProgram">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.optimizer.integer_program.</code><code class="descname">IntegerProgram</code><span class="sig-paren">(</span><em>constraints_object</em>, <em>solver_type=5</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.integer_program.IntegerProgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer" title="cp1.processing.algorithms.optimizer.optimizer.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">cp1.processing.algorithms.optimizer.optimizer.Optimizer</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.integer_program.IntegerProgram.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>discretizer</em>, <em>constraints_object</em>, <em>time_limit=15</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.integer_program.IntegerProgram.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses Integer Programming to select TAs for scheduling.
+Uses the Google OR Tools <cite>API &lt;https://developers.google.com/optimization/mip/integer_opt&gt;</cite>.
+This wraps any of 4 C++ based Linear Programs in Python:
+1. <cite>CBC &lt;https://projects.coin-or.org/Cbc&gt;</cite> (Default)
+2. <cite>SCIP &lt;https://scip.zib.de/&gt;</cite>
+3. <cite>GLPK &lt;https://www.gnu.org/software/glpk/&gt;</cite>
+4. <cite>Gurobi &lt;http://www.gurobi.com/&gt;</cite></p>
+<p>To use a different MILP Solver you can follow the directions <cite>here &lt;https://developers.google.com/optimization/install/python/source_windows&gt;</cite>.
+There is also a <a href="#id1"><span class="problematic" id="id2">`</span></a>Github &lt;<a class="reference external" href="https://github.com/google/or-tools/issues/421">https://github.com/google/or-tools/issues/421</a>&gt;`ticket you can follow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>constraints_object</strong> (<a class="reference internal" href="cp1.data_objects.processing.html#cp1.data_objects.processing.constraints_object.ConstraintsObject" title="cp1.data_objects.processing.constraints_object.ConstraintsObject"><em>ConstraintsObject</em></a>) – A Constraints Object containing all data necessary to optimize over.</li>
+<li><strong>solver_type</strong> (<em>SolverType</em>) – The type of Mixed Integer Program solver to use. Can be GLPK, CPLEX, GUROBI or CBC.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimizer.optimizer">
+<span id="cp1-processing-algorithms-optimization-optimization-algorithm-module"></span><h2>cp1.processing.algorithms.optimizer.optimizer module<a class="headerlink" href="#module-cp1.processing.algorithms.optimizer.optimizer" title="Permalink to this headline">¶</a></h2>
+<p>optimizer.py</p>
+<p>Interface for algorithms.</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.optimizer.optimizer.Optimizer">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.optimizer.optimizer.</code><code class="descname">Optimizer</code><span class="sig-paren">(</span><em>constraints_object</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.optimizer.Optimizer.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>constraints_object</em>, <em>discretizer</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.optimizer.Optimizer.optimize_upper_bound">
+<code class="descname">optimize_upper_bound</code><span class="sig-paren">(</span><em>constraints_object</em>, <em>discretizer</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer.optimize_upper_bound" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.optimizer.Optimizer.round_bandwidth_value">
+<code class="descname">round_bandwidth_value</code><span class="sig-paren">(</span><em>ta</em>, <em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer.round_bandwidth_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increases the assigned bandwidth to a TA so that it’s required communication times are multiples of MDL_MIN_INTERVAL.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ta</strong> (<a class="reference internal" href="cp1.data_objects.processing.html#cp1.data_objects.processing.ta.TA" title="cp1.data_objects.processing.ta.TA"><em>TA</em></a>) – The TA to round the bandwidth value of</li>
+<li><strong>channel</strong> (<a class="reference internal" href="cp1.data_objects.processing.html#cp1.data_objects.processing.channel.Channel" title="cp1.data_objects.processing.channel.Channel"><em>Channel</em></a>) – The channel the TA is assigned to</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cp1.processing.algorithms.optimizer.optimizer.Optimizer.round_bandwidth_values">
+<code class="descname">round_bandwidth_values</code><span class="sig-paren">(</span><em>scheduled_tas</em>, <em>channel=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cp1.processing.algorithms.optimizer.optimizer.Optimizer.round_bandwidth_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimizer.ortools_solvers">
+<span id="cp1-processing-algorithms-optimization-ortools-solvers-module"></span><h2>cp1.processing.algorithms.optimizer.ortools_solvers module<a class="headerlink" href="#module-cp1.processing.algorithms.optimizer.ortools_solvers" title="Permalink to this headline">¶</a></h2>
+<p>ortools_solvers.py</p>
+<p>Enum representing all possible ORTools Solvers.</p>
+<dl class="class">
+<dt id="cp1.processing.algorithms.optimizer.ortools_solvers.ORToolsSolvers">
+<em class="property">class </em><code class="descclassname">cp1.processing.algorithms.optimizer.ortools_solvers.</code><code class="descname">ORToolsSolvers</code><a class="headerlink" href="#cp1.processing.algorithms.optimizer.ortools_solvers.ORToolsSolvers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="cp1.processing.algorithms.optimizer.ortools_solvers.ORToolsSolvers.CBC">
+<code class="descname">CBC</code><em class="property"> = 5</em><a class="headerlink" href="#cp1.processing.algorithms.optimizer.ortools_solvers.ORToolsSolvers.CBC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cp1.processing.algorithms.optimization">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cp1.processing.algorithms.optimization" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CP1</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cp1.processing.html">cp1.processing package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cp1.processing.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.html#module-cp1.processing.bandwidth_processor">cp1.processing.bandwidth_processor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cp1.processing.html#module-cp1.processing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.utils.html">cp1.utils package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.data_objects.html">cp1.data_objects package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cp1.common.html">cp1.common package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cp1.processing.html">cp1.processing package</a><ul>
+  <li><a href="cp1.processing.algorithms.html">cp1.processing.algorithms package</a><ul>
+      <li>Previous: <a href="cp1.processing.algorithms.discretizer.html" title="previous chapter">cp1.processing.algorithms.discretization package</a></li>
+      <li>Next: <a href="cp1.processing.algorithms.scheduler.html" title="next chapter">cp1.processing.algorithms.scheduling package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Tameem Samawi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cp1.processing.algorithms.optimizer.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
