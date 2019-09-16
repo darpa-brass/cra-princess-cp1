@@ -1,4 +1,7 @@
-"""conservative_scheduler.py
+"""hybrid_scheduler.py
+
+Constructs TxOps to add to the schedule based on a variation of OS Scheduling.
+Authos: Tameem Samawi (tsamawi@cra.com)
 """
 
 import time
@@ -22,71 +25,50 @@ logger = Logger().logger
 
 
 class HybridScheduler(Scheduler):
-    def _schedule(self, constraints_object, optimizer_result, deadline_window):
+    def _schedule(self, optimizer_result, deadline_window):
         """Calls a ConservativeScheduler for two min_latency blocks, and an OS schedule for the rest
 
         :param OptimizerResult optimizer_result: The algorithm result to create a schedule from
         :param timedelta deadline_window: The time by which to set a SchedulingJob back in case it's start_deadline conflicts with another job. Only relevant for HybridScheduler.
-        :param ConstraintsObject constraints_object: The Constraints to use in an instance of a Challenge Problem.
         :returns [<Schedule>] schedule: A list of Schedule objects for each channel TAs have been scheduled on
         """
-        self.constraints_object = constraints_object
         self._validate_latency_requirement(optimizer_result)
-        ta_start = {}
 
         # Calculate the minimum latency for each channel
         schedules = []
-        for channel, ta_list in optimizer_result.scheduled_tas.items():
+        start_times = {}
+        for channel, ta_list in optimizer_result.scheduled_tas_by_channel.items():
             schedule = Schedule(channel=channel, txops=[])
             min_latency = min(ta_list, key=lambda x: x.latency).latency
-            self._wraparound_blocks(channel, ta_list, ta_start, min_latency, schedule)
-            self._os_schedule_blocks(channel, ta_list, ta_start, min_latency, schedule, deadline_window)
+            self._wraparound_blocks(channel, ta_list, min_latency, start_times, schedule)
+            self._os_schedule_blocks(channel, ta_list, min_latency, start_times, schedule, deadline_window)
             self._extend_final_os_schedule_block(schedule)
             schedules.append(schedule)
 
         return schedules
 
-    def _wraparound_blocks(self, channel, ta_list, ta_start, min_latency, schedule):
+    def _wraparound_blocks(self, channel, ta_list, min_latency, start_times, schedule):
         """Places two conservative blocks at the beginnings and ends of the channel
+
+        :param Channel channel: The channel to schedule on
+        :param [<TA>] ta_list: The list of TAs scheduled to communicate on this channel
+        :param timedelta min_latency: The minimum latency TA scheduled on this channel
+        :param {str: timedelta} start_times: The list of times that TAs start communicating.
+                                             This is also formatted by their direction. i.e.
+                                             {TA7up: timedelta(microseconds=500)}
+                                             This means TA7 communicates in the up
+                                             direction at 500 microseconds
+        :param Schedule schedule: The schedule to modify
+
+        :returns [<TxOp>] txops: The list of created TxOp nodes
         """
-        ta_list_leng = len(ta_list) - 1
-        channel_start_time = timedelta(microseconds=0)
-        for ta in ta_list:
-            up_start = channel_start_time
-            one_way_transmission_length = ta.compute_communication_length(
-                channel.capacity, min_latency, timedelta(microseconds=0)) / 2
-            if ta_list.index(ta) == ta_list_leng:
-                one_way_transmission_length = (
-                    (min_latency - up_start) / 2) - self.constraints_object.guard_band
+        first_wraparound_block = timedelta(microseconds=0)
+        last_wraparound_block = self.constraints_object.epoch - min_latency
+        block_starts = [first_wraparound_block, last_wraparound_block]
 
-            up_stop = one_way_transmission_length + channel_start_time
-            down_start = up_stop + self.constraints_object.guard_band
-            down_stop = down_start + one_way_transmission_length
+        self.create_blocks(channel, ta_list, min_latency, start_times, block_starts, schedule)
 
-            channel_start_time = down_stop + self.constraints_object.guard_band
-            ta_start[ta.id_ + 'up'] = up_stop
-            ta_start[ta.id_ + 'down'] = down_stop
-
-            for x in [timedelta(microseconds=0), self.constraints_object.epoch -
-                      min_latency]:
-                txop_up = TxOp(
-                    ta=ta,
-                    radio_link_id=id_to_mac(ta.id_, 'up'),
-                    start_usec=up_start + x,
-                    stop_usec=up_stop + x,
-                    center_frequency_hz=channel.frequency,
-                    txop_timeout=self.constraints_object.txop_timeout)
-                txop_down = TxOp(
-                    ta=ta,
-                    radio_link_id=id_to_mac(ta.id_, 'down'),
-                    start_usec=down_start + x,
-                    stop_usec=down_stop + x,
-                    center_frequency_hz=channel.frequency,
-                    txop_timeout=self.constraints_object.txop_timeout)
-
-                schedule.txops.extend([txop_up, txop_down])
-
-    def _os_schedule_blocks(self, channel, ta_list, ta_start, min_latency, schedule, deadline_window):
+    def _os_schedule_blocks(self, channel, ta_list, min_latency, start_times, schedule, deadline_window):
         # Initially, we must add one scheduling job per each TA to the queue based
         # on that TAs minimum required latency, and the last time it communicated
         # as scheduled in the _wraparound_blocks() function. In case there is a conflict
@@ -98,7 +80,7 @@ class HybridScheduler(Scheduler):
         queue = self._initialize_queue(
             channel,
             ta_list,
-            ta_start,
+            start_times,
             min_latency,
             deadline_window)
 
@@ -153,7 +135,7 @@ class HybridScheduler(Scheduler):
                     direction=curr_job.direction)
 
             # If we have exceeded the hybrid block, this channel is complete
-            if updated_job.start_deadline >  ta_start[updated_job.ta.id_ + updated_job.direction] + timer_end:
+            if updated_job.start_deadline >  start_times[updated_job.ta.id_ + updated_job.direction] + timer_end:
                 continue
 
             # If this job is due to be scheduled within the final greedy block,
@@ -207,7 +189,7 @@ class HybridScheduler(Scheduler):
             self,
             channel,
             ta_list,
-            ta_start,
+            start_times,
             min_latency,
             deadline_window):
         """
@@ -215,14 +197,14 @@ class HybridScheduler(Scheduler):
 
         :param Channel channel: The channel to schedule this TA on
         :param [<TA>] ta_list: The list of TAs scheduled on this channel
-        :param [<TA>, <time>] ta_start: Dictionary containing the start time for each TA. i.e. First time it speaks in the 20ms block.
+        :param [<TA>, <time>] start_times: Dictionary containing the start time for each TA. i.e. First time it speaks in the 20ms block.
         :param timedelta min_latency: Minimum latency on this channel
         :return [SchedulingJob] queue: A list of SchedulingJob objects
         """
         queue = []
         for ta in ta_list:
             # Schedule job up
-            up_start_deadline = ta.latency + ta_start[ta.id_ + 'up']
+            up_start_deadline = ta.latency + start_times[ta.id_ + 'up']
             curr_job = SchedulingJob(
                 ta=ta,
                 job_length=ta.compute_communication_length(channel_capacity=channel.capacity, latency=ta.latency) / 2,
@@ -234,7 +216,7 @@ class HybridScheduler(Scheduler):
             queue.append(job)
 
             # Schedule job down
-            down_start_deadline = ta.latency + ta_start[ta.id_ + 'down']
+            down_start_deadline = ta.latency + start_times[ta.id_ + 'down']
             curr_job = SchedulingJob(
                 ta=ta,
                 job_length=ta.compute_communication_length(channel_capacity=channel.capacity, latency=ta.latency) / 2,
@@ -282,14 +264,13 @@ class HybridScheduler(Scheduler):
         :param OptimizerResult optimizer_result: The OptimizerResult to ensure this requirement on
         :raise InvalidLatencyRequirementException:
         """
-        for channel, ta_list in optimizer_result.scheduled_tas.items():
-            for ta in ta_list:
-                if ta.latency > (self.constraints_object.epoch / 2):
-                    raise InvalidLatencyRequirementException(
-                        'The epoch ({0}) relative to the given TAs latency requirement ({1}) is not large enough.'.format(
-                            self.constraints_object.epoch.microseconds,
-                            ta.latency.microseconds),
-                        'HybridScheduler.schedule')
+        for ta in optimizer_result.scheduled_tas:
+            if ta.latency > (self.constraints_object.epoch / 2):
+                raise InvalidLatencyRequirementException(
+                    'The epoch ({0}) relative to the given TAs latency requirement ({1}) is not large enough.'.format(
+                        self.constraints_object.epoch.get_microseconds(),
+                        ta.latency.get_microseconds()),
+                    'HybridScheduler.schedule')
 
 
     def _deconflict_start_deadlines(self, queue, curr_job, timer, deadline_window):
@@ -311,4 +292,4 @@ class HybridScheduler(Scheduler):
         return curr_job
 
     def __str__(self):
-        return 'HybridSchedule'
+        return 'HybridScheduler'

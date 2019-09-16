@@ -2911,6 +2911,136 @@
 </RadioGroup>
       </RadioGroups>
     </RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    <RANConfiguration ID="RANConfig15_RAN_4941">
+    <Name>RAN_4941</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>4941500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
   </RANConfigurations>
   <DSCPTable>
     <DSCPTableEntry ID="DSCP_BestEffort_000000">

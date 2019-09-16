@@ -78,8 +78,8 @@ Channels: {8}'.format(
                    self.goal_throughput_bulk,
                    self.goal_throughput_voice,
                    self.goal_throughput_safety,
-                   self.guard_band.microseconds,
-                   self.epoch.microseconds,
+                   self.guard_band.get_microseconds(),
+                   self.epoch.get_microseconds(),
                    self.txop_timeout,
                    ta_str,
                    channel_str

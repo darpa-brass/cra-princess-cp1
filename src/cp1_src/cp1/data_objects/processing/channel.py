@@ -29,7 +29,7 @@ class Channel:
                'value: {3}'.format(
                    self.frequency,
                    self.capacity,
-                   self.start_time.microseconds,
+                   self.start_time.get_microseconds(),
                    self.value
                )
 

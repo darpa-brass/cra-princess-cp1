@@ -36,6 +36,7 @@ class ConfigurationObject:
 
                 self.testing_num_channels = data['Testing']['Channels']['num']
                 self.testing_channel_capacity = data['Testing']['Channels']['capacity']
+                self.testing_seed = data['Testing']['Seed']
 
                 self.num_channels = data['Constraints']['channels']['num']
                 self.frequency = data['Constraints']['channels']['frequency']
@@ -72,10 +73,10 @@ class ConfigurationObject:
                 self.visualize = data['Miscellaneous']['visualize']
                 self.instances = data ['Miscellaneous']['instances']
 
-                self.validate()
-
             except Exception as ex:
                 raise ConfigFileException(ex, 'ConfigurationObject.__init__')
+
+            self.validate()
 
     def validate(self):
         """Runs a set of private validation methods on the configuration object to
@@ -251,6 +252,13 @@ class ConfigurationObject:
                     val),
                 'ConfigurationObject._validate_num')
 
+        if val < 1:
+            raise ConfigFileException(
+                '{0} ({1}) must be >= 1'.format(
+                    prop,
+                    val),
+                'ConfigurationObject._validate_num')
+
     def _validate_visualize(self):
         """Sets visualize to 0 if orientdb is 0
         """
@@ -300,6 +308,6 @@ class ConfigurationObject:
             eligible_channel_list = eligible_channel[1]
             for num in eligible_channel_list:
                 if num > self.num_channels:
-                    raise ConfigFileException('There cannot be more eligible_frequencies ({0}) than total channels ({1})'.format(num, config.num_channels))
+                    raise ConfigFileException('There cannot be more eligible_frequencies ({0}) than total channels ({1})'.format(num, self.num_channels))
 
 # c = ConfigurationObject('../../../../../conf/config.json')

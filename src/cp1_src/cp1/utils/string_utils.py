@@ -27,19 +27,35 @@ def left_align_offset(x, offset_type=DEBUG_LOG_OFFSET):
     """
     return len(str(x)) + offset_type
 
-def instance_completion_message(discretizer, optimizer, scheduler):
+def perturb_message(perturber):
+    """Generates a pretty formatted perturber message
+
+    :param Perturber perturber: The perturber used to perturb the solution
+    """
+    return '{0}\n{1}\n{2}\n{3}'.format(HALF_PADDING,
+                               'Perturbing'.rjust(left_align_offset(str('Perturbing'))),
+                               str(perturber).rjust(left_align_offset(str(perturber))),
+                               HALF_PADDING.rjust(left_align_offset(HALF_PADDING)))
+
+def instance_message(seed, discretizer, optimizer, scheduler):
     """Generates a pretty formatted completion message for an instance of a Challenge Problem
 
+    :param str seed: The ConstraintsObject seed
     :param Discretizer discretizer: The Discretizer used in this instance
     :param Optimizer optimizer: The Optimizer used in this instance
     :param Scheduler scheduler: The Scheduler used in this instance
     :returns str: The pretty formatted logging message signalling the completion of an instance
     """
-    discretizer_log = '{0} ({1})'.format(discretizer, discretizer.disc_count)
     if isinstance(discretizer, AccuracyDiscretizer):
-        discretizer_log += ', accuracy: {0}'.format(discretizer.accuracy)
+        disc_write_val = discretizer.accuracy
+    else:
+        disc_write_val = discretizer.disc_count
+    discretizer_log = '{0} ({1})'.format(discretizer, disc_write_val)
 
-    return '{0}\n{1}\n{2}\n{3}\n{4}'.format(HALF_PADDING,
+    seed_log = 'Seed {0}'.format(seed)
+
+    return '{0}\n{1}\n{2}\n{3}\n{4}\n{5}'.format(HALF_PADDING,
+                                            seed_log.rjust(left_align_offset(seed_log)),
                                             discretizer_log.rjust(left_align_offset(discretizer_log)),
                                             str(optimizer).rjust(left_align_offset(optimizer)),
                                             str(scheduler).rjust(left_align_offset(scheduler)),

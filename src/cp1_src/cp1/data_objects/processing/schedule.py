@@ -12,7 +12,7 @@ class Schedule():
         """
         if not isinstance(channel, Channel):
             raise ScheduleInitializationException(
-                'channel ({0}) must be an instance of int'.format(channel),
+                'channel ({0}) must be an instance of Channel'.format(channel),
                 'schedule.__init__()'
             )
         if not all(isinstance(txop, TxOp) for txop in txops):
@@ -43,7 +43,7 @@ class Schedule():
         for txop in self.txops:
             comm_time += txop.stop_usec - txop.start_usec
 
-        comm_time_ms = ta_communication_time.microseconds / 1000
+        comm_time_ms = ta_communication_time.get_milliseconds()
         bw = txop.ta.channel.capacity.value / ta_communication_time_ms
         val = txop.ta.compute_value(ta_bandwidth)
 

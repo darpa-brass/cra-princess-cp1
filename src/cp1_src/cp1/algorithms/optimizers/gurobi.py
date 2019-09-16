@@ -74,7 +74,7 @@ class Gurobi(Optimizer):
 
         # Set the right hand side of all constraints
         for i in range(0, len(constraints_object.channels)):
-            m.getConstrByName('r_{0}'.format(i)).setAttr('rhs', min_latency.microseconds)
+            m.getConstrByName('r_{0}'.format(i)).setAttr('rhs', min_latency.get_microseconds())
         for i in range(len(constraints_object.channels), len(constraints_object.channels) + len(constraints_object.candidate_tas)):
             m.getConstrByName('r_{0}'.format(i)).setAttr('rhs', 1)
         for i in range(len(constraints_object.channels) + len(constraints_object.candidate_tas), 2 * len(constraints_object.channels) + len(constraints_object.candidate_tas)):

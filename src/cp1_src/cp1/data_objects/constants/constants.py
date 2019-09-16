@@ -14,7 +14,7 @@ MDL_MIN_INTERVAL = timedelta(microseconds=500) # The minimum time interval allow
 
 # Optimization Parameters
 DYNAMIC_PROGRAM_TABLE_QUANTIZATION = 2 # The number of minimum schedulable time units per millisecond
-INTEGER_PROGRAM_TIME_LIMIT = 15 # OR Tools Solver engine time limit
+INTEGER_PROGRAM_TIME_LIMIT = 15 # OR Tools Solver engine time limit in seconds
 INTEGER_PROGRAM_ENGINE = pywraplp.Solver.CBC_MIXED_INTEGER_PROGRAMMING
 
 # OrientDB
@@ -22,16 +22,17 @@ ORIENTDB_CONFIG_FILE = "../../../conf/orientdb_config.json"
 CONSTRAINTS_DB = "cra_constraints"
 MDL_DB = "cra_mdl"
 
-# Outputs and file generation
+# Outputs and file generation relative to start.py
 CONFIG_FILE = '../../../conf/config.json'
 BASE_MDL_SHELL_FILE = "../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml"
 MDL_SHELL_FILE = "../../../output/mdl/mdl_shell.xml"
 MDL_DIR = "../../../output/mdl"
+VISUAL_DIR = "../../../output/visual"
 RAW_DIR = "../../../output/raw"
 LOGGING_DIR = "../../../logs/"
 
 # Paths
-CP1_PARENT_FOLDER = "d:/dev/cp1" # Path to CP1
+CP1_FOLDER = "d:/dev/cp1" # Path to CP1
 
 # The set of Mac abbreviations provided by SwRI used in MDL file RadioLink elements
 GROUND_MAC = 0x1000

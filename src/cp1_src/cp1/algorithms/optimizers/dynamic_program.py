@@ -108,7 +108,7 @@ class DynamicProgram(Optimizer):
                             table[row][column] = best_value_so_far
 
                 # Prints the dynamic program
-                print(DataFrame(table))
+                # print(DataFrame(table))
                 self._compute_solution_path(table, len(eligible_tas), int(channel_min_latency.get_milliseconds() *
                                    DYNAMIC_PROGRAM_TABLE_QUANTIZATION), channel_index, eligible_discretized_tas, channel_min_latency)
 

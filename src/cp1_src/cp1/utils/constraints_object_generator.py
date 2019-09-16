@@ -29,6 +29,11 @@ class ConstraintsObjectGenerator():
         constraints_object_list = []
 
         if config.testing == 1:
+            if config.testing_seed != 'timestamp':
+                seed = config.testing_seed
+                numpy.random.seed(seed)
+                random.seed(seed)
+
             channel_list = []
             for i in range(config.testing_num_channels):
                 channel = Channel(frequency=Frequency(4919500000 + i*100000),
@@ -41,7 +46,7 @@ class ConstraintsObjectGenerator():
                 for j in range(config.testing_eligible_frequencies[i]):
                     eligible_frequency_list.append(channel_list[j].frequency)
 
-                ta = TA(id_='TA{0}'.format(i),
+                ta = TA(id_='TA{0}'.format(i + 1),
                 minimum_voice_bandwidth=Kbps(int(config.testing_total_min_bw[i])/2),
                 minimum_safety_bandwidth=Kbps(int(config.testing_total_min_bw[i])/2),
                 latency=timedelta(microseconds=1000*int(config.testing_latency[i])),
@@ -56,9 +61,9 @@ class ConstraintsObjectGenerator():
                         candidate_tas=ta_list,
                         channels=channel_list,
                         seed='timestamp',
-                        goal_throughput_bulk=config.goal_throughput_bulk,
-                        goal_throughput_voice=config.goal_throughput_voice,
-                        goal_throughput_safety=config.goal_throughput_safety,
+                        goal_throughput_bulk=Kbps(config.goal_throughput_bulk),
+                        goal_throughput_voice=Kbps(config.goal_throughput_voice),
+                        goal_throughput_safety=Kbps(config.goal_throughput_safety),
                         guard_band=timedelta(microseconds=1000*int(config.guard_band)),
                         epoch=timedelta(microseconds=1000*int(config.epoch)),
                         txop_timeout=TxOpTimeout(config.txop_timeout))
@@ -66,17 +71,19 @@ class ConstraintsObjectGenerator():
             constraints_object_list.append(testing_constraints_object)
 
         else:
-            seed = 'timestamp'
-            for x in range(1, config.instances[0] + 1):
-                if len(config.instances) == 2:
-                    seed = config.instances[1] + x
-                    numpy.random.seed(seed)
-                    random.seed(seed)
+            if len(config.instances) == 2:
+                seed = config.instances[1]
+                numpy.random.seed(seed)
+                random.seed(seed)
+            else:
+                seed = 'timestamp'
 
+            for x in range(1, config.instances[0] + 1):
                 channels = ConstraintsObjectGenerator._generate_channels(config)
                 candidate_tas = ConstraintsObjectGenerator._generate_tas(config, channels)
 
-                constraints_object = ConstraintsObject(id_ = 'ConstraintsObject{0}'.format(x+1),
+                constraints_object = ConstraintsObject(
+                id_='ConstraintsObject{0}'.format(x+1),
                 candidate_tas=candidate_tas,
                 channels=channels,
                 seed=seed,
@@ -89,7 +96,8 @@ class ConstraintsObjectGenerator():
                 )
 
                 constraints_object_list.append(constraints_object)
-
+                seed += 1
+                
         return constraints_object_list
 
     @staticmethod

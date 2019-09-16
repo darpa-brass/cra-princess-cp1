@@ -24,7 +24,7 @@ class ValueDiscretizer(Discretizer):
         for ta in constraints_object.candidate_tas:
             for channel in constraints_object.channels:
                 ta.channel = channel
-                discretization_length = int(ta.max_value - ta.min_value)/self.disc_count
+                discretization_length = (ta.max_value - ta.min_value)/self.disc_count
                 for i in range(0, self.disc_count):
                     disc_ta = copy.deepcopy(ta)
                     value = disc_ta.min_value + (i * discretization_length)

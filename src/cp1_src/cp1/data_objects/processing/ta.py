@@ -103,10 +103,10 @@ class TA:
         :returns timedelta communication_length: The amount of time this TA must communicate for to meet it's bandwidth requirement
         """
         two_way_min_interval = 2 * MDL_MIN_INTERVAL
-        communication_length = ((self.bandwidth.value / channel_capacity.value) * latency.microseconds) + (2 * guard_band.microseconds)
+        communication_length = ((self.bandwidth.value / channel_capacity.value) * latency.get_microseconds()) + (2 * guard_band.get_microseconds())
 
         # Round value to return within the specified MIN_INTERVAL
-        dist_from_interval = two_way_min_interval.microseconds - ((communication_length - 2 * guard_band.microseconds) %  two_way_min_interval.microseconds)
+        dist_from_interval = two_way_min_interval.get_microseconds() - ((communication_length - 2 * guard_band.get_microseconds()) %  (two_way_min_interval.get_microseconds()))
         communication_length += dist_from_interval
 
         return timedelta(microseconds=communication_length)
@@ -117,7 +117,7 @@ class TA:
         :param timedelta communication_length: The time this TA communicates for
         :returns Kbps bandwidth_required: The amount of bandwidth this TA requires to communicate
         """
-        bandwidth_required = (capacity.value / latency.microseconds) * communication_length.microseconds
+        bandwidth_required = (capacity.value / latency.get_microseconds()) * communication_length.get_microseconds()
         return Kbps(bandwidth_required)
 
     def discretized_on_current_channel(self, channel):
@@ -158,7 +158,7 @@ class TA:
                    self.minimum_voice_bandwidth.value,
                    self.minimum_safety_bandwidth.value,
                    self.total_minimum_bandwidth,
-                   self.latency.microseconds,
+                   self.latency.get_microseconds(),
                    self.scaling_factor,
                    self.c,
                    self.eligible_frequencies,
@@ -170,7 +170,7 @@ class TA:
 
     def __eq__(self, other):
         if isinstance(other, TA):
-            return self.id_ == other.id_ 
+            return self.id_ == other.id_
         return False
 
     __repr__ = __str__

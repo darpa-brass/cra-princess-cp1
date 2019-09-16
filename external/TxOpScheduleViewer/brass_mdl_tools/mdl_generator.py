@@ -141,9 +141,32 @@ def make_group(destination_mac):
 </RadioGroup>
     """)
 
-def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml'):
+
+def make_ran(frequency):
+    return etree.fromstring(
+    f"""
+<RANConfiguration ID="RANConfig15_RAN_{frequency}">
+    <Name>RAN_{frequency}</Name>
+    <LinkAgentConnectionEncryptionEnabled>false</LinkAgentConnectionEncryptionEnabled>
+    <TSSTunnelEncryptionEnabled>false</TSSTunnelEncryptionEnabled>
+    <CenterFrequencyHz>{frequency}500000</CenterFrequencyHz>
+    <ModulationType>SOQPSK-TG</ModulationType>
+    <EpochSize>100</EpochSize>
+    <LDPCBlocksPerBurst>1</LDPCBlocksPerBurst>
+    <MaxGuardTimeSec>0.001</MaxGuardTimeSec>
+    <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000"/>
+    <RadioGroups/>
+</RANConfiguration>
+    """)
+
+def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml', add_rans=0):
     if ta_count > 255 or ta_count < 1:
         print("Count must be in range 1-255.")
+        return(-1)
+
+    if add_rans > 10 or add_rans < 0:
+        print("add_rans must be in range 0-10")
         return(-1)
 
     # initialize MDL file
@@ -157,6 +180,7 @@ def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/
     radio_links = base_mdl.find("//mdl:RadioLinks", **n)
     uplink_qos_refs = base_mdl.find("//mdl:QoSPolicy[@ID='QoS3_ClassicDownlink']//mdl:RadioLinkRefs", **n)
     downlink_qos_refs = base_mdl.find("//mdl:QoSPolicy[@ID='QoS4_SimpleUplink']//mdl:RadioLinkRefs", **n)
+    rans = base_mdl.find("//mdl:RANConfigurations", **n)
 
     for i in range(ta_count):
         ground_mac = 0x1000 + i + 1
@@ -207,6 +231,15 @@ def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/
         downlink_qos_ref = etree.fromstring(f"<RadioLinkRef xmlns='http://www.wsmr.army.mil/RCC/schemas/MDL'/>")
         downlink_qos_ref.set("IDREF", downlink.get("ID"))
         downlink_qos_refs.append(downlink_qos_ref)
+
+        # Add additional channels
+        if add_rans > 0:
+            frequency = 4919 + 22
+
+            for i in range(add_rans):
+                ran = make_ran(frequency)
+                rans.append(ran)
+                frequency += 22
 
 
     with open(output, "w") as f:

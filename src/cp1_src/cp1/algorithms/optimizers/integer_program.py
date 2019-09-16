@@ -36,13 +36,21 @@ class IntegerProgram(Optimizer):
         """
         logger.debug('Beginning CBC Integer Program...')
         start_time = time.perf_counter()
+        solver = pywraplp.Solver('MDLScheduling', INTEGER_PROGRAM_ENGINE)
 
+        time_limit_in_milliseconds = INTEGER_PROGRAM_TIME_LIMIT * 1000
+        solver.SetTimeLimit(time_limit_in_milliseconds)
+
+        # In order to satisfy latency requirements, we pack as much communication
+        # value in a minimum latency time slot, which in the worst case can
+        # just be repeated to fill the epoch
         min_latency = self.retrieve_min_latency(discretized_tas)
 
-        solver = pywraplp.Solver('MDLScheduling', INTEGER_PROGRAM_ENGINE)
-        solver.SetTimeLimit(INTEGER_PROGRAM_TIME_LIMIT * 1000)
 
-        # Construct objective function
+        # Constructing the decision variables and objective function
+        # There is one decision variable per TA at a specific bandwidth on
+        # a specific channel. The value is either 0 or 1, corresponding to
+        # whether that TA has been selected or not.
         ta_vector = [[]] * (len(discretized_tas))
         objective = solver.Objective()
         for i in range(0, len(discretized_tas)):
@@ -51,18 +59,28 @@ class IntegerProgram(Optimizer):
                 0, 1, True, variable_id)
             objective.SetCoefficient(ta_vector[i], discretized_tas[i].value)
 
-        # This is an IP maximization problem, whereby we are trying to find the subset of TAs that provide the maximum value, not minimum
+        # This is an IP maximization problem, whereby we are trying to find the
+        # subset of TAs that provide the maximum value, not minimum
         objective.SetMaximization()
 
+        # Construct the empty constraints matrix to be populated based on the
+        # three types of constraints below;
+        # 1) The cumulative bandwidth from assigned TAs must not exceed
+        # the channel capacity
+        # 2) TAs cannot communicate on multiple channels simultaneously
+        # 3) TAs are only allowed to communicate on their eligible frequencies
         constraints = [] * len(constraints_object.channels)
 
-        # Constraint: TAs must be able to fit on a given channel
+        # Constraint: The cumulative bandwidth from assigned TAs must not exceed
+        # the channel capacity
         for i in range(0, len(constraints_object.channels)):
-            constraints.append(solver.Constraint(-solver.infinity(), min_latency.microseconds))
+            constraints.append(solver.Constraint(-solver.infinity(), min_latency.get_microseconds()))
             for j in range(0, len(discretized_tas)):
                 coeff = 0
+                # Check to extract all decision variables that correspond to
+                # communication on the ith channel
                 if (math.floor(j / (num_discretizations)) % len(constraints_object.channels)) == i:
-                        coeff = discretized_tas[j].compute_communication_length(constraints_object.channels[i].capacity, min_latency, constraints_object.guard_band).microseconds
+                        coeff = discretized_tas[j].compute_communication_length(constraints_object.channels[i].capacity, min_latency, constraints_object.guard_band).get_microseconds()
                 constraints[i].SetCoefficient(ta_vector[j], coeff)
 
         # Constraint: TAs cannot communicate on multiple channels simultaneously
@@ -70,11 +88,14 @@ class IntegerProgram(Optimizer):
             constraints.append(solver.Constraint(-solver.infinity(), 1))
             for j in range(0, int(len(discretized_tas))):
                 coeff = 0
-                if math.floor(int(j) / int(len(constraints_object.channels) * (num_discretizations))) == i:
+                # Extracts all decision variables corresponding to a single TA
+                if math.floor(j / int(len(constraints_object.channels) * (num_discretizations))) == i:
                     coeff = 1
+                # The right hand side of this equation is 1, therefore only 1 decision
+                # variable for each TA can be set to 1
                 constraints[i + len(constraints_object.channels)].SetCoefficient(ta_vector[j], coeff)
 
-        # Constraint: TAs only allowed to communicate on eligible channels
+        # Constraint: TAs only allowed to communicate on eligible frequencies
         constraints.append(solver.Constraint(-solver.infinity(), 0))
         for j in range(len(discretized_tas)):
             coeff = 1
@@ -99,23 +120,22 @@ class IntegerProgram(Optimizer):
                 scheduled_tas.append(discretized_tas[i])
 
         value = self.compute_solution_value(scheduled_tas)
-
         run_time = time.perf_counter() - start_time
         logger.debug('CBC Integer Program complete in {0} seconds'.format(run_time))
 
         return OptimizerResult(scheduled_tas=scheduled_tas, solve_time=solve_time, run_time=run_time, value=value)
 
-    def compute_upper_bound_optimization(self, constraints_object, discretized_tas):
+    def compute_upper_bound_optimization(self, ub_constraints_object, ub_discretized_tas, num_discretizations):
         """Optimizes TAs without a latency requirement
 
-        :param ConstraintsObject constraints_object: The Constraints to use in an instance of a Challenge Problem.
-        :param [<TA>] discretized_tas: The list of discretized TA objects
+        :param ConstraintsObject ub_constraints_object: The Constraints to use in an instance of a Challenge Problem.
+        :param [<TA>] ub_discretized_tas: The list of discretized TA objects
+        :param int num_discretizations: The number of discretizations a TA has
         :returns OptimizerResult:
         """
-        co = deepcopy(constraints_object)
-        for ta in co.candidate_tas:
-            ta.latency = co.epoch
-        return self.optimize(co, discretized_tas)
+        for ta in ub_discretized_tas:
+            ta.latency = ub_constraints_object.epoch
+        return self.optimize(ub_constraints_object, ub_discretized_tas, num_discretizations)
 
     def __str__(self):
         return 'CBC'

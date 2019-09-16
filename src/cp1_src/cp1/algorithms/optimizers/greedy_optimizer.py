@@ -4,7 +4,7 @@ Algorithm that greedily selects TAs for scheduling.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 import time
-from datetime import timedelta
+from cp1.utils.decorators.timedelta import timedelta
 from cp1.algorithms.optimizers.optimizer import Optimizer
 from cp1.data_objects.processing.optimizer_result import OptimizerResult
 from cp1.common.logger import Logger
@@ -38,20 +38,36 @@ class GreedyOptimizer(Optimizer):
             ta.bandwidth = ta.total_minimum_bandwidth
 
         # Order TAs by the ratio of their value / bandwidth requirement at minimum bandwidth
+        # TAs will then be selected based on this ordering, hence the name
+        # Greedy Optimizer
         constraints_object.candidate_tas.sort(key=lambda ta: (
                 ta.min_value / ta.total_minimum_bandwidth.value), reverse=True)
 
         for channel in constraints_object.channels:
             channel_start_time = timedelta(microseconds=0)
+
+            # The length of time of each communication block on a channel in a Greedy Optimizer
+            # is identical. It is the minimum latency of all TAs scheduled to communicate on
+            # this channel. By using the minimum latency, though it is leff efficient, we
+            # can gurantee that every scheduled TA using this algorithm can fit within
+            # this block
             min_latency = self.retrieve_min_latency(constraints_object.candidate_tas)
 
             for ta in constraints_object.candidate_tas:
-                # Only consider this TA if it has not been added to the list of scheduled_tas
+
+                # Only consider this TA if it has not already been assigned to another
+                # channel, and it is eligible to communicate on this channel
                 if ta not in scheduled_tas and ta.channel_is_eligible(channel):
 
+                    # The minimum communication requirement is the amount of time
+                    # this TA requires when only assigned it's minimum bandwidth
                     min_communication_requirement = ta.compute_communication_length(channel.capacity, min_latency, constraints_object.guard_band)
-                    ta_fits_on_channel = min_communication_requirement + channel_start_time <= min_latency
 
+                    # The TA fits on this channel if the amount of time it requires
+                    # does not exceed the length of one block on this channel, while
+                    # also taking into consideration that other TAs may have already
+                    # been scheduled on this channel already (hence channel_start_time)
+                    ta_fits_on_channel = min_communication_requirement + channel_start_time <= min_latency
                     if ta_fits_on_channel:
                         ta.value = ta.min_value
                         ta.channel = channel

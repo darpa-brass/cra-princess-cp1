@@ -15,9 +15,8 @@ from cp1.algorithms.discretizers.discretizer import Discretizer
 
 class AccuracyDiscretizer(Discretizer):
     def __init__(self, epsilon):
-        accuracy = 1 - epsilon
-        self.accuracy = accuracy
-
+        self.accuracy = 1 - epsilon
+        
     def _discretize(self, constraints_object):
         discretized_tas = []
 
@@ -25,7 +24,7 @@ class AccuracyDiscretizer(Discretizer):
         min_value = min_value_ta.min_value / min_value_ta.scaling_factor
 
         self.disc_count = math.ceil(math.log(100/min_value)/math.log(1/(1 - self.accuracy))) + 1
-        
+
         for ta in constraints_object.candidate_tas:
             for channel in constraints_object.channels:
                 ta.channel = channel

@@ -97,6 +97,8 @@ class OrientDBSession(BrassOrientDBHelper):
         txop_list = []
         for schedule in schedules:
             for txop in schedule.txops:
+                txop.start_usec = timedelta(days=txop.start_usec.days, seconds=txop.start_usec.seconds, microseconds=txop.start_usec.microseconds)
+                txop.stop_usec = timedelta(days=txop.stop_usec.days, seconds=txop.stop_usec.seconds, microseconds=txop.stop_usec.microseconds)
                 txop_list.append(txop)
 
         # Generate a Dictionary of RadioLinks
@@ -119,23 +121,26 @@ class OrientDBSession(BrassOrientDBHelper):
                     found = True
                     i += 1
                     break
-            if found == False:
+            if not found:
                 raise RadioLinkNotFoundException('Unable to find RadioLink ({0}) in OrientDB database'.format(rl), 'OrientDBSession.update_schedule')
 
         # Create TxOp objects in OrientDB and connect them to RadioLinks
         i = 0
         for txop in txop_list:
             txop_properties = {
-                'StartUSec': int(txop.start_usec.microseconds),
-                'StopUSec': int(txop.stop_usec.microseconds),
+                'StartUSec': txop.start_usec.get_microseconds(),
+                'StopUSec': txop.stop_usec.get_microseconds(),
                 'TxOpTimeout': txop.txop_timeout.value,
-                'CenterFrequencyHz': txop.center_frequency_hz.value,
+                    'CenterFrequencyHz': txop.center_frequency_hz.value,
                 'uid': 'TxOp-{0}'.format(i)
                 }
 
             txop_rid = self.create_node('TxOp', txop_properties)
             self.set_containment_relationship(parent_rid=transmission_schedule_rids[txop.radio_link_id], child_rid=txop_rid)
             i += 1
+
+        # Move the RANConfigurationLinks around appropriately
+        
 
     def store_constraints(self, constraints_object):
         """Stores a ConstraintsObject in the OrientDB database
@@ -242,7 +247,7 @@ class OrientDBSession(BrassOrientDBHelper):
         'id': ta.id_,
         'minimum_voice_bandwidth': ta.minimum_voice_bandwidth.value,
         'minimum_safety_bandwidth': ta.minimum_safety_bandwidth.value,
-        'latency': int(ta.latency.microseconds / 1000),
+        'latency': ta.latency.get_microseconds(),
         'scaling_factor': ta.scaling_factor,
         'c': ta.c
         }

@@ -6,6 +6,8 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import re
 import csv
 import os
+import shutil
+from tempfile import NamedTemporaryFile
 
 from cp1.common.exception_class import MACAddressParseError
 from cp1.data_objects.constants.constants import *
@@ -25,13 +27,15 @@ def store_and_retrieve_constraints(constraints_object_list):
     :returns [<ConstraintsObject>] orientdb_constraints_object_list: The same list of Constraints, as retrieved from OrientDB
     """
     constraints_orientdb = OrientDBSession(
-    database_name=MDL_DB,
-    config_file=ORIENTDB_CONFIG_FILE)
+        database_name=MDL_DB,
+        config_file=ORIENTDB_CONFIG_FILE)
 
     constraints_orientdb.open_database()
-    orientdb_constraints_object_list = constraints_orientdb.store_and_retrieve_constraints(constraints_object_list)
+    orientdb_constraints_object_list = constraints_orientdb.store_and_retrieve_constraints(
+        constraints_object_list)
     constraints_orientdb.close_database()
     return orientdb_constraints_object_list
+
 
 def clear_files(folders):
     """Deletes all files and subfiles found under the folders specified
@@ -48,14 +52,21 @@ def clear_files(folders):
                 print(e)
 
 
-def determine_file_name(discretizer, optimizer, scheduler, timestamp, perturb_tas=None):
+def determine_file_name(
+        discretizer,
+        optimizer,
+        scheduler,
+        timestamp,
+        perturber=None,
+        seed=None):
     """Determines the appropriate name for an MDL or RAW output file
 
     :param Discretizer discretizer: The discretizer used to solve this instance
     :param Optimizer optimizer: The optimizer used to solve this instance
     :param Scheduler scheduler: The scheduler used to solve this instance
     :param str timestamp: The time this was executed
-    :param [<TA>] perturb_tas: The list of TAs to perturb. If is not None, \'Perturbed\' is appended to file name.
+    :param Perturber perturber: The perturber used to perturb this instance
+    :param str seed: The seed used to generate this instance
 
     :returns str file_name: A name for the output file
     """
@@ -63,14 +74,136 @@ def determine_file_name(discretizer, optimizer, scheduler, timestamp, perturb_ta
         disc_write_value = discretizer.accuracy
     else:
         disc_write_value = discretizer.disc_count
-    file_name = '{0}({1})_{2}_{3}_{4}'.format(str(discretizer), disc_write_value, str(optimizer), str(scheduler), timestamp)
+    file_name = '{0}({1})_{2}_{3}_{4}'.format(
+        str(discretizer),
+        disc_write_value,
+        str(optimizer),
+        str(scheduler),
+        timestamp)
 
-    if perturb_tas is not None:
-        file_name = 'Perturbed_' + file_name
+    if perturber is not None:
+        file_name = str(perturber) + file_name
+
+    if seed is not None:
+        file_name += '_' + str(seed)
 
     return file_name
 
-def export_raw(csv_output, optimizer, discretizer, opt_res, upper_opt_res, bw_eff, co):
+
+def channel_efficiency_print_value(channel_efficiency):
+    """Utility function to format how the channel efficiency values should be
+       output to a file.
+
+    :param {Channel: int} channel_efficiency: A dictionary of efficiency values
+    """
+    channel_efficiency_print = ''
+    for channel, efficiency in channel_efficiency.items():
+        channel_efficiency_print += ('{0},{1},').format(
+            channel.frequency.value, efficiency)
+    channel_efficiency_print = channel_efficiency_print[:-1]
+    return channel_efficiency_print
+
+# def export_perturbed_raw(csv_output, opt_res, upper_opt_res, channel_efficiency):
+#     new_rows = []
+#     # First export all original rows in the code
+#     tempfile = NamedTemporaryFile(delete=False)
+#
+#     with open(csv_output, 'r') as csvFile, tempfile:
+#         reader = csv.reader(csvFile, delimiter=',', quotechar='"')
+#         writer = csv.writer(tempfile, delimiter=',', quotechar='"')
+#
+#         for row in reader:
+#             row.append(str(opt_res.value))
+#             row.append(str(upper_opt_res.value))
+#             row.append(str(opt_res.run_time))
+#             row.append(str(opt_res.solve_time))
+#             for channel, efficiency in channel_efficiency.items():
+#                 row.append(str(channel.frequency.value))
+#                 row.append(str(efficiency))
+#             print(row)
+#             writer.writerow(row)
+#
+#     shutil.move(tempfile.name, csv_output)
+
+
+def export_visual(csv_output, opt_res):
+    """Exports the data required to visualize
+
+    :param str csv_output: The name of the CSV file to append the data to
+    :param OptimizationResult opt_res: The optimization result to export visual
+                                       data based off of
+
+    Should be of the format: [ta.id_,
+                             cumulative_bandwidth,
+                             ta.value,
+                             ta.channel_frequency]
+
+    [TA1, 0, 0, 4919500000]
+    [TA1, 1, 0, 4919500000] <--- The TA has no value at 1 Kbps
+    ...
+    [TA1, 45, 24, 4919500000] <--- The minimum bandwidth was 45, and the value
+                                   provided at that was 24.
+    ...
+    [TA1, 158, 56, 4919500000]
+    [TA1, 158.2, 56.1, 4919500000] <--- There will be math.floor(ta.bandwidth)
+                                        data points for a TA iff (if and only
+                                        if) the TA's assigned bandwidth is not a
+                                        whole number.
+                                        i.e. bw = 158.79 (159 samples)
+                                        i.e. bw = 160.0 (160 samples)
+    [TA3, 159.2, 56.1, 4919500000] <--- The next value will be the next scheduled
+                                        TA
+    [TA3, 160.2, 56.1, 4919500000] <--- The value should not increase for the
+                                        next entry, this represents TA3 with 2
+                                        assigned Kbps, not TA3 with 160.2 bw.
+                                        This is just to make frontend work easier.
+    [TA3, 285.2, 148.89, 4919500000]
+    [TA3, 285.789, 149, 4919500000] <--- TA3 had 127.589 Kbps of bandwidth
+                                         assigned to it, so the next value of
+                                         the cumulative_bw at the end of TA3 is
+                                         158.2 + 127.589 = 285.789
+                                         As before, n + 1 data points in this
+                                         array belong to TA3.
+    """
+    rows = []
+    cumulative_bw = 0
+    cumulative_val = 0
+    for ta in opt_res.scheduled_tas:
+        for bw in range(1, int(ta.bandwidth.value) + 2):
+
+            # If we are at the last index, compute the actual bandwidth.
+            # i.e. Bandwidth = 10.48
+            #      for i in range(12):
+            #      When we get to 11, just calculate bw @ 10.48
+            if bw == int(ta.bandwidth.value) + 1:
+                # Only perform this calculation if the TA's bandwidth is indeed
+                # a decimal point. I.e. 10.48, and not 10.0.
+                if int(ta.bandwidth.value) < ta.bandwidth.value:
+                    bw_write = ta.bandwidth.value + cumulative_bw
+                    val_write = ta.value + cumulative_val
+            else:
+                val_write = ta.compute_value_at_bandwidth(Kbps(bw)) +\
+                            cumulative_val
+                bw_write = bw + cumulative_bw
+
+            rows.append([ta.id_, bw_write, val_write])
+
+        cumulative_bw += ta.bandwidth.value
+        cumulative_val += ta.value
+
+    with open(csv_output, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+        writer.writerows(rows)
+
+
+def export_raw(
+        csv_output,
+        optimizer,
+        discretizer,
+        opt_res,
+        # upper_opt_res,
+        channel_efficiency,
+        co):
     """Exports the raw results computed after one instance of the challenge problem is run
 
     :param str csv_output: The full path of the file to output to
@@ -78,43 +211,32 @@ def export_raw(csv_output, optimizer, discretizer, opt_res, upper_opt_res, bw_ef
     :param Discretizer discretizer: The discretizer used to solve this instance
     :param OptimizerResult opt_res: The optimization result
     :param OptimizerResult upper_opt_res: The upper bound optimization result
-    :param {int: int} bw_eff: The output of running the bandwidth efficiency calculation
+    :param {int: int} channel_efficiency: The output of running the bandwidth efficiency calculation
     :param ConstraintsObject co: The constraints object used in this instance
     """
     disc_count = ''
     accuracy = ''
+
     if isinstance(discretizer, AccuracyDiscretizer):
         accuracy = discretizer.accuracy
-    elif isinstance(discretizer, (BandwidthDiscretizer, ValueDiscretizer)):
-        disc_count = discretizer.disc_count
+    disc_count = discretizer.disc_count
 
-    ta_print = ''
-    for channel, tas in opt_res.scheduled_tas.items():
-        for ta in tas:
-            ta_print += ('{0}_{1}_{2}_{3},'.format(ta.id_,
-                                                       ta.value,
-                                                       ta.bandwidth.value,
-                                                       channel.frequency.value))
-    ta_print = ta_print[:-1]
-
-    bw_eff_print = ''
-    for channel_frequency, efficiency in bw_eff.items():
-        bw_eff_print += ('{0}_{1},').format(channel_frequency, efficiency)
-    bw_eff_print = bw_eff_print[:-1]
+    # channel_efficiency_print = channel_efficiency_print_value(channel_efficiency)
 
     with open(csv_output, 'a') as csv_file:
-        csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_NONE, escapechar='\\')
+        csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
             [
                 co.seed,
                 disc_count,
                 accuracy,
                 opt_res.value,
-                upper_opt_res.value,
+                # upper_opt_res.value,
                 opt_res.run_time,
                 opt_res.solve_time,
-                bw_eff_print,
-                ta_print])
+                # channel_efficiency_print,
+                len(opt_res.scheduled_tas)])  # ,
+        # ta_print])
 
 
 def update_mdl_schedule(schedules):
@@ -122,7 +244,6 @@ def update_mdl_schedule(schedules):
 
     :param [<Schedule>] schedules: The schedule to use when updating the database
     """
-    print(schedules)
     scenario_orientdb = OrientDBSession(
         database_name=MDL_DB,
         config_file=ORIENTDB_CONFIG_FILE)
@@ -132,7 +253,8 @@ def update_mdl_schedule(schedules):
 
 
 def import_shell_mdl_file():
-    """Imports an MDL file
+    """Imports an MDL file. Written so that the start.py call to this function
+    can happen in one line.
     """
     importer = OrientDBImporter(MDL_DB, MDL_SHELL_FILE,
                                 ORIENTDB_CONFIG_FILE)
@@ -221,6 +343,7 @@ def id_to_mac(ta_id, direction):
 
     return 'RadioLink_' + mac
 
+
 def _determine_type(x):
     """Takes as input a RadioLink ID string, parses the first 4 characters to determine
     the type of RadioLink this is. Can be one of four types; Uplink, Downlink,
@@ -241,6 +364,8 @@ def _determine_type(x):
     elif y == '0x20':
         type = 'TA '
     else:
-        raise MACAddressParseError('{0} does not match any of the known abbreviations'.format(y), 'MDLUtils._determine_type')
+        raise MACAddressParseError(
+            '{0} does not match any of the known abbreviations'.format(y),
+            'MDLUtils._determine_type')
 
     return type

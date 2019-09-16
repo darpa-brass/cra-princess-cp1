@@ -12,6 +12,34 @@ from cp1.algorithms.optimizers.greedy_optimizer import GreedyOptimizer
 from cp1.algorithms.optimizers.gurobi import Gurobi
 from cp1.algorithms.schedulers.conservative_scheduler import ConservativeScheduler
 from cp1.algorithms.schedulers.hybrid_scheduler import HybridScheduler
+from cp1.data_objects.processing.perturber import Perturber
+
+
+def setup_perturbers(config):
+    """Sets up an array of Perturbers based on config settings.
+    One Perturber object is created per perturbation field.
+
+    :param ConfigurationObject config: The Configuration for an instance of a challenge problem
+    :returns [<Scheduler>] schedulers: A list of schedulers based on the configuration object values
+    """
+    perturbers = []
+    if config.perturb == 1:
+
+        if config.increase_ta_min_bw != 0:
+            perturbers.append(Perturber(
+            num_tas_to_reconsider = config.num_tas_to_reconsider,
+            increase_ta_min_bw = config.increase_ta_min_bw))
+
+        if config.drop_channel != 0:
+            perturbers.append(Perturber(
+            num_tas_to_reconsider = config.num_tas_to_reconsider,
+            drop_channel = config.drop_channel))
+
+        if config.change_channel_capacity != 0:
+            perturbers.append(Perturber(
+            num_tas_to_reconsider = config.num_tas_to_reconsider,
+            change_channel_capacity = config.increase_ta_min_bw))
+    return perturbers
 
 def setup_schedulers(config):
     """Sets up an array of Schedulers based on config settings.

@@ -3,7 +3,7 @@
 Data object representing a TxOp node.
 Author: Tameem Samawi (tsamawi@cra.com)
 """
-from datetime import timedelta
+from cp1.utils.decorators.timedelta import timedelta
 from cp1.common.exception_class import TxOpInitializationException
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.mdl.txop_timeout import TxOpTimeout
@@ -29,17 +29,7 @@ class TxOp:
             :param Frequency center_frequency_hz: The frequency to communicate over
             :param TxOpTimeout txop_timeout: The timeout value
             """
-            if not isinstance(start_usec, timedelta):
-                raise TxOpInitializationException(
-                    'start_usec ({0}) must be an instance of timedelta'.format(start_usec)
-                )
-
-            if not isinstance(stop_usec, timedelta):
-                raise TxOpInitializationException(
-                    'stop_usec ({0}) must be an instance of timedelta'.format(stop_usec)
-                )
-
-            if start_usec.microseconds >= stop_usec.microseconds:
+            if start_usec >= stop_usec:
                 raise TxOpInitializationException(
                     'start_usec must be less than stop_usec.\nstart_usec: {0}, stop_usec: {1}'.format(
                         start_usec, stop_usec))
