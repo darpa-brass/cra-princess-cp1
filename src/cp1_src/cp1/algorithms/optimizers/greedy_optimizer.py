@@ -69,7 +69,7 @@ class GreedyOptimizer(Optimizer):
                     # been scheduled on this channel already (hence channel_start_time)
                     ta_fits_on_channel = min_communication_requirement + channel_start_time <= min_latency
                     if ta_fits_on_channel:
-                        ta.value = ta.min_value
+                        ta.value = ta.compute_value_at_bandwidth(ta.bandwidth)
                         ta.channel = channel
                         channel_start_time += min_communication_requirement
                         scheduled_tas.append(ta)

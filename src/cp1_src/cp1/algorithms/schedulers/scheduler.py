@@ -85,10 +85,13 @@ class Scheduler(abc.ABC):
             # without a guard band added in. Guard bands will be added later.
             one_way_transmission_length = ta.compute_communication_length(
                 channel.capacity, min_latency, timedelta(microseconds=0)) / 2
+
             # Stretch out last TA scheduled to communicate on this channel
             if x == len(ta_list) - 1 and one_way_transmission_length > timedelta(microseconds=500):
-                one_way_transmission_length = ((min_latency - up_start) / 2) - self.constraints_object.guard_band
-
+                # print('One of these cases')
+                # print(one_way_transmission_length)
+                one_way_transmission_length = ((min_latency - up_start) / 2)
+                # print(one_way_transmission_length, min_latency, up_start)
             # Each direction of transmission requires
             up_stop = one_way_transmission_length + channel_start_time
             down_start = up_stop + self.constraints_object.guard_band

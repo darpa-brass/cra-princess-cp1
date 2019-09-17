@@ -37,12 +37,13 @@ class ConservativeScheduler(Scheduler):
             block_starts = []
             min_latency = min(tas, key=lambda ta: ta.latency).latency
             num_partitions = math.floor(self.constraints_object.epoch / min_latency)
+
             for x in range(num_partitions):
                 block_starts.append(x * min_latency)
 
             self.create_blocks(channel, tas, min_latency, start_times, block_starts, schedule)
             schedules.append(schedule)
-            
+
         return schedules
 
     def __str__(self):

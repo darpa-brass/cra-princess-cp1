@@ -309,5 +309,3 @@ class ConfigurationObject:
             for num in eligible_channel_list:
                 if num > self.num_channels:
                     raise ConfigFileException('There cannot be more eligible_frequencies ({0}) than total channels ({1})'.format(num, self.num_channels))
-
-# c = ConfigurationObject('../../../../../conf/config.json')

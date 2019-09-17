@@ -52,7 +52,7 @@ def instance_message(seed, discretizer, optimizer, scheduler):
         disc_write_val = discretizer.disc_count
     discretizer_log = '{0} ({1})'.format(discretizer, disc_write_val)
 
-    seed_log = 'Seed {0}'.format(seed)
+    seed_log = 'Run {0}'.format(seed)
 
     return '{0}\n{1}\n{2}\n{3}\n{4}\n{5}'.format(HALF_PADDING,
                                             seed_log.rjust(left_align_offset(seed_log)),

@@ -32,7 +32,7 @@ class Optimizer(abc.ABC):
         :returns OptimizerResult:
         """
         return self._optimize(constraints_object, discretized_tas, num_discretizations)
-        
+
     def retrieve_min_latency(self, ta_list):
         """Returns the min latency from a list of TAs
 

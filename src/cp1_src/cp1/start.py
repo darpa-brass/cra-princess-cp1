@@ -37,16 +37,10 @@ def solve_challenge_problem_instance(
     ub_constraints_object = deepcopy(constraints_object)
 
     if perturber is not None:
-        for ta in constraints_object.candidate_tas:
-            print(ta)
         logger.debug('Perturbing Constraints Object...')
         constraints_object = perturber.perturb_constraints_object(
             constraints_object, optimizer_result)
 
-    logger.debug('Discretizing TAs...')
-    if perturber is not None:
-        for ta in constraints_object.candidate_tas:
-            print(ta)
     discretized_tas = discretizer.discretize(constraints_object)
     ub_discretized_tas = deepcopy(discretized_tas)
 
@@ -55,6 +49,13 @@ def solve_challenge_problem_instance(
         constraints_object,
         discretized_tas,
         discretizer.disc_count)
+
+    if perturber is not None:
+        logger.debug('Scheduled TAs after Perturbation')
+    else:
+        logger.debug('Scheduled TAs before Perturbation')
+    for ta in optimizer_result.scheduled_tas:
+        logger.debug('{0}_{1}_{2}'.format(ta.id_, ta.latency, ta.bandwidth.value))
 
     logger.debug('Optimizing on Upper Bound Constraints Object...')
     integer_program = IntegerProgram()
@@ -71,7 +72,6 @@ def solve_challenge_problem_instance(
 
     logger.debug('Scheduling...')
     schedules = scheduler.schedule(constraints_object, optimizer_result)
-
     # for schedule in schedules:
     #     logger.debug(schedule.channel.frequency.value)
     #     txops = []

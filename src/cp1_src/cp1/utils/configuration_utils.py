@@ -38,7 +38,15 @@ def setup_perturbers(config):
         if config.change_channel_capacity != 0:
             perturbers.append(Perturber(
             num_tas_to_reconsider = config.num_tas_to_reconsider,
-            change_channel_capacity = config.increase_ta_min_bw))
+            change_channel_capacity = config.change_channel_capacity))
+
+    for perturber in perturbers:
+        if config.testing == 1:
+            if config.testing_seed != 'timestamp':
+                perturber.seed = config.testing_seed
+        elif len(config.instances) == 2:
+            perturber.seed = config.instances[1]
+
     return perturbers
 
 def setup_schedulers(config):

@@ -108,6 +108,11 @@ class TA:
         # Round value to return within the specified MIN_INTERVAL
         dist_from_interval = two_way_min_interval.get_microseconds() - ((communication_length - 2 * guard_band.get_microseconds()) %  (two_way_min_interval.get_microseconds()))
         communication_length += dist_from_interval
+        if guard_band == timedelta(microseconds=0):
+            actual_comm_len = communication_length
+        else:
+            actual_comm_len = communication_length - 2 * guard_band.get_microseconds()
+        self.bandwidth = self.compute_bw_from_comm_len(channel_capacity, latency, timedelta(microseconds=actual_comm_len))
 
         return timedelta(microseconds=communication_length)
 
