@@ -8,6 +8,7 @@ import csv
 import os
 import shutil
 from tempfile import NamedTemporaryFile
+from collections import defaultdict
 
 from cp1.common.exception_class import MACAddressParseError
 from cp1.data_objects.constants.constants import *
@@ -70,19 +71,19 @@ def determine_file_name(
 
     :returns str file_name: A name for the output file
     """
-    if isinstance(discretizer, AccuracyDiscretizer):
-        disc_write_value = discretizer.accuracy
-    else:
-        disc_write_value = discretizer.disc_count
-    file_name = '{0}({1})_{2}_{3}_{4}'.format(
+    file_name = '{0}_{1}_{2}_{3}'.format(
         str(discretizer),
-        disc_write_value,
         str(optimizer),
         str(scheduler),
         timestamp)
 
     if perturber is not None:
-        file_name = str(perturber) + file_name
+        perturber_str = '{0}_{1}_{2}_{3}_{4}_'.format(perturber.reconsider,
+                                                    perturber.combine,
+                                                    perturber.ta_bandwidth,
+                                                    perturber.channel_dropoff,
+                                                    perturber.channel_capacity)
+        file_name = perturber_str + file_name
 
     if seed is not None:
         file_name += '_' + str(seed)
@@ -126,7 +127,7 @@ def channel_efficiency_print_value(channel_efficiency):
 #     shutil.move(tempfile.name, csv_output)
 
 
-def export_visual(csv_output, opt_res):
+def export_visual(csv_output, opt_res, webserver=False):
     """Exports the data required to visualize
 
     :param str csv_output: The name of the CSV file to append the data to
@@ -165,10 +166,12 @@ def export_visual(csv_output, opt_res):
                                          As before, n + 1 data points in this
                                          array belong to TA3.
     """
+    visualization_points = defaultdict(list)
     rows = []
     cumulative_bw = 0
     cumulative_val = 0
     for ta in opt_res.scheduled_tas:
+        rows.append([ta.id_])
         for bw in range(1, int(ta.bandwidth.value) + 2):
 
             # If we are at the last index, compute the actual bandwidth.
@@ -186,33 +189,40 @@ def export_visual(csv_output, opt_res):
                             cumulative_val
                 bw_write = bw + cumulative_bw
 
-            rows.append([ta.id_, bw_write, val_write])
+            visualization_points[ta.id_].append([bw_write, val_write])
+            rows.append([str(bw_write), (val_write)])
 
         cumulative_bw += ta.bandwidth.value
         cumulative_val += ta.value
+
 
     with open(csv_output, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
         writer.writerows(rows)
 
+    return visualization_points
 
 def export_raw(
         csv_output,
         optimizer,
         discretizer,
         opt_res,
-        # upper_opt_res,
+        upper_bound_value,
+        lower_bound_value,
+        unadapted_value,
         channel_efficiency,
-        co):
+        seed):
     """Exports the raw results computed after one instance of the challenge problem is run
 
     :param str csv_output: The full path of the file to output to
     :param Optimizer optimizer: The optimizer used to solve this instance
     :param Discretizer discretizer: The discretizer used to solve this instance
     :param OptimizerResult opt_res: The optimization result
-    :param OptimizerResult upper_opt_res: The upper bound optimization result
+    :param int upper_bound_value: The upper bound value
+    :param int lower_bound_value: The lower bound value
+    :param int unadapted_value: The unadapted value of the solution after a perturbation
     :param {int: int} channel_efficiency: The output of running the bandwidth efficiency calculation
-    :param ConstraintsObject co: The constraints object used in this instance
+    :param int seed: The constraints object used in this instance
     """
     disc_count = ''
     accuracy = ''
@@ -221,22 +231,23 @@ def export_raw(
         accuracy = discretizer.accuracy
     disc_count = discretizer.disc_count
 
-    # channel_efficiency_print = channel_efficiency_print_value(channel_efficiency)
+    channel_efficiency_print = channel_efficiency_print_value(channel_efficiency)
 
     with open(csv_output, 'a') as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
             [
-                co.seed,
+                seed,
                 disc_count,
                 accuracy,
                 opt_res.value,
-                # upper_opt_res.value,
+                upper_bound_value,
+                lower_bound_value,
+                unadapted_value,
                 opt_res.run_time,
                 opt_res.solve_time,
-                # channel_efficiency_print,
-                len(opt_res.scheduled_tas)])  # ,
-        # ta_print])
+                channel_efficiency_print,
+                len(opt_res.scheduled_tas)])
 
 
 def update_mdl_schedule(schedules):
@@ -337,9 +348,9 @@ def id_to_mac(ta_id, direction):
     id_number = int(re.sub("[^0-9]", "", ta_id))
 
     if direction == 'up':
-        mac = str(GROUND_MAC + id_number) + 'to' + str(UPLINK_MAC + id_number)
+        mac = str(GROUND_MAC + id_number) + '_to_' + str(UPLINK_MAC + id_number)
     else:
-        mac = str(TA_MAC + id_number) + 'to' + str(DOWNLINK_MAC + id_number)
+        mac = str(TA_MAC + id_number) + '_to_' + str(DOWNLINK_MAC + id_number)
 
     return 'RadioLink_' + mac
 

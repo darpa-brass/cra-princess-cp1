@@ -32,7 +32,10 @@ class HybridScheduler(Scheduler):
         :param timedelta deadline_window: The time by which to set a SchedulingJob back in case it's start_deadline conflicts with another job. Only relevant for HybridScheduler.
         :returns [<Schedule>] schedule: A list of Schedule objects for each channel TAs have been scheduled on
         """
-        self._validate_latency_requirement(optimizer_result)
+        try:
+            self._validate_latency_requirement(optimizer_result)
+        except InvalidLatencyRequirementException as err:
+            logger.exception(err)
 
         # Calculate the minimum latency for each channel
         schedules = []
@@ -184,6 +187,9 @@ class HybridScheduler(Scheduler):
 
             if communication_gap > self.constraints_object.guard_band:
                 prev_txop.stop_usec += communication_gap - self.constraints_object.guard_band
+
+            elif i == num_txops - 1:
+                curr_txop.stop_usec = timedelta(microseconds=99000)
 
     def _initialize_queue(
             self,

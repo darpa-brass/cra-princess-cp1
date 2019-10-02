@@ -15,14 +15,19 @@ class PRF():
         """
         self.prf = prf
 
-    def evaluate(self):
+    def evaluate(self, seed):
         """
         Takes in a field from data_generator.json and generates one value for each range.
         If either of the two numbers in the range are a float, it will produce a
         float.
 
-        :return int val: One value generated this PRF.
-        """    
+        :param int seed: Can either be the string 'timestamp' or the seed
+        :return int val: One value generated this PRF
+        """
+        if seed != 'timestamp':
+            random.seed(seed)
+            numpy.random.seed(seed)
+            
         percentages = []
         for x in self.prf:
             percentages.append(x[0])

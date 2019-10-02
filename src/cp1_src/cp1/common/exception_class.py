@@ -4,7 +4,6 @@ Module contains custom exception classes.
 Author: Tameem Samawi(tsamawi@cra.com)
 """
 
-
 class ChannelGeneratorException(ValueError):
     """Raise for inavalid values passed into the ChannelGenerator.generate() function"""
 

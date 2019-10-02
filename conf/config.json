@@ -9,7 +9,7 @@
       "c": [0.001803185945445526, 0.001032661120914519, 0.0018729677083581596, 0.0018536970796999488, 0.00584415997190124, 0.0021923948368566255, 0.0022654640481329074, 0.0012410453332914934, 0.0008406983937113625, 0.0012065483251084645]
     },
     "Channels": {
-      "num": 2,
+      "num": 1,
       "capacity": 10000
     },
     "Seed": 1
@@ -17,17 +17,17 @@
   "Constraints":
   {
     "candidate_tas": {
-      "num": 10,
+      "num": 2,
       "eligible_frequencies": [[1, [1]]],
       "voice_bandwidth": [[0.8, [120]], [0.2, [50, 200]]],
       "safety_bandwidth": [[0.65, [500, 1000]], [0.15, [100, 500]], [0.2, [1000, 8000]]],
-      "latency": [[0.8, [25]], [0.2, [10]]],
+      "latency": [[0.5, [50]], [0.5, [10, 50]]],
       "scaling_factor": [[0.2, [0.4, 0.6]], [0.7, [0.9, 1.1]], [0.1, [2.0, 3.0]]],
       "c": [[0.8, [0.0005, 0.0025]], [0.2, [0.0025, 0.007]]]
     },
     "channels": {
-      "num": 2,
-      "frequency": [4919500000, 100000],
+      "num": 1,
+      "frequency": [4919, 22],
       "capacity": [[0.98, [10000]], [0.02, [1000, 10000]]]
     },
     "guard_band": 1,
@@ -42,13 +42,13 @@
     "Discretizers":
     {
       "Accuracy": {
-        "epsilons": [0.9]
+        "epsilons": [0.99]
       },
       "Bandwidth": {
-        "discs": []
+        "num_discs": []
       },
       "Value": {
-        "discs": []
+        "num_discs": []
       }
     },
     "Optimizers":
@@ -67,10 +67,11 @@
   "Perturbations":
   {
     "perturb": 1,
-    "num_tas_to_reconsider": 2,
-    "increase_ta_min_bw": 1000,
-    "drop_channel": 1,
-    "change_channel_capacity": -2000
+    "reconsider": 2,
+    "combine": 0,
+    "ta_bandwidth": 500,
+    "channel_dropoff": 5,
+    "channel_capacity": 3000
   },
   "Miscellaneous":
   {
@@ -78,6 +79,6 @@
     "orientdb": 1,
     "visualize": 0,
     "clear": 1,
-    "instances": [10, 1]
+    "instances": [1, 1]
   }
 }

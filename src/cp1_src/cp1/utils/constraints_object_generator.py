@@ -36,7 +36,7 @@ class ConstraintsObjectGenerator():
 
             channel_list = []
             for i in range(config.testing_num_channels):
-                channel = Channel(frequency=Frequency(4919500000 + i*100000),
+                channel = Channel(frequency=Frequency(4919 + i*22),
                                     capacity=Kbps(config.testing_channel_capacity))
                 channel_list.append(channel)
 
@@ -79,11 +79,11 @@ class ConstraintsObjectGenerator():
                 seed = 'timestamp'
 
             for x in range(1, config.instances[0] + 1):
-                channels = ConstraintsObjectGenerator._generate_channels(config)
-                candidate_tas = ConstraintsObjectGenerator._generate_tas(config, channels)
+                channels = ConstraintsObjectGenerator._generate_channels(config, seed)
+                candidate_tas = ConstraintsObjectGenerator._generate_tas(config, channels, seed)
 
                 constraints_object = ConstraintsObject(
-                id_='ConstraintsObject{0}'.format(x+1),
+                id_= x,
                 candidate_tas=candidate_tas,
                 channels=channels,
                 seed=seed,
@@ -96,15 +96,18 @@ class ConstraintsObjectGenerator():
                 )
 
                 constraints_object_list.append(constraints_object)
-                seed += 1
-                
+
+                if isinstance(seed, int):
+                    seed += 1
+
         return constraints_object_list
 
     @staticmethod
-    def _generate_channels(config):
+    def _generate_channels(config, seed):
         """Generates a set amount of Channels in the range of data provided by data_file.
 
         :param ConfigurationObject config: The Configuration for an instance of a challenge problem
+        :param int seed: The seed to use when evaluating PRFs
         :returns [<Channel>] channels: A list of channels generated from config
         """
         channels = []
@@ -115,16 +118,18 @@ class ConstraintsObjectGenerator():
             channels.append(Channel(
                 frequency=Frequency(base_frequency +
                                     (i * frequency_incrementation)),
-                capacity=Kbps(capacity.evaluate())))
+                capacity=Kbps(capacity.evaluate(seed))))
         return channels
 
     @staticmethod
-    def _generate_tas(config, channels):
+    def _generate_tas(config, channels, seed):
         """Generates a set amount of TAs in the range of data provided by parameters.
         TA IDs start at 1
         Note that eligible frequencies is a list of Kbps values
 
         :param ConfigurationObject config: The Configuration for an instance of a challenge problem
+        :param [<Channel>] channels: The list of already generated channels to be used when assigning eligible_frequencies
+        :param int seed: The seed to use when evaluating PRFs
         :returns [<TA>] tas: A list of TAs generated from config
         """
         tas = []
@@ -138,10 +143,10 @@ class ConstraintsObjectGenerator():
 
             tas.append(TA(
                 id_='TA{0}'.format(x + 1),
-                minimum_voice_bandwidth=Kbps(voice.evaluate()),
-                minimum_safety_bandwidth=Kbps(safety.evaluate()),
-                latency=timedelta(microseconds=1000*int(latency.evaluate())),
-                scaling_factor=scaling_factor.evaluate(),
-                c=c.evaluate(),
-                eligible_frequencies = list(map(lambda x: x.frequency, random.sample(channels, eligible_frequencies.evaluate())))))
+                minimum_voice_bandwidth=Kbps(voice.evaluate(seed)),
+                minimum_safety_bandwidth=Kbps(safety.evaluate(seed)),
+                latency=timedelta(microseconds=1000*int(latency.evaluate(seed))),
+                scaling_factor=scaling_factor.evaluate(seed),
+                c=c.evaluate(seed),
+                eligible_frequencies = list(map(lambda x: x.frequency, random.sample(channels, eligible_frequencies.evaluate(seed))))))
         return tas

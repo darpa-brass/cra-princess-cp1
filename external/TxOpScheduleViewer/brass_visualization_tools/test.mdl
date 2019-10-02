@@ -1156,7 +1156,7 @@
                   <IGMPQuerierInterval>30</IGMPQuerierInterval>
                 </TmNSNetworkFabricDevice>
                 <TmNSRadio>
-                  <RANConfigurationRef IDREF="RANConfig15_RAN_4919" />
+                  <RANConfigurationRef IDREF="RANConfig15_RAN_4889" />
                   <RFMACAddress>4098</RFMACAddress>
                   <JoinRadioGroupRefs>
                     <RadioGroupRef IDREF="RadioGroup_RAN_4919_61472" />
@@ -1512,11 +1512,6 @@
       <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000" />
       <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000" />
       <RadioGroups>
-        <RadioGroup ID="RadioGroup_RAN_4919_61456">
-          <Name>TAR1txGroup</Name>
-          <Description>Mirrored by System Manager.</Description>
-          <GroupRFMACAddress>61456</GroupRFMACAddress>
-        </RadioGroup>
         <RadioGroup ID="RadioGroup_RAN_4919_61472">
           <Name>TAR2txGroup</Name>
           <Description>Mirrored by System Manager.</Description>
@@ -1526,6 +1521,16 @@
           <Name>TAR3txGroup</Name>
           <Description>Created by System Manager.</Description>
           <GroupRFMACAddress>61488</GroupRFMACAddress>
+        </RadioGroup>
+        <RadioGroup ID="RadioGroup_RAN_4919_61457">
+          <Name>TAR1rxGroup</Name>
+          <Description>Created by System Manager.</Description>
+          <GroupRFMACAddress>61457</GroupRFMACAddress>
+        </RadioGroup>
+        <RadioGroup ID="RadioGroup_RAN_4919_61473">
+          <Name>TAR2rxGroup</Name>
+          <Description>Created by System Manager.</Description>
+          <GroupRFMACAddress>61473</GroupRFMACAddress>
         </RadioGroup>
         <RadioGroup ID="RadioGroup_RAN_4919_61489">
           <Name>TAR3rxGroup</Name>
@@ -1546,15 +1551,10 @@
       <RadioControlLoopDSCPRef IDREF="DSCP_NetworkControl_111000" />
       <RANCommandControlDSCPRef IDREF="DSCP_NetworkControl_111000" />
       <RadioGroups>
-        <RadioGroup ID="RadioGroup_RAN_4919_61473">
-          <Name>TAR2rxGroup</Name>
-          <Description>Created by System Manager.</Description>
-          <GroupRFMACAddress>61473</GroupRFMACAddress>
-        </RadioGroup>
-        <RadioGroup ID="RadioGroup_RAN_4919_61457">
-          <Name>TAR1rxGroup</Name>
-          <Description>Created by System Manager.</Description>
-          <GroupRFMACAddress>61457</GroupRFMACAddress>
+        <RadioGroup ID="RadioGroup_RAN_4919_61456">
+          <Name>TAR1txGroup</Name>
+          <Description>Mirrored by System Manager.</Description>
+          <GroupRFMACAddress>61456</GroupRFMACAddress>
         </RadioGroup>
         <RadioGroup ID="RadioGroup_RAN_4919_61458">
           <Name>TAR1txGroup</Name>

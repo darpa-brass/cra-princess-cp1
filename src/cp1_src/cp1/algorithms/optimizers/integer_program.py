@@ -46,7 +46,6 @@ class IntegerProgram(Optimizer):
         # just be repeated to fill the epoch
         min_latency = self.retrieve_min_latency(discretized_tas)
 
-
         # Constructing the decision variables and objective function
         # There is one decision variable per TA at a specific bandwidth on
         # a specific channel. The value is either 0 or 1, corresponding to

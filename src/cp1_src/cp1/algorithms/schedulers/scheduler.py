@@ -13,7 +13,9 @@ from cp1.common.exception_class import ScheduleAddException
 from cp1.common.exception_class import InvalidScheduleException
 from cp1.data_objects.mdl.txop import TxOp
 from cp1.utils.file_utils import *
+from cp1.common.logger import Logger
 
+logger = Logger().logger
 
 class Scheduler(abc.ABC):
     @abc.abstractmethod
@@ -75,7 +77,6 @@ class Scheduler(abc.ABC):
 
         for x in range(len(ta_list)):
             ta = ta_list[x]
-
             # The time at which a TA can begin communicating is equal to the start
             # time of the channel
             up_start = channel_start_time
@@ -84,14 +85,14 @@ class Scheduler(abc.ABC):
             # the amount of time it requires for two way communication / 2,
             # without a guard band added in. Guard bands will be added later.
             one_way_transmission_length = ta.compute_communication_length(
-                channel.capacity, min_latency, timedelta(microseconds=0)) / 2
+            channel.capacity, min_latency, timedelta(microseconds=0)) / 2
 
             # Stretch out last TA scheduled to communicate on this channel
-            if x == len(ta_list) - 1 and one_way_transmission_length > timedelta(microseconds=500):
-                # print('One of these cases')
-                # print(one_way_transmission_length)
-                one_way_transmission_length = ((min_latency - up_start) / 2)
-                # print(one_way_transmission_length, min_latency, up_start)
+            if x == len(ta_list) - 1 and one_way_transmission_length > timedelta(microseconds=1000):
+                # logger.debug('One of these cases')
+                # logger.debug(str(one_way_transmission_length))
+                one_way_transmission_length = ((min_latency - up_start) / 2) - (2 * self.constraints_object.guard_band)
+                # logger.debug('{0}_{1}_{2}'.format(one_way_transmission_length, min_latency, up_start))
             # Each direction of transmission requires
             up_stop = one_way_transmission_length + channel_start_time
             down_start = up_stop + self.constraints_object.guard_band

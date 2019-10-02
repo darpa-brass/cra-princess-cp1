@@ -118,7 +118,7 @@ def make_radio(identifier):
 def make_link(source_radio, source_mac, destination_mac):
     return etree.fromstring(
     f"""
-<RadioLink ID="RadioLink_{source_mac}to{destination_mac}" xmlns='http://www.wsmr.army.mil/RCC/schemas/MDL'>
+<RadioLink ID="RadioLink_{source_mac}_to_{destination_mac}" xmlns='http://www.wsmr.army.mil/RCC/schemas/MDL'>
     <Name>{source_mac} to {destination_mac}</Name>
     <SourceRadioRef IDREF="TMA_{source_radio}"/>
     <DestinationRadioGroupRef IDREF="RadioGroup_RAN_4919_{destination_mac}"/>
@@ -160,20 +160,20 @@ def make_ran(frequency):
 </RANConfiguration>
     """)
 
-def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml', add_rans=0):
-    if ta_count > 255 or ta_count < 1:
-        print("Count must be in range 1-255.")
+def generate_mdl_shell(count, base='../base.xml', output='../../../../output/mdl/generated_mdl_file.xml', add_rans=0):
+    if count > 255 or count < 1:
+        print("TA Count must be in range 1-255.")
         return(-1)
 
     if add_rans > 10 or add_rans < 0:
-        print("add_rans must be in range 0-10")
+        print("Additional RAN count must be in range 0-10.")
         return(-1)
 
     # initialize MDL file
     mdl_parser = etree.XMLParser(remove_blank_text=True)
     base_mdl = etree.parse(base, mdl_parser)
 
-    base_mdl.find("mdl:ConfigurationVersion", **n).text = f"{ta_count} TAs"
+    base_mdl.find("mdl:ConfigurationVersion", **n).text = f"{count} TAs"
 
     network_nodes = base_mdl.find("//mdl:NetworkNodes", **n)
     radio_groups = base_mdl.find("//mdl:RadioGroups", **n)
@@ -182,16 +182,16 @@ def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/
     downlink_qos_refs = base_mdl.find("//mdl:QoSPolicy[@ID='QoS4_SimpleUplink']//mdl:RadioLinkRefs", **n)
     rans = base_mdl.find("//mdl:RANConfigurations", **n)
 
-    for i in range(ta_count):
-        ground_mac = 0x1000 + i + 1
-        ta_mac = 0x2000 + i + 1
-        uplink_mac = 0xF000 + i + 1
-        downlink_mac = 0xF100 + i + 1
+    for i in range(1, count + 1):
+        ground_mac = 0x1000 + i
+        ta_mac = 0x2000 + i
+        uplink_mac = 0xF000 + i
+        downlink_mac = 0xF100 + i
 
         # add ground radio
         ground = make_radio(f"ground_{i}")
         uplink_ref = ground.find(".//mdl:RadioLinkRef", **n)
-        uplink_ref.set("IDREF", f"RadioLink_{ground_mac}to{uplink_mac}")
+        uplink_ref.set("IDREF", f"RadioLink_{ground_mac}_to_{uplink_mac}")
         ground_rf_mac = ground.find(".//mdl:RFMACAddress", **n)
         ground_rf_mac.text = str(ground_mac)
         downlink_group_ref = ground.find(".//mdl:RadioGroupRef", **n)
@@ -204,7 +204,7 @@ def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/
         # add TA radio
         ta = make_radio(f"ta_{i}")
         downlink_ref = ta.find(".//mdl:RadioLinkRef", **n)
-        downlink_ref.set("IDREF", f"RadioLink_{ta_mac}to{downlink_mac}")
+        downlink_ref.set("IDREF", f"RadioLink_{ta_mac}_to_{downlink_mac}")
         ta_rf_mac = ta.find(".//mdl:RFMACAddress", **n)
         ta_rf_mac.text = str(ta_mac)
         uplink_group_ref = ta.find(".//mdl:RadioGroupRef", **n)
@@ -232,15 +232,17 @@ def generate_mdl_shell(ta_count, base='../base.xml', output='../../../../output/
         downlink_qos_ref.set("IDREF", downlink.get("ID"))
         downlink_qos_refs.append(downlink_qos_ref)
 
-        # Add additional channels
-        if add_rans > 0:
-            frequency = 4919 + 22
+    if add_rans > 0:
+        frequency = 4919 + 22
 
-            for i in range(add_rans):
-                ran = make_ran(frequency)
-                rans.append(ran)
-                frequency += 22
-
+        for i in range(add_rans):
+            ran = make_ran(frequency)
+            rans.append(ran)
+            frequency += 22
 
     with open(output, "w") as f:
         f.write(etree.tounicode(base_mdl, pretty_print=True))
+
+
+if __name__ == "__main__":
+    main()

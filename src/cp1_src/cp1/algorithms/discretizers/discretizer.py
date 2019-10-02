@@ -24,5 +24,9 @@ class Discretizer(abc.ABC):
         :returns [<TA>]:
         """
         co = deepcopy(constraints_object)
-        discretized_co = self._discretize(co)
-        return discretized_co
+        discretized_tas = self._discretize(co)
+        for ta in discretized_tas:
+            ta.bandwidth = ta.compute_bw_from_comm_len(ta.channel.capacity, ta.latency, ta.compute_communication_length(ta.channel.capacity, ta.latency))
+            ta.value = ta.compute_value_at_bandwidth(ta.bandwidth)
+
+        return discretized_tas

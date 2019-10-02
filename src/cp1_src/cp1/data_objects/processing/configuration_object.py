@@ -5,11 +5,13 @@ Author: Tameem Samawi (tsamawi@cra.com)
 """
 from cp1.common.exception_class import ConfigFileException
 from cp1.utils.decorators.timedelta import timedelta
+from cp1.common.logger import Logger
 import json
 
+logger = Logger().logger
 
 class ConfigurationObject:
-    def __init__(self, config_file):
+    def __init__(self, config_file=None, **kwargs):
         """Constructor
         Extracts data from config_file and validates format
 
@@ -19,13 +21,13 @@ class ConfigurationObject:
             data = json.load(f)
 
             try:
-                self.num_tas = data['Constraints']['candidate_tas']['num']
-                self.eligible_frequencies = data['Constraints']['candidate_tas']['eligible_frequencies']
-                self.voice = data['Constraints']['candidate_tas']['voice_bandwidth']
-                self.safety = data['Constraints']['candidate_tas']['safety_bandwidth']
-                self.latency = data['Constraints']['candidate_tas']['latency']
-                self.scaling_factor = data['Constraints']['candidate_tas']['scaling_factor']
-                self.c = data['Constraints']['candidate_tas']['c']
+                self.num_tas = kwargs.get('num_tas', data['Constraints']['candidate_tas']['num'])
+                self.eligible_frequencies = kwargs.get('eligible_frequencies', data['Constraints']['candidate_tas']['eligible_frequencies'])
+                self.voice = kwargs.get('voice_bandwidth', data['Constraints']['candidate_tas']['voice_bandwidth'])
+                self.safety = kwargs.get('safety_bandwidth', data['Constraints']['candidate_tas']['safety_bandwidth'])
+                self.latency = kwargs.get('latency', data['Constraints']['candidate_tas']['latency'])
+                self.scaling_factor = kwargs.get('scaling_factor', data['Constraints']['candidate_tas']['scaling_factor'])
+                self.c = kwargs.get('c', data['Constraints']['candidate_tas']['c'])
 
                 self.testing_num_tas = data['Testing']['TAs']['num']
                 self.testing_eligible_frequencies = data['Testing']['TAs']['eligible_frequencies']
@@ -38,45 +40,46 @@ class ConfigurationObject:
                 self.testing_channel_capacity = data['Testing']['Channels']['capacity']
                 self.testing_seed = data['Testing']['Seed']
 
-                self.num_channels = data['Constraints']['channels']['num']
-                self.frequency = data['Constraints']['channels']['frequency']
-                self.capacity = data['Constraints']['channels']['capacity']
+                self.num_channels = kwargs.get('num_channels', data['Constraints']['channels']['num'])
+                self.frequency = kwargs.get('frequency', data['Constraints']['channels']['frequency'])
+                self.capacity = kwargs.get('capacity', data['Constraints']['channels']['capacity'])
 
-                self.guard_band = data['Constraints']['guard_band']
-                self.epoch = data['Constraints']['epoch']
-                self.txop_timeout = data['Constraints']['txop_timeout']
-                self.goal_throughput_bulk = data['Constraints']['goal_throughput_bulk']
-                self.goal_throughput_voice = data['Constraints']['goal_throughput_voice']
-                self.goal_throughput_safety = data['Constraints']['goal_throughput_safety']
+                self.guard_band = kwargs.get('guard_band', data['Constraints']['guard_band'])
+                self.epoch = kwargs.get('epoch', data['Constraints']['epoch'])
+                self.txop_timeout = kwargs.get('txop_timeout', data['Constraints']['txop_timeout'])
+                self.goal_throughput_bulk = kwargs.get('goal_throughput_bulk', data['Constraints']['goal_throughput_bulk'])
+                self.goal_throughput_voice = kwargs.get('goal_throughput_voice', data['Constraints']['goal_throughput_voice'])
+                self.goal_throughput_safety = kwargs.get('goal_throughput_safety', data['Constraints']['goal_throughput_safety'])
 
-                self.accuracy_epsilons = data['Algorithms']['Discretizers']['Accuracy']['epsilons']
-                self.bandwidth_discs = data['Algorithms']['Discretizers']['Bandwidth']['discs']
-                self.value_discs = data['Algorithms']['Discretizers']['Value']['discs']
+                self.accuracy = kwargs.get('accuracy', data['Algorithms']['Discretizers']['Accuracy']['epsilons'])
+                self.bandwidth = kwargs.get('bandwidth', data['Algorithms']['Discretizers']['Bandwidth']['num_discs'])
+                self.value = kwargs.get('value', data['Algorithms']['Discretizers']['Value']['num_discs'])
 
-                self.cbc = data['Algorithms']['Optimizers']['CBC']
-                self.gurobi = data['Algorithms']['Optimizers']['Gurobi']
-                self.greedy = data['Algorithms']['Optimizers']['Greedy']
-                self.dynamic = data['Algorithms']['Optimizers']['Dynamic']
+                self.cbc = kwargs.get('cbc', data['Algorithms']['Optimizers']['CBC'])
+                self.gurobi = kwargs.get('gurobi', data['Algorithms']['Optimizers']['Gurobi'])
+                self.greedy = kwargs.get('greedy', data['Algorithms']['Optimizers']['Greedy'])
+                self.dynamic = kwargs.get('dynamic', data['Algorithms']['Optimizers']['Dynamic'])
 
-                self.conservative = data['Algorithms']['Schedulers']['Conservative']
-                self.hybrid = data['Algorithms']['Schedulers']['Hybrid']
+                self.conservative = kwargs.get('conservative', data['Algorithms']['Schedulers']['Conservative'])
+                self.hybrid = kwargs.get('hybrid', data['Algorithms']['Schedulers']['Hybrid'])
 
-                self.perturb = data['Perturbations']['perturb']
-                self.num_tas_to_reconsider = data['Perturbations']['num_tas_to_reconsider']
-                self.increase_ta_min_bw = data['Perturbations']['increase_ta_min_bw']
-                self.drop_channel = data['Perturbations']['drop_channel']
-                self.change_channel_capacity = data['Perturbations']['change_channel_capacity']
+                self.perturb = kwargs.get('perturb', data['Perturbations']['perturb'])
+                self.reconsider = kwargs.get('reconsider', data['Perturbations']['reconsider'])
+                self.combine = kwargs.get('combine', data['Perturbations']['combine'])
+                self.ta_bandwidth = kwargs.get('ta_bandwidth', data['Perturbations']['ta_bandwidth'])
+                self.channel_dropoff = kwargs.get('channel_dropoff', data['Perturbations']['channel_dropoff'])
+                self.channel_capacity = kwargs.get('channel_capacity', data['Perturbations']['channel_capacity'])
 
-                self.testing = data['Miscellaneous']['testing']
-                self.orientdb = data['Miscellaneous']['orientdb']
-                self.clear = data['Miscellaneous']['clear']
-                self.visualize = data['Miscellaneous']['visualize']
-                self.instances = data ['Miscellaneous']['instances']
+                self.testing = kwargs.get('testing', data['Miscellaneous']['testing'])
+                self.orientdb = kwargs.get('orientdb', data['Miscellaneous']['orientdb'])
+                self.clear = kwargs.get('clear', data['Miscellaneous']['clear'])
+                self.visualize = kwargs.get('visualize', data['Miscellaneous']['visualize'])
+                self.instances = kwargs.get('instances', data ['Miscellaneous']['instances'])
 
             except Exception as ex:
                 raise ConfigFileException(ex, 'ConfigurationObject.__init__')
 
-            self.validate()
+        self.validate()
 
     def validate(self):
         """Runs a set of private validation methods on the configuration object to
@@ -84,6 +87,8 @@ class ConfigurationObject:
 
         :raises ConfigFileException:
         """
+        self._validate_algorithms()
+
         self._validate_num('num_tas', self.num_tas)
         self._validate_distribution_schema('eligible_frequencies', self.eligible_frequencies)
         self._validate_eligible_frequencies()
@@ -97,9 +102,9 @@ class ConfigurationObject:
         self._validate_base_freq()
         self._validate_distribution_schema('capacity', self.capacity)
 
-        self._validate_discs('bandwidth_discs', self.bandwidth_discs)
-        self._validate_discs('value_discs', self.value_discs)
-        self._validate_accuracy_discs('accuracy_epsilons', self.accuracy_epsilons)
+        self._validate_discs('bandwidth_discs', self.bandwidth)
+        self._validate_discs('value_discs', self.value)
+        self._validate_accuracy_discs('accuracy_epsilons', self.accuracy)
 
         self._validate_01_field('CBC', self.cbc)
         self._validate_01_field('Gurobi', self.gurobi)
@@ -109,11 +114,61 @@ class ConfigurationObject:
         self._validate_01_field('Conservative', self.conservative)
         self._validate_01_field('Hybrid', self.hybrid)
 
+        self._validate_01_field('perturb', self.perturb)
+        self._validate_01_field('combine', self.combine)
+        self._validate_positive_integer_field('reconsider', self.reconsider)
+        self._validate_positive_integer_field('channel_dropoff', self.channel_dropoff)
+        self._validate_integer_field('channel_capacity', self.channel_capacity)
+        self._validate_integer_field('ta_bandwidth', self.ta_bandwidth)
+
         self._validate_01_field('orientdb', self.orientdb)
         self._validate_01_field('clear', self.clear)
         self._validate_01_field('visualize', self.visualize)
         self._validate_visualize()
         self._validate_instances()
+
+    def _validate_integer_field(self, prop, val):
+        """Validates that the field is an int.
+
+        :raises ConfigFileException:
+        """
+        if not isinstance(val, int):
+            raise ConfigFileException(
+                '{0} ({1}) must be of type int.'.format(
+                    prop,
+                    val))
+
+    def _validate_positive_integer_field(self, prop, val):
+        """Validates that the field is an integer greater than 0.
+
+        :raises ConfigFileException:
+        """
+        if not isinstance(val, int):
+            raise ConfigFileException(
+                '{0} ({1}) must be an int.'.format(
+                    prop,
+                    val))
+
+        if val < 0:
+            raise ConfigFileException(
+                '{0} ({1}) must be greater positive.'.format(
+                    prop,
+                    val))
+
+    def _validate_algorithms(self):
+        """Validates that at least one discretizer, optimizer and scheduler have been set.
+
+        :raises ConfigFileException:
+        """
+        if len(self.accuracy) == 0 and len(self.bandwidth) == 0 and len(self.value) == 0:
+            raise ConfigFileException('Must configure at least one Discretizer')
+
+        if self.gurobi == 0 and self.cbc == 0 and self.dynamic == 0 and self.greedy == 0:
+            raise ConfigFileException('Must configure at least one Optimizer')
+
+        if self.hybrid == 0 and self.conservative == 0:
+            raise ConfigFileException('Must configure at lease one Scheduler')
+
 
     def _validate_distribution_schema(self, prop, val):
         """Validates the format of a PRF object as read in from a json file.
@@ -123,7 +178,7 @@ class ConfigurationObject:
         for x in val:
             if len(x) != 2:
                 raise ConfigFileException(
-                    'The format of each field must be [int/float, [int/float(, int/float)]] where paranthesized values are optional.'.format(
+                    '{0}: {1} The format of each field must be [int/float, [int/float(, int/float)]] where paranthesized values are optional.'.format(
                         prop,
                         x[1]),
                     'ConfigurationObject._validate_distribution_schema')

@@ -31,7 +31,8 @@ class Optimizer(abc.ABC):
         :param [<TA>] discretized_tas: The list of discretized TA objects
         :returns OptimizerResult:
         """
-        return self._optimize(constraints_object, discretized_tas, num_discretizations)
+        optimizer_result = self._optimize(constraints_object, discretized_tas, num_discretizations)
+        return optimizer_result
 
     def retrieve_min_latency(self, ta_list):
         """Returns the min latency from a list of TAs

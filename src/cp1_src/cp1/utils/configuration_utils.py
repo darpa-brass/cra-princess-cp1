@@ -9,7 +9,6 @@ from cp1.algorithms.discretizers.value_discretizer import ValueDiscretizer
 from cp1.algorithms.optimizers.integer_program import IntegerProgram
 from cp1.algorithms.optimizers.dynamic_program import DynamicProgram
 from cp1.algorithms.optimizers.greedy_optimizer import GreedyOptimizer
-from cp1.algorithms.optimizers.gurobi import Gurobi
 from cp1.algorithms.schedulers.conservative_scheduler import ConservativeScheduler
 from cp1.algorithms.schedulers.hybrid_scheduler import HybridScheduler
 from cp1.data_objects.processing.perturber import Perturber
@@ -24,28 +23,28 @@ def setup_perturbers(config):
     """
     perturbers = []
     if config.perturb == 1:
-
-        if config.increase_ta_min_bw != 0:
+        if config.combine == 1:
             perturbers.append(Perturber(
-            num_tas_to_reconsider = config.num_tas_to_reconsider,
-            increase_ta_min_bw = config.increase_ta_min_bw))
+            reconsider = config.reconsider,
+            ta_bandwidth = config.ta_bandwidth,
+            channel_dropoff = config.channel_dropoff,
+            channel_capacity = config.channel_capacity))
 
-        if config.drop_channel != 0:
-            perturbers.append(Perturber(
-            num_tas_to_reconsider = config.num_tas_to_reconsider,
-            drop_channel = config.drop_channel))
+        else:
+            if config.ta_bandwidth != 0:
+                perturbers.append(Perturber(
+                reconsider = config.reconsider,
+                ta_bandwidth = config.ta_bandwidth))
 
-        if config.change_channel_capacity != 0:
-            perturbers.append(Perturber(
-            num_tas_to_reconsider = config.num_tas_to_reconsider,
-            change_channel_capacity = config.change_channel_capacity))
+            if config.channel_dropoff != 0:
+                perturbers.append(Perturber(
+                reconsider = config.reconsider,
+                channel_dropoff = config.channel_dropoff))
 
-    for perturber in perturbers:
-        if config.testing == 1:
-            if config.testing_seed != 'timestamp':
-                perturber.seed = config.testing_seed
-        elif len(config.instances) == 2:
-            perturber.seed = config.instances[1]
+            if config.channel_capacity != 0:
+                perturbers.append(Perturber(
+                reconsider = config.reconsider,
+                channel_capacity = config.channel_capacity))
 
     return perturbers
 
@@ -67,11 +66,11 @@ def setup_discretizers(config):
     :returns [<Discretizer>] discretizers: A list of Discretizer objects, one per discretization value passed into the discretization array
     """
     discretizers = []
-    for x in config.accuracy_epsilons:
+    for x in config.accuracy:
         discretizers.append(AccuracyDiscretizer(x))
-    for x in config.bandwidth_discs:
+    for x in config.bandwidth:
         discretizers.append(BandwidthDiscretizer(x))
-    for x in config.value_discs:
+    for x in config.value:
         discretizers.append(ValueDiscretizer(x))
     return discretizers
 

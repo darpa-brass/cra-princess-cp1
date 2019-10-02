@@ -1,0 +1,161 @@
+{
+    "RAN_4919": {
+        "efficiency_pct": 92.0,
+        "epoch_ms": "100",
+        "freq": "4919500000",
+        "gb_violated": false,
+        "guard_ms": 1.0,
+        "id": "RANConfig15_RAN_4919",
+        "links": [
+            {
+                "alloc_bw_mbps": 2.2,
+                "dst": "61441",
+                "greedy_alloc_bw_mbps": 0,
+                "greedy_throughput_point_value": 0,
+                "greedy_tx_dur_per_epoch_usec": 0,
+                "id": "RadioLink_4097_to_61441",
+                "latency_point_value": 0,
+                "max_latency_usec": 39000,
+                "name": "4097 to 61441",
+                "qos_policy": {
+                    "ac": "2000000",
+                    "id": "QoS3_ClassicDownlink",
+                    "lmmc": "1000000",
+                    "max_latency_usec": 50000,
+                    "name": "Classic Downlink"
+                },
+                "src": "4097",
+                "throughput_point_value": 0,
+                "tx_dur_per_epoch_usec": 22000,
+                "tx_sched": [
+                    {
+                        "duration_usec": 11000,
+                        "freq": "4919",
+                        "start_usec": "0",
+                        "stop_usec": "11000",
+                        "timeout": "255"
+                    },
+                    {
+                        "duration_usec": 11000,
+                        "freq": "4919",
+                        "start_usec": "50000",
+                        "stop_usec": "61000",
+                        "timeout": "255"
+                    }
+                ]
+            },
+            {
+                "alloc_bw_mbps": 2.2,
+                "dst": "61697",
+                "greedy_alloc_bw_mbps": 0,
+                "greedy_throughput_point_value": 0,
+                "greedy_tx_dur_per_epoch_usec": 0,
+                "id": "RadioLink_8193_to_61697",
+                "latency_point_value": 0,
+                "max_latency_usec": 39000,
+                "name": "8193 to 61697",
+                "qos_policy": {
+                    "ac": "200000",
+                    "id": "QoS4_SimpleUplink",
+                    "lmmc": "100000",
+                    "max_latency_usec": 1000000,
+                    "name": "Simple Uplink"
+                },
+                "src": "8193",
+                "throughput_point_value": 0,
+                "tx_dur_per_epoch_usec": 22000,
+                "tx_sched": [
+                    {
+                        "duration_usec": 11000,
+                        "freq": "4919",
+                        "start_usec": "12000",
+                        "stop_usec": "23000",
+                        "timeout": "255"
+                    },
+                    {
+                        "duration_usec": 11000,
+                        "freq": "4919",
+                        "start_usec": "62000",
+                        "stop_usec": "73000",
+                        "timeout": "255"
+                    }
+                ]
+            },
+            {
+                "alloc_bw_mbps": 2.2,
+                "dst": "61442",
+                "greedy_alloc_bw_mbps": 0,
+                "greedy_throughput_point_value": 0,
+                "greedy_tx_dur_per_epoch_usec": 0,
+                "id": "RadioLink_4098_to_61442",
+                "latency_point_value": 0,
+                "max_latency_usec": 39000,
+                "name": "4098 to 61442",
+                "qos_policy": {
+                    "ac": "2000000",
+                    "id": "QoS3_ClassicDownlink",
+                    "lmmc": "1000000",
+                    "max_latency_usec": 50000,
+                    "name": "Classic Downlink"
+                },
+                "src": "4098",
+                "throughput_point_value": 0,
+                "tx_dur_per_epoch_usec": 22000,
+                "tx_sched": [
+                    {
+                        "duration_usec": 11000,
+                        "freq": "4919",
+                        "start_usec": "24000",
+                        "stop_usec": "35000",
+                        "timeout": "255"
+                    },
+                    {
+                        "duration_usec": 11000,
+                        "freq": "4919",
+                        "start_usec": "74000",
+                        "stop_usec": "85000",
+                        "timeout": "255"
+                    }
+                ]
+            },
+            {
+                "alloc_bw_mbps": 2.6,
+                "dst": "61698",
+                "greedy_alloc_bw_mbps": 0,
+                "greedy_throughput_point_value": 0,
+                "greedy_tx_dur_per_epoch_usec": 0,
+                "id": "RadioLink_8194_to_61698",
+                "latency_point_value": 0,
+                "max_latency_usec": 37000,
+                "name": "8194 to 61698",
+                "qos_policy": {
+                    "ac": "200000",
+                    "id": "QoS4_SimpleUplink",
+                    "lmmc": "100000",
+                    "max_latency_usec": 1000000,
+                    "name": "Simple Uplink"
+                },
+                "src": "8194",
+                "throughput_point_value": 0,
+                "tx_dur_per_epoch_usec": 26000,
+                "tx_sched": [
+                    {
+                        "duration_usec": 13000,
+                        "freq": "4919",
+                        "start_usec": "36000",
+                        "stop_usec": "49000",
+                        "timeout": "255"
+                    },
+                    {
+                        "duration_usec": 13000,
+                        "freq": "4919",
+                        "start_usec": "86000",
+                        "stop_usec": "99000",
+                        "timeout": "255"
+                    }
+                ]
+            }
+        ],
+        "name": "RAN_4919"
+    }
+}

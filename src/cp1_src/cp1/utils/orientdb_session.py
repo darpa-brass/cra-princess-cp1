@@ -140,7 +140,7 @@ class OrientDBSession(BrassOrientDBHelper):
             i += 1
 
         # Move the RANConfigurationLinks around appropriately
-        
+
 
     def store_constraints(self, constraints_object):
         """Stores a ConstraintsObject in the OrientDB database
@@ -222,7 +222,6 @@ class OrientDBSession(BrassOrientDBHelper):
             for channel in ta.eligible_frequencies:
                 self.set_containment_relationship(parent_rid=ta.rid,
                                                   child_rid=frequencies_to_rids[channel.value])
-
     def create_channel(self, channel):
         """Indexes a channel in the database
         Adds the property channel.rid to the channel indexed. rid is set to the OrientDB

@@ -34,6 +34,6 @@ class ValueDiscretizer(Discretizer):
         return discretized_tas
 
     def __str__(self):
-        return 'ValueDiscretizer'
+        return 'ValueDiscretizer({0})'.format(self.disc_count)
 
     __repr__ = __str__

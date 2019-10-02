@@ -11,7 +11,9 @@ from cp1.data_objects.mdl.kbps import Kbps
 from cp1.data_objects.mdl.frequency import Frequency
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.constants.constants import *
+from cp1.common.logger import Logger
 
+logger = Logger().logger
 
 class TA:
     def __init__(
@@ -106,13 +108,8 @@ class TA:
         communication_length = ((self.bandwidth.value / channel_capacity.value) * latency.get_microseconds()) + (2 * guard_band.get_microseconds())
 
         # Round value to return within the specified MIN_INTERVAL
-        dist_from_interval = two_way_min_interval.get_microseconds() - ((communication_length - 2 * guard_band.get_microseconds()) %  (two_way_min_interval.get_microseconds()))
+        dist_from_interval = two_way_min_interval.get_microseconds() -  ((communication_length - 2 * guard_band.get_microseconds()) %  (two_way_min_interval.get_microseconds()))
         communication_length += dist_from_interval
-        if guard_band == timedelta(microseconds=0):
-            actual_comm_len = communication_length
-        else:
-            actual_comm_len = communication_length - 2 * guard_band.get_microseconds()
-        self.bandwidth = self.compute_bw_from_comm_len(channel_capacity, latency, timedelta(microseconds=actual_comm_len))
 
         return timedelta(microseconds=communication_length)
 

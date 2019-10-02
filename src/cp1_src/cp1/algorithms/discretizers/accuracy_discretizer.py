@@ -15,8 +15,9 @@ from cp1.algorithms.discretizers.discretizer import Discretizer
 
 class AccuracyDiscretizer(Discretizer):
     def __init__(self, epsilon):
+        self.epsilon = epsilon
         self.accuracy = 1 - epsilon
-        
+
     def _discretize(self, constraints_object):
         discretized_tas = []
 
@@ -41,6 +42,6 @@ class AccuracyDiscretizer(Discretizer):
         return discretized_tas
 
     def __str__(self):
-        return 'AccuracyDiscretizer'
+        return 'AccuracyDiscretizer({0})'.format(self.epsilon)
 
     __repr__ = __str__
