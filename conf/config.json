@@ -54,7 +54,6 @@
     "Optimizers":
     {
       "CBC": 1,
-      "Gurobi": 0,
       "Greedy": 0,
       "Dynamic": 0
     },

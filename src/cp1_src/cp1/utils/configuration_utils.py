@@ -82,8 +82,6 @@ def setup_optimizers(config):
     optimizers = []
     if config.cbc == 1:
         optimizers.append(IntegerProgram())
-    if config.gurobi == 1:
-        optimizers.append(Gurobi())
     if config.dynamic == 1:
         optimizers.append(DynamicProgram())
     if config.greedy == 1:

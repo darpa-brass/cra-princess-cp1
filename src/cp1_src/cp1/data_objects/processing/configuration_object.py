@@ -56,7 +56,6 @@ class ConfigurationObject:
                 self.value = kwargs.get('value', data['Algorithms']['Discretizers']['Value']['num_discs'])
 
                 self.cbc = kwargs.get('cbc', data['Algorithms']['Optimizers']['CBC'])
-                self.gurobi = kwargs.get('gurobi', data['Algorithms']['Optimizers']['Gurobi'])
                 self.greedy = kwargs.get('greedy', data['Algorithms']['Optimizers']['Greedy'])
                 self.dynamic = kwargs.get('dynamic', data['Algorithms']['Optimizers']['Dynamic'])
 
@@ -107,7 +106,6 @@ class ConfigurationObject:
         self._validate_accuracy_discs('accuracy_epsilons', self.accuracy)
 
         self._validate_01_field('CBC', self.cbc)
-        self._validate_01_field('Gurobi', self.gurobi)
         self._validate_01_field('Greedy', self.greedy)
         self._validate_01_field('Dynamic', self.dynamic)
 
@@ -163,7 +161,7 @@ class ConfigurationObject:
         if len(self.accuracy) == 0 and len(self.bandwidth) == 0 and len(self.value) == 0:
             raise ConfigFileException('Must configure at least one Discretizer')
 
-        if self.gurobi == 0 and self.cbc == 0 and self.dynamic == 0 and self.greedy == 0:
+        if self.cbc == 0 and self.dynamic == 0 and self.greedy == 0:
             raise ConfigFileException('Must configure at least one Optimizer')
 
         if self.hybrid == 0 and self.conservative == 0:
