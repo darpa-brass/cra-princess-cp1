@@ -1,7 +1,7 @@
 {
 	"server": {
 		"username": "root",
-		"password": "root",
+		"password": "brass",
 		"address": "localhost",
 		"port": 2424
 	},
