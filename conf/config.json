@@ -76,7 +76,7 @@
   {
     "testing": 0,
     "orientdb": 1,
-    "visualize": 0,
+    "visualize": 1,
     "clear": 1,
     "instances": [1]
   }

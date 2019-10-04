@@ -72,8 +72,8 @@ class OrientDBSession(BrassOrientDBHelper):
         # The original MDL file we import does not contain any TransmissionSchedule or TxOp
         # elements, so we have to create this class before indexing TransmissionSchedules
         try:
-            logger.debug('Attempting to create a TransmissionSchedule class')
-        except Exception as e:
+            self.create_node_class('TransmissionSchedule')
+        except:
             pass
 
         try:
