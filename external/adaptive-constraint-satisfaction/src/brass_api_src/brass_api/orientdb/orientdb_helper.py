@@ -439,7 +439,7 @@ class BrassOrientDBHelper(object):
         else:
             return ''
 
-    def remove_reference_relationship(self, reference_rid=None, referent_rid=None, reference_condition=[], referent_condition=[]):
+    def remove_link(self, reference_rid=None, referent_rid=None, reference_condition=[], referent_condition=[], link_type='Containment'):
         """
         Removes Reference type of edge between a reference node and a referent node.
 
@@ -449,6 +449,7 @@ class BrassOrientDBHelper(object):
         :param str referent_rid:            rid of the referent node
         :param str reference_condition:     search conditions of reference node
         :param str referent_condition:      search conditions of referent node
+        :param str link_type: The type of link. Either containment or reference. 
         :return:
         :raises BrassException:             source of exception is set to the function name
         """
@@ -466,7 +467,7 @@ class BrassOrientDBHelper(object):
             dst = select_sql('V', reference_condition)
 
         if src is not None and dst is not None:
-            sql_cmd = delete_e_sql('Reference', src, dst)
+            sql_cmd = delete_e_sql(link_type, src, dst)
 
             self._orientdb_client.run_command(
                 sql_cmd

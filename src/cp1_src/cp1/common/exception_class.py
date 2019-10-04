@@ -148,7 +148,7 @@ class SchedulingJobInitializationException(ValueError):
 
 
 class RadioLinkNotFoundException(ValueError):
-    """Raise for TxOp initializations"""
+    """Raise when unable to find a RadioLink"""
 
     def __init__(self, message, source=''):
         """Constructor
@@ -157,6 +157,24 @@ class RadioLinkNotFoundException(ValueError):
         :param str source:      Which function threw the exception
         """
         super(RadioLinkNotFoundException, self).__init__(message)
+        self.message = message
+        self.source = source
+
+    def __str__(self):
+        return "[EXCEPTION] {0} [SOURCE] {1}\n".format(
+            self.message, self.source)
+
+
+class DestinationRadioGroupRefNotFoundException(ValueError):
+    """Raise when unable to find a DestinationRadioGroupRef element"""
+
+    def __init__(self, message, source=''):
+        """Constructor
+
+        :param str message:     Exception message
+        :param str source:      Which function threw the exception
+        """
+        super(DestinationRadioGroupRefNotFoundException, self).__init__(message)
         self.message = message
         self.source = source
 

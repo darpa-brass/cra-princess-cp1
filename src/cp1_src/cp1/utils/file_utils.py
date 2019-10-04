@@ -28,7 +28,7 @@ def store_and_retrieve_constraints(constraints_object_list):
     :returns [<ConstraintsObject>] orientdb_constraints_object_list: The same list of Constraints, as retrieved from OrientDB
     """
     constraints_orientdb = OrientDBSession(
-        database_name=MDL_DB,
+        database_name=CONSTRAINTS_DB,
         config_file=ORIENTDB_CONFIG_FILE)
 
     constraints_orientdb.open_database()

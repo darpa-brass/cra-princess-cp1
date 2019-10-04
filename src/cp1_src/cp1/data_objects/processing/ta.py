@@ -175,4 +175,7 @@ class TA:
             return self.id_ == other.id_
         return False
 
+    def __hash__(self):
+        return hash(self.id_)
+        
     __repr__ = __str__

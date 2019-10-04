@@ -4,7 +4,9 @@ A set of functions to easily pretty format logging messages
 Author: Tameem Samawi (tsamawi@cra.com)
 """
 from cp1.algorithms.discretizers.accuracy_discretizer import AccuracyDiscretizer
+from cp1.common.logger import Logger
 
+logger = Logger().logger
 
 # Logging offset counts. i.e. the number of characters in a DEBUG or
 # INFO message intro.
@@ -63,7 +65,7 @@ def instance_message(run, seed, discretizer, optimizer, scheduler):
         center(scheduler),
         center(HALF_PADDING))
 
-def ending_message(total_runs, averages, combined=False):
+def ending_message(total_runs, averages, perturb=False, combined=False):
     """Returns a report of the average gain by perturbation
 
     :param int total_runs: The total number of runs
@@ -92,12 +94,13 @@ def ending_message(total_runs, averages, combined=False):
     message = '{0}\n{1}\n'.format(PADDING, center(end_message))
     for average_type, average_value in averages.items():
         if isinstance(average_value, list):
-            if combined:
-                if average_type == 'Perturbations':
-                    message += center('{0} {1}\n'.format(average_type, average_value))
-            else:
-                if average_type != 'Perturbations':
-                    message += center('{0} {1}\n'.format(average_type, average_value))
+            if perturb:
+                if combined:
+                    if average_type == 'Perturbations':
+                        message += center('{0} {1}\n'.format(average_type, average_value))
+                else:
+                    if average_type != 'Perturbations':
+                        message += center('{0} {1}\n'.format(average_type, average_value))
         else:
             message += center('{0} {1}\n'.format(average_type, average_value))
     message += '{0}\n{1}\n'.format(center(PADDING), center(PADDING))

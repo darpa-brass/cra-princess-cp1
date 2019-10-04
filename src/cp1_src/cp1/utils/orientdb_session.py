@@ -6,13 +6,12 @@ Author: Tameem Samawi (tsamawi@cra.com)
 import re
 import sys
 from functools import reduce
+from collections import defaultdict
 from cp1.utils.decorators.timedelta import timedelta
 
 from brass_api.orientdb.orientdb_helper import BrassOrientDBHelper
 from brass_api.common.exception_class import BrassException
 import brass_api.orientdb.orientdb_sql as sql
-
-from cp1.utils.file_utils import *
 
 from cp1.data_objects.constants.constants import *
 from cp1.data_objects.mdl.kbps import Kbps
@@ -75,6 +74,7 @@ class OrientDBSession(BrassOrientDBHelper):
         try:
             self.create_node_class('TransmissionSchedule')
         except:
+            logger.debug('Unable to create TransmissionSchedule class, likely already exists')
             pass
 
         try:
@@ -102,10 +102,10 @@ class OrientDBSession(BrassOrientDBHelper):
                 txop_list.append(txop)
 
         # Generate a Dictionary of RadioLinks
-        radio_link_rids = {}
+        radio_link_rids = defaultdict(list)
         for txop in txop_list:
             if txop.radio_link_id not in radio_link_rids:
-                radio_link_rids[txop.radio_link_id] = ''
+                radio_link_rids[txop.radio_link_id].append(txop.center_frequency_hz.value)
 
         # Match RadioLinks to their corresponding RIDs
         transmission_schedule_rids = {}
@@ -114,7 +114,7 @@ class OrientDBSession(BrassOrientDBHelper):
             found = False
             for orient_record in radio_links:
                 if rl == orient_record.ID:
-                    radio_link_rids[rl] = orient_record._rid
+                    radio_link_rids[rl].append(orient_record._rid)
                     transmission_schedule_rid = self.create_node('TransmissionSchedule', {'uid': 'TransmissionSchedule-{0}'.format(i)})
                     transmission_schedule_rids[rl] = transmission_schedule_rid
                     self.set_containment_relationship(parent_rid=orient_record._rid, child_rid=transmission_schedule_rid)
@@ -131,7 +131,7 @@ class OrientDBSession(BrassOrientDBHelper):
                 'StartUSec': txop.start_usec.get_microseconds(),
                 'StopUSec': txop.stop_usec.get_microseconds(),
                 'TxOpTimeout': txop.txop_timeout.value,
-                    'CenterFrequencyHz': txop.center_frequency_hz.value,
+                'CenterFrequencyHz': txop.center_frequency_hz.value,
                 'uid': 'TxOp-{0}'.format(i)
                 }
 
@@ -139,8 +139,7 @@ class OrientDBSession(BrassOrientDBHelper):
             self.set_containment_relationship(parent_rid=transmission_schedule_rids[txop.radio_link_id], child_rid=txop_rid)
             i += 1
 
-        # Move the RANConfigurationLinks around appropriately
-
+        self._update_ran(radio_link_rids)
 
     def store_constraints(self, constraints_object):
         """Stores a ConstraintsObject in the OrientDB database
@@ -614,3 +613,92 @@ class OrientDBSession(BrassOrientDBHelper):
                     self.reference_edge_count))
             self.reference_edge_count += 1
         return super(OrientDBSession, self).set_reference_relationship(reference_rid=reference_rid, referent_rid=referent_rid, reference_condition=reference_condition, referent_condition=referent_condition)
+
+    def _update_ran(self, rl_ids):
+        # First, we need the DestinationRadioGroupRef ID matching the radio
+        # link we are about to move rans for.
+        for k, v in rl_ids.items():
+            # Radio Link we want.
+            connected_nodes = self.get_connected_nodes(targetNode_rid=v[1], direction='in', edgetype='Containment',
+                                                  maxdepth=1, filterdepth=1)
+            found = False
+            for node in connected_nodes:
+                if node._class == 'DestinationRadioGroupRef':
+                    found = True
+                    # 'RadioLink_4097_to_61441': [4919, '#99:0', 'RadioGroup_RAN_4919_61441']
+                    v.append(node.IDREF)
+            if not found:
+                raise DestinationRadioGroupRefNotFoundException('Unable to find DestinationRadioGroupRef for RadioLink ({0}) in OrientDB database'.format(k), 'OrientDBSession._update_ran')
+
+        # Second, we need the RadioGroup._rid of the corresponding DestinationRadioGroupRefID
+        for k, v in rl_ids.items():
+            radios = self.get_nodes_by_type('RadioGroup')
+            for radio in radios:
+                if radio.ID == v[2]:
+                    # 'RadioLink_4097_to_61441': [4919, '#99:0', 'RadioGroup_RAN_4919_61441', '#66:0']
+                    v.append(radio._rid)
+
+        for k, v in rl_ids.items():
+            i = 0
+            rans = self.get_nodes_by_type('RANConfiguration')
+
+            # All radio configurations are under 4919 by default, so
+            # we don't need to do anything if it is already under 4919
+            for ran in rans:
+
+                connected_nodes = self.get_connected_nodes(targetNode_rid=ran._rid, direction='in', edgetype='Containment',
+                maxdepth=1, filterdepth=1)
+                # Only one channel will have a radio groups element, so we must
+                # create the radio groups for other elements before continuing
+                radio_groups_rid = None
+                found = False
+                for node in connected_nodes:
+                    # Initially, this is the only channel with a pre-existing RadioGroups
+                    # i.e. Channel 4919
+                    if node._class == 'RadioGroups':
+                        found = True
+                        radio_groups_rid = node._rid
+                if not found:
+                    radio_groups_rid = self.create_node('RadioGroups', {'uid': 'RadioGroups-{0}'.format(i + 1)})
+                    self.set_containment_relationship(parent_rid=ran._rid, child_rid=radio_groups_rid)
+                    i += 1
+
+                # First we need to disconnect the existing reference
+                # to 4919
+                if ran.Name == 'RAN_4919':
+                    self.remove_link(referent_rid=radio_groups_rid, reference_rid=v[3])
+
+                # If this is the matching RAN Configuration, setup a link
+                # between it's radio groups, and the radio group element you want
+                # to move here
+                freq = ran.Name[4:]
+                matching_ran = freq == str(v[0])
+
+                if matching_ran:
+                    self.set_containment_relationship(parent_rid=radio_groups_rid, child_rid=v[3])
+
+        for k, v in rl_ids.items():
+            i = 0
+            # 'RadioLink_4097_to_61441': [4919, '#99:0', 'RadioGroup_RAN_4919_61441', '#66:0']
+            tmns_apps = self.get_nodes_by_type('TmNSApp')
+            for tmns_app in tmns_apps:
+                tmns_app_connected_nodes = self.get_connected_nodes(targetNode_rid=tmns_app._rid, direction='in', edgetype='Containment',
+                    maxdepth=1, filterdepth=1)
+                for tmns_radio in tmns_app_connected_nodes:
+                    if tmns_radio._class == 'TmNSRadio':
+                        tmns_radio_connected_nodes = self.get_connected_nodes(targetNode_rid=tmns_radio._rid, direction='in', edgetype='Containment',
+                            maxdepth=1, filterdepth=1)
+                        for node in tmns_radio_connected_nodes:
+                            if node._class == 'RANConfigurationRef':
+                                ran_configuration_ref_node = node
+                        for node in tmns_radio_connected_nodes:
+                            if node._class == 'JoinRadioGroupRefs':
+                                join_radio_grp_ref_children = self.get_connected_nodes(targetNode_rid=node._rid, direction='in', edgetype='Containment',
+                                    maxdepth=1, filterdepth=1)
+                                for radio_group_ref in join_radio_grp_ref_children:
+                                    if radio_group_ref._class == 'RadioGroupRef':
+                                        if radio_group_ref.IDREF == v[2]:
+                                            self.remove_link(referent_rid=tmns_radio._rid, reference_rid=ran_configuration_ref_node._rid)
+                                            ran_configuration_ref_rid = self.create_node('RANConfigurationRef', {'IDREF': 'RANConfig15_RAN_{0}'.format(str(v[0])),'uid': 'RANConfigurationRef-{0}'.format(i + 1)})
+                                            self.set_containment_relationship(parent_rid=tmns_radio._rid, child_rid=ran_configuration_ref_rid)
+                                            i += 1

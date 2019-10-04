@@ -226,6 +226,8 @@ def start(config=None, **kwargs):
                     optimizer_result = solve_challenge_problem_instance(
                         co, discretizer, optimizer, scheduler, config)
 
+                    for ta in optimizer_result.scheduled_tas:
+                        logger.debug('{0}_{1}'.format(ta.id_, ta.channel.frequency.value))
                     unperturbed_value = optimizer_result.value
                     # original_tas = optimizer_result.scheduled_tas
                     # original_total_bandwidth = sum(ta.bandwidth.value for ta in original_tas)
@@ -252,6 +254,6 @@ def start(config=None, **kwargs):
         else:
             averages[average_type] = average_value / total_runs
 
-    logger.debug(ending_message(total_runs, averages, config.combine))
+    logger.debug(ending_message(total_runs, averages, config.perturb, config.combine))
 
 start()
