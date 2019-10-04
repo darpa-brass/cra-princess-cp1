@@ -126,6 +126,7 @@ class Perturber:
             # In the case that the channel capacity is less than 0,
             # the algorithm should
             if self.channel_capacity < 0:
+                logger.debug('Less than 0')
                 original_len = len(optimizer_result.scheduled_tas)
                 tas_on_perturbed_channel = [
                     ta for ta in optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]

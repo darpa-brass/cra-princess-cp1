@@ -67,6 +67,7 @@ def solve_challenge_problem_instance(
         constraints_object,
         discretized_tas,
         discretizer.disc_count)
+    logger.debug('Total value after optimizing is: {0}'.format(optimizer_result.value))
 
     logger.debug('Scheduling...')
     try:
@@ -113,7 +114,7 @@ def solve_challenge_problem_instance(
         discretizer,
         optimizer,
         scheduler,
-        timestamp,
+        total_runs,
         perturber)
     csv_output = RAW_DIR + '/' + csv_file_name + '.csv'
 
@@ -142,7 +143,7 @@ def solve_challenge_problem_instance(
             discretizer,
             optimizer,
             scheduler,
-            timestamp,
+            total_runs,
             perturber,
             constraints_object.seed)
         mdl_output = MDL_DIR + '/' + mdl_file_name + '.xml'

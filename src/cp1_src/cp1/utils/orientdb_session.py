@@ -73,9 +73,7 @@ class OrientDBSession(BrassOrientDBHelper):
         # elements, so we have to create this class before indexing TransmissionSchedules
         try:
             logger.debug('Attempting to create a TransmissionSchedule class')
-            self.create_node_class('TransmissionSchedule')
         except Exception as e:
-            logger.debug('{0}'.format(str(e)))
             pass
 
         try:
