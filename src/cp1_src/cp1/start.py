@@ -84,13 +84,6 @@ def solve_challenge_problem_instance(
 
     if perturber is not None:
         perturbation_bandwidth = sum(ta.bandwidth.value for ta in optimizer_result.scheduled_tas)
-        # logger.debug('{0}_{1}_{2}_{3}_{4}'.format(str(perturber), optimizer_result.value, perturbation_bandwidth, unperturbed_value, original_total_bandwidth))
-        # logger.debug('Post perturbation TAs')
-        # for ta in optimizer_result.scheduled_tas:
-        #     logger.debug('{0}'.format(ta.id_))
-        # logger.debug('Original TAs')
-        # for ta in original_tas:
-        #     logger.debug('{0}'.format(ta.id_))
         if perturber.combine == 1:
                 averages['Perturbations'][1] = optimizer_result.value
                 averages['Perturbations'][2] = unadapted_value
@@ -216,38 +209,36 @@ def start(config=None, **kwargs):
         for discretizer in discretizers:
             for optimizer in optimizers:
                 for scheduler in schedulers:
-                    logger.debug(
-                        instance_message(
-                            co.id_,
-                            co.seed,
-                            discretizer,
-                            optimizer,
-                            scheduler))
-                    optimizer_result = solve_challenge_problem_instance(
-                        co, discretizer, optimizer, scheduler, config)
+                    try:
+                        logger.debug(
+                            instance_message(
+                                co.id_,
+                                co.seed,
+                                discretizer,
+                                optimizer,
+                                scheduler))
+                        optimizer_result = solve_challenge_problem_instance(
+                            co, discretizer, optimizer, scheduler, config)
 
-                    for ta in optimizer_result.scheduled_tas:
-                        logger.debug('{0}_{1}'.format(ta.id_, ta.channel.frequency.value))
-                    unperturbed_value = optimizer_result.value
-                    # original_tas = optimizer_result.scheduled_tas
-                    # original_total_bandwidth = sum(ta.bandwidth.value for ta in original_tas)
-                    if config.combine == 1:
-                        averages['Perturbations'][0] += unperturbed_value
-                    else:
-                        averages['Minimum Bandwidth'][0] += unperturbed_value
-                        averages['Channel Dropoff'][0] += unperturbed_value
-                        averages['Channel Capacity'][0] += unperturbed_value
+                        unperturbed_value = optimizer_result.value
+                        if config.combine == 1:
+                            averages['Perturbations'][0] += unperturbed_value
+                        else:
+                            averages['Minimum Bandwidth'][0] += unperturbed_value
+                            averages['Channel Dropoff'][0] += unperturbed_value
+                            averages['Channel Capacity'][0] += unperturbed_value
 
-                    for perturber in perturbers:
-                        co_ = deepcopy(co)
-                        or_ = deepcopy(optimizer_result)
-                        # If nothing has been scheduled, there is nothing to perturb
-                        if len(optimizer_result.scheduled_tas) != 0:
-                            logger.debug(perturb_message(perturber))
-                            solve_challenge_problem_instance(
-                                co_, discretizer, optimizer, scheduler, config,
-                                perturber, or_)
-
+                        for perturber in perturbers:
+                            co_ = deepcopy(co)
+                            or_ = deepcopy(optimizer_result)
+                            # If nothing has been scheduled, there is nothing to perturb
+                            if len(optimizer_result.scheduled_tas) != 0:
+                                logger.debug(perturb_message(perturber))
+                                solve_challenge_problem_instance(
+                                    co_, discretizer, optimizer, scheduler, config,
+                                    perturber, or_)
+                    except:
+                        pass
     for average_type, average_value in averages.items():
         if isinstance(average_value, list):
             averages[average_type] = list(map(lambda x: x / total_runs, average_value))

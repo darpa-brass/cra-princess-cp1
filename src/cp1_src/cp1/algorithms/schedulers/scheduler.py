@@ -69,7 +69,7 @@ class Scheduler(abc.ABC):
         logger.debug('Channel efficiencies:')
         for channel, eff in efficiencies.items():
             logger.debug('{0}_{1}'.format(channel, eff))
-        logger.debug('Total Value is: {0}'.format(total_value))
+        logger.debug('Total Value after scheduling is: {0}'.format(total_value))
     def compute_latency_requirement(self, schedules):
         txops_by_ta = default_dict(list)
         for schedule in schedules:

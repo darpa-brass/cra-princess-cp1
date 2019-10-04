@@ -75,9 +75,9 @@
   "Miscellaneous":
   {
     "testing": 0,
-    "orientdb": 1,
+    "orientdb": 0,
     "visualize": 0,
     "clear": 1,
-    "instances": [1000]
+    "instances": [50]
   }
 }
