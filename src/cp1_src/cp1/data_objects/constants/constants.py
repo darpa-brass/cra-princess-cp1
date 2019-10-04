@@ -29,7 +29,7 @@ MDL_SHELL_FILE = '../../../output/mdl/mdl_shell.xml'
 MDL_DIR = '../../../output/mdl'
 VISUAL_DIR = '../../../output/visual'
 RAW_DIR = '../../../output/raw'
-LOGGING_DIR = '../../../logs/'
+LOGGING_DIR = '../../../output/logs/'
 
 # Paths
 CP1_FOLDER = 'd:/dev/cp1' # Path to CP1
