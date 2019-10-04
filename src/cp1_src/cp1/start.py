@@ -1,36 +1,38 @@
+import time
+import os
+import shutil
+from copy import deepcopy
+from collections import defaultdict
+
+from brass_mdl_tools.mdl_generator import generate_mdl_shell
+
+from cp1.common.logger import Logger
+from cp1.common.exception_class import InvalidLatencyRequirementException
+
+from cp1.data_objects.processing.averages import Averages
+from cp1.data_objects.constants.constants import *
+from cp1.data_objects.processing.configuration_object import ConfigurationObject
+
 from cp1.algorithms.optimizers.integer_program import IntegerProgram
 from cp1.algorithms.optimizers.greedy_optimizer import GreedyOptimizer
 from cp1.algorithms.schedulers.conservative_scheduler import ConservativeScheduler
 from cp1.algorithms.schedulers.hybrid_scheduler import HybridScheduler
-from cp1.data_objects.processing.configuration_object import ConfigurationObject
+
 from cp1.utils.constraints_object_generator import *
 from cp1.utils.configuration_utils import *
 from cp1.utils.string_utils import *
 from cp1.utils.file_utils import *
-from brass_mdl_tools.mdl_generator import generate_mdl_shell
 from cp1.utils.decorators.timedelta import timedelta
-from copy import deepcopy
-import time
-import os
-from cp1.common.logger import Logger
-from cp1.data_objects.constants.constants import *
-from collections import defaultdict
-from cp1.common.exception_class import InvalidLatencyRequirementException
 
 logger = Logger()
 logger.setup_file_handler(os.path.abspath(LOGGING_DIR))
 logger = logger.logger
 timestamp = None
-
 total_runs = 0
-averages = {}
-averages['Minimum Bandwidth'] = [0, 0, 0]
-averages['Channel Dropoff'] = [0, 0, 0]
-averages['Channel Capacity'] = [0, 0, 0]
-averages['Perturbations'] = [0, 0, 0]
-averages['Lower Bound'] = 0
-averages['Optimized'] = 0
-averages['Upper Bound'] = 0
+
+for dir in [RAW_DIR, LOGGING_DIR, MDL_DIR]:
+    os.makedirs(dir, exist_ok=True)
+
 
 def solve_challenge_problem_instance(
         constraints_object,
@@ -38,8 +40,10 @@ def solve_challenge_problem_instance(
         optimizer,
         scheduler,
         config,
+        averages,
         perturber=None,
         optimizer_result=None,
+        lower_bound_optimizer_result=None,
         webserver=False):
     """Runs through all steps required to solve a challenge problem instance.
 
@@ -49,10 +53,12 @@ def solve_challenge_problem_instance(
     :param Scheduler scheduler: The scheduler algorithm to use when scheduling TAs
     :param Perturber perturber: The perturber to use when perturbing this solution
     :param OptimizerResult optimizer_result: The optimizer result to perturb
+    :param OptimizerResult lower_bound_optimizer_result: The lower bound optimizer result to use when calculating averages
     :param Boolean visualize: Returns an array of visualization points if set to true
     :returns OptimizationResult:
     """
     global timestamps
+
     unadapted_value = ''
     if perturber is not None:
         logger.debug('Perturbing...')
@@ -75,35 +81,17 @@ def solve_challenge_problem_instance(
     except InvalidLatencyRequirementException:
         schedules = ConservativeScheduler().schedule(constraints_object, optimizer_result)
 
-    # Update the average values
-    logger.debug('Computing lower and upper solution bounds...')
+    logger.debug('Computing upper and lower solution bounds...')
     integer_program = IntegerProgram()
     upper_bound_value = integer_program.compute_upper_bound_optimization(
         deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count).value
+    logger.debug('Upper bound solution value is: {0}'.format(upper_bound_value))
     greedy_optimizer = GreedyOptimizer()
-    lower_bound_value = greedy_optimizer.optimize(deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count).value
+    lower_bound = greedy_optimizer.optimize(deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count)
+    lower_bound_value = lower_bound.value
+    logger.debug('Lower bound solution value is: {0}'.format(lower_bound_value))
 
-    if perturber is not None:
-        perturbation_bandwidth = sum(ta.bandwidth.value for ta in optimizer_result.scheduled_tas)
-        if perturber.combine == 1:
-                averages['Perturbations'][1] = optimizer_result.value
-                averages['Perturbations'][2] = unadapted_value
-        else:
-            if perturber.ta_bandwidth != 0:
-                averages['Minimum Bandwidth'][1] += optimizer_result.value
-                averages['Minimum Bandwidth'][2] += unadapted_value
-            elif perturber.channel_dropoff > 0:
-                averages['Channel Dropoff'][1] += optimizer_result.value
-                averages['Channel Dropoff'][2] += unadapted_value
-            elif perturber.channel_capacity != 0:
-                averages['Channel Capacity'][1] += optimizer_result.value
-                averages['Channel Capacity'][2] += unadapted_value
-    else:
-        global total_runs
-        total_runs += 1
-        averages['Lower Bound'] += lower_bound_value
-        averages['Optimized'] += optimizer_result.value
-        averages['Upper Bound'] += upper_bound_value
+    averages.update(perturber, optimizer_result, unadapted_value, lower_bound_value, upper_bound_value)
 
     logger.debug('Computing maximum channel efficiency...')
     channel_efficiency = scheduler.compute_max_channel_efficiency(
@@ -159,7 +147,7 @@ def solve_challenge_problem_instance(
     if webserver:
         return visualization_points
     else:
-        return optimizer_result
+        return (optimizer_result, lower_bound)
 
 
 def start(config=None, **kwargs):
@@ -171,6 +159,7 @@ def start(config=None, **kwargs):
     logger.debug(STARTING_MESSAGE)
 
     global timestamp
+    global total_runs
     timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
 
     if config is None:
@@ -206,46 +195,36 @@ def start(config=None, **kwargs):
     logger.debug('Setting up Perturbers...')
     perturbers = setup_perturbers(config)
 
+    averages = Averages()
+
     for co in constraints_object_list:
         for discretizer in discretizers:
             for optimizer in optimizers:
                 for scheduler in schedulers:
-                    try:
-                        logger.debug(
-                            instance_message(
-                                co.id_,
-                                co.seed,
-                                discretizer,
-                                optimizer,
-                                scheduler))
-                        optimizer_result = solve_challenge_problem_instance(
-                            co, discretizer, optimizer, scheduler, config)
+                    logger.debug(
+                        instance_message(
+                            co.id_,
+                            co.seed,
+                            discretizer,
+                            optimizer,
+                            scheduler))
+                    (optimizer_result, lower_bound) = solve_challenge_problem_instance(
+                        co, discretizer, optimizer, scheduler, config, averages)
 
-                        unperturbed_value = optimizer_result.value
-                        if config.combine == 1:
-                            averages['Perturbations'][0] += unperturbed_value
-                        else:
-                            averages['Minimum Bandwidth'][0] += unperturbed_value
-                            averages['Channel Dropoff'][0] += unperturbed_value
-                            averages['Channel Capacity'][0] += unperturbed_value
+                    total_runs += 1
+                    averages.update_unperturbed(lower_bound, config.combine)
 
-                        for perturber in perturbers:
-                            co_ = deepcopy(co)
-                            or_ = deepcopy(optimizer_result)
-                            # If nothing has been scheduled, there is nothing to perturb
-                            if len(optimizer_result.scheduled_tas) != 0:
-                                logger.debug(perturb_message(perturber))
-                                solve_challenge_problem_instance(
-                                    co_, discretizer, optimizer, scheduler, config,
-                                    perturber, or_)
-                    except:
-                        pass
-    for average_type, average_value in averages.items():
-        if isinstance(average_value, list):
-            averages[average_type] = list(map(lambda x: x / total_runs, average_value))
-        else:
-            averages[average_type] = average_value / total_runs
+                    for perturber in perturbers:
+                        co_ = deepcopy(co)
+                        or_ = deepcopy(optimizer_result)
+                        # If nothing has been scheduled, there is nothing to perturb
+                        if len(optimizer_result.scheduled_tas) != 0:
+                            logger.debug(perturb_message(perturber))
+                            solve_challenge_problem_instance(
+                                co_, discretizer, optimizer, scheduler, config,
+                                averages, perturber, or_)
 
+    averages.compute(total_runs)
     logger.debug(ending_message(total_runs, averages, config.perturb, config.combine))
 
 start()

@@ -26,10 +26,10 @@ MDL_DB = 'cra_mdl'
 CONFIG_FILE = '../../../conf/config.json'
 BASE_MDL_SHELL_FILE = '../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml'
 MDL_SHELL_FILE = '../../../output/mdl/mdl_shell.xml'
-MDL_DIR = '../../../output/mdl'
+MDL_DIR = '/data/mdl'
 VISUAL_DIR = '../../../output/visual'
-RAW_DIR = '../../../output/raw'
-LOGGING_DIR = '../../../output/logs/'
+RAW_DIR = '/data/raw'
+LOGGING_DIR = '/data/logs/'
 
 # Paths
 CP1_FOLDER = 'd:/dev/cp1' # Path to CP1

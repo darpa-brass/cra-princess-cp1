@@ -92,7 +92,7 @@ def ending_message(total_runs, averages, perturb=False, combined=False):
     """
     end_message = '***************** Challenge Problem 1 Complete *****************'
     message = '{0}\n{1}\n'.format(PADDING, center(end_message))
-    for average_type, average_value in averages.items():
+    for average_type, average_value in averages.averages.items():
         if isinstance(average_value, list):
             if perturb:
                 if combined:
