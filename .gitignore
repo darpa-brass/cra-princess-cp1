@@ -21,4 +21,4 @@ eggs/
 *.csv
 
 # OrientDB
-orientdb_config.json
+conf/orientdb_config.json
