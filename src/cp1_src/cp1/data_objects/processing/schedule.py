@@ -1,7 +1,14 @@
+"""schedule.py
+
+Class to hold schedules for each channel.
+Author: Tameem Samawi (tsamawi@cra.com)
+"""
+
 from cp1.data_objects.mdl.txop import TxOp
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.ta import TA
 from cp1.common.exception_class import ScheduleInitializationException
+from cp1.utils.decorators.timedelta import timedelta
 
 
 class Schedule():
@@ -31,7 +38,6 @@ class Schedule():
         """
         return len(self.txops) == 0
 
-
     def compute_and_set_schedule_value(self, constraints_object):
         """Computes the total value a TA provides at a certain bandwidth
 
@@ -47,6 +53,17 @@ class Schedule():
         bw = txop.ta.channel.capacity.value / ta_communication_time_ms
         val = txop.ta.compute_value(ta_bandwidth)
 
+    def compute_bw_efficiency(self):
+        """Computes the total bandwidth efficiency in this schedule.
+
+        :returns int bw_eff:
+        """
+        comm_len = timedelta(microseconds=0)
+        for txop in self.txops:
+            comm_len += txop.stop_usec - txop.start_usec
+
+        bw_eff =  comm_len / timedelta(microseconds=100000)
+        return bw_eff
 
     def __str__(self):
         return '{0}: {1}'.format(self.channel, self.txops)

@@ -108,18 +108,18 @@ class TA:
         communication_length = ((self.bandwidth.value / channel_capacity.value) * latency.get_microseconds()) + (2 * guard_band.get_microseconds())
 
         # Round value to return within the specified MIN_INTERVAL
-        dist_from_interval = two_way_min_interval.get_microseconds() -  ((communication_length - 2 * guard_band.get_microseconds()) %  (two_way_min_interval.get_microseconds()))
-        communication_length += dist_from_interval
-
+        dist_from_interval = (communication_length - 2 * guard_band.get_microseconds()) % (two_way_min_interval.get_microseconds())
+        if dist_from_interval != 0:
+            communication_length += two_way_min_interval.get_microseconds() - dist_from_interval
         return timedelta(microseconds=communication_length)
 
-    def compute_bw_from_comm_len(self, capacity, latency, communication_length):
+    def compute_bw_from_comm_len(self, capacity, latency, communication_length, guard_band=timedelta(microseconds=0)):
         """Returns the amount of bandwidth required to allocate to this TA based on the amount of time this TA communicates for
 
         :param timedelta communication_length: The time this TA communicates for
         :returns Kbps bandwidth_required: The amount of bandwidth this TA requires to communicate
         """
-        bandwidth_required = (capacity.value / latency.get_microseconds()) * communication_length.get_microseconds()
+        bandwidth_required = (capacity.value / latency.get_microseconds()) * (communication_length.get_microseconds() - 2 * guard_band.get_microseconds())
         return Kbps(bandwidth_required)
 
     def discretized_on_current_channel(self, channel):
@@ -177,5 +177,5 @@ class TA:
 
     def __hash__(self):
         return hash(self.id_)
-        
+
     __repr__ = __str__

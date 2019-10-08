@@ -41,7 +41,6 @@ class Scheduler(abc.ABC):
         self.constraints_object = co
         deadline_window = MDL_MIN_INTERVAL + self.constraints_object.guard_band
         schedules = self._schedule(optimizer_result, deadline_window)
-        self.validate(schedules)
         return schedules
 
     def compute_max_channel_efficiency(self, optimizer_result):
@@ -62,14 +61,6 @@ class Scheduler(abc.ABC):
 
         return channel_eff
 
-    def validate(self, schedules):
-        efficiencies = self.compute_bw_efficiency(schedules)
-        total_value = self.compute_total_value(schedules)
-
-        logger.debug('Channel efficiencies:')
-        for channel, eff in efficiencies.items():
-            logger.debug('{0}_{1}'.format(channel, eff))
-        logger.debug('Total Value after scheduling is: {0}'.format(total_value))
     def compute_latency_requirement(self, schedules):
         txops_by_ta = default_dict(list)
         for schedule in schedules:
@@ -86,16 +77,6 @@ class Scheduler(abc.ABC):
 
             for start_time in v:
                 pass
-
-    def compute_bw_efficiency(self, schedules):
-        bw_effs = defaultdict(int)
-        for schedule in schedules:
-            comm_len = timedelta(microseconds=0)
-            for txop in schedule.txops:
-                comm_len += txop.stop_usec - txop.start_usec
-            bw_eff =  comm_len / timedelta(microseconds=100000)
-            bw_effs[schedule.channel.frequency.value] = bw_eff
-        return bw_effs
 
     def compute_total_value(self, schedules):
         ta_comm_lens = defaultdict(timedelta)

@@ -91,41 +91,17 @@ def determine_file_name(
     return file_name
 
 
-def channel_efficiency_print_value(channel_efficiency):
+def _write_channel_efficiency(schedules):
     """Utility function to format how the channel efficiency values should be
        output to a file.
 
-    :param {Channel: int} channel_efficiency: A dictionary of efficiency values
+    :param [<Schedule>] schedules: A list of schedules, one per channel by class definition
+    :returns str x: Frequency_Efficiency (4919_0.8)
     """
-    channel_efficiency_print = ''
-    for channel, efficiency in channel_efficiency.items():
-        channel_efficiency_print += ('{0},{1},').format(
-            channel.frequency.value, efficiency)
-    channel_efficiency_print = channel_efficiency_print[:-1]
-    return channel_efficiency_print
-
-# def export_perturbed_raw(csv_output, opt_res, upper_opt_res, channel_efficiency):
-#     new_rows = []
-#     # First export all original rows in the code
-#     tempfile = NamedTemporaryFile(delete=False)
-#
-#     with open(csv_output, 'r') as csvFile, tempfile:
-#         reader = csv.reader(csvFile, delimiter=',', quotechar='"')
-#         writer = csv.writer(tempfile, delimiter=',', quotechar='"')
-#
-#         for row in reader:
-#             row.append(str(opt_res.value))
-#             row.append(str(upper_opt_res.value))
-#             row.append(str(opt_res.run_time))
-#             row.append(str(opt_res.solve_time))
-#             for channel, efficiency in channel_efficiency.items():
-#                 row.append(str(channel.frequency.value))
-#                 row.append(str(efficiency))
-#             print(row)
-#             writer.writerow(row)
-#
-#     shutil.move(tempfile.name, csv_output)
-
+    x = ''
+    for schedule in schedules:
+        x += '{0}_{1}'.format(schedule.channel.frequency.value, schedule.compute_bw_efficiency())
+    return x
 
 def export_visual(csv_output, opt_res, webserver=False):
     """Exports the data required to visualize
@@ -206,32 +182,30 @@ def export_raw(
         csv_output,
         optimizer,
         discretizer,
-        opt_res,
-        upper_bound_value,
-        lower_bound_value,
-        unadapted_value,
-        channel_efficiency,
+        lower_bound_or,
+        cra_cp1_or,
+        upper_bound_or,
+        lower_bound_schedules,
+        cra_cp1_schedules,
+        upper_bound_schedules,
         seed):
     """Exports the raw results computed after one instance of the challenge problem is run
 
     :param str csv_output: The full path of the file to output to
     :param Optimizer optimizer: The optimizer used to solve this instance
     :param Discretizer discretizer: The discretizer used to solve this instance
-    :param OptimizerResult opt_res: The optimization result
-    :param int upper_bound_value: The upper bound value
-    :param int lower_bound_value: The lower bound value
-    :param int unadapted_value: The unadapted value of the solution after a perturbation
-    :param {int: int} channel_efficiency: The output of running the bandwidth efficiency calculation
+    :param OptimizerResult lower_bound_or: The Greedy Algorithm optimizer result
+    :param [<Schedule>] lower_bound_schedules: The ConservativeScheduler run on the lower_bound_or
+    :param OptimizerResult cra_cp1_or: The CRA CP1 IntegerProgram optimizer result
+    :param [<Schedule] cra_cp1_schedules: The HybridScheduler run on the optimized_or
+    :param OptimizerResult upper_bound_or: The IntegerProgram solved without a latency requirement optimizer result
+    :param [<Schedule>] upper_bound_schedules: The HybridScheduler run on the upper_bound_or
     :param int seed: The constraints object used in this instance
     """
-    disc_count = ''
-    accuracy = ''
-
+    epsilon = ''
     if isinstance(discretizer, AccuracyDiscretizer):
-        accuracy = discretizer.accuracy
+        epsilon = discretizer.accuracy
     disc_count = discretizer.disc_count
-
-    channel_efficiency_print = channel_efficiency_print_value(channel_efficiency)
 
     with open(csv_output, 'a') as csv_file:
         csv_writer = csv.writer(csv_file)
@@ -239,15 +213,18 @@ def export_raw(
             [
                 seed,
                 disc_count,
-                accuracy,
-                opt_res.value,
-                upper_bound_value,
-                lower_bound_value,
-                unadapted_value,
-                opt_res.run_time,
-                opt_res.solve_time,
-                channel_efficiency_print,
-                len(opt_res.scheduled_tas)])
+                epsilon,
+                lower_bound_or.value,
+                cra_cp1_or.value,
+                upper_bound_or.value,
+                len(lower_bound_or.scheduled_tas),
+                len(cra_cp1_or.scheduled_tas),
+                len(upper_bound_or.scheduled_tas),
+                _write_channel_efficiency(lower_bound_schedules),
+                _write_channel_efficiency(cra_cp1_schedules),
+                _write_channel_efficiency(upper_bound_schedules),
+                cra_cp1_or.run_time,
+                cra_cp1_or.solve_time])
 
 
 def update_mdl_schedule(schedules):

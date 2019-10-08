@@ -40,7 +40,7 @@ class Perturber:
         self.channel_capacity = channel_capacity
         self.combine = combine
 
-    def perturb_constraints_object(self, constraints_object, optimizer_result):
+    def perturb_constraints_object(self, constraints_object, optimizer_result, lower_bound_optimizer_result):
         """Perturbs an optimization result based on the perturbations selected.
         There are three possible perturbations:
         1. If ta_bandwidth is set to any value other than 0, 1 random TA
@@ -52,11 +52,12 @@ class Perturber:
         amount.
 
         :param OptimizerResult optimizer_result: An unperturbed optimization result
+        :param OptimizerResult lower_bound_optimizer_result: The result of the lower bound optimizaztion to use when computing averages
         :returns OptimizerResult: A perturbed optimization result
         """
         # Increases the total_minimum_bandwidth value of a TA by the selected
         # amount in the ConfigurationObject
-        unadapted_value = optimizer_result.value
+        unadapted_value = lower_bound_optimizer_result.value
         if self.ta_bandwidth != 0:
             ta_to_perturb = self._select_random_scheduled_ta(
                 optimizer_result.scheduled_tas, constraints_object.seed)
@@ -85,7 +86,6 @@ class Perturber:
         # ConstraintsObject
         if self.channel_dropoff > 0:
             dropped_tas = []
-            unadapted_value = optimizer_result.value
             for i in range(self.channel_dropoff):
                 if len(dropped_tas) == len(optimizer_result.scheduled_tas):
                     logger.debug(
