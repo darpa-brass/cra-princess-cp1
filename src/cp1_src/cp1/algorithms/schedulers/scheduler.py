@@ -88,6 +88,7 @@ class Scheduler(abc.ABC):
         for ta, comm_len in ta_comm_lens.items():
             bw = ta.compute_bw_from_comm_len(capacity=ta.channel.capacity, communication_length=comm_len, latency=ta.latency,)
             value += ta.compute_value_at_bandwidth(bw)
+            logger.debug('Value: {0}, Bandwidth: {1}'.format(value, bw))
         return value
 
     def create_blocks(self, channel, ta_list, min_latency, start_times, block_starts, schedule):

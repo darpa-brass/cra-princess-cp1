@@ -17,7 +17,7 @@
   "Constraints":
   {
     "candidate_tas": {
-      "num": 8,
+      "num": 30,
       "eligible_frequencies": [[0.33, [1]], [0.33, [2]], [0.34, [3]]],
       "voice_bandwidth": [[0.8, [120]], [0.2, [50, 200]]],
       "safety_bandwidth": [[0.65, [500, 1000]], [0.15, [100, 500]], [0.2, [1000, 8000]]],
@@ -48,7 +48,7 @@
         "num_discs": []
       },
       "Value": {
-        "num_discs": [1]
+        "num_discs": [50]
       }
     },
     "Optimizers":
@@ -70,7 +70,7 @@
     "combine": 0,
     "ta_bandwidth": 500,
     "channel_dropoff": 2,
-    "channel_capacity": 3000
+    "channel_capacity": -3000
   },
   "Miscellaneous":
   {
@@ -78,6 +78,6 @@
     "orientdb": 0,
     "visualize": 0,
     "clear": 1,
-    "instances": [1]
+    "instances": [50]
   }
 }

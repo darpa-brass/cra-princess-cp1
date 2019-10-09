@@ -12,7 +12,8 @@ setup(
     install_requires=[
 		'pandas',
 		'ortools',
-        'numpy'
+        'numpy',
+        'PTable'
 	],
     packages=find_packages()
 )

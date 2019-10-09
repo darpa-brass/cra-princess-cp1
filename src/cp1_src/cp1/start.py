@@ -67,9 +67,10 @@ def solve_challenge_problem_instance(
     lower_bound_or = greedy_optimizer.optimize(deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count)
     logger.debug('Lower bound initial solution value (after selecting TAs): {0}'.format(lower_bound_or.value))
 
+    logger.debug('Amount of TAs for regular: {0}'.format(len(discretized_tas)))
     cra_cp1_or = optimizer.optimize(
-        constraints_object,
-        discretized_tas,
+        deepcopy(constraints_object),
+        deepcopy(discretized_tas),
         discretizer.disc_count)
     logger.debug('CRA CP1 initial solution value (after selecting TAs) is: {0}'.format(cra_cp1_or.value))
 
@@ -174,7 +175,7 @@ def start(config=None, **kwargs):
     :param ConfigurationObject config: A configurations object with the
                                                      parameters necessary to run CP1
     """
-    logger.debug(STARTING_MESSAGE)
+    logger.debug(starting_message())
 
     global timestamp
     global total_runs
@@ -241,10 +242,10 @@ def start(config=None, **kwargs):
                             (perturbed_co, unadapted_value) = perturber.perturb_constraints_object(
                                 co_, unperturbed_or, lower_bound_or)
                             solve_challenge_problem_instance(perturbed_co, discretizer,
-                                optimizer, scheduler, config, averages)
+                                optimizer, scheduler, config, averages, perturber)
 
 
     averages.compute(total_runs)
-    logger.debug(ending_message(total_runs, averages, config.perturb, config.combine))
+    logger.debug(ending_message(total_runs, averages, config))
 
 start()
