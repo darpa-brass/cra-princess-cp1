@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
 
-cd ./src/cp1_src/cp1
+cd ./src/cp1_src
+python3 setup.py install
+
+cd ../../external/TxOpScheduleViewer
+python3 setup.py install
+
+cd ../adaptive-constraint-satisfaction/src/brass_api_src
+python3 setup.py install
+
+cd ../../../../src/cp1_src/cp1
 python3 start.py
