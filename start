@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cd ./src/cp1_src/cp1
-python start.py
+python3 start.py
