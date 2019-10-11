@@ -45,7 +45,6 @@ class IntegerProgram(Optimizer):
         # value in a minimum latency time slot, which in the worst case can
         # just be repeated to fill the epoch
         min_latency = self.retrieve_min_latency(discretized_tas)
-        logger.debug('Minimum Latency {0}'.format(min_latency))
 
         # Constructing the decision variables and objective function
         # There is one decision variable per TA at a specific bandwidth on

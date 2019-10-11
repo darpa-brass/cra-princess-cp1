@@ -69,15 +69,15 @@
     "reconsider": 2,
     "combine": 0,
     "ta_bandwidth": 500,
-    "channel_dropoff": 2,
+    "channel_dropoff": 5,
     "channel_capacity": -3000
   },
   "Miscellaneous":
   {
     "testing": 0,
     "orientdb": 0,
-    "visualize": 0,
+    "visualize": 1,
     "clear": 1,
-    "instances": [100]
+    "instances": [50]
   }
 }

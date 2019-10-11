@@ -59,7 +59,6 @@ class Perturber:
         lower_bound_optimizer_result = deepcopy(lower_bound_optimizer_result)
         # Increases the total_minimum_bandwidth value of a TA by the selected
         # amount in the ConfigurationObject
-        unadapted_value = lower_bound_optimizer_result.value
         if self.ta_bandwidth != 0:
             for or_ in [lower_bound_optimizer_result, optimizer_result]:
                 ta_to_perturb = self._select_random_scheduled_ta(
@@ -121,72 +120,60 @@ class Perturber:
                             ta_to_perturb.eligible_frequencies.remove(
                                 ta_to_perturb.channel.frequency)
 
-                        if or_ == lower_bound_optimizer_result:
-                            lower_bound_optimizer_result.scheduled_tas.remove(ta_to_perturb)
-                            lower_bound_optimizer_result.value -= ta_to_perturb.value
-                            for channel, ta_list in lower_bound_optimizer_result.scheduled_tas_by_channel.items():
-                                for ta in ta_list:
-                                    if ta == ta_to_perturb:
-                                        ta_list.remove(ta)
-
+                if or_ == lower_bound_optimizer_result:
+                    previously_scheduled_tas = deepcopy(or_.scheduled_tas)
+                    or_.scheduled_tas = [ta for ta in previously_scheduled_tas if ta not in dropped_tas]
+                    for channel, ta_list in or_.scheduled_tas_by_channel.items():
+                        old_ta_list = deepcopy(ta_list)
+                        or_.scheduled_tas_by_channel[channel] = [ta for ta in old_ta_list if ta not in dropped_tas]
+                    or_.value = sum([ta.value for ta in or_.scheduled_tas])
         # Increases or Decreases the capacity of one random channel
         if self.channel_capacity != 0:
-            ta_to_perturb = self._select_random_scheduled_ta(
-                optimizer_result.scheduled_tas, constraints_object.seed)
-            channel_to_perturb = next(
-                channel for channel in constraints_object.channels if channel == ta_to_perturb.channel)
-
-            logger.debug(
-                'PERTURBATION: Changing channel {0} capacity by {1}'.format(
-                    ta_to_perturb.channel.frequency.value,
-                        self.channel_capacity))
-            channel_to_perturb.capacity.value += self.channel_capacity
-
-            if channel_to_perturb.capacity.value <= 0:
-                for ta in constraints_object.scheduled_tas:
-                    if ta.channel.frequency.value == channel_to_perturb.frequency.value:
-                        constraints_object.scheduled_tas.remove(ta)
-                constraints_object.channels.remove(channel_to_perturb)
-
-            # Handle the unadapted case in case the channel no longer has capacity
-            if channel_to_perturb.capacity.value <= 0:
-                tas_to_remove = [ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
-                lower_bound_optimizer_result.scheduled_tas = [ta for ta in lower_bound_optimizer_result.scheduled_tas if ta not in tas_to_remove]
-                lower_bound_optimizer_result.scheduled_tas_by_channel[channel_to_perturb] = []
-                lower_bound_optimizer_result.value -= sum([x.value for x in tas_to_remove])
-            # Handle the unadapted case where the channel capacity decreases
-            elif self.channel_capacity < 0:
+            for or_ in [lower_bound_optimizer_result, optimizer_result]:
                 ta_to_perturb = self._select_random_scheduled_ta(
-                    lower_bound_optimizer_result.scheduled_tas, constraints_object.seed)
+                    or_.scheduled_tas, constraints_object.seed)
                 channel_to_perturb = next(
                     channel for channel in constraints_object.channels if channel == ta_to_perturb.channel)
-                original_len = len(lower_bound_optimizer_result.scheduled_tas)
-                tas_on_perturbed_channel = [
-                    ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
 
-                total_bandwidth = sum(
-                    ta.bandwidth.value for ta in tas_on_perturbed_channel)
+                if or_ == optimizer_result:
+                    logger.debug(
+                        'PERTURBATION: Changing channel {0} capacity by {1}'.format(
+                            ta_to_perturb.channel.frequency.value,
+                                self.channel_capacity))
+                channel_to_perturb.capacity.value += self.channel_capacity
 
-                while channel_to_perturb.capacity.value < total_bandwidth:
-                    ta = lower_bound_optimizer_result.scheduled_tas.pop()
-                    for channel, ta_list in lower_bound_optimizer_result.scheduled_tas_by_channel.items():
-                        for ta_ in ta_list:
-                            if ta_ == ta:
-                                ta_list.remove(ta)
-                    lower_bound_optimizer_result.value -= ta.value
-                    tas_on_perturbed_channel = [
-                        ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
-                    total_bandwidth = sum(
-                        ta.bandwidth.value for ta in tas_on_perturbed_channel)
-                    while channel_to_perturb.capacity.value < total_bandwidth:
-                        ta = or_.scheduled_tas.pop()
-                        if or_ == lower_bound_optimizer_result:
-                            unadapted_value -= ta.value
-                        tas_on_perturbed_channel = [
-                            ta for ta in or_.scheduled_tas if ta.channel == channel_to_perturb]
-                        total_bandwidth = sum(
-                            ta.bandwidth.value for ta in tas_on_perturbed_channel)
+                    # If the amount of bandwidth to reduce the channel by exceeds the
+                    # channel's capacity. Remove that channel, an the scheduled TAs on it.
+                if channel_to_perturb.capacity.value <= 0:
+                    for ta in or_.scheduled_tas:
+                        tas_to_remove = []
+                        if ta.channel.frequency.value == channel_to_perturb.frequency.value:
+                            tas_to_remove.append(ta)
+                            or_.value -= ta.value
+                    for channel, ta_list in or_.scheduled_tas_by_channel.items():
+                        if channel == channel_to_perturb:
+                            or_.scheduled_tas_by_channel[channel] = []
+                    constraints_object.channels.remove(channel_to_perturb)
 
+                    previously_scheduled_tas = deepcopy(or_.scheduled_tas)
+                    or_.scheduled_tas = [ta for ta in previously_scheduled_tas if ta not in tas_to_remove]
+                    # Update the value if you're dealing with a greedy optimization
+                    if or_ == lower_bound_optimizer_result:
+                        or_.value = sum([ta.value for ta in or_.scheduled_tas])
+
+                if or_ == lower_bound_optimizer_result:
+                    if self.channel_capacity < 0:
+                        tas_to_remove = []
+                        for ta in or_.scheduled_tas:
+                            if ta.channel.frequency.value == channel_to_perturb.frequency.value:
+                                tas_to_remove.append(ta)
+                                or_.value -= ta.value
+                        for channel, ta_list in or_.scheduled_tas_by_channel.items():
+                            if channel == channel_to_perturb:
+                                or_.scheduled_tas_by_channel[channel] = []
+
+                        previously_scheduled_tas = deepcopy(or_.scheduled_tas)
+                        or_.scheduled_tas = [ta for ta in previously_scheduled_tas if ta not in tas_to_remove]
         # Randomly selects reconsider from the list of unscheduled TAs
         unscheduled_tas = [
             ta for ta in constraints_object.candidate_tas if ta.id_ not in [
