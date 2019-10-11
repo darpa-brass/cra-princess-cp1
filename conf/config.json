@@ -78,6 +78,6 @@
     "orientdb": 1,
     "visualize": 0,
     "clear": 1,
-    "instances": [100]
+    "instances": [10]
   }
 }
