@@ -1,7 +1,14 @@
+"""schedule.py
+
+Class to hold schedules for each channel.
+Author: Tameem Samawi (tsamawi@cra.com)
+"""
+from collections import defaultdict
 from cp1.data_objects.mdl.txop import TxOp
 from cp1.data_objects.processing.channel import Channel
 from cp1.data_objects.processing.ta import TA
 from cp1.common.exception_class import ScheduleInitializationException
+from cp1.utils.decorators.timedelta import timedelta
 
 
 class Schedule():
@@ -31,22 +38,55 @@ class Schedule():
         """
         return len(self.txops) == 0
 
-
-    def compute_and_set_schedule_value(self, constraints_object):
-        """Computes the total value a TA provides at a certain bandwidth
+    def compute_value(self, constraints_object):
+        """Computes the total value of the schedule
 
         :param ConstraintsObject constraints_object: The constraints this schedule was created under
+        :returns int value: The total value of this schedule
         """
-        self.txops.sort(key=lambda x: x.start_usec, reverse=True)
+        value = 0
 
-        comm_time = 0
+        values_by_ta = self.compute_value_ta(constraints_object)
+        for ta, value in values_by_ta.items():
+            value += value
+
+        return value
+
+    def compute_value_ta(self, constraints_object):
+        """Computes the total value for each indidividual TA
+
+        :param ConstraintsObject constraints_object: The constraints this schedule was created under
+        :returns Dict[TA: int]: A dictionary of TA to it's value provided
+        """
+        values_by_ta = {}
+
+        # Group TxOps by TA
+        txops_by_ta = defaultdict(list)
         for txop in self.txops:
-            comm_time += txop.stop_usec - txop.start_usec
+            txops_by_ta[txop.ta].append(txop)
 
-        comm_time_ms = ta_communication_time.get_milliseconds()
-        bw = txop.ta.channel.capacity.value / ta_communication_time_ms
-        val = txop.ta.compute_value(ta_bandwidth)
+        # Sort by start time
+        for ta, txops in txops_by_ta.items():
+            txops.sort(key=lambda x: x.start_usec, reverse=True)
 
+        for ta, txops in txops_by_ta.items():
+            comm_len = timedelta(microseconds=0)
+            for txop in txops:
+                comm_len += txop.stop_usec - txop.start_usec
+
+            bw = ta.compute_bw_from_comm_len(ta.channel.capacity, ta.latency, comm_len)
+            values_by_ta[ta] = ta.compute_value_at_bandwidth(bw)
+
+        return values_by_ta
+
+    def compute_bw_efficiency(self):
+        """Computes the total bandwidth efficiency in this schedule."""
+        comm_len = timedelta(microseconds=0)
+        for txop in self.txops:
+            comm_len += txop.stop_usec - txop.start_usec
+
+        bw_eff =  comm_len / timedelta(microseconds=100000)
+        return bw_eff
 
     def __str__(self):
         return '{0}: {1}'.format(self.channel, self.txops)

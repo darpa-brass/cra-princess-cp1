@@ -41,7 +41,6 @@ class Scheduler(abc.ABC):
         self.constraints_object = co
         deadline_window = MDL_MIN_INTERVAL + self.constraints_object.guard_band
         schedules = self._schedule(optimizer_result, deadline_window)
-        self.validate(schedules)
         return schedules
 
     def compute_max_channel_efficiency(self, optimizer_result):
@@ -62,14 +61,6 @@ class Scheduler(abc.ABC):
 
         return channel_eff
 
-    def validate(self, schedules):
-        efficiencies = self.compute_bw_efficiency(schedules)
-        total_value = self.compute_total_value(schedules)
-
-        logger.debug('Channel efficiencies:')
-        for channel, eff in efficiencies.items():
-            logger.debug('{0}_{1}'.format(channel, eff))
-        logger.debug('Total Value after scheduling is: {0}'.format(total_value))
     def compute_latency_requirement(self, schedules):
         txops_by_ta = default_dict(list)
         for schedule in schedules:
@@ -87,16 +78,6 @@ class Scheduler(abc.ABC):
             for start_time in v:
                 pass
 
-    def compute_bw_efficiency(self, schedules):
-        bw_effs = defaultdict(int)
-        for schedule in schedules:
-            comm_len = timedelta(microseconds=0)
-            for txop in schedule.txops:
-                comm_len += txop.stop_usec - txop.start_usec
-            bw_eff =  comm_len / timedelta(microseconds=100000)
-            bw_effs[schedule.channel.frequency.value] = bw_eff
-        return bw_effs
-
     def compute_total_value(self, schedules):
         ta_comm_lens = defaultdict(timedelta)
         for schedule in schedules:
@@ -107,6 +88,7 @@ class Scheduler(abc.ABC):
         for ta, comm_len in ta_comm_lens.items():
             bw = ta.compute_bw_from_comm_len(capacity=ta.channel.capacity, communication_length=comm_len, latency=ta.latency,)
             value += ta.compute_value_at_bandwidth(bw)
+            logger.debug('Value: {0}, Bandwidth: {1}'.format(value, bw))
         return value
 
     def create_blocks(self, channel, ta_list, min_latency, start_times, block_starts, schedule):
@@ -136,10 +118,7 @@ class Scheduler(abc.ABC):
 
             # Stretch out last TA scheduled to communicate on this channel
             if x == len(ta_list) - 1 and one_way_transmission_length > timedelta(microseconds=1000):
-                # logger.debug('One of these cases')
-                # logger.debug(str(one_way_transmission_length))
                 one_way_transmission_length = ((min_latency - up_start) / 2) - (2 * self.constraints_object.guard_band)
-                # logger.debug('{0}_{1}_{2}'.format(one_way_transmission_length, min_latency, up_start))
             # Each direction of transmission requires
             up_stop = one_way_transmission_length + channel_start_time
             down_start = up_stop + self.constraints_object.guard_band
@@ -158,6 +137,7 @@ class Scheduler(abc.ABC):
             # Create TxOps for each block in blocks
             txops = []
             for x in block_starts:
+
                 txop_up = TxOp(
                     ta=ta,
                     radio_link_id=id_to_mac(ta.id_, 'up'),

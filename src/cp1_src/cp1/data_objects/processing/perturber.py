@@ -40,7 +40,7 @@ class Perturber:
         self.channel_capacity = channel_capacity
         self.combine = combine
 
-    def perturb_constraints_object(self, constraints_object, optimizer_result):
+    def perturb_constraints_object(self, constraints_object, optimizer_result, lower_bound_optimizer_result):
         """Perturbs an optimization result based on the perturbations selected.
         There are three possible perturbations:
         1. If ta_bandwidth is set to any value other than 0, 1 random TA
@@ -52,63 +52,83 @@ class Perturber:
         amount.
 
         :param OptimizerResult optimizer_result: An unperturbed optimization result
+        :param OptimizerResult lower_bound_optimizer_result: The result of the lower bound optimizaztion to use when computing averages
         :returns OptimizerResult: A perturbed optimization result
         """
+        optimizer_result = deepcopy(optimizer_result)
+        lower_bound_optimizer_result = deepcopy(lower_bound_optimizer_result)
         # Increases the total_minimum_bandwidth value of a TA by the selected
         # amount in the ConfigurationObject
-        unadapted_value = optimizer_result.value
+        unadapted_value = lower_bound_optimizer_result.value
         if self.ta_bandwidth != 0:
-            ta_to_perturb = self._select_random_scheduled_ta(
-                optimizer_result.scheduled_tas, constraints_object.seed)
+            for or_ in [lower_bound_optimizer_result, optimizer_result]:
+                ta_to_perturb = self._select_random_scheduled_ta(
+                    or_.scheduled_tas, constraints_object.seed)
 
-            logger.debug('PERTURBATION: Changing {0} minimum bandwidth by {1}'.format(
-                ta_to_perturb.id_, self._format_value(self.ta_bandwidth)))
+                if or_ == optimizer_result:
+                    logger.debug('PERTURBATION: Changing {0} minimum bandwidth by {1}'.format(
+                        ta_to_perturb.id_, self.ta_bandwidth))
 
-            ta_to_perturb.total_minimum_bandwidth.value += self.ta_bandwidth
-            ta_to_perturb.minimum_safety_bandwidth.value += (
-                self.ta_bandwidth / 2)
-            ta_to_perturb.minimum_voice_bandwidth.value += (
-                self.ta_bandwidth / 2)
-            ta_to_perturb.min_value = ta_to_perturb.compute_value_at_bandwidth(
-                ta_to_perturb.total_minimum_bandwidth)
+                if ta_to_perturb.total_minimum_bandwidth.value - self.ta_bandwidth < 0:
+                    self.ta_bandwidth = ta_to_perturb.total_minimum_bandwidth.value
 
-            # This is a workaround for the issue in floating point precision
-            # in Python. Here I am setting the result to 0 if the two
-            # floats are equal. Otherwise due to floating point precision
-            # you get a value other than 0.
-            if unadapted_value == ta_to_perturb.value:
-                unadapted_value = 0
-            else:
-                unadapted_value -= ta_to_perturb.value
+                ta_to_perturb.total_minimum_bandwidth.value += self.ta_bandwidth
 
+                ta_to_perturb.minimum_safety_bandwidth.value += (
+                    self.ta_bandwidth / 2)
+                ta_to_perturb.minimum_voice_bandwidth.value += (
+                    self.ta_bandwidth / 2)
+                ta_to_perturb.min_value = ta_to_perturb.compute_value_at_bandwidth(
+                    ta_to_perturb.total_minimum_bandwidth)
+
+                # This is a workaround for the issue in floating point precision
+                # in Python. Here I am setting the result to 0 if the two
+                # floats are equal. Otherwise due to floating point precision
+                # you get a value other than 0.
+                if or_ == lower_bound_optimizer_result:
+                    if lower_bound_optimizer_result.value == ta_to_perturb.value:
+                        lower_bound_optimizer_result.value = 0
+                        lower_bound_optimizer_result.scheduled_tas = []
+                    else:
+                        lower_bound_optimizer_result.value -= ta_to_perturb.value
+                        lower_bound_optimizer_result.scheduled_tas.remove(ta_to_perturb)
+                        for channel, ta_list in lower_bound_optimizer_result.scheduled_tas_by_channel.items():
+                            for ta in ta_list:
+                                if ta == ta_to_perturb:
+                                    ta_list.remove(ta)
         # Randomly selects one channel to drop from the original
         # ConstraintsObject
         if self.channel_dropoff > 0:
-            dropped_tas = []
-            unadapted_value = optimizer_result.value
-            for i in range(self.channel_dropoff):
-                if len(dropped_tas) == len(optimizer_result.scheduled_tas):
-                    logger.debug(
-                        'All scheduled TAs have been dropped from their channels. The number of TAs you have requested to drop ({0}) has exceeded the amount of TAs that have been scheduled ({1}).'.format(
-                            self.channel_dropoff, len(
-                                optimizer_result.scheduled_tas)))
-                    break
+            for or_ in [lower_bound_optimizer_result, optimizer_result]:
+                dropped_tas = []
+                for i in range(self.channel_dropoff):
+                    if len(dropped_tas) == len(or_.scheduled_tas):
+                        logger.debug(
+                            'All scheduled TAs have been dropped from their channels. The number of TAs you have requested to drop ({0}) has exceeded the amount of TAs that have been scheduled ({1}).'.format(
+                                self.channel_dropoff, len(
+                                    or_.scheduled_tas)))
+                        break
 
-                else:
-                    ta_to_perturb = self._select_random_scheduled_ta(
-                        [ta for ta in optimizer_result.scheduled_tas if ta not in dropped_tas], constraints_object.seed)
-                    dropped_tas.append(ta_to_perturb)
-                    logger.debug(
-                        'PERTURBATION: Removing {0} from {1}'.format(
-                            ta_to_perturb.id_,
-                            ta_to_perturb.channel.frequency.value))
-                    ta_to_perturb.eligible_frequencies.remove(
-                        ta_to_perturb.channel.frequency)
-
-                    if unadapted_value == ta_to_perturb.value:
-                        unadapted_value = 0
                     else:
-                        unadapted_value -= ta_to_perturb.value
+                        ta_to_perturb = self._select_random_scheduled_ta(
+                            [ta for ta in or_.scheduled_tas if ta not in dropped_tas], constraints_object.seed)
+                        dropped_tas.append(ta_to_perturb)
+                        if or_ == optimizer_result:
+                            logger.debug(
+                                'PERTURBATION: Removing {0} from {1}'.format(
+                                    ta_to_perturb.id_,
+                                    ta_to_perturb.channel.frequency.value))
+                            ta_to_perturb.eligible_frequencies.remove(
+                                ta_to_perturb.channel.frequency)
+
+                        if or_ == lower_bound_optimizer_result:
+                            lower_bound_optimizer_result.scheduled_tas.remove(ta_to_perturb)
+                            lower_bound_optimizer_result.value -= ta_to_perturb.value
+                            for channel, ta_list in lower_bound_optimizer_result.scheduled_tas_by_channel.items():
+                                for ta in ta_list:
+                                    if ta == ta_to_perturb:
+                                        ta_list.remove(ta)
+
         # Increases or Decreases the capacity of one random channel
         if self.channel_capacity != 0:
             ta_to_perturb = self._select_random_scheduled_ta(
@@ -119,27 +139,43 @@ class Perturber:
             logger.debug(
                 'PERTURBATION: Changing channel {0} capacity by {1}'.format(
                     ta_to_perturb.channel.frequency.value,
-                    self._format_value(
-                        self.channel_capacity)))
+                        self.channel_capacity))
             channel_to_perturb.capacity.value += self.channel_capacity
 
-            # In the case that the channel capacity is less than 0,
-            # the algorithm should
-            if self.channel_capacity < 0:
-                logger.debug('Less than 0')
-                original_len = len(optimizer_result.scheduled_tas)
+            if channel_to_perturb.capacity.value <= 0:
+                for ta in constraints_object.scheduled_tas:
+                    if ta.channel.frequency.value == channel_to_perturb.frequency.value:
+                        constraints_object.scheduled_tas.remove(ta)
+                constraints_object.channels.remove(channel_to_perturb)
+
+            # Handle the unadapted case in case the channel no longer has capacity
+            if channel_to_perturb.capacity.value <= 0:
+                tas_to_remove = [ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
+                lower_bound_optimizer_result.scheduled_tas = [ta for ta in lower_bound_optimizer_result.scheduled_tas if ta not in tas_to_remove]
+                lower_bound_optimizer_result.scheduled_tas_by_channel[channel_to_perturb] = []
+                lower_bound_optimizer_result.value -= sum([x.value for x in tas_to_remove])
+            # Handle the unadapted case where the channel capacity decreases
+            elif self.channel_capacity < 0:
+                ta_to_perturb = self._select_random_scheduled_ta(
+                    lower_bound_optimizer_result.scheduled_tas, constraints_object.seed)
+                channel_to_perturb = next(
+                    channel for channel in constraints_object.channels if channel == ta_to_perturb.channel)
+                original_len = len(lower_bound_optimizer_result.scheduled_tas)
                 tas_on_perturbed_channel = [
-                    ta for ta in optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
-                tas_on_perturbed_channel.sort(
-                    key=lambda x: x.bandwidth.value / x.value)
+                    ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
 
                 total_bandwidth = sum(
                     ta.bandwidth.value for ta in tas_on_perturbed_channel)
+
                 while channel_to_perturb.capacity.value < total_bandwidth:
-                    ta = optimizer_result.scheduled_tas.pop()
-                    unadapted_value -= ta.value
+                    ta = lower_bound_optimizer_result.scheduled_tas.pop()
+                    for channel, ta_list in lower_bound_optimizer_result.scheduled_tas_by_channel.items():
+                        for ta_ in ta_list:
+                            if ta_ == ta:
+                                ta_list.remove(ta)
+                    lower_bound_optimizer_result.value -= ta.value
                     tas_on_perturbed_channel = [
-                        ta for ta in optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
+                        ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
                     total_bandwidth = sum(
                         ta.bandwidth.value for ta in tas_on_perturbed_channel)
 
@@ -170,10 +206,15 @@ class Perturber:
 
         # Perturbed constraints objects are identical to original constraints,
         # just different candidate_tas and id
-        constraints_object.id_ = 'Perturbed_{0}'.format(constraints_object.id_)
         constraints_object.candidate_tas = scheduled_and_randomly_sampled_tas
 
-        return (constraints_object, unadapted_value)
+        # Just in case the perturbations have sent this value beneath 0
+        if lower_bound_optimizer_result.value < 0:
+            lower_bound_optimizer_result.value = 0
+        if len(lower_bound_optimizer_result.scheduled_tas) < 0:
+            lower_bound_optimizer_result.scheduled_tas = []
+
+        return (constraints_object, lower_bound_optimizer_result)
 
     def _select_random_scheduled_ta(self, ta_list, seed):
         """Selects a randomly scheduled TA from an optimization result to perform a perturbation on.
@@ -193,28 +234,16 @@ class Perturber:
         if self.channel_capacity != 0:
             perturb_str += '\n'
             perturb_str += center(
-                'Channel Capacity {0}'.format(
-                    self._format_value(
-                        self.channel_capacity)))
+                'Channel Capacity {0}'.format(self.channel_capacity))
 
         if self.channel_dropoff != 0:
             perturb_str += '\n'
             perturb_str += center(
-                'Channel Dropoff {0}'.format(
-                    self.channel_dropoff))
+                'Channel Dropoff {0}'.format(self.channel_dropoff))
 
         if self.ta_bandwidth != 0:
             perturb_str += '\n'
             perturb_str += center(
-                'Bandwidth Increase {0}'.format(
-                    self._format_value(
-                        self.ta_bandwidth)))
+                'TA Minimum Bandwidth {0}'.format(self.ta_bandwidth))
 
         return perturb_str
-
-    def _format_value(self, x):
-        if x > 0:
-            sign = '+'
-        else:
-            sign = '-'
-        return '{0}{1}'.format(sign, x)

@@ -24,15 +24,14 @@ from cp1.utils.string_utils import *
 from cp1.utils.file_utils import *
 from cp1.utils.decorators.timedelta import timedelta
 
+for dir in [RAW_DIR, LOGGING_DIR, MDL_DIR, VISUAL_DIR]:
+    os.makedirs(dir, exist_ok=True)
+
 logger = Logger()
 logger.setup_file_handler(os.path.abspath(LOGGING_DIR))
 logger = logger.logger
 timestamp = None
 total_runs = 0
-
-for dir in [RAW_DIR, LOGGING_DIR, MDL_DIR]:
-    os.makedirs(dir, exist_ok=True)
-
 
 def solve_challenge_problem_instance(
         constraints_object,
@@ -42,8 +41,7 @@ def solve_challenge_problem_instance(
         config,
         averages,
         perturber=None,
-        optimizer_result=None,
-        lower_bound_optimizer_result=None,
+        lower_bound_or=None,
         webserver=False):
     """Runs through all steps required to solve a challenge problem instance.
 
@@ -52,50 +50,61 @@ def solve_challenge_problem_instance(
     :param Optimizer optimizer: The optimizer algorithm to use when optimizing TAs
     :param Scheduler scheduler: The scheduler algorithm to use when scheduling TAs
     :param Perturber perturber: The perturber to use when perturbing this solution
-    :param OptimizerResult optimizer_result: The optimizer result to perturb
     :param OptimizerResult lower_bound_optimizer_result: The lower bound optimizer result to use when calculating averages
     :param Boolean visualize: Returns an array of visualization points if set to true
     :returns OptimizationResult:
     """
     global timestamps
-
-    unadapted_value = ''
-    if perturber is not None:
-        logger.debug('Perturbing...')
-        (constraints_object, unadapted_value) = perturber.perturb_constraints_object(
-            constraints_object, optimizer_result)
-
     logger.debug('Discretizing...')
     discretized_tas = discretizer.discretize(constraints_object)
 
     logger.debug('Optimizing...')
-    optimizer_result = optimizer.optimize(
-        constraints_object,
-        discretized_tas,
+    if lower_bound_or is None:
+        greedy_optimizer = GreedyOptimizer()
+        lower_bound_or = greedy_optimizer.optimize(deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count)
+    logger.debug('Baseline Value: {0}'.format(lower_bound_or.value))
+
+    if perturber is not None:
+        for discretized_ta in discretized_tas:
+            for candidate_ta in constraints_object.candidate_tas:
+                if discretized_ta == candidate_ta:
+                    discretized_ta.total_minimum_bandwidth = candidate_ta.total_minimum_bandwidth
+                    discretized_ta.eligible_frequencies = candidate_ta.eligible_frequencies
+                    discretized_ta.minimum_safety_bandwidth = candidate_ta.minimum_safety_bandwidth
+                    discretized_ta.minimum_voice_bandwidth = candidate_ta.minimum_voice_bandwidth
+                    discretized_ta.min_value = candidate_ta.min_value
+
+    cra_cp1_or = optimizer.optimize(
+        deepcopy(constraints_object),
+        deepcopy(discretized_tas),
         discretizer.disc_count)
-    logger.debug('Total value after optimizing is: {0}'.format(optimizer_result.value))
+    logger.debug('CRA CP1 Value: {0}'.format(cra_cp1_or.value))
+
+    integer_program = IntegerProgram()
+    upper_bound_or = integer_program.compute_upper_bound_optimization(
+        deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count)
+    logger.debug('Upper Bound Value: {0}'.format(upper_bound_or.value))
 
     logger.debug('Scheduling...')
+    lower_bound_schedules = ConservativeScheduler().schedule(deepcopy(constraints_object), lower_bound_or)
+
     try:
-        schedules = scheduler.schedule(constraints_object, optimizer_result)
+        cra_cp1_schedules = scheduler.schedule(constraints_object, cra_cp1_or)
     except InvalidLatencyRequirementException:
-        schedules = ConservativeScheduler().schedule(constraints_object, optimizer_result)
+        logger.debug('CRA CP1: The latency of one or more TAs is too high to use the Hybrid Scheduler. Switching to Conservative Scheduler instead.')
+        cra_cp1_schedules = ConservativeScheduler().schedule(constraints_object, cra_cp1_or)
 
-    logger.debug('Computing upper and lower solution bounds...')
-    integer_program = IntegerProgram()
-    upper_bound_value = integer_program.compute_upper_bound_optimization(
-        deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count).value
-    logger.debug('Upper bound solution value is: {0}'.format(upper_bound_value))
-    greedy_optimizer = GreedyOptimizer()
-    lower_bound = greedy_optimizer.optimize(deepcopy(constraints_object), deepcopy(discretized_tas), discretizer.disc_count)
-    lower_bound_value = lower_bound.value
-    logger.debug('Lower bound solution value is: {0}'.format(lower_bound_value))
+    upper_bound_co = deepcopy(constraints_object)
+    for ta in upper_bound_co.candidate_tas:
+        ta.latency = upper_bound_co.epoch
+    try:
+        upper_bound_schedules = HybridScheduler().schedule(upper_bouund_co, upper_bound_or)
+    except:
+        logger.debug('Upper Bound: The latency of one or more TAs is too high to use the Hybrid Scheduler. Switching to Conservative Scheduler instead.')
+        upper_bound_schedules = ConservativeScheduler().schedule(upper_bound_co, upper_bound_or)
 
-    averages.update(perturber, optimizer_result, unadapted_value, lower_bound_value, upper_bound_value)
-
-    logger.debug('Computing maximum channel efficiency...')
-    channel_efficiency = scheduler.compute_max_channel_efficiency(
-        optimizer_result)
+    logger.debug('Updating averages...')
+    averages.update(constraints_object, perturber, lower_bound_or, lower_bound_schedules, cra_cp1_or, cra_cp1_schedules, upper_bound_or, upper_bound_schedules)
 
     logger.debug('Exporting raw results...')
     csv_file_name = determine_file_name(
@@ -110,21 +119,22 @@ def solve_challenge_problem_instance(
         csv_output,
         optimizer,
         discretizer,
-        optimizer_result,
-        upper_bound_value,
-        lower_bound_value,
-        unadapted_value,
-        channel_efficiency,
+        lower_bound_or,
+        cra_cp1_or,
+        upper_bound_or,
+        lower_bound_schedules,
+        cra_cp1_schedules,
+        upper_bound_schedules,
         constraints_object.seed)
 
     logger.debug('Exporting visual results...')
     visual_csv_file_name = str(constraints_object.seed) + '_' + csv_file_name
     visual_csv_output = VISUAL_DIR + '/' + visual_csv_file_name + '.csv'
-    export_visual(visual_csv_output, optimizer_result)
+    export_visual(visual_csv_output, cra_cp1_or)
 
     if config.orientdb == 1:
         logger.debug('Updating MDL file in OrientDB...')
-        update_mdl_schedule(schedules)
+        update_mdl_schedule(cra_cp1_schedules)
 
         logger.debug('Exporting MDL file as xml...')
         mdl_file_name = determine_file_name(
@@ -147,7 +157,7 @@ def solve_challenge_problem_instance(
     if webserver:
         return visualization_points
     else:
-        return (optimizer_result, lower_bound)
+        return (cra_cp1_or, lower_bound_or)
 
 
 def start(config=None, **kwargs):
@@ -156,7 +166,7 @@ def start(config=None, **kwargs):
     :param ConfigurationObject config: A configurations object with the
                                                      parameters necessary to run CP1
     """
-    logger.debug(STARTING_MESSAGE)
+    logger.debug(cp1_starting_message())
 
     global timestamp
     global total_runs
@@ -195,36 +205,42 @@ def start(config=None, **kwargs):
     logger.debug('Setting up Perturbers...')
     perturbers = setup_perturbers(config)
 
+    logger.debug('Setting up Averages...')
     averages = Averages()
-
     for co in constraints_object_list:
         for discretizer in discretizers:
             for optimizer in optimizers:
                 for scheduler in schedulers:
                     logger.debug(
-                        instance_message(
+                        instance_commencement_message(
                             co.id_,
                             co.seed,
                             discretizer,
                             optimizer,
                             scheduler))
-                    (optimizer_result, lower_bound) = solve_challenge_problem_instance(
-                        co, discretizer, optimizer, scheduler, config, averages)
 
-                    total_runs += 1
-                    averages.update_unperturbed(lower_bound, config.combine)
-
-                    for perturber in perturbers:
-                        co_ = deepcopy(co)
-                        or_ = deepcopy(optimizer_result)
-                        # If nothing has been scheduled, there is nothing to perturb
-                        if len(optimizer_result.scheduled_tas) != 0:
+                    try:
+                        (unperturbed_or, lower_bound_or) = solve_challenge_problem_instance(
+                            co, discretizer, optimizer, scheduler, config, averages)
+                        total_runs += 1
+                    except:
+                        continue
+                    co_ = deepcopy(co)
+                    or_ = deepcopy(unperturbed_or)
+                    lower_bound_or_copy = deepcopy(lower_bound_or)
+                    # If nothing has been scheduled, there is nothing to perturb
+                    if len(unperturbed_or.scheduled_tas) != 0:
+                        for perturber in perturbers:
                             logger.debug(perturb_message(perturber))
-                            solve_challenge_problem_instance(
-                                co_, discretizer, optimizer, scheduler, config,
-                                averages, perturber, or_)
-
+                            (perturbed_co, lower_bound_or_) = perturber.perturb_constraints_object(
+                                co_, or_, lower_bound_or_copy)
+                            try:
+                                solve_challenge_problem_instance(perturbed_co, discretizer,
+                                    optimizer, scheduler, config, averages, perturber, lower_bound_or_)
+                            except:
+                                continue
     averages.compute(total_runs)
-    logger.debug(ending_message(total_runs, averages, config.perturb, config.combine))
+    logger.debug(cp1_ending_message(total_runs, averages, config))
+
 
 start()

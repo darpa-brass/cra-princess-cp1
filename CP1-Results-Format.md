@@ -30,6 +30,13 @@ If [AccuracyDiscretization](src/cp1_src/cp1/processing/algorithms/discretization
 
 <br>For example, in the file name: `AccuracyDiscretization(0.9)_CBC_GreedySchedule_2019-07-23_15-16-51.xml`<br>
  An [AccuracyDiscretization](src/cp1_src/cp1/processing/algorithms/discretization/accuracy_discretization.py) was used with an accuracy of 0.9 (90% of the optimal solution is guaranteed), the [CBC Engine](src/cp1_src/cp1/processing/algorithms/optimization/integer_program.py) selected TAs, TAs were scheduled in the MDL file using the [Greedy Schedule](src/cp1_src/cp1/processing/algorithms/scheduling/greedy_schedule.py), and this was run at 3:15:51pm July 23rd, 2019.
+
+ If a Perturbation has been applied to the file, it's name will be
+ prepended with the following string: <br>
+ `<reconsider>_<combine>_<ta_bandwidth>_<channel_dropoff>_<channel_capacity>`<br>
+ These values correspond to the perturbation settings in the config file.
+
+
 #### Raw
 Raw files are useful for larger sets of data where understanding the trends of CP1 are useful. The format of CSV files is as follows: <br>
 `<seed>,<num_discretizations>,<accuracy>,<total_value>,<run_time>,<solve_time>`
@@ -83,6 +90,15 @@ channel generated have a frequency of 4919600000 etc. [int, int] <br />
 **Optimization**: The type of optimization algorithm to use when selecting which TAs to communicate over which channels. There are four optimization algorithm types; [CBC](src/cp1_src/cp1/processing/algorithms/optimization/integer_program.py), [Gurobi](src/cp1_src/cp1/processing/algorithms/optimization/gurobi.py), [Dynamic Program](src/cp1_src/cp1/processing/algorithms/optimization/dynamic_program.py) and [Greedy](src/cp1_src/cp1/processing/algorithms/optimization/greedy_optimization.py). 0/1. <br />
 **Scheduling**: The type of scheduling algorithm to use when selecting the order in which TAs should communicate over a channel. There are three scheduling algorithm types: [Greedy](src/cp1_src/cp1/processing/algorithms/scheduling/greedy_schedule.py) and [Hybrid](src/cp1_src/cp1/processing/algorithms/scheduling/hybrid_schedule.py) 0/1. <br />
 **Discretization**: The type of discretization strategy to use when considering how much bandwidth to provide a TA at a given bandwidth. There are three discretization strategy types; [Accuracy](src/cp1_src/cp1/processing/algorithms/discretization/accuracy_discretization.py), [Bandwidth](src/cp1_src/cp1/processing/algorithms/discretization/bandwidth_discretization.py) and [Value](src/cp1_src/cp1/processing/algorithms/discretization/value_discretization.py). 0/1.
+
+#### Perturbations
+**perturb**: Whether or not to apply the below perturbations. Quick hand
+for not setting every field to 0. 0/1. <br>
+**reconsider**: How many TAs to reconsider from the list of unscheduled TAs. int. <br>
+**combine**: Whether or not to apply all perturbations at once. 0/1. <br>
+**ta_bandwidth**: The amount by which to increase the TA minimum bandwidth. Can be negative to decrease this amount. int. <br>
+**channel_dropoff**: The amount of TAs to kick off currently scheduled channels. int. <br>
+**channel_capacity**: The amount by which to increase or decrease the capacity of one channel. int. <br>
 
 #### Files and Database
 **visualize**: Will optionally the SwRI provided [TxOpScheduleViewer](external/TxOpScheduleViewer/brass_visualization_tools/TxOpSchedViewer.py) on each file output by the CP1 framework. Once one run has completed, it will provide a new terminal window. Pressing 'q' key exits this window, and the next run is started. This will not work in a docker container, and must be set to 0. 0/1. <br>

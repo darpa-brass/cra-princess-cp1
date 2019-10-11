@@ -3,6 +3,8 @@
 A set of functions to easily pretty format logging messages
 Author: Tameem Samawi (tsamawi@cra.com)
 """
+from collections import defaultdict
+from prettytable import PrettyTable
 from cp1.algorithms.discretizers.accuracy_discretizer import AccuracyDiscretizer
 from cp1.common.logger import Logger
 
@@ -16,9 +18,9 @@ INFO_LOG_OFFSET = 29
 DEBUG_LOG_OFFSET = 30
 
 # Logging messages upon completion and padding
-PADDING = '****************************************************************'
+PADDING = '***********************************************************************************'
 HALF_PADDING = PADDING[:len(PADDING) // 2]
-_start_message = '************** Commencing Challenge Problem 1... ***************'
+_start_message = '************************ Commencing Challenge Problem 1... ***********************'
 
 def center(x, offset_type=DEBUG_LOG_OFFSET):
     """Left aligns log outputs in relation to the type of logging
@@ -43,7 +45,7 @@ def perturb_message(perturber):
         (str(perturber)),
         center(HALF_PADDING))
 
-def instance_message(run, seed, discretizer, optimizer, scheduler):
+def instance_commencement_message(run, seed, discretizer, optimizer, scheduler):
     """Generates a pretty formatted completion message for an instance
        of a Challenge Problem.
 
@@ -65,7 +67,76 @@ def instance_message(run, seed, discretizer, optimizer, scheduler):
         center(scheduler),
         center(HALF_PADDING))
 
-def ending_message(total_runs, averages, perturb=False, combined=False):
+def instance_completion_message(constraints_object, optimizer_result, schedules, title, perturber):
+    """Neatly formats the Optimizer Result values.
+
+    :param ConstraintsObject constraints_object: The Constraints Object used in this instance
+    :param OptimizerResult optimizer_result: The OptimizerResult values
+    :param List[Schedule] schedules: The Schedules, one per channel
+    :param str title: The type of instance this was run for, i.e. 'CRA CP1' or 'Baseline'
+    :param Perturbation perturber: The perturbed applied to this instance
+    """
+    opt_result_str = '\n'
+
+    summary_table = PrettyTable()
+    summary_table.title = title
+    summary_table.field_names = ['Total Value', 'Number of TAs', 'Average Efficiency', 'Run Time', 'Solve Time']
+    if perturber:
+        summary_table.title += ' ' + str(perturber)
+
+    value = 0
+    efficiency = 0
+    for schedule in schedules:
+        efficiency += schedule.compute_bw_efficiency()
+        value += schedule.compute_value(constraints_object)
+    average_efficiency = efficiency / len(schedules)
+
+    summary_table.add_row([
+                            round(value, 2),
+                            len(optimizer_result.scheduled_tas),
+                            round(average_efficiency, 2),
+                            str(round(optimizer_result.run_time, 2)) + 's',
+                            str(round(optimizer_result.solve_time, 2)) + 's'])
+
+    opt_result_str += format_table(summary_table)
+
+    # details_table = PrettyTable()
+    # details_table.title = 'Scheduled TAs'
+    # details_table.field_names = ['Channel', 'TA', 'Bandwidth', 'Value', 'Efficiency']
+    # if perturber:
+    #     details_table.title += ' ' + str(perturber)
+    #
+    # for schedule in schedules:
+    #     # Add an empty row between channels
+    #     details_table.add_row(['' for i in range(len(details_table.field_names))])
+    #
+    #     # If nothing scheduled, this is all that should appear on this row
+    #     first_row = [txop.ta.channel.frequency.value]
+    #     for i in range(txop_ta.items()):
+    #         ta = txop_ta.item[i]
+    #         if i == 0:
+    #             first_row += [ta.id_, round(ta.bandwidth.value, 2), round(ta_to_value[ta], 2)]
+    #             details_table.add_row(first_row)
+    #         else:
+    #             details_table.add_row(['', ta.id_, round(ta.bandwidth.value, 2), round(ta_to_value[ta], 2)])
+    #
+    # opt_result_str += format_table(details_table)
+    return opt_result_str
+
+def format_table(table):
+    # Apply center() to each row individually
+    table_str = table.get_string()
+    table_strs = table_str.split('\n')
+    formatted_table = ''
+    for x in table_strs:
+        formatted_table += center(x + '\n')
+    return formatted_table
+
+def cp1_starting_message():
+    return '{0}\n{1}\n{2}'.format(PADDING, center(_start_message),
+                                center(PADDING))
+
+def cp1_ending_message(total_runs, averages, config):
     """Returns a report of the average gain by perturbation
 
     :param int total_runs: The total number of runs
@@ -90,22 +161,45 @@ def ending_message(total_runs, averages, perturb=False, combined=False):
                              print 3 seperate reports for a perturbation
                              or just one, combined report.
     """
-    end_message = '***************** Challenge Problem 1 Complete *****************'
-    message = '{0}\n{1}\n'.format(PADDING, center(end_message))
-    for average_type, average_value in averages.averages.items():
-        if isinstance(average_value, list):
-            if perturb:
-                if combined:
-                    if average_type == 'Perturbations':
-                        message += center('{0} {1}\n'.format(average_type, average_value))
-                else:
-                    if average_type != 'Perturbations':
-                        message += center('{0} {1}\n'.format(average_type, average_value))
-        else:
-            message += center('{0} {1}\n'.format(average_type, average_value))
+    def _create_tables(average, adaptation=False):
+        # Create table
+        table = PrettyTable()
+        table.title = average.type
+
+        table.field_names = ['Metric', 'Baseline Solution', 'CRA CP1', 'Upper Bound']
+        if average.type in averages.PERTURBED_AVERAGES + [averages.COMBINED_PERTURBED_AVERAGE]:
+            table.field_names = ['Metric', 'Baseline Adaptation', 'CP1 Adaptation', 'Upper Bound']
+
+        # Populate rows
+        table.add_row(['Number of TAs', average.lower_bound[0], average.cra_cp1[0], average.upper_bound[0]])
+        table.add_row(['Solution Value', average.lower_bound[1], average.cra_cp1[1], average.upper_bound[1]])
+        table.add_row(['Average Channel Efficiency', average.lower_bound[2], average.cra_cp1[2], average.upper_bound[2]])
+
+        return format_table(table)
+
+    message = ''
+    end_message = '*************************** Challenge Problem 1 Complete **************************'
+    message += '{0}\n{1}\n'.format(PADDING, center(end_message))
+
+    # Setup the tables
+    tables = []
+    for type, average in averages.averages.items():
+        if config.perturb:
+            if config.combine:
+                if average.type == averages.COMBINED_PERTURBED_AVERAGE:
+                    tables.append(_create_tables(average))
+            else:
+                if average.type == 'Minimum Bandwidth' and config.ta_bandwidth != 0:
+                    tables.append(_create_tables(average))
+                elif average.type == 'Channel Capacity' and config.channel_capacity != 0:
+                    tables.append(_create_tables(average))
+                elif average.type == 'Channel Dropoff' and config.channel_dropoff != 0:
+                    tables.append(_create_tables(average))
+
+        if average.type == averages.UNPERTURBED_AVERAGE:
+            tables.append(_create_tables(average))
+    for table in tables:
+        message += table
+
     message += '{0}\n{1}\n'.format(center(PADDING), center(PADDING))
     return message
-
-STARTING_MESSAGE = '{0}\n{1}\n{2}'.format(PADDING,
-                                         center(_start_message),
-                                         center(PADDING))

@@ -12,7 +12,9 @@ from cp1.data_objects.processing.schedule import Schedule
 from cp1.algorithms.schedulers.scheduler import Scheduler
 from cp1.utils.file_utils import *
 from collections import defaultdict
+from cp1.common.logger import Logger
 
+logger = Logger().logger
 
 class ConservativeScheduler(Scheduler):
     def _schedule(self, optimizer_result, deadline_window=None):
@@ -25,24 +27,27 @@ class ConservativeScheduler(Scheduler):
         """
         schedules = []
         start_times = {}
+        min_latency = min(optimizer_result.scheduled_tas, key=lambda ta: ta.latency).latency
+
         for channel, tas in optimizer_result.scheduled_tas_by_channel.items():
-            schedule = Schedule(channel=channel, txops=[])
+            # Only run if there are TAs scheduled
+            if tas:
+                schedule = Schedule(channel=channel, txops=[])
 
-            # The amount of blocks required is equal to the min_latency
-            # / epoch. The length of each block is min_latency.
-            # i.e. min_latency = 25 milliseconds
-            #      epoch = 100 milliseconds
-            #      num_partitions = 100 / 20 = 5
-            #      block_starts = [0, 25, 50, 75]
-            block_starts = []
-            min_latency = min(tas, key=lambda ta: ta.latency).latency
-            num_partitions = math.floor(self.constraints_object.epoch / min_latency)
+                # The amount of blocks required is equal to the min_latency
+                # / epoch. The length of each block is min_latency.
+                # i.e. min_latency = 25 milliseconds
+                #      epoch = 100 milliseconds
+                #      num_partitions = 100 / 20 = 5
+                #      block_starts = [0, 25, 50, 75]
+                block_starts = []
+                num_partitions = math.floor(self.constraints_object.epoch / min_latency)
 
-            for x in range(num_partitions):
-                block_starts.append(x * min_latency)
+                for x in range(num_partitions):
+                    block_starts.append(x * min_latency)
 
-            self.create_blocks(channel, tas, min_latency, start_times, block_starts, schedule)
-            schedules.append(schedule)
+                self.create_blocks(channel, tas, min_latency, start_times, block_starts, schedule)
+                schedules.append(schedule)
 
         return schedules
 

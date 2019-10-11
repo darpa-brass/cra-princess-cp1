@@ -40,13 +40,15 @@ class HybridScheduler(Scheduler):
         # Calculate the minimum latency for each channel
         schedules = []
         start_times = {}
+        min_latency = min(ta.latency for ta in optimizer_result.scheduled_tas)
         for channel, ta_list in optimizer_result.scheduled_tas_by_channel.items():
-            schedule = Schedule(channel=channel, txops=[])
-            min_latency = min(ta_list, key=lambda x: x.latency).latency
-            self._wraparound_blocks(channel, ta_list, min_latency, start_times, schedule)
-            self._os_schedule_blocks(channel, ta_list, min_latency, start_times, schedule, deadline_window)
-            self._extend_final_os_schedule_block(schedule)
-            schedules.append(schedule)
+            # Only run if there are scheduled TAs
+            if ta_list:
+                schedule = Schedule(channel=channel, txops=[])
+                self._wraparound_blocks(channel, ta_list, min_latency, start_times, schedule)
+                self._os_schedule_blocks(channel, ta_list, min_latency, start_times, schedule, deadline_window)
+                self._extend_final_os_schedule_block(schedule)
+                schedules.append(schedule)
 
         return schedules
 

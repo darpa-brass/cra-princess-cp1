@@ -27,7 +27,7 @@ CONFIG_FILE = '../../../conf/config.json'
 BASE_MDL_SHELL_FILE = '../../../external/TxOpScheduleViewer/brass_mdl_tools/base.xml'
 MDL_SHELL_FILE = '../../../output/mdl/mdl_shell.xml'
 MDL_DIR = '/data/mdl'
-VISUAL_DIR = '../../../output/visual'
+VISUAL_DIR = '/data/visual'
 RAW_DIR = '/data/raw'
 LOGGING_DIR = '/data/logs/'
 
