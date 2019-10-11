@@ -28,7 +28,8 @@ def setup_perturbers(config):
             reconsider = config.reconsider,
             ta_bandwidth = config.ta_bandwidth,
             channel_dropoff = config.channel_dropoff,
-            channel_capacity = config.channel_capacity))
+            channel_capacity = config.channel_capacity,
+            combine = 1))
 
         else:
             if config.ta_bandwidth != 0:

@@ -48,7 +48,7 @@
         "num_discs": []
       },
       "Value": {
-        "num_discs": [500]
+        "num_discs": [50]
       }
     },
     "Optimizers":
@@ -75,7 +75,7 @@
   "Miscellaneous":
   {
     "testing": 0,
-    "orientdb": 1,
+    "orientdb": 0,
     "visualize": 0,
     "clear": 1,
     "instances": [100]

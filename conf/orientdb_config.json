@@ -1,13 +1,13 @@
 {
 	"server": {
 		"username": "root",
-		"password": "brass",
-		"address": "orientdb-instance",
+		"password": "root",
+		"address": "localhost",
 		"port": 2424
 	},
 	"database": {
 		"username": "root",
-		"password": "brass"
+		"password": "root"
 	},
 	"testing": {
 		"database_name": "test",

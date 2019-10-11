@@ -63,7 +63,7 @@ pip3 install pyorient
 pip3 install lxml
 pip3 install ortools
 pip3 install pandas
-pip3 install gurobipy
+pip3 install matplotlib
 
 # Cleanup Install Artifacts
 rm -f scala-2.12.2.deb

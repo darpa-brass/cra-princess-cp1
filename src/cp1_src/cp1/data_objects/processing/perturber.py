@@ -178,6 +178,14 @@ class Perturber:
                         ta for ta in lower_bound_optimizer_result.scheduled_tas if ta.channel == channel_to_perturb]
                     total_bandwidth = sum(
                         ta.bandwidth.value for ta in tas_on_perturbed_channel)
+                    while channel_to_perturb.capacity.value < total_bandwidth:
+                        ta = or_.scheduled_tas.pop()
+                        if or_ == lower_bound_optimizer_result:
+                            unadapted_value -= ta.value
+                        tas_on_perturbed_channel = [
+                            ta for ta in or_.scheduled_tas if ta.channel == channel_to_perturb]
+                        total_bandwidth = sum(
+                            ta.bandwidth.value for ta in tas_on_perturbed_channel)
 
         # Randomly selects reconsider from the list of unscheduled TAs
         unscheduled_tas = [

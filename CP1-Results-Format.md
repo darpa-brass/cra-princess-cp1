@@ -18,15 +18,13 @@ CP1 is executed from [start.py](src/cp1_src/cp1/start.py), which:
 10. Exports the contents of `cra_mdl` into a new MDL file, under the [mdl output folder](output/mdl)
 
 ## Outputs
-### Locations
-#### MDL
-Once CP1 has executed, the newly updated MDL Files can be found under the [mdl output folder](output/mdl). These files are
-named by the following convention: <br><br>
-`<DiscretizationAlgorithm>(<disc_write_value>)_<OptimizationAlgorithm>_<SchedulingAlgorithm>_<"%Y-%m-%d_%H-%M-%S">`
+### Format
+Files are named by the following convention: <br><br>
+`<Discretizer>(<disc_write_value>)_<Optimizer>_<Scheduler>_<"%Y-%m-%d_%H-%M-%S">_<seed>`
 
 `disc_write_value`:
-If [AccuracyDiscretization](src/cp1_src/cp1/processing/algorithms/discretization/accuracy_discretization.py) has been invoked, this is the percentage guaranteed of the optimal solution specified.
-                    If [BandwidthDiscretization](src/cp1_src/cp1/processing/algorithms/discretization/bandwidth_discretization.py) or [ValueDiscretization](src/cp1_src/cp1/processing/algorithms/discretization/value_discretization.py) has been invoked, this is the number of discretizations specified.
+If [AccuracyDiscretizer](src/cp1_src/cp1/processing/algorithms/discretization/accuracy_discretization.py) has been invoked, this is the percentage guaranteed of the optimal solution specified.
+                    If [BandwidthDiscretizer](src/cp1_src/cp1/processing/algorithms/discretization/bandwidth_discretization.py) or [ValueDiscretizer](src/cp1_src/cp1/processing/algorithms/discretization/value_discretization.py) has been invoked, this is the number of discretizations specified.
 
 <br>For example, in the file name: `AccuracyDiscretization(0.9)_CBC_GreedySchedule_2019-07-23_15-16-51.xml`<br>
  An [AccuracyDiscretization](src/cp1_src/cp1/processing/algorithms/discretization/accuracy_discretization.py) was used with an accuracy of 0.9 (90% of the optimal solution is guaranteed), the [CBC Engine](src/cp1_src/cp1/processing/algorithms/optimization/integer_program.py) selected TAs, TAs were scheduled in the MDL file using the [Greedy Schedule](src/cp1_src/cp1/processing/algorithms/scheduling/greedy_schedule.py), and this was run at 3:15:51pm July 23rd, 2019.
@@ -38,16 +36,16 @@ If [AccuracyDiscretization](src/cp1_src/cp1/processing/algorithms/discretization
 
 
 #### Raw
-Raw files are useful for larger sets of data where understanding the trends of CP1 are useful. The format of CSV files is as follows: <br>
-`<seed>,<num_discretizations>,<accuracy>,<total_value>,<run_time>,<solve_time>`
+We also output Raw files to assist in evaluation. Raw files are useful for larger sets of data where understanding the trends of CP1, such as the average increase in value based on the type of algorithm used. The format of our Raw files is CSV, and the output is as follows: <br>
+`<seed>,<disc_count>,<accuracy>,<total_value>,<run_time>,<solve_time>`
 <br>
 <br>
 `seed`: The seed used in this run.<br>
-`num_discretizations`: If a [Bandwidth](src/cp1_src/cp1/processing/algorithms/discretization/bandwidth_discretization.py) or [Value Discretization](src/cp1_src/cp1/processing/algorithms/discretization/value_discretization.py) was used this value is set to `num_discretizations`. Otherwise it is blank.<br>
+`disc_count`: If a [Bandwidth](src/cp1_src/cp1/processing/algorithms/discretization/bandwidth_discretization.py) or [Value Discretization](src/cp1_src/cp1/processing/algorithms/discretization/value_discretization.py) was used this value is set to `disc_count`. Otherwise it is blank.<br>
 `accuracy`: If an [Accuracy Discretization](src/cp1_src/cp1/processing/algorithms/discretization/accuracy_discretization.py) was used, this value is set to `epsilon`. Otherwise it is blank.<br>
 `total_value`: The total value achieved as a result of the TAs selected by an [Optimization Algorithm](src/cp1_src/cp1/processing/algorithms/optimization). This may later increase once TAs run through a [Scheduling Algorithm](src/cp1_src/cp1/processing/algorithms/scheduling).<br>
 `run_time`: The total run time of the Optimization Algorithm used.<br>
-`solve_time`: The solve time of the Optimization Algorithm used. [GreedyOptimization](src/cp1_src/cp1/processing/algorithms/optimization/greedy_optimization.py) and [DynamicProgram](src/cp1_src/cp1/processing/algorithms/optimization/dynamic_program.py) do not have complex solvers, as us the case in Integer Programming, therefore this value is identical to `solve_time`.
+`solve_time`: The solve time of the Optimization Algorithm used. [GreedyOptimizer](src/cp1_src/cp1/processing/algorithms/optimization/greedy_optimization.py) and [DynamicProgram](src/cp1_src/cp1/processing/algorithms/optimization/dynamic_program.py) do not have complex solvers, as us the case in Integer Programming, therefore this value is identical to `solve_time`.
 
 ## Data.json
 ### How to generate TAs and Channels

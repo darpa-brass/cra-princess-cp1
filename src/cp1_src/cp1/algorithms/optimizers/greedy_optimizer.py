@@ -1,3 +1,4 @@
+
 """greedy_optimizer.py
 
 Algorithm that greedily selects TAs for scheduling.
